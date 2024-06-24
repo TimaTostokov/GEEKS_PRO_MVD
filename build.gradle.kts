@@ -9,5 +9,6 @@ buildscript {
     dependencies {
         classpath(libs.safeargs)
         classpath(libs.okhttpprofiler)
+        classpath(libs.okHttpClient)
     }
 }
