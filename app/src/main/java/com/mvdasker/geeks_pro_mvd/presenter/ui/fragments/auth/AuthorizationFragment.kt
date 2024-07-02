@@ -13,6 +13,7 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
     }
 
 }
