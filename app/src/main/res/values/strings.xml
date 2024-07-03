@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">GEEKS_PRO_MVD</string>
     <string name="ok">OK</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -7,4 +7,6 @@
     <string name="Login">Логин</string>
     <string name="Password">Пароль</string>
     <string name="goInto">Войти</string>
+    <string name="a_za_z0_9_6">^[a-zA-Z0-9.@]{6,}$</string>
+    <string name="a_za_z0_9_6_">^[a-zA-Z0-9]{6,}$</string>
 </resources>
