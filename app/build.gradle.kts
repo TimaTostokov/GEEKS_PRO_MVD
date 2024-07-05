@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.kapt)
     alias(libs.plugins.hiltCompiler)
-    id("androidx.navigation.safeargs")
+    alias(libs.plugins.navsafeargs)
 }
 
 android {

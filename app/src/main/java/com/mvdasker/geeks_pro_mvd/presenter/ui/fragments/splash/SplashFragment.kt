@@ -1,16 +1,14 @@
-package com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.auth
+package com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.splash
 
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentSplashBinding
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
-
 
 class SplashFragment : Fragment(R.layout.fragment_splash) {
 

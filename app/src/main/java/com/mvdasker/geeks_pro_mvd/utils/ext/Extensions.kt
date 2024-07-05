@@ -3,6 +3,7 @@ package com.mvdasker.geeks_pro_mvd.utils.ext
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
+import android.view.View
 import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import com.mvdasker.geeks_pro_mvd.R
@@ -51,4 +52,17 @@ object Extensions {
         val dialog = builder.create()
         dialog.show()
     }
+
+    fun View.visible() {
+        this.visibility = View.VISIBLE
+    }
+
+    fun View.gone() {
+        this.visibility = View.GONE
+    }
+
+    fun View.invisible() {
+        this.visibility = View.INVISIBLE
+    }
+
 }

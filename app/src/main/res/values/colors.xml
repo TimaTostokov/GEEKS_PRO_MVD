@@ -9,7 +9,9 @@
     <color name="dark_blue">#003669</color>
     <color name="gray">#a4a4a4</color>
     <color name="brown">#535353</color>
+    <color name="statusBarC">#FFFFFF</color>
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="rippleColor">#03FF72</color>
 </resources>

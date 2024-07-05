@@ -3,6 +3,7 @@ package com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.auth
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentAuthorizationBinding
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.showToast
@@ -25,6 +26,7 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
 
             if (validateInput(login, password)) {
                 showToast(requireContext(), "Successfully")
+                findNavController().navigate(R.id.action_authorizationFragment_to_homeFragment)
             }
         }
     }
