@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/homeFragment"
-        android:icon="@drawable/home_vector"
+        android:icon="@drawable/home_selector_vectors"
         android:title="@string/MainHome" />
 
     <item
         android:id="@+id/libraryFragment"
-        android:icon="@drawable/book_open_fill"
+        android:icon="@drawable/library_vectors"
         android:title="@string/Library" />
 
     <item
         android:id="@+id/documentsFragment"
-        android:icon="@drawable/doc"
+        android:icon="@drawable/doc_vectors"
         android:title="@string/Documents" />
 
     <item

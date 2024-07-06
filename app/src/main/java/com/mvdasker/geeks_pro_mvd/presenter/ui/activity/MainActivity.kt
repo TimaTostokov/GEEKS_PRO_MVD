@@ -21,6 +21,11 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.bottomNavigation
         val navController = findNavController(R.id.nav_host_fragment)
 
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            updateIcon()
+            true
+        }
+
         val fragmentsWithoutBottomNav = setOf(
             R.id.homeFragment,
             R.id.libraryFragment,
@@ -39,5 +44,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         navView.setupWithNavController(navController)
+    }
+
+    private fun updateIcon() {
+        val icons = mapOf(
+            R.id.homeFragment to R.drawable.home_selector_vectors,
+            R.id.libraryFragment to R.drawable.library_vectors,
+            R.id.documentsFragment to R.drawable.doc_vectors,
+        )
+
+        for ((id, icon) in icons) {
+            val menuItem = binding.bottomNavigation.menu.findItem(id)
+            menuItem.setIcon(icon)
+        }
     }
 }
