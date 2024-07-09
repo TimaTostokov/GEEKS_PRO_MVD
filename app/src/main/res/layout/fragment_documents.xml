@@ -3,15 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
     android:layout_height="match_parent"
-    tools:context=".presenter.ui.fragments.splash.SplashFragment">
+    tools:context=".presenter.ui.fragments.bottom.DocumentsFragment">
 
-    <View
-        android:id="@+id/img_splash_asker"
-        android:layout_width="@dimen/_256dp"
-        android:layout_height="@dimen/_256dp_"
-        android:background="@drawable/mvd_splash"
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/Documents"
+        android:textColor="@color/yellow"
+        android:textSize="24sp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

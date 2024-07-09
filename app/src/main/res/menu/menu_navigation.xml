@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/home_selector_vectors"
+        android:title="@string/MainHome" />
+
+    <item
+        android:id="@+id/libraryFragment"
+        android:icon="@drawable/library_vectors"
+        android:title="@string/Library" />
+
+    <item
+        android:id="@+id/documentsFragment"
+        android:icon="@drawable/doc_vectors"
+        android:title="@string/Documents" />
+
+    <item
+        android:id="@+id/menuFragment"
+        android:icon="@drawable/menu_fill"
+        android:title="@string/MenuOthers" />
+
+</menu>
