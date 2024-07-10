@@ -11,8 +11,6 @@ import com.mvdasker.geeks_pro_mvd.databinding.FragmentDocumentsBinding
 
 class DocumentsFragment : Fragment() {
 
-//    private val binding by viewBinding(FragmentDocumentsBinding::bind)
-
     private var _binding: FragmentDocumentsBinding? = null
     private val binding get() = _binding!!
 
@@ -20,7 +18,7 @@ class DocumentsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDocumentsBinding.inflate(inflater, container, false)
         return binding.root
     }

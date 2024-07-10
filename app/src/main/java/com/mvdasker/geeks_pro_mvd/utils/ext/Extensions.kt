@@ -67,7 +67,6 @@ object Extensions {
         this.visibility = View.INVISIBLE
     }
 
-    // Function for disabled screenshot
     fun Fragment.disableScreenShot(isSecure: Boolean) {
         if (isSecure) {
             activity?.window?.setFlags(
