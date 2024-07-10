@@ -47,14 +47,37 @@
 
     <fragment
         android:id="@+id/documentsFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.bottom.DocumentsFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.documents.DocumentsFragment"
         android:label="@string/Documents"
-        tools:layout="@layout/fragment_documents" />
+        tools:layout="@layout/fragment_documents" >
+        <action
+            android:id="@+id/action_documentsFragment_to_lawFragment"
+            app:destination="@id/lawFragment" />
+        <action
+            android:id="@+id/action_documentsFragment_to_statutesFragment"
+            app:destination="@id/statutesFragment" />
+        <action
+            android:id="@+id/action_documentsFragment_to_constitutionFragment"
+            app:destination="@id/constitutionFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.bottom.MenuFragment"
         android:label="@string/MenuOthers"
         tools:layout="@layout/fragment_menu" />
+    <fragment
+        android:id="@+id/lawFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.law.LawFragment"
+        android:label="LawFragment" />
+    <fragment
+        android:id="@+id/statutesFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.statutes.StatutesFragment"
+        android:label="StatutesFragment" />
+    <fragment
+        android:id="@+id/constitutionFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.constitution.ConstitutionFragment"
+        android:label="fragment_constitution"
+        tools:layout="@layout/fragment_constitution" />
 
 </navigation>

@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import com.mvdasker.geeks_pro_mvd.R
 
@@ -65,4 +67,15 @@ object Extensions {
         this.visibility = View.INVISIBLE
     }
 
+    // Function for disabled screenshot
+    fun Fragment.disableScreenShot(isSecure: Boolean) {
+        if (isSecure) {
+            activity?.window?.setFlags(
+                WindowManager.LayoutParams.FLAG_SECURE,
+                WindowManager.LayoutParams.FLAG_SECURE
+            );
+        } else {
+            activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+        }
+    }
 }
