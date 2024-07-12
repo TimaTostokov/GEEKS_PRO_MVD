@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".presenter.ui.fragments.constitution.ConstitutionFragment">
+
+    <FrameLayout
+        android:id="@+id/fconstToolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/fconstBackBtn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/arrow_left" />
+
+        <TextView
+            android:id="@+id/fconstTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="34dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/fragment_constitution_title"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="72dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fconstToolbar">
+
+        <TextView
+            android:id="@+id/fconstDescription"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/roboto"
+            android:longClickable="true"
+            android:text="Мы, народ Кыргызской Республики, исходя из права самостоятельно определять собственную судьбу;  в целях обеспечения верховенства права, справедливости и равноправия; утверждая основы подлинного народовластия;    храня верность традициям предков, следуя заветам Манаса Великодушного жить в единстве, мире и согласии, в гармонии с природой;  утверждая права и интересы народа Кыргызской Республики; выражая непоколебимую волю к сохранению и укреплению государственности;  подтверждая приверженность к защите, уважению прав и свобод человека и гражданина; признавая общечеловеческие принципы и ценности; стремясь к социальной справедливости, экономическому благосостоянию, развитию образования, науки и духовности; чтя память героев, отдавших свою жизнь за свободу нашего народа; осознавая ответственность за свое Отечество перед нынешними и будущими поколениями, принимаем настоящую Конституцию. РАЗДЕЛ ПЕРВЫЙ ОСНОВЫ КОНСТИТУЦИОННОГО СТРОЯ ГЛАВА I. ПОЛИТИЧЕСКИЕ ОСНОВЫ КОНСТИТУЦИОННОГО СТРОЯ Статья 1 1. Кыргызская Республика (Кыргызстан) – независимое, суверенное, демократическое, унитарное, правовое, светское и социальное государство. 2. Суверенитет Кыргызской Республики не ограничен и распространяется на всю ее территорию.  3. Кыргызская Республика самостоятельно проводит внутреннюю и внешнюю политику. 4. Народ Кыргызской Республики – носитель суверенитета и единственный источник государственной власти. 5. Народ Кыргызстана составляют граждане всех этносов Кыргызской Республики.  6. От имени народа Кыргызской Республики вправе выступать Президент и Жогорку Кенеш.  Статья 2 1. Самостоятельное определение основ конституционного строя является суверенным правом народа Кыргызской Республики. 2. В Кыргызской Республике народовластие основывается на принципах принадлежности всей полноты власти народу, защиты прав и свобод человека и гражданина, свободного и реального доступа к управлению делами государства и общества.  3. Граждане Кыргызской Республики осуществляют свою власть непосредственно на выборах и референдумах (всенародное голосование),  а также через систему государственных органов и органов местного самоуправления на основе Конституции и законов Кыргызской Республики. 4. Выборы и референдумы проводятся на основе свободного, всеобщего, равного и прямого избирательного права при тайном голосовании. Правом избирать обладают граждане Кыргызской Республики, достигшие 18 лет. 5. На референдум могут быть вынесены законы и другие вопросы государственного значения. Порядок проведения референдума устанавливается конституционным законом. 6. Запрещается влиять на свободу выбора избирателей, используя запрещенные законом финансовые, административные и иные ресурсы. Статья 3 1. Территория Кыргызской Республики в пределах ее границ целостна и неприкосновенна. 2. В целях организации государственного управления и местного самоуправления территория Кыргызской Республики делится на определяемые законом административно-территориальные единицы."
+            android:textColor="@color/black"
+            android:textIsSelectable="true"
+            android:textSize="16sp" />
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
