@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presenter.ui.fragments.menu.MenuFragment">
 
     <LinearLayout
@@ -13,72 +13,71 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-    <ImageView
-        android:id="@+id/avatarImageView"
-        android:layout_width="84dp"
-        android:layout_height="84dp"
-        android:layout_marginTop="24dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/avatar"
-        android:background="@drawable/avatar_background" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avatarImageView"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_marginTop="24dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/avatar" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/name"
-        android:textSize="18sp"
-        android:textColor="@color/black"
-        android:textStyle="bold"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/name"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginTop="16dp"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/buttonToggleGroup"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:singleSelection="true"
-            app:selectionRequired="true">
+            android:layout_marginTop="16dp"
+            android:gravity="center">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/kg_btn"
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/buttonToggleGroup"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/kyrgyz"
-                android:textAllCaps="false"
-                app:backgroundTint="@color/white"
-                android:textColor="@color/dark_blue"
-                app:strokeColor="@color/dark_blue"
-                app:strokeWidth="1dp"
-                app:cornerRadius="8dp"
-                app:iconGravity="textStart" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:selectionRequired="true"
+                app:singleSelection="true">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/ru_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/russian"
-                android:textAllCaps="false"
-                app:backgroundTint="@color/dark_blue"
-                android:textColor="@color/white"
-                app:strokeColor="@color/dark_blue"
-                app:strokeWidth="1dp"
-                app:cornerRadius="8dp"
-                app:iconGravity="textStart" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/kg_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/kyrgyz"
+                    android:textAllCaps="false"
+                    android:textColor="@color/dark_blue"
+                    app:backgroundTint="@color/white"
+                    app:cornerRadius="8dp"
+                    app:iconGravity="textStart"
+                    app:strokeColor="@color/dark_blue"
+                    app:strokeWidth="1dp" />
 
-        </com.google.android.material.button.MaterialButtonToggleGroup>
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/ru_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/russian"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    app:backgroundTint="@color/dark_blue"
+                    app:cornerRadius="8dp"
+                    app:iconGravity="textStart"
+                    app:strokeColor="@color/dark_blue"
+                    app:strokeWidth="1dp" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -89,46 +88,46 @@
 
             <Button
                 android:id="@+id/about_Us_Button"
-                android:layout_marginTop="0dp"
                 style="@style/White_Button"
-                android:textStyle="bold"
-                android:text="@string/aboutUs"/>
+                android:layout_marginTop="0dp"
+                android:text="@string/aboutUs"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/control_KR_Button"
                 style="@style/White_Button"
-                android:textStyle="bold"
-                android:text="@string/controlKR"/>
+                android:text="@string/controlKR"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/control_MIA_KR_Button"
                 style="@style/White_Button"
-                android:textStyle="bold"
-                android:text="@string/controlMIAKR"/>
+                android:text="@string/controlMIAKR"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/control_IT_MIA_KR_Button"
                 style="@style/White_Button"
-                android:textStyle="bold"
-                android:text="@string/controlITMIAKR"/>
+                android:text="@string/controlITMIAKR"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/open_dictionary_btn"
                 style="@style/White_Button"
-                android:textStyle="bold"
-                android:text="@string/dictionary"/>
+                android:text="@string/dictionary"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/traffic_Rules_Button"
                 style="@style/White_Button"
-                android:textStyle="bold"
-                android:text="@string/trafficRules"/>
+                android:text="@string/trafficRules"
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/map_btn"
                 style="@style/White_Button"
-                android:textStyle="bold"
-                android:text="@string/maps"/>
+                android:text="@string/maps"
+                android:textStyle="bold" />
 
         </LinearLayout>
 

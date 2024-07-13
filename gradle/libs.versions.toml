@@ -1,5 +1,6 @@
 [versions]
 agp = "8.5.1"
+circleimageview = "3.1.0"
 conscryptAndroid = "2.5.2"
 core = "3.3.0"
 fragmentKtx = "1.8.1"
@@ -27,6 +28,8 @@ loggingInterceptor = "4.10.0"
 okhttpprofiler = "1.0.7"
 
 [libraries]
+
+circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
 
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltVersion" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltVersion" }
