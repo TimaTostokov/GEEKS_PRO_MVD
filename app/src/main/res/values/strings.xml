@@ -20,4 +20,16 @@
     <string name="statutes">Уставы Вооруженных сил КР</string>
     <string name="documents">Документы</string>
     <string name="fragment_constitution_title">Конституция КР</string>
+    <string name="doc">Документы</string>
+    <string name="menu">Меню</string>
+    <string name="kyrgyz">Кыргызча</string>
+    <string name="russian">Русский</string>
+    <string name="trafficRules">ПДД</string>
+    <string name="controlITMIAKR">Руководство ВВ МВД КР</string>
+    <string name="controlMIAKR">Руководство МВД КР</string>
+    <string name="aboutUs">О нас</string>
+    <string name="name">Кадыров Марат Азаматович</string>
+    <string name="controlKR">Руководство КР</string>
+    <string name="dictionary">Кыргыско-русский словарь</string>
+    <string name="maps">Карты</string>
 </resources>

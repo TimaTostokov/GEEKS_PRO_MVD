@@ -15,4 +15,6 @@
     <color name="colorAccent">#03DAC5</color>
     <color name="rippleColor">#03FF72</color>
     <color name="cardview_shadow">#003669</color>
+    <color name="grey_background">#FAF4FAFA</color>
+
 </resources>
