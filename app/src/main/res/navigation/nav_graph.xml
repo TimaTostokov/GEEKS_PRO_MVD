@@ -67,9 +67,25 @@
 
     <fragment
         android:id="@+id/menuFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.bottom.MenuFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.menu.MenuFragment"
         android:label="@string/MenuOthers"
-        tools:layout="@layout/fragment_menu" />
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFragment_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_controlKRFragment"
+            app:destination="@id/controlKRFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_controlITMIAKRFragment"
+            app:destination="@id/controlITMIAKRFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_controlMIAKRFragment"
+            app:destination="@id/controlMIAKRFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_trafficRulesFragment"
+            app:destination="@id/trafficRulesFragment" />
+    </fragment>
     <fragment
         android:id="@+id/lawFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.law.LawFragment"
@@ -84,13 +100,29 @@
         android:label="fragment_constitution"
         tools:layout="@layout/fragment_constitution" />
     <fragment
-        android:id="@+id/newsFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.home.news.NewsFragment"
-        android:label="fragment_news"
-        tools:layout="@layout/fragment_news" >
-        <argument
-            android:name="model"
-            app:argType="com.mvdasker.geeks_pro_mvd.data.remote.model.DataItem" />
-    </fragment>
+        android:id="@+id/aboutUsFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.menu.aboutus.AboutUsFragment"
+        android:label="fragment_about_us"
+        tools:layout="@layout/fragment_about_us" />
+    <fragment
+        android:id="@+id/controlKRFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.menu.control.ControlKRFragment"
+        android:label="fragment_control_k_r"
+        tools:layout="@layout/fragment_control_k_r" />
+    <fragment
+        android:id="@+id/controlITMIAKRFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.menu.control.ControlITMIAKRFragment"
+        android:label="fragment_control_i_t_m_i_a_k_r"
+        tools:layout="@layout/fragment_control_i_t_m_i_a_k_r" />
+    <fragment
+        android:id="@+id/controlMIAKRFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.menu.control.ControlMIAKRFragment"
+        android:label="fragment_control_m_i_a_k_r"
+        tools:layout="@layout/fragment_control_m_i_a_k_r" />
+    <fragment
+        android:id="@+id/trafficRulesFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.menu.trafficrules.TrafficRulesFragment"
+        android:label="fragment_traffic_rules"
+        tools:layout="@layout/fragment_traffic_rules" />
 
 </navigation>

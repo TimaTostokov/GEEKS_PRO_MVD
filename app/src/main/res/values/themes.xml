@@ -4,7 +4,10 @@
         <item name="colorPrimary">@color/dark_blue</item>
         <item name="colorPrimaryDark">#FDFDFD</item>
         <item name="colorAccent">@color/gray</item>
+        <item name="android:navigationBarColor">@color/dark_blue</item>
+        <item name="android:windowBackground">@color/white</item>
 </style>
 
     <style name="Theme.GEEKS_PRO_MVD" parent="Base.Theme.GEEKS_PRO_MVD" />
+
 </resources>
