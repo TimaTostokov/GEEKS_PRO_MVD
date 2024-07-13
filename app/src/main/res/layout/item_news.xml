@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_launcher_background" />
+            android:src="@drawable/main_image" />
 
         <TextView
             android:id="@+id/tv_data"
@@ -28,7 +28,7 @@
             android:layout_marginTop="8dp"
             android:text="16 июля 2024"
             android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_urgent_news"

@@ -31,7 +31,6 @@
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/toBack"
-            app:layout_constraintEnd_toStartOf="@+id/iv_icon"
             app:layout_constraintStart_toEndOf="@+id/toBack"
             app:layout_constraintTop_toTopOf="@+id/toBack" />
 
@@ -63,45 +62,45 @@
             android:id="@+id/data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="26dp"
+            android:layout_marginBottom="15dp"
             android:text="16.06.2024"
             android:textColor="@color/black"
             android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/cardView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toBack" />
 
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:cardCornerRadius="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_news_title">
+            app:layout_constraintTop_toBottomOf="@id/tv_news_title">
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iv_item"
+            <ImageView
+                android:id="@+id/ivItem"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:padding="4dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_launcher_background"
-                app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge" />
-        </androidx.cardview.widget.CardView>
+                android:layout_height="220dp"
+                android:background="@drawable/raunder"
+                android:scaleType="centerCrop"
+                android:src="@drawable/image_news" />
+        </com.google.android.material.card.MaterialCardView>
 
         <TextView
             android:id="@+id/tv_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="16dp"
             android:text="новости"
             android:textColor="@color/black"
-            android:textSize="22sp"
+            android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </ScrollView>
