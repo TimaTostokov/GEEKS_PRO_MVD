@@ -1,5 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.statutes
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,9 +11,6 @@ import com.mvdasker.geeks_pro_mvd.databinding.ItemStatuteBinding
 
 class StatuteAdapter : RecyclerView.Adapter<StatuteViewHolder>() {
 
-//    private var listStatutes = mutableListOf<Statute>()
-
-    //тестовый список уставов
     private var listStatutes = listOf(
         Statute("1", "07.08.1998"),
         Statute("2", "13.07.2004"),
@@ -33,8 +31,8 @@ class StatuteAdapter : RecyclerView.Adapter<StatuteViewHolder>() {
         holder.bindCharter(listStatutes[position])
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun addStatutes(statutes: List<Statute>) {
-//        listStatutes.addAll(statutes)
         notifyDataSetChanged()
     }
 }
@@ -46,4 +44,5 @@ class StatuteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bindCharter(statute: Statute) = with(binding) {
         binding.itemNumberOfStatute.text = statute.date
     }
+
 }

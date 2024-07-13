@@ -3,7 +3,6 @@ package com.mvdasker.geeks_pro_mvd.data.remote.model
 import androidx.annotation.DrawableRes
 import java.io.Serializable
 
-
 data class DataItem(
     @DrawableRes
     val image:List<Int>,
