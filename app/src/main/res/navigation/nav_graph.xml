@@ -35,9 +35,13 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.bottom.HomeFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.home.HomeFragment"
         android:label="@string/MainHome"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_newsFragment"
+            app:destination="@id/newsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/libraryFragment"
