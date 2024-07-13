@@ -48,4 +48,5 @@ class DocumentsFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
 }

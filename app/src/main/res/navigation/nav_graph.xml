@@ -38,15 +38,18 @@
         android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.home.HomeFragment"
         android:label="@string/MainHome"
         tools:layout="@layout/fragment_home">
+
         <action
             android:id="@+id/action_homeFragment_to_newsFragment"
             app:destination="@id/newsFragment" />
+
     </fragment>
 
     <fragment
         android:id="@+id/newsFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.home.news.NewsFragment"
         android:label="NewsFragment">
+
         <argument
             android:name="model"
             app:argType="com.mvdasker.geeks_pro_mvd.data.remote.model.DataItem" />

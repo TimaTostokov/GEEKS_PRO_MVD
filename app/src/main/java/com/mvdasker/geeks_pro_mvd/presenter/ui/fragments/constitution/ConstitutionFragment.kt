@@ -31,4 +31,5 @@ class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
         super.onDetach()
         disableScreenShot(false)
     }
+
 }

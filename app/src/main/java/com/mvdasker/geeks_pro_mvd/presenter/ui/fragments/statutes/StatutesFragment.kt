@@ -24,4 +24,5 @@ class StatutesFragment : Fragment(R.layout.fragment_statutes) {
             findNavController().popBackStack()
         }
     }
+
 }

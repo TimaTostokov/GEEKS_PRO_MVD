@@ -21,7 +21,6 @@ class LawFragment : Fragment(R.layout.fragment_law) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.flBackBtn.setOnClickListener {
             findNavController().popBackStack()
         }
@@ -31,4 +30,5 @@ class LawFragment : Fragment(R.layout.fragment_law) {
         super.onDetach()
         disableScreenShot(false)
     }
+
 }

@@ -6,14 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.databinding.FragmentControlKRBinding
+import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 
-class ControlKRFragment : Fragment() {
+class ControlKRFragment : Fragment(R.layout.fragment_control_k_r) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_control_k_r, container, false)
+    private val binding by viewBinding(FragmentControlKRBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 }

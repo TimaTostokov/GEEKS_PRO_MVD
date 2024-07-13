@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/toBack"
@@ -19,14 +19,15 @@
             android:layout_marginTop="4dp"
             android:src="@drawable/arrow_left"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Hовости"
+            android:text="@string/h"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -42,11 +43,13 @@
             android:src="@drawable/bell"
             app:layout_constraintBottom_toBottomOf="@+id/toBack"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toBack" />
+            app:layout_constraintTop_toTopOf="@+id/toBack"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/tv_news_title"
             android:layout_width="0dp"
+            android:layout_marginStart="2dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="Срочные новости"
@@ -64,6 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="26dp"
             android:layout_marginBottom="15dp"
+            android:layout_marginEnd="4dp"
             android:text="16.06.2024"
             android:textColor="@color/black"
             android:textSize="16sp"
@@ -87,7 +91,9 @@
                 android:layout_height="220dp"
                 android:background="@drawable/raunder"
                 android:scaleType="centerCrop"
-                android:src="@drawable/image_news" />
+                android:src="@drawable/image_news"
+                tools:ignore="ContentDescription" />
+
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
@@ -103,4 +109,5 @@
             app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </ScrollView>

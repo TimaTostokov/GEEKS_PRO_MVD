@@ -33,9 +33,7 @@ class NewsAdapter(private val onClick: (DataItem) -> Unit) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         return NewsViewHolder(
             ItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-
         )
-
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
@@ -61,4 +59,5 @@ class NewsAdapter(private val onClick: (DataItem) -> Unit) :
             }
         }
     }
+
 }

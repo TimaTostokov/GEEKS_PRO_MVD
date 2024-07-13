@@ -8,29 +8,32 @@
     android:orientation="vertical"
     tools:context=".presenter.ui.fragments.documents.DocumentsFragment">
 
-    <TextView
-        android:id="@+id/tv_doc"
-        android:layout_width="143dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="16dp"
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:fontFamily="@font/roboto_bold"
-        android:text="@string/documents"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:paddingHorizontal="6.5dp"
+        android:orientation="horizontal">
 
-    <ImageButton
-        android:id="@+id/btn_notf"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_gravity="end"
-        android:layout_marginTop="-24dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/white"
-        android:contentDescription="TODO"
-        android:padding="10px"
-        android:src="@drawable/ic_notifictaion" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical"
+            android:text="Документы"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/bell"
+            tools:ignore="ContentDescription" />
+
+    </FrameLayout>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/layout_constitution"
@@ -44,7 +47,8 @@
         app:cardCornerRadius="10dp"
         app:cardElevation="6dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UnusedAttribute">
 
         <TextView
             android:layout_width="wrap_content"
@@ -71,7 +75,8 @@
         app:cardCornerRadius="10dp"
         app:cardElevation="6dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UnusedAttribute">
 
         <TextView
             android:layout_width="wrap_content"
@@ -98,7 +103,8 @@
         app:cardCornerRadius="10dp"
         app:cardElevation="6dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="UnusedAttribute">
 
         <TextView
             android:layout_width="wrap_content"

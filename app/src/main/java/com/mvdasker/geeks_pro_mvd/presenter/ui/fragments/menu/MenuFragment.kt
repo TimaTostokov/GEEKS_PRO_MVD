@@ -29,7 +29,6 @@ class MenuFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initListeners()
         setupClickListeners()
         openBrowser()
@@ -77,8 +76,6 @@ class MenuFragment : Fragment() {
         }
     }
 
-
-
     private fun initListeners() {
         binding.apply {
             setOnClickListener(aboutUsButton, MenuFragmentDirections.actionMenuFragmentToAboutUsFragment())
@@ -88,6 +85,7 @@ class MenuFragment : Fragment() {
             setOnClickListener(trafficRulesButton, MenuFragmentDirections.actionMenuFragmentToTrafficRulesFragment())
         }
     }
+
     private fun setOnClickListener(button: View, direction: NavDirections) {
         button.setOnClickListener {
             findNavController().navigate(direction)
@@ -98,4 +96,5 @@ class MenuFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
 }

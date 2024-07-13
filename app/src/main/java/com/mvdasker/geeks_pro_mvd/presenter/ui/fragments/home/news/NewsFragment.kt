@@ -10,6 +10,7 @@ import com.mvdasker.geeks_pro_mvd.databinding.FragmentNewsBinding
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 
 class NewsFragment : Fragment(R.layout.fragment_news) {
+
     private val binding by viewBinding(FragmentNewsBinding::bind)
     private val args by navArgs<NewsFragmentArgs>()
 

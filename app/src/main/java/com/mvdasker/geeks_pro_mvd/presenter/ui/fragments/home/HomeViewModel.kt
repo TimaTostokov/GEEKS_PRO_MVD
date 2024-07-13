@@ -21,4 +21,5 @@ class HomeViewModel : ViewModel() {
         repository.addNews()
         _newsLivData.value = UiState.Success(repository.newsList)
     }
+
 }
