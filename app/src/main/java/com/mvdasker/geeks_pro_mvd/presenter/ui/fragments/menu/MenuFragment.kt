@@ -31,7 +31,6 @@ class MenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initListeners()
-            //setupObservers()
         setupClickListeners()
         openBrowser()
     }
