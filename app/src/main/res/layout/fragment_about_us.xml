@@ -56,9 +56,11 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/rounded_corners"
+                android:clipToOutline="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/about_as"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription,UnusedAttribute" />
 
             <TextView
                 android:id="@+id/tv_info"
