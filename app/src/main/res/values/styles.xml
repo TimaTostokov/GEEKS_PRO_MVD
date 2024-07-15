@@ -31,4 +31,13 @@
         <item name="android:textAlignment">textStart</item>
     </style>
 
+    <style name="card_view">style_cards
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:elevation">10dp</item>
+        <item name="android:layout_marginTop">18dp</item>
+    </style>
+
 </resources>
