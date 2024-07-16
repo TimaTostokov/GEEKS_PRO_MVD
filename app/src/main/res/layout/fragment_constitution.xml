@@ -10,37 +10,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="4dp"
         android:orientation="vertical">
 
-        <FrameLayout
-            android:id="@+id/fconstToolbar"
-            android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:layout_marginStart="16dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:layout_marginTop="24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_marginStart="16dp">
 
             <ImageView
                 android:id="@+id/fconstBackBtn"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:padding="4dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/arrow_left"
                 tools:ignore="ContentDescription" />
 
             <TextView
-                android:id="@+id/fconstTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="34dp"
-                android:fontFamily="@font/roboto"
-                android:text="@string/fragment_constitution_title"
+                android:layout_gravity="center"
+                android:text="@string/constitution"
+                android:layout_marginStart="8dp"
                 android:textColor="@color/black"
+                android:fontFamily="@font/roboto_bold"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-        </FrameLayout>
+        </LinearLayout>
 
             <TextView
                 android:id="@+id/fconstDescription"

@@ -5,18 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:padding="16dp"
     tools:context=".presenter.ui.activity.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="24dp">
 
         <ImageView
             android:id="@+id/toBack"
-            android:layout_width="48dp"
-            android:layout_height="35dp"
-            android:layout_marginTop="4dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:padding="4dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:src="@drawable/arrow_left"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -27,8 +30,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_marginStart="8dp"
             android:text="@string/h"
             android:textColor="@color/black"
+            android:fontFamily="@font/roboto_bold"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/toBack"
@@ -37,9 +42,9 @@
 
         <ImageView
             android:id="@+id/iv_icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="16dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:padding="4dp"
             android:src="@drawable/bell"
             app:layout_constraintBottom_toBottomOf="@+id/toBack"
             app:layout_constraintEnd_toEndOf="parent"
@@ -54,6 +59,7 @@
             android:layout_marginTop="20dp"
             android:text="Срочные новости"
             android:textColor="@color/black"
+            android:fontFamily="@font/roboto_bold"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/data"
@@ -69,6 +75,7 @@
             android:layout_marginBottom="15dp"
             android:layout_marginEnd="4dp"
             android:text="16.06.2024"
+            android:fontFamily="@font/roboto"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/cardView"
@@ -102,6 +109,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="новости"
+            android:fontFamily="@font/roboto"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
