@@ -10,7 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mvdasker.geeks_pro_mvd.data.remote.model.DataItem
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentHomeBinding
-import com.mvdasker.geeks_pro_mvd.presenter.ui.adapters.NewsAdapter
+import com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.home.adapters.NewsAdapter
+import com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.home.viewmodel.HomeViewModel
 import com.mvdasker.geeks_pro_mvd.utils.ext.UiState
 
 class HomeFragment : Fragment() {

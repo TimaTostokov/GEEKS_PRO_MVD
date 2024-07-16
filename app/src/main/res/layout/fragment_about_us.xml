@@ -72,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="18dp"
                 android:text="@string/_1917_1918_20_1918_20_1918_200_1918_11_49_1919_1918_1920_21_27_3_1919_1_3_1_5_21_1919_25_1918_1920_1919_40_191_3_1919"
                 android:textColor="@color/black"
                 android:textSize="16sp"

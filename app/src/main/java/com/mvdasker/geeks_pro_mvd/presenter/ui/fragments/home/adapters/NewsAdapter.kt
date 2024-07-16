@@ -1,11 +1,10 @@
-package com.mvdasker.geeks_pro_mvd.presenter.ui.adapters
+package com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.home.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.data.remote.model.DataItem
 import com.mvdasker.geeks_pro_mvd.databinding.ItemNewsBinding
 

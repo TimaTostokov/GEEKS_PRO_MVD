@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".presenter.ui.fragments.constitution.ConstitutionFragment">
+    tools:context=".presenter.ui.fragments.documents.constitution.ConstitutionFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -8,6 +8,7 @@
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp"
     android:elevation="8dp"
+    android:focusable="true"
     android:outlineSpotShadowColor="@color/cardview_shadow"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="10dp"
@@ -43,11 +44,9 @@
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/roboto"
             android:text="@string/search_lorem"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textColor="@color/black"/>
 
-
     </LinearLayout>
-
 
 </androidx.cardview.widget.CardView>

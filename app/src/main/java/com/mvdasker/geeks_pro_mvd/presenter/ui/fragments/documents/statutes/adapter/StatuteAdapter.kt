@@ -1,4 +1,4 @@
-package com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.statutes
+package com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.documents.statutes.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

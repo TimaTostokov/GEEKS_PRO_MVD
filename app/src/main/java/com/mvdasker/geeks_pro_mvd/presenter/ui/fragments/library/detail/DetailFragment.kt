@@ -1,4 +1,4 @@
-package com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.library
+package com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.library.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -37,6 +37,7 @@ class DetailFragment : Fragment() {
 
     private fun initialize() {
         binding.ivPhoto.setImageResource(args.model.image)
-        binding.tvTextAsker.text = args.model.text.toString()
+        binding.tvTextAsker.text = args.model.text
     }
+
 }

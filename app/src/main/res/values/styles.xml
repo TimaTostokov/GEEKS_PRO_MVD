@@ -40,4 +40,18 @@
         <item name="android:layout_marginTop">18dp</item>
     </style>
 
+    <style name="card_view_menu">menu_style_card
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardCornerRadius">10dp</item>
+        <item name="cardElevation">10dp</item>
+    </style>
+
 </resources>

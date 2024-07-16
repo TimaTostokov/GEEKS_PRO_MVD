@@ -10,8 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center|top"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/avatarImageView"
@@ -40,8 +39,8 @@
             <com.google.android.material.button.MaterialButtonToggleGroup
                 android:id="@+id/buttonToggleGroup"
                 android:layout_width="match_parent"
-                android:layout_marginHorizontal="16dp"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -54,9 +53,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/roboto_bold"
                     android:text="@string/kyrgyz"
                     android:textAllCaps="false"
-                    android:fontFamily="@font/roboto_bold"
                     android:textColor="@color/dark_blue"
                     app:backgroundTint="@color/white"
                     app:cornerRadius="8dp"
@@ -69,9 +68,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:fontFamily="@font/roboto_bold"
                     android:text="@string/russian"
                     android:textAllCaps="false"
-                    android:fontFamily="@font/roboto_bold"
                     android:textColor="@color/white"
                     app:backgroundTint="@color/dark_blue"
                     app:cornerRadius="8dp"
@@ -86,24 +85,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/about_Us_Button"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="24dp"
+                style="@style/card_view_menu"
+                android:layout_marginTop="18dp"
                 android:outlineSpotShadowColor="@color/cardview_shadow"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="UnusedAttribute"
-                android:foreground="?attr/selectableItemBackground"
-                android:clickable="true">
+                tools:ignore="UnusedAttribute">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -120,19 +111,11 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/control_KR_Button"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp"
+                style="@style/card_view_menu"
                 android:outlineSpotShadowColor="@color/cardview_shadow"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="UnusedAttribute"
-                android:foreground="?attr/selectableItemBackground"
-                android:clickable="true">
+                tools:ignore="UnusedAttribute">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -149,19 +132,11 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/control_MIA_KR_Button"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp"
+                style="@style/card_view_menu"
                 android:outlineSpotShadowColor="@color/cardview_shadow"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="UnusedAttribute"
-                android:foreground="?attr/selectableItemBackground"
-                android:clickable="true">
+                tools:ignore="UnusedAttribute">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -178,19 +153,11 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/control_IT_MIA_KR_Button"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp"
+                style="@style/card_view_menu"
                 android:outlineSpotShadowColor="@color/cardview_shadow"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="UnusedAttribute"
-                android:foreground="?attr/selectableItemBackground"
-                android:clickable="true">
+                tools:ignore="UnusedAttribute">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -207,19 +174,11 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/open_dictionary_btn"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp"
+                style="@style/card_view_menu"
                 android:outlineSpotShadowColor="@color/cardview_shadow"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="UnusedAttribute"
-                android:foreground="?attr/selectableItemBackground"
-                android:clickable="true">
+                tools:ignore="UnusedAttribute">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -236,19 +195,11 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/traffic_Rules_Button"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp"
+                style="@style/card_view_menu"
                 android:outlineSpotShadowColor="@color/cardview_shadow"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="UnusedAttribute"
-                android:foreground="?attr/selectableItemBackground"
-                android:clickable="true">
+                tools:ignore="UnusedAttribute">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -265,20 +216,11 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/map_btn"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp"
+                style="@style/card_view_menu"
                 android:outlineSpotShadowColor="@color/cardview_shadow"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="10dp"
-                app:cardElevation="10dp"
-                android:layout_marginBottom="24dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="UnusedAttribute"
-                android:foreground="?attr/selectableItemBackground"
-                android:clickable="true">
+                tools:ignore="UnusedAttribute">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -298,23 +240,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="UseCompoundDrawables">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Made by Geeks Pro"
-                    android:textStyle="bold"
+                    android:text="@string/made_by_geeks_pro"
                     android:textColor="@color/black"
-
-                    />
+                    android:textStyle="bold" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/logo_geeks_pro"
                     android:layout_marginStart="8dp"
-                    />
+                    android:src="@drawable/logo_geeks_pro"
+                    tools:ignore="ContentDescription" />
 
             </LinearLayout>
 

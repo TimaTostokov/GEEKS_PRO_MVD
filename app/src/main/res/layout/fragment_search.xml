@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".presenter.ui.fragments.library.SearchFragment">
+    tools:context=".presenter.ui.fragments.library.search.SearchFragment">
 
     <EditText
         android:id="@+id/et_search"
@@ -15,20 +15,40 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/rounder_search"
-        android:drawableStart="@drawable/searches"
-        android:drawableEnd="@drawable/cross"
-        android:drawablePadding="10dp"
+        android:drawableStart="@drawable/search_line_sc"
+        android:drawablePadding="8dp"
         android:hint="@string/find"
         android:padding="10dp"
         android:textColor="@color/black"
         android:textSize="16sp" />
 
+    <ImageView
+        android:id="@+id/delete_clear_btn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="30dp"
+        android:padding="6dp"
+        android:src="@drawable/vector_exit"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="85dp"
+        android:text="@string/_12"
+        android:textColor="@color/black"
+        android:textSize="13sp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="128dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_abstract" />
 
-</LinearLayout>
+</FrameLayout>

@@ -7,11 +7,11 @@
     android:layout_margin="16dp"
     android:layout_marginBottom="24dp"
     android:background="@color/white"
-    app:cardElevation="8dp"
-    android:outlineSpotShadowColor="@color/cardview_shadow"
-    app:cardCornerRadius="10dp"
+    android:clickable="true"
+    android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
-    android:clickable="true">
+    app:cardCornerRadius="10dp"
+    app:cardElevation="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/roboto"
-            android:text="16 июля 2024"
+            android:text="@string/_16_2024"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
@@ -45,8 +45,8 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:text="@string/fastnews"
             android:fontFamily="@font/roboto_bold"
+            android:text="@string/fastnews"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -67,8 +67,8 @@
             android:layout_marginStart="12dp"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="12dp"
-            android:text="@string/goread"
             android:fontFamily="@font/roboto"
+            android:text="@string/goread"
             android:textColor="@color/white_blue" />
 
     </LinearLayout>

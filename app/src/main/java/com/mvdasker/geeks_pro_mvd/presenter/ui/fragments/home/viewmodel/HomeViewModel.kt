@@ -1,4 +1,4 @@
-package com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.home
+package com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.home.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,6 +16,7 @@ class HomeViewModel : ViewModel() {
     init {
         getNews()
     }
+
     private fun getNews() {
         _newsLivData.value = UiState.Loading
         repository.addNews()

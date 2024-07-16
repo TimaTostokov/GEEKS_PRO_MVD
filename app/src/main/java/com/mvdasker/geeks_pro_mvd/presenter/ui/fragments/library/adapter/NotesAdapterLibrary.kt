@@ -62,7 +62,6 @@ class NotesAdapterLibrary(val onClick: (NotePro) -> Unit) :
 
     fun updateSearchQuery(query: String) {
         searchQuery = query
-        notifyDataSetChanged()
     }
 
     class DiffUtilCallback : DiffUtil.ItemCallback<NotePro>() {
@@ -74,4 +73,5 @@ class NotesAdapterLibrary(val onClick: (NotePro) -> Unit) :
             return oldItem == newItem
         }
     }
+    
 }

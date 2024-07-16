@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".presenter.ui.fragments.library.DetailFragment">
+    tools:context=".presenter.ui.fragments.library.detail.DetailFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="24dp">
 
         <FrameLayout
             android:id="@+id/tv_find"
@@ -25,8 +26,8 @@
                 android:id="@+id/ivBellSecond"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:padding="4dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
+                android:padding="4dp"
                 android:src="@drawable/arrow_left"
                 tools:ignore="ContentDescription" />
 
@@ -35,8 +36,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:layout_marginStart="40dp"
-                android:text="@string/library"
                 android:fontFamily="@font/roboto_bold"
+                android:text="@string/library"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold" />
@@ -51,17 +52,17 @@
             android:padding="4dp"
             android:src="@drawable/bell"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/tv_konstpekt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="30dp"
+            android:fontFamily="@font/roboto_bold"
             android:text="@string/konspekt"
             android:textColor="@color/black"
-            android:fontFamily="@font/roboto_bold"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -73,26 +74,46 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/roboto"
+            android:lineSpacingExtra="4dp"
             android:text="@string/text_asker"
             android:textColor="@color/black"
+            android:textSize="16sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_konstpekt" />
 
         <ImageView
             android:id="@+id/iv_photo"
             android:layout_width="match_parent"
-            android:layout_height="206dp"
+            android:layout_height="195dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:src="@drawable/photo_asker"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_text_asker" />
+            app:layout_constraintTop_toBottomOf="@id/tv_text_asker"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/tv_text_asker_twotv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/roboto"
+            android:lineSpacingExtra="4dp"
+            android:text="@string/text_asker"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_photo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </ScrollView>

@@ -65,9 +65,11 @@
         <action
             android:id="@+id/action_libraryFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
+
         <action
             android:id="@+id/action_libraryFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+
     </fragment>
 
     <fragment
@@ -92,17 +94,17 @@
 
     <fragment
         android:id="@+id/lawFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.law.LawFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.documents.law.LawFragment"
         android:label="LawFragment" />
 
     <fragment
         android:id="@+id/statutesFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.statutes.StatutesFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.documents.statutes.StatutesFragment"
         android:label="StatutesFragment" />
 
     <fragment
         android:id="@+id/constitutionFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.constitution.ConstitutionFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.documents.constitution.ConstitutionFragment"
         android:label="fragment_constitution"
         tools:layout="@layout/fragment_constitution" />
 
@@ -163,20 +165,25 @@
         android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.menu.trafficrules.TrafficRulesFragment"
         android:label="fragment_traffic_rules"
         tools:layout="@layout/fragment_traffic_rules" />
+
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.library.SearchFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.library.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search" >
+
         <action
             android:id="@+id/action_searchFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+
     </fragment>
+
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.library.DetailFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.library.detail.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" >
+
     <argument
         android:name="model"
         app:argType="com.mvdasker.geeks_pro_mvd.data.remote.model.NotePro"/>
