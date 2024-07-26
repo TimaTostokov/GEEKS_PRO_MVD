@@ -42,6 +42,9 @@
         <action
             android:id="@+id/action_homeFragment_to_newsFragment"
             app:destination="@id/newsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
 
     </fragment>
 
@@ -53,6 +56,9 @@
         <argument
             android:name="model"
             app:argType="com.mvdasker.geeks_pro_mvd.data.remote.model.DataItem" />
+        <action
+            android:id="@+id/action_newsFragment_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
 
     </fragment>
 
@@ -69,6 +75,9 @@
         <action
             android:id="@+id/action_libraryFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_libraryFragment_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
 
     </fragment>
 
@@ -89,6 +98,9 @@
         <action
             android:id="@+id/action_documentsFragment_to_constitutionFragment"
             app:destination="@id/constitutionFragment" />
+        <action
+            android:id="@+id/action_documentsFragment_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
 
     </fragment>
 
@@ -187,7 +199,15 @@
     <argument
         android:name="model"
         app:argType="com.mvdasker.geeks_pro_mvd.data.remote.model.NotePro"/>
+        <action
+            android:id="@+id/action_detailFragment_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
+    </fragment>
 
-</fragment>
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.notifications.NotificationsFragment"
+        android:label="fragment_notifications"
+        tools:layout="@layout/fragment_notifications" />
 
 </navigation>

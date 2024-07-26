@@ -1,54 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical"
-    tools:context=".presenter.ui.activity.MainActivity">
+    tools:context=".presenter.ui.fragments.home.HomeFragment">
 
-    <LinearLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        android:orientation="vertical"
+        app:elevation="0dp">
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:orientation="horizontal">
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal"
+            app:layout_scrollFlags="scroll|enterAlways">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:fontFamily="@font/roboto_bold"
                 android:gravity="center_vertical"
                 android:text="Главная"
-                android:fontFamily="@font/roboto_bold"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
             <ImageView
+                android:id="@+id/fhNotif"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_gravity="end|center"
                 android:layout_marginEnd="16dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="4dp"
                 android:src="@drawable/bell"
                 tools:ignore="ContentDescription" />
 
         </FrameLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_main"
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_news" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        tools:listitem="@layout/item_news" />
 
-</androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

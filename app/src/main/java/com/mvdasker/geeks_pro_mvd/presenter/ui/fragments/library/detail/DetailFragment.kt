@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentDetailBinding
 
 class DetailFragment : Fragment() {
@@ -27,11 +28,18 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initialize()
         goBack()
+        goNotification()
     }
 
     private fun goBack() {
         binding.ivBellSecond.setOnClickListener {
             findNavController().navigateUp()
+        }
+    }
+
+    private fun goNotification() {
+        binding.flibNotification.setOnClickListener {
+            findNavController().navigate(R.id.action_detailFragment_to_notificationsFragment)
         }
     }
 

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.data.remote.model.DataItem
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentHomeBinding
 import com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.home.adapters.NewsAdapter
@@ -33,6 +34,10 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initialize()
         observe()
+
+        binding.fhNotif.setOnClickListener{
+            findNavController().navigate(R.id.action_homeFragment_to_notificationsFragment)
+        }
     }
 
     private fun initialize() {
@@ -59,5 +64,4 @@ class HomeFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-
 }
