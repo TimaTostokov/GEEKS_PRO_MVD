@@ -19,18 +19,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:fontFamily="@font/roboto_bold"
             android:gravity="center_vertical"
             android:text="Документы"
-            android:fontFamily="@font/roboto_bold"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/fDocNotification"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_gravity="end|center"
             android:layout_marginEnd="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="4dp"
             android:src="@drawable/bell"
             tools:ignore="ContentDescription" />
@@ -44,15 +46,15 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
         android:outlineSpotShadowColor="@color/cardview_shadow"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="10dp"
         app:cardElevation="6dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="UnusedAttribute"
-        android:foreground="?attr/selectableItemBackground"
-        android:clickable="true">
+        tools:ignore="UnusedAttribute">
 
         <TextView
             android:layout_width="wrap_content"
@@ -74,15 +76,15 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
         android:outlineSpotShadowColor="@color/cardview_shadow"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="10dp"
         app:cardElevation="6dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="UnusedAttribute"
-        android:foreground="?attr/selectableItemBackground"
-        android:clickable="true">
+        tools:ignore="UnusedAttribute">
 
         <TextView
             android:layout_width="wrap_content"
@@ -104,15 +106,15 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
         android:outlineSpotShadowColor="@color/cardview_shadow"
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="10dp"
         app:cardElevation="6dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="UnusedAttribute"
-        android:foreground="?attr/selectableItemBackground"
-        android:clickable="true">
+        tools:ignore="UnusedAttribute">
 
         <TextView
             android:layout_width="wrap_content"

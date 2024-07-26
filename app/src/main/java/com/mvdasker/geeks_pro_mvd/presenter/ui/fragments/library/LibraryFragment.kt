@@ -30,6 +30,7 @@ class LibraryFragment : Fragment() {
         initialize()
         goToSearch()
         setupListeners()
+        goToNotification()
     }
 
     private fun initialize() {
@@ -39,6 +40,12 @@ class LibraryFragment : Fragment() {
     private fun goToSearch() {
         binding.etSearch.setOnClickListener {
             findNavController().navigate(LibraryFragmentDirections.actionLibraryFragmentToSearchFragment())
+        }
+    }
+
+    private fun goToNotification() {
+        binding.ivBell.setOnClickListener {
+            findNavController().navigate(LibraryFragmentDirections.actionLibraryFragmentToNotificationsFragment())
         }
     }
 
@@ -94,5 +101,4 @@ class LibraryFragment : Fragment() {
             )
         )
     }
-
 }

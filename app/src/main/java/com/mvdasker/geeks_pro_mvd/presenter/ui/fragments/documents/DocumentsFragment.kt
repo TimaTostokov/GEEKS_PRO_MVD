@@ -28,6 +28,7 @@ class DocumentsFragment : Fragment() {
         binding.layoutConstitution.setOnClickListener { navigateToScreen(Screen.Constitution) }
         binding.layoutLaw.setOnClickListener { navigateToScreen(Screen.Law) }
         binding.layoutStatutes.setOnClickListener { navigateToScreen(Screen.Statutes) }
+        binding.fDocNotification.setOnClickListener { navigateToScreen(Screen.Notifications) }
     }
 
     private fun navigateToScreen(screen: Screen) {
@@ -35,6 +36,7 @@ class DocumentsFragment : Fragment() {
             Screen.Constitution -> findNavController().navigate(R.id.action_documentsFragment_to_constitutionFragment)
             Screen.Law -> findNavController().navigate(R.id.action_documentsFragment_to_lawFragment)
             Screen.Statutes -> findNavController().navigate(R.id.action_documentsFragment_to_statutesFragment)
+            Screen.Notifications -> findNavController().navigate(R.id.action_documentsFragment_to_notificationsFragment)
         }
     }
 
@@ -42,11 +44,11 @@ class DocumentsFragment : Fragment() {
         data object Constitution : Screen()
         data object Law : Screen()
         data object Statutes : Screen()
+        data object Notifications : Screen()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
 }

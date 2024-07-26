@@ -1,23 +1,35 @@
 package com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.home.news
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentNewsBinding
-import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 
-class NewsFragment : Fragment(R.layout.fragment_news) {
+class NewsFragment : Fragment() {
 
-    private val binding by viewBinding(FragmentNewsBinding::bind)
+    private var _binding: FragmentNewsBinding? = null
+    private val binding get() = _binding!!
     private val args by navArgs<NewsFragmentArgs>()
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentNewsBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         news()
         toBack()
+        toNotification()
     }
 
     private fun news() {
@@ -38,4 +50,9 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         }
     }
 
+    private fun toNotification() {
+        binding.ivIcon.setOnClickListener {
+            findNavController().navigate(R.id.action_newsFragment_to_notificationsFragment)
+        }
+    }
 }

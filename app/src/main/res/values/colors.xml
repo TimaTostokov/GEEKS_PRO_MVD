@@ -17,4 +17,7 @@
     <color name="cardview_shadow">#003669</color>
     <color name="grey_background">#FAF4FAFA</color>
     <color name="light_gray">#F5F5F5</color>
+    <color name="orange">#FF9500</color>
+    <color name="color_date_notif">#414141</color>
+
 </resources>
