@@ -3,7 +3,7 @@ package com.mvdasker.geeks_pro_mvd.data.remote.model
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-data class Notifications(
+data class Notification(
     val id: Int,
     val title: String,
     val description: String,

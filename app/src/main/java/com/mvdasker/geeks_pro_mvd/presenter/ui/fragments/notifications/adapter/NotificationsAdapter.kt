@@ -1,5 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.notifications.adapter
 
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.ItemNotificationBinding
 import com.mvdasker.geeks_pro_mvd.databinding.ItemNotificationMonthBinding
+import com.mvdasker.geeks_pro_mvd.utils.ext.formatDate
 
 class NotificationsAdapter() :
     ListAdapter<NotificationItem, RecyclerView.ViewHolder>(NotificationDiffCallback) {
@@ -51,7 +53,7 @@ class NotificationsAdapter() :
             ): Boolean {
                 val monthItem = oldItem is NotificationItem.MonthItem
                         && newItem is NotificationItem.MonthItem
-                        && oldItem.title == newItem.title
+                        && oldItem.month == newItem.month
 
                 val notificationsItem = oldItem is NotificationItem.Notification
                         && newItem is NotificationItem.Notification
@@ -70,9 +72,10 @@ class NotificationsAdapter() :
 class MonthViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private val binding = ItemNotificationMonthBinding.bind(itemView)
+    private val stringArray = itemView.context.resources.getStringArray(R.array.months)
 
     fun bindMonth(month: NotificationItem.MonthItem) {
-        binding.itemMonth.text = month.title
+        binding.itemMonth.text = stringArray.getOrNull(month.month)
     }
 }
 
@@ -81,17 +84,16 @@ class NotificationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     private val binding = ItemNotificationBinding.bind(itemView)
 
     fun bindNotification(notification: NotificationItem.Notification) {
-        binding.itemNotifDate.text = notification.createAt
+        binding.itemNotifDate.text = formatDate(notification.createAt)
         binding.itemNotifTitle.text = notification.title
-        binding.itemNotifDescription.text = notification.description
+        binding.itemNotifDescription.text = Html.fromHtml(notification.description)
         binding.itemNotifCategory.text = notification.category
         binding.itemNotifNotReadCircle.isVisible = !notification.isRead
-
     }
 }
 
 sealed interface NotificationItem {
-    data class MonthItem(val title: String) : NotificationItem
+    data class MonthItem(val month: Int) : NotificationItem
     data class Notification(
         val id: Int,
         val title: String,
