@@ -17,4 +17,5 @@ abstract class BaseRepository {
     }.flowOn(Dispatchers.IO).catch {
         emit(Either.Left(it))
     }
+
 }

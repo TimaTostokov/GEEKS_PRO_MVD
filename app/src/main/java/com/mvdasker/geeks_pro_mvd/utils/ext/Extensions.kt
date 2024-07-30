@@ -31,8 +31,8 @@ object Extensions {
         context: Context,
         title: String,
         message: String,
-        positiveButtonText: String = "OK",
-        negativeButtonText: String? = null,
+        positiveButtonText: String = "Кыргызча",
+        negativeButtonText: String = "Русский",
         onPositiveButtonClick: (() -> Unit)? = null,
         onNegativeButtonClick: (() -> Unit)? = null
     ) {
