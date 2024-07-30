@@ -111,7 +111,7 @@
 
     <fragment
         android:id="@+id/statutesFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.documents.statutes.StatutesFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.documents.statutes.ChartersFragment"
         android:label="StatutesFragment" />
 
     <fragment
