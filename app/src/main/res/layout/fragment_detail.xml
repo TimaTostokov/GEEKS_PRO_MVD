@@ -37,10 +37,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="40dp"
-                android:fontFamily="@font/roboto_bold"
+                android:fontFamily="@font/semibold"
                 android:text="@string/library"
                 android:textColor="@color/black"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <ImageView
@@ -115,7 +115,7 @@
                 android:lineSpacingExtra="4dp"
                 android:text="@string/text_asker"
                 android:textColor="@color/black"
-                android:textSize="17sp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 

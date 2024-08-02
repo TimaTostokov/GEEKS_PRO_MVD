@@ -63,4 +63,5 @@ class NotificationsFragment : Fragment() {
 
     private fun onError() {
     }
+
 }

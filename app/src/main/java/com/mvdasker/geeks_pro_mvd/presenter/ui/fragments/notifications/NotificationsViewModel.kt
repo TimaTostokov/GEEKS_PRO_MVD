@@ -85,7 +85,6 @@ class NotificationsViewModel @Inject constructor(private val notificationReposit
     }
 }
 
-
 data class NotificationState(
     val error: String? = null,
     val notifications: List<NotificationItem> = mutableListOf(),
