@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".presenter.ui.fragments.documents.statutes.StatutesFragment">
+    tools:context=".presenter.ui.fragments.documents.statutes.ChartersFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -48,11 +48,11 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fcListStatutes"
+        android:id="@+id/fc_list_charters"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="24dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        tools:listitem="@layout/item_statute" />
+        tools:listitem="@layout/item_charter" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
