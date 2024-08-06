@@ -24,6 +24,14 @@ class AboutUsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initListeners()
+
+        binding.upBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
+
+        binding.upBtn.setOnClickListener {
+            binding.nestedSv.smoothScrollTo(0, 0)
+        }
     }
 
     private fun initListeners() {

@@ -143,9 +143,19 @@
             app:destination="@id/controlMIAKRFragment" />
 
         <action
-            android:id="@+id/action_menuFragment_to_trafficRulesFragment"
-            app:destination="@id/trafficRulesFragment" />
+            android:id="@+id/action_menuFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment" />
 
+    </fragment>
+
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.menu.webview.WebViewFragment"
+        android:label="fragment_web_view"
+        tools:layout="@layout/fragment_web_view" >
+        <argument
+            android:name="url"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -171,12 +181,6 @@
         android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.menu.control.ControlMIAKRFragment"
         android:label="fragment_control_m_i_a_k_r"
         tools:layout="@layout/fragment_control_m_i_a_k_r" />
-
-    <fragment
-        android:id="@+id/trafficRulesFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.menu.trafficrules.TrafficRulesFragment"
-        android:label="fragment_traffic_rules"
-        tools:layout="@layout/fragment_traffic_rules" />
 
     <fragment
         android:id="@+id/searchFragment"
