@@ -1,0 +1,14 @@
+package com.mvdasker.geeks_pro_mvd.data.remote.model.notification
+
+import com.google.gson.annotations.SerializedName
+import java.io.Serializable
+
+data class Notification(
+    val id: Int,
+    val title: String,
+    val description: String,
+    @SerializedName("created_at")
+    val createAt: String,
+    @SerializedName("is_read")
+    val isRead: Boolean
+) : Serializable

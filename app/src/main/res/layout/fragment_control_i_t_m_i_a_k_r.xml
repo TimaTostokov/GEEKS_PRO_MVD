@@ -1,59 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".presenter.ui.fragments.menu.control.ControlITMIAKRFragment">
+    tools:context="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.kg.ManagementFragment">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
-        android:orientation="vertical"
-        app:elevation="0dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:paddingTop="20dp"
+                android:src="@drawable/arrow_left" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingTop="25dp"
+                android:text="Руководство ВВ МВД КР"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="16dp"
-            android:orientation="horizontal"
-            app:layout_scrollFlags="scroll|enterAlways">
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/rounder_search"
+                android:drawableStart="@drawable/search_line_sc"
+                android:drawablePadding="8dp"
+                android:hint="@string/find"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
 
             <ImageView
-                android:id="@+id/vvMVDBackBtn"
+                android:id="@+id/delete_clear_btn"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:padding="4dp"
-                android:src="@drawable/arrow_left"
+                android:layout_gravity="end"
+                android:layout_marginTop="34dp"
+                android:layout_marginEnd="30dp"
+                android:padding="6dp"
+                android:src="@drawable/vector_exit"
                 tools:ignore="ContentDescription" />
-
-            <TextView
-                android:id="@+id/vvMVDTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="40dp"
-                android:fontFamily="@font/roboto_bold"
-                android:text="@string/controlITMIAKR"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
 
         </FrameLayout>
 
-    </com.google.android.material.appbar.AppBarLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_controll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_management_kg">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/controlITMIAKR"
-        android:textColor="@color/black"
-        android:textSize="32sp" />
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+</FrameLayout>

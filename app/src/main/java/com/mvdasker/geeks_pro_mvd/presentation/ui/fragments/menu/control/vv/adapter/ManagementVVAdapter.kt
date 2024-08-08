@@ -1,0 +1,83 @@
+package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.adapter
+
+import android.graphics.Color
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.mvdasker.geeks_pro_mvd.data.remote.model.mangements.Governance
+import com.mvdasker.geeks_pro_mvd.databinding.ItemManagementKgBinding
+
+class ManagementVVAdapter :
+    ListAdapter<Governance, ManagementVVAdapter.ManagementsKgViewHolder>(DiffUtilCallback()) {
+    private var searchQuery: String = ""
+
+    inner class ManagementsKgViewHolder(private val binding: ItemManagementKgBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: Governance) {
+            binding.itemName.text = item.name
+            binding.tvData.text = highlightText(item.category, searchQuery)
+            Glide.with(itemView.context).load(item.photo).into(binding.imView)
+        }
+    }
+
+    private fun highlightText(text: String, query: String): SpannableString {
+        val spannableString = SpannableString(text)
+        val startIndex = text.lowercase().indexOf(query.lowercase())
+        if (startIndex >= 0) {
+            val endIndex = startIndex + query.length
+            spannableString.setSpan(
+                ForegroundColorSpan(Color.parseColor("#03A9F4")),
+                startIndex,
+                endIndex,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+        return spannableString
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ManagementsKgViewHolder {
+        return ManagementsKgViewHolder(
+            ItemManagementKgBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
+    }
+
+    fun updateSearchQuery(query: String) {
+        searchQuery = query
+    }
+
+    override fun onBindViewHolder(holder: ManagementsKgViewHolder, position: Int) {
+        getItem(position)?.let {
+            holder.bind(it)
+        }
+    }
+
+    companion object {
+        class DiffUtilCallback : DiffUtil.ItemCallback<Governance>() {
+            override fun areItemsTheSame(
+                oldItem: Governance,
+                newItem: Governance
+            ): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(
+                oldItem: Governance,
+                newItem: Governance
+            ): Boolean {
+                return oldItem.id == newItem.id
+            }
+        }
+    }
+
+}

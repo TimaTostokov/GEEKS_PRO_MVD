@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presenter.ui.fragments.menu.control.ControlKRFragment">
+    tools:context=".presentation.ui.fragments.menu.control.kg.ControlKRFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -47,13 +47,12 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/rukovostvo_KR"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_controll"
+        android:layout_width="match_parent"
+        tools:listitem="@layout/item_management_kg"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:layout_height="wrap_content"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

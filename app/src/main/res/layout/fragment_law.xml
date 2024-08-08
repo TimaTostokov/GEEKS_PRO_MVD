@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".presenter.ui.fragments.documents.law.LawFragment">
+    tools:context=".presentation.ui.fragments.documents.law.LawFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kapt)
     alias(libs.plugins.hiltCompiler)
     alias(libs.plugins.navsafeargs)
+
 }
 
 android {
@@ -76,6 +77,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
     implementation(libs.circleimageview)
+    // Glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }
