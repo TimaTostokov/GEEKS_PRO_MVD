@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.splash.SplashFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.splash.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash">
 
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/authorizationFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.auth.AuthorizationFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.auth.AuthorizationFragment"
         android:label="fragment_authorization"
         tools:layout="@layout/fragment_authorization">
 
@@ -37,7 +37,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.home.HomeFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.HomeFragment"
         android:label="@string/MainHome"
         tools:layout="@layout/fragment_home">
 
@@ -53,7 +53,7 @@
 
     <fragment
         android:id="@+id/newsFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.home.news.NewsFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.news.NewsFragment"
         android:label="NewsFragment">
 
         <argument
@@ -68,7 +68,7 @@
 
     <fragment
         android:id="@+id/libraryFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.library.LibraryFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.LibraryFragment"
         android:label="@string/Library"
         tools:layout="@layout/fragment_library">
 
@@ -89,7 +89,7 @@
 
     <fragment
         android:id="@+id/documentsFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.documents.DocumentsFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.DocumentsFragment"
         android:label="@string/Documents"
         tools:layout="@layout/fragment_documents">
 
@@ -115,23 +115,23 @@
 
     <fragment
         android:id="@+id/lawFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.documents.law.LawFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.LawFragment"
         android:label="LawFragment" />
 
     <fragment
         android:id="@+id/statutesFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.documents.statutes.ChartersFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.statutes.ChartersFragment"
         android:label="StatutesFragment" />
 
     <fragment
         android:id="@+id/constitutionFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.documents.constitution.ConstitutionFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.ConstitutionFragment"
         android:label="fragment_constitution"
         tools:layout="@layout/fragment_constitution" />
 
     <fragment
         android:id="@+id/menuFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.menu.MenuFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.MenuFragment"
         android:label="@string/MenuOthers"
         tools:layout="@layout/fragment_menu">
 
@@ -159,41 +159,43 @@
 
     <fragment
         android:id="@+id/webViewFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.menu.webview.WebViewFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.webview.WebViewFragment"
         android:label="fragment_web_view"
         tools:layout="@layout/fragment_web_view" >
+
         <argument
             android:name="url"
             app:argType="string" />
+
     </fragment>
 
     <fragment
         android:id="@+id/aboutUsFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.menu.aboutus.AboutUsFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.aboutus.AboutUsFragment"
         android:label="fragment_about_us"
         tools:layout="@layout/fragment_about_us" />
 
     <fragment
         android:id="@+id/controlKRFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.menu.control.ControlKRFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.ControlKRFragment"
         android:label="fragment_control_k_r"
         tools:layout="@layout/fragment_control_k_r" />
 
     <fragment
         android:id="@+id/controlITMIAKRFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.menu.control.ControlITMIAKRFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.ControlITMIAKRFragment"
         android:label="fragment_control_i_t_m_i_a_k_r"
         tools:layout="@layout/fragment_control_i_t_m_i_a_k_r" />
 
     <fragment
         android:id="@+id/controlMIAKRFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.menu.control.ControlMIAKRFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.ControlMIAKRFragment"
         android:label="fragment_control_m_i_a_k_r"
         tools:layout="@layout/fragment_control_m_i_a_k_r" />
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.library.search.SearchFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.search.SearchFragment"
         android:label="fragment_search"
         tools:layout="@layout/fragment_search">
 
@@ -205,7 +207,7 @@
 
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.library.detail.DetailFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.detail.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail">
 
@@ -221,7 +223,7 @@
 
     <fragment
         android:id="@+id/notificationsFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presenter.ui.fragments.notifications.NotificationsFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications.NotificationsFragment"
         android:label="fragment_notifications"
         tools:layout="@layout/fragment_notifications" />
 

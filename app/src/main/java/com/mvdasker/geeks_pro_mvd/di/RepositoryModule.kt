@@ -24,4 +24,5 @@ class RepositoryModule {
     @Provides
     fun provideNotificationRepository(sanaripAskerApi: SanaripAskerApi): NotificationRepository =
         NotificationRepository(sanaripAskerApi)
+
 }

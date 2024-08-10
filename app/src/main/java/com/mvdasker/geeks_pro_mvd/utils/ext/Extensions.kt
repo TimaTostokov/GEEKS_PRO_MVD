@@ -53,11 +53,9 @@ object Extensions {
                 dialog.dismiss()
             }
 
-        if (negativeButtonText != null) {
-            builder.setNegativeButton(negativeButtonText) { dialog, _ ->
-                onNegativeButtonClick?.invoke()
-                dialog.dismiss()
-            }
+        builder.setNegativeButton(negativeButtonText) { dialog, _ ->
+            onNegativeButtonClick?.invoke()
+            dialog.dismiss()
         }
 
         val dialog = builder.create()
@@ -101,6 +99,7 @@ inline fun <T> Fragment.observeData(
     }
 }
 
+@SuppressLint("SimpleDateFormat")
 fun formatDate(date: String): String {
     val originalFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
     val targetFormat = SimpleDateFormat("dd MMMM yyyy")

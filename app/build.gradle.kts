@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kapt)
     alias(libs.plugins.hiltCompiler)
     alias(libs.plugins.navsafeargs)
+    id("kotlin-parcelize")
 }
 
 android {
