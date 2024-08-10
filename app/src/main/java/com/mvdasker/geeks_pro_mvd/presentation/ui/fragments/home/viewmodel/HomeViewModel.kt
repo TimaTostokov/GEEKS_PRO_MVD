@@ -5,10 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mvdasker.geeks_pro_mvd.data.remote.model.news.DataItem
 import com.mvdasker.geeks_pro_mvd.data.repositories.NewsRepository
-import com.mvdasker.geeks_pro_mvd.utils.ext.UiState
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.mvdasker.geeks_pro_mvd.common.UiState
 
-@HiltViewModel
 class HomeViewModel : ViewModel() {
 
     private val repository = NewsRepository()

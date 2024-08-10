@@ -6,9 +6,12 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Charter(
-    val id: Int? = 0,
-    val title: String? = "",
+    @SerializedName("id")
+    val id: Int? = null,
+    @SerializedName("title")
+    val title: String? = null,
     @SerializedName("pdf_file")
-    val url: String? = "",
-    val date: String? = "",
+    val url: String? = null,
+    @SerializedName("date")
+    val date: String? = null,
 ): Parcelable

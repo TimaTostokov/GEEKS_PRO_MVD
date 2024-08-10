@@ -1,4 +1,4 @@
-package com.mvdasker.geeks_pro_mvd.utils.ext
+package com.mvdasker.geeks_pro_mvd.common
 
 sealed class UiState<out T> {
     data object Loading : UiState<Nothing>()

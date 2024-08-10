@@ -36,4 +36,5 @@ class LawFragment : Fragment(R.layout.fragment_law) {
         super.onDetach()
         disableScreenShot(false)
     }
+
 }

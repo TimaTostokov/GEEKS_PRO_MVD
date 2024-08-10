@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mvdasker.geeks_pro_mvd.data.remote.model.law.Law
 import com.mvdasker.geeks_pro_mvd.data.repositories.LawRepository
-import com.mvdasker.geeks_pro_mvd.utils.ext.UiState
+import com.mvdasker.geeks_pro_mvd.common.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -33,4 +33,5 @@ class LawViewModel @Inject constructor(private val lawRepository: LawRepository)
             }
         }
     }
+
 }

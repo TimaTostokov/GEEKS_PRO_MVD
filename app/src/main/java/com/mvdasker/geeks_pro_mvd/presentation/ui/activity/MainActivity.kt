@@ -42,10 +42,10 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (!fragmentsWithoutBottomNav.contains(destination.id)) {
-                navView.isVisible = false
+                hideBottomNavigationView(navView)
                 supportActionBar?.hide()
             } else {
-                navView.isVisible = true
+                showBottomNavigationView(navView)
                 supportActionBar?.show()
             }
         }
@@ -76,4 +76,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun hideBottomNavigationView(view: BottomNavigationView) {
+        view.clearAnimation()
+        view.animate().translationY(view.height.toFloat()).setDuration(500)
+    }
+
+    private fun showBottomNavigationView(view: BottomNavigationView) {
+        view.clearAnimation()
+        view.animate().translationY(0f).setDuration(500)
+    }
 }
