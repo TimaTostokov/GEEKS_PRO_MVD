@@ -12,7 +12,6 @@ private const val CHARTERS_END_POINT = "docs/charter/"
 private const val NOTIFICATION_END_POINT = "docs/notification/"
 private const val MANAGEMENT_VV_END_POINT = "docs/governance/vvmvdkr/"
 
-
 interface SanaripAskerApi {
 
     @GET(LAW_END_POINT)

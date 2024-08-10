@@ -8,8 +8,8 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.data.remote.model.mangements.Governance
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentControlITMIAKRBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.adapter.ManagementVVAdapter
 import com.mvdasker.geeks_pro_mvd.utils.ext.UiState
@@ -23,10 +23,13 @@ class ControlITMIAKRFragment : Fragment(R.layout.fragment_control_i_t_m_i_a_k_r)
     private val managementAdapter = ManagementVVAdapter()
     private val viewModel: ControlITMIAKRViewModel by viewModels()
 
+    private var originalList: List<Governance> = listOf()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialize()
         setupListeners()
+//        subscribe()
         searchCharacterListener()
         goBack()
         deleteClearBtn()
@@ -43,11 +46,30 @@ class ControlITMIAKRFragment : Fragment(R.layout.fragment_control_i_t_m_i_a_k_r)
                 UiState.Loading -> {
                 }
 
-                is UiState.Success -> managementAdapter.submitList(state.data)
-
+                is UiState.Success -> {
+                    Log.d("tag", "данные получены: ${state.data}")
+                    originalList = state.data // Сохранение оригинального списка
+                    managementAdapter.submitList(originalList)
+                }
             }
         }
     }
+
+//    private fun subscribe() {
+//        viewModel.sinigamiLiveData.observe(viewLifecycleOwner) { uiState ->
+//            uiState?.let {
+//                if (!it.isLoading) {
+//                    if (it.success != null) {
+//                        Log.e("tag", "subscribe:${it.success}")
+//                        originalList = it.success
+//                        managementAdapter.submitList(originalList)
+//                    } else {
+//                        Log.e("tag", "error:${it}")
+//                    }
+//                }
+//            }
+//        }
+//    }
 
     private fun searchCharacterListener() {
         binding.etSearch.addTextChangedListener(object : TextWatcher {
@@ -56,6 +78,7 @@ class ControlITMIAKRFragment : Fragment(R.layout.fragment_control_i_t_m_i_a_k_r)
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if (s != null) {
                     searchCharacter(s.toString())
+                    managementAdapter.notifyDataSetChanged()
                 }
             }
 
@@ -65,13 +88,14 @@ class ControlITMIAKRFragment : Fragment(R.layout.fragment_control_i_t_m_i_a_k_r)
 
     private fun searchCharacter(query: String) {
         managementAdapter.updateSearchQuery(query)
-        val filteredList = managementAdapter.currentList.filter {
-            it.category.contains(query, ignoreCase = true)
+        val filteredList = originalList.filter {
+            it.category.contains(query, ignoreCase = true) || it.name.contains(
+                query,
+                ignoreCase = true
+            )
         }
-        managementAdapter.updateSearchQuery(query)
         managementAdapter.submitList(filteredList)
     }
-
 
     private fun goBack() {
         binding.ivBack.setOnClickListener {
@@ -84,6 +108,7 @@ class ControlITMIAKRFragment : Fragment(R.layout.fragment_control_i_t_m_i_a_k_r)
             if (binding.etSearch.text != null) {
                 binding.etSearch.text = null
                 binding.etSearch.clearFocus()
+                managementAdapter.submitList(originalList) // Восстановление оригинального списка
             }
         }
     }

@@ -14,6 +14,8 @@ class ManagementsKrRepository @Inject constructor(
     private val dispatchers: AppDispatchers,
 ) : BaseRepository() {
 
+   private val getData = mutableListOf<Governance>()
+
     fun fetchConstitutionsKr(): Flow<Either<Throwable, List<Governance>>> {
         return doRequest {
             sanaripAskerApi.fetchConstitutionsKr()
@@ -24,5 +26,16 @@ class ManagementsKrRepository @Inject constructor(
         return doRequest {
             sanaripAskerApi.fetchConstitutionsVVKr()
         }.flowOn(dispatchers.io)
+    }
+    fun getData():List<Governance> {
+        getData.add(
+            Governance(
+                0,
+                "dcscsxcsdc",
+                "https://i.pinimg.com/236x/7e/d3/59/7ed3594f63952319213aad175fddd206.jpg",
+                "rukia",
+                "shinigami"
+            ))
+        return getData
     }
 }

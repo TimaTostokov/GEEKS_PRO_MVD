@@ -10,13 +10,11 @@ import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class ManagementKgVIewModel @Inject constructor(private val repository: ManagementsKrRepository) :
+class ControlKgVIewModel @Inject constructor(private val repository: ManagementsKrRepository) :
     BaseViewModel() {
 
     private val _managementState = MutableStateFlow<UiState<List<Governance>>>(UiState.Loading)
     val managementState = _managementState.asStateFlow()
-
-
 
     init {
         repository.fetchConstitutionsKr().collectFlowAsState(_managementState)

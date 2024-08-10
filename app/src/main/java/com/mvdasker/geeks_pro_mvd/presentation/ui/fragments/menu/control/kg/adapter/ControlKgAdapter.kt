@@ -9,8 +9,8 @@ import com.bumptech.glide.Glide
 import com.mvdasker.geeks_pro_mvd.data.remote.model.mangements.Governance
 import com.mvdasker.geeks_pro_mvd.databinding.ItemManagementKgBinding
 
-class ManagementsKgAdapter :
-    ListAdapter<Governance, ManagementsKgAdapter.ManagementsKgViewHolder>(DiffUtilCallback()) {
+class ControlKgAdapter :
+    ListAdapter<Governance, ControlKgAdapter.ManagementsKgViewHolder>(DiffUtilCallback()) {
 
     inner class ManagementsKgViewHolder(private val binding: ItemManagementKgBinding) :
         RecyclerView.ViewHolder(binding.root) {

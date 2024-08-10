@@ -19,5 +19,4 @@ class ControlITMIAKRViewModel @Inject constructor(private val repository: Manage
     init {
         repository.fetchConstitutionsVVKr().collectFlowAsState(_managementState)
     }
-
 }

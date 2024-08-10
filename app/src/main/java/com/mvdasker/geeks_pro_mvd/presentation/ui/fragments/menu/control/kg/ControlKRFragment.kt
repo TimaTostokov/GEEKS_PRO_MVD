@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentControlKRBinding
-import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.kg.adapter.ManagementsKgAdapter
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.kg.adapter.ControlKgAdapter
 import com.mvdasker.geeks_pro_mvd.utils.ext.UiState
 import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
@@ -18,8 +18,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class ControlKRFragment : Fragment(R.layout.fragment_control_k_r) {
 
     private val binding by viewBinding(FragmentControlKRBinding::bind)
-    private val managementAdapter = ManagementsKgAdapter()
-    private val viewModel: ManagementKgVIewModel by viewModels()
+    private val managementAdapter = ControlKgAdapter()
+    private val viewModel: ControlKgVIewModel by viewModels()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

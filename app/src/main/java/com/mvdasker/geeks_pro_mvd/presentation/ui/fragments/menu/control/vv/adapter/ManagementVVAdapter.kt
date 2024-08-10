@@ -29,18 +29,22 @@ class ManagementVVAdapter :
 
     private fun highlightText(text: String, query: String): SpannableString {
         val spannableString = SpannableString(text)
-        val startIndex = text.lowercase().indexOf(query.lowercase())
-        if (startIndex >= 0) {
-            val endIndex = startIndex + query.length
-            spannableString.setSpan(
-                ForegroundColorSpan(Color.parseColor("#03A9F4")),
-                startIndex,
-                endIndex,
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-            )
+        if (query.isNotEmpty()) {
+            var startIndex = text.lowercase().indexOf(query.lowercase())
+            while (startIndex >= 0) { // Подсвечиваем все вхождения запроса
+                val endIndex = startIndex + query.length
+                spannableString.setSpan(
+                    ForegroundColorSpan(Color.parseColor("#03A9F4")),
+                    startIndex,
+                    endIndex,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                startIndex = text.lowercase().indexOf(query.lowercase(), endIndex)
+            }
         }
         return spannableString
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ManagementsKgViewHolder {
         return ManagementsKgViewHolder(
@@ -54,6 +58,7 @@ class ManagementVVAdapter :
 
     fun updateSearchQuery(query: String) {
         searchQuery = query
+
     }
 
     override fun onBindViewHolder(holder: ManagementsKgViewHolder, position: Int) {
@@ -68,14 +73,14 @@ class ManagementVVAdapter :
                 oldItem: Governance,
                 newItem: Governance
             ): Boolean {
-                return oldItem.id == newItem.id
+                return oldItem== newItem
             }
 
             override fun areContentsTheSame(
                 oldItem: Governance,
                 newItem: Governance
             ): Boolean {
-                return oldItem.id == newItem.id
+                return oldItem == newItem
             }
         }
     }
