@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kapt) apply false
     alias(libs.plugins.hiltCompiler) apply false
     alias(libs.plugins.navsafeargs) apply false
+
 }
 
 buildscript {

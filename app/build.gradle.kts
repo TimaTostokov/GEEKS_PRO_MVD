@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kapt)
     alias(libs.plugins.hiltCompiler)
     alias(libs.plugins.navsafeargs)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -78,4 +79,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.circleimageview)
+    // Glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }

@@ -1,7 +1,7 @@
 package com.mvdasker.geeks_pro_mvd.data.repositories
 
 import com.mvdasker.geeks_pro_mvd.R
-import com.mvdasker.geeks_pro_mvd.data.remote.model.DataItem
+import com.mvdasker.geeks_pro_mvd.data.remote.model.news.DataItem
 
 class NewsRepository {
     val newsList = mutableListOf<DataItem>()
