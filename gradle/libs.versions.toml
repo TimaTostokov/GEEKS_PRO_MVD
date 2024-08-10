@@ -4,6 +4,7 @@ circleimageview = "3.1.0"
 conscryptAndroid = "2.5.2"
 core = "3.3.0"
 fragmentKtx = "1.8.1"
+glide = "4.16.0"
 kotlin = "1.9.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
@@ -31,6 +32,7 @@ okhttpprofiler = "1.0.7"
 
 circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
 
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltVersion" }
 hilt-android-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltVersion" }
 hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltVersionNavigation" }

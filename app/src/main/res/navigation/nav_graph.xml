@@ -74,8 +74,8 @@
 
         <action
             android:id="@+id/action_libraryFragment_to_searchFragment"
-            app:enterAnim="@anim/from_bottom"
-            app:destination="@id/searchFragment" />
+            app:destination="@id/searchFragment"
+            app:enterAnim="@anim/from_bottom" />
 
         <action
             android:id="@+id/action_libraryFragment_to_detailFragment"
@@ -95,8 +95,8 @@
 
         <action
             android:id="@+id/action_documentsFragment_to_lawFragment"
-            app:enterAnim="@anim/from_right"
-            app:destination="@id/lawFragment" />
+            app:destination="@id/lawFragment"
+            app:enterAnim="@anim/from_right" />
 
         <action
             android:id="@+id/action_documentsFragment_to_statutesFragment"
@@ -104,8 +104,8 @@
 
         <action
             android:id="@+id/action_documentsFragment_to_constitutionFragment"
-            app:enterAnim="@anim/from_right"
-            app:destination="@id/constitutionFragment" />
+            app:destination="@id/constitutionFragment"
+            app:enterAnim="@anim/from_right" />
 
         <action
             android:id="@+id/action_documentsFragment_to_notificationsFragment"
@@ -161,7 +161,7 @@
         android:id="@+id/webViewFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.webview.WebViewFragment"
         android:label="fragment_web_view"
-        tools:layout="@layout/fragment_web_view" >
+        tools:layout="@layout/fragment_web_view">
 
         <argument
             android:name="url"
@@ -175,17 +175,6 @@
         android:label="fragment_about_us"
         tools:layout="@layout/fragment_about_us" />
 
-    <fragment
-        android:id="@+id/controlKRFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.ControlKRFragment"
-        android:label="fragment_control_k_r"
-        tools:layout="@layout/fragment_control_k_r" />
-
-    <fragment
-        android:id="@+id/controlITMIAKRFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.ControlITMIAKRFragment"
-        android:label="fragment_control_i_t_m_i_a_k_r"
-        tools:layout="@layout/fragment_control_i_t_m_i_a_k_r" />
 
     <fragment
         android:id="@+id/controlMIAKRFragment"
@@ -226,5 +215,16 @@
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications.NotificationsFragment"
         android:label="fragment_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/controlKRFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.kg.ControlKRFragment"
+        android:label="fragment_control_k_r"
+        tools:layout="@layout/fragment_control_k_r" />
+
+    <fragment
+        android:id="@+id/controlITMIAKRFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.ControlITMIAKRFragment"
+        android:label="ControlITMIAKRFragment" />
 
 </navigation>

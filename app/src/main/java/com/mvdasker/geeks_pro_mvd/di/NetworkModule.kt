@@ -33,10 +33,12 @@ object NetworkModule {
         .build()
 
     @Provides
+    @Singleton
     fun provideConverterFactory(): GsonConverterFactory =
         GsonConverterFactory.create()
 
     @Provides
+    @Singleton
     fun provideRetrofit(gsonConverterFactory: GsonConverterFactory): Retrofit =
         Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -44,6 +46,7 @@ object NetworkModule {
             .build()
 
     @Provides
+    @Singleton
     fun provideApi(retrofit: Retrofit): SanaripAskerApi =
         retrofit.create(SanaripAskerApi::class.java)
 }

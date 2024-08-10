@@ -8,8 +8,10 @@ import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentAuthorizationBinding
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.showToast
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.regex.Pattern
 
+@AndroidEntryPoint
 class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
 
     private val binding by viewBinding(FragmentAuthorizationBinding::bind)

@@ -10,7 +10,9 @@ import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.data.remote.model.labrary.NotePro
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentLibraryBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.adapter.NotesAdapterLibrary
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LibraryFragment : Fragment() {
 
     private var _binding: FragmentLibraryBinding? = null

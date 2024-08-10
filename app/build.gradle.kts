@@ -65,7 +65,7 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.recyclerview)
     implementation(libs.volley)
-    
+
     implementation(libs.okHttpClient)
     implementation(libs.logging.interceptor)
 
@@ -79,6 +79,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.circleimageview)
-    // Glide
-    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    implementation(libs.glide)
 }

@@ -13,8 +13,10 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.viewmodel.MenuViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MenuFragment : Fragment() {
 
     private var _binding: FragmentMenuBinding? = null
