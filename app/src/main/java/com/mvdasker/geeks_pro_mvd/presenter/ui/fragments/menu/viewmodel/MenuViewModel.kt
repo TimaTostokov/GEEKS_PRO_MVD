@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class MenuViewModel : ViewModel() {
+
     private var _navController: NavController? = null
     private val navController get() = _navController!!
 
@@ -69,5 +70,3 @@ class MenuViewModel : ViewModel() {
     }
 
 }
-
-
