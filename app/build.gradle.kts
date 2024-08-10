@@ -79,6 +79,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     implementation(libs.circleimageview)
-    // Glide
+
     implementation(libs.glide)
 }

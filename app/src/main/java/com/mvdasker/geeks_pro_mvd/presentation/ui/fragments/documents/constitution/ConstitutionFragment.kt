@@ -9,7 +9,9 @@ import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentConstitutionBinding
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.disableScreenShot
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
 
     private val binding by viewBinding(FragmentConstitutionBinding::bind)

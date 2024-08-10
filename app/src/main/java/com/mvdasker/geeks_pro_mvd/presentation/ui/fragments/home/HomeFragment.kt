@@ -14,7 +14,9 @@ import com.mvdasker.geeks_pro_mvd.databinding.FragmentHomeBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.adapters.NewsAdapter
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.viewmodel.HomeViewModel
 import com.mvdasker.geeks_pro_mvd.utils.ext.UiState
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private val adapter = NewsAdapter(::onClick)

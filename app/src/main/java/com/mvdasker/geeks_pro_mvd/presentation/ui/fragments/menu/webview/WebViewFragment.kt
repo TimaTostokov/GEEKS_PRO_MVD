@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import android.webkit.WebViewClient
 import androidx.navigation.fragment.navArgs
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentWebViewBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class WebViewFragment : Fragment() {
 
     private var _binding: FragmentWebViewBinding? = null

@@ -1,7 +1,10 @@
 package com.mvdasker.geeks_pro_mvd.data.remote.model.mangements
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Governance(
     @SerializedName("id")
     val id: Int,
@@ -13,4 +16,4 @@ data class Governance(
     val name: String,
     @SerializedName("job_tittle")
     val jobTittle: String,
-)
+): Parcelable
