@@ -34,6 +34,7 @@ class NotificationsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.fNotifList.adapter = adapter
         binding.fNotifList.layoutManager = LinearLayoutManager(requireContext())
 
@@ -61,4 +62,5 @@ class NotificationsFragment : Fragment() {
 
     private fun onError() {
     }
+
 }

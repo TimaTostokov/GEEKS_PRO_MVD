@@ -1,5 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mvdasker.geeks_pro_mvd.data.repositories.NotificationRepository
@@ -28,6 +29,7 @@ class NotificationsViewModel @Inject constructor(private val notificationReposit
     private var result = mutableListOf<NotificationItem>()
     private val calendarPrev = Calendar.getInstance()
     private val calendarNext = Calendar.getInstance()
+    @SuppressLint("SimpleDateFormat")
     private val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
 
     init {
@@ -84,7 +86,6 @@ class NotificationsViewModel @Inject constructor(private val notificationReposit
         }
     }
 }
-
 
 data class NotificationState(
     val error: String? = null,

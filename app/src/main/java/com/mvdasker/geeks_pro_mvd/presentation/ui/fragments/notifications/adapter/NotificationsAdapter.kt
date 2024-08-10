@@ -13,7 +13,7 @@ import com.mvdasker.geeks_pro_mvd.databinding.ItemNotificationBinding
 import com.mvdasker.geeks_pro_mvd.databinding.ItemNotificationMonthBinding
 import com.mvdasker.geeks_pro_mvd.utils.ext.formatDate
 
-class NotificationsAdapter() :
+class NotificationsAdapter :
     ListAdapter<NotificationItem, RecyclerView.ViewHolder>(NotificationDiffCallback) {
 
     override fun getItemViewType(position: Int): Int = when (getItem(position)) {
@@ -93,7 +93,9 @@ class NotificationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 }
 
 sealed interface NotificationItem {
+
     data class MonthItem(val month: Int) : NotificationItem
+
     data class Notification(
         val id: Int,
         val title: String,
@@ -102,4 +104,5 @@ sealed interface NotificationItem {
         val isRead: Boolean,
         val category: String
     ) : NotificationItem
+
 }

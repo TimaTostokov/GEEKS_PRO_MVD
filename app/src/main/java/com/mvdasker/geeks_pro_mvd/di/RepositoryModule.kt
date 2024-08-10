@@ -33,4 +33,5 @@ object RepositoryModule {
 
     @Provides
     fun provideAppDispatchers(): AppDispatchers = AppDispatchers()
+
 }

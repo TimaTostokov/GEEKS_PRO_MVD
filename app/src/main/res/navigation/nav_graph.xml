@@ -14,6 +14,7 @@
         <action
             android:id="@+id/action_splashFragment_to_authorizationFragment"
             app:destination="@id/authorizationFragment"
+            app:enterAnim="@anim/from_right"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
 
@@ -28,6 +29,7 @@
         <action
             android:id="@+id/action_authorizationFragment_to_homeFragment"
             app:destination="@id/homeFragment"
+            app:enterAnim="@anim/from_right"
             app:popUpTo="@id/authorizationFragment"
             app:popUpToInclusive="true" />
 
@@ -42,6 +44,7 @@
         <action
             android:id="@+id/action_homeFragment_to_newsFragment"
             app:destination="@id/newsFragment" />
+
         <action
             android:id="@+id/action_homeFragment_to_notificationsFragment"
             app:destination="@id/notificationsFragment" />
@@ -55,7 +58,8 @@
 
         <argument
             android:name="model"
-            app:argType="com.mvdasker.geeks_pro_mvd.data.remote.model.news.DataItem" />
+            app:argType="com.mvdasker.geeks_pro_mvd.data.remote.model.DataItem" />
+
         <action
             android:id="@+id/action_newsFragment_to_notificationsFragment"
             app:destination="@id/notificationsFragment" />
@@ -70,11 +74,13 @@
 
         <action
             android:id="@+id/action_libraryFragment_to_searchFragment"
+            app:enterAnim="@anim/from_bottom"
             app:destination="@id/searchFragment" />
 
         <action
             android:id="@+id/action_libraryFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+
         <action
             android:id="@+id/action_libraryFragment_to_notificationsFragment"
             app:destination="@id/notificationsFragment" />
@@ -89,6 +95,7 @@
 
         <action
             android:id="@+id/action_documentsFragment_to_lawFragment"
+            app:enterAnim="@anim/from_right"
             app:destination="@id/lawFragment" />
 
         <action
@@ -97,7 +104,9 @@
 
         <action
             android:id="@+id/action_documentsFragment_to_constitutionFragment"
+            app:enterAnim="@anim/from_right"
             app:destination="@id/constitutionFragment" />
+
         <action
             android:id="@+id/action_documentsFragment_to_notificationsFragment"
             app:destination="@id/notificationsFragment" />
@@ -143,11 +152,20 @@
             app:destination="@id/controlMIAKRFragment" />
 
         <action
-            android:id="@+id/action_menuFragment_to_trafficRulesFragment"
-            app:destination="@id/trafficRulesFragment" />
-        <action
-            android:id="@+id/action_menuFragment_to_managementKgFragment"
-            app:destination="@id/managementKgFragment" />
+            android:id="@+id/action_menuFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.webview.WebViewFragment"
+        android:label="fragment_web_view"
+        tools:layout="@layout/fragment_web_view" >
+
+        <argument
+            android:name="url"
+            app:argType="string" />
 
     </fragment>
 
@@ -159,13 +177,13 @@
 
     <fragment
         android:id="@+id/controlKRFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.kg.ControlKRFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.ControlKRFragment"
         android:label="fragment_control_k_r"
         tools:layout="@layout/fragment_control_k_r" />
 
     <fragment
         android:id="@+id/controlITMIAKRFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.ControlITMIAKRFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.ControlITMIAKRFragment"
         android:label="fragment_control_i_t_m_i_a_k_r"
         tools:layout="@layout/fragment_control_i_t_m_i_a_k_r" />
 
@@ -176,16 +194,10 @@
         tools:layout="@layout/fragment_control_m_i_a_k_r" />
 
     <fragment
-        android:id="@+id/trafficRulesFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.trafficrules.TrafficRulesFragment"
-        android:label="fragment_traffic_rules"
-        tools:layout="@layout/fragment_traffic_rules" />
-
-    <fragment
         android:id="@+id/searchFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_search">
 
         <action
             android:id="@+id/action_searchFragment_to_detailFragment"
@@ -197,14 +209,16 @@
         android:id="@+id/detailFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.detail.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" >
+        tools:layout="@layout/fragment_detail">
 
-    <argument
-        android:name="model"
-        app:argType="com.mvdasker.geeks_pro_mvd.data.remote.model.labrary.NotePro"/>
+        <argument
+            android:name="model"
+            app:argType="com.mvdasker.geeks_pro_mvd.data.remote.model.NotePro" />
+
         <action
             android:id="@+id/action_detailFragment_to_notificationsFragment"
             app:destination="@id/notificationsFragment" />
+
     </fragment>
 
     <fragment
@@ -212,10 +226,5 @@
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications.NotificationsFragment"
         android:label="fragment_notifications"
         tools:layout="@layout/fragment_notifications" />
-    <fragment
-        android:id="@+id/managementKgFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.management.kg.ManagementKgFragment"
-        android:label="fragment_management_kg"
-        tools:layout="@layout/fragment_management_kg" />
 
 </navigation>
