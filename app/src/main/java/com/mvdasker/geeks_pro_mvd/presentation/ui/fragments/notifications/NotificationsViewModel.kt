@@ -61,11 +61,12 @@ class NotificationsViewModel @Inject constructor(private val notificationReposit
                     result.add(
                         NotificationItem.Notification(
                             id = notification.id,
+                            month = notification.month,
+                            selection = notification.selection,
                             title = notification.title,
                             description = notification.description,
                             createAt = notification.createAt,
                             isRead = notification.isRead,
-                            category = "",
                         )
                     )
                 }

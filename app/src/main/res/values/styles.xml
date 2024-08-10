@@ -52,4 +52,8 @@
         <item name="cardElevation">5dp</item>
     </style>
 
+    <style name="progressBarBlue" parent="@style/Theme.AppCompat">
+        <item name="colorAccent">@color/dark_blue</item>
+    </style>
+
 </resources>

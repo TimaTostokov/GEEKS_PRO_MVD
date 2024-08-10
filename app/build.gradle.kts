@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.kapt)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.hiltCompiler)
     alias(libs.plugins.navsafeargs)
     id("kotlin-parcelize")
@@ -44,7 +44,7 @@ android {
 
 dependencies {
 
-    kapt(libs.hilt.android.compiler)
+    ksp(libs.hilt.android.compiler)
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation)
 
@@ -80,5 +80,5 @@ dependencies {
 
     implementation(libs.circleimageview)
     // Glide
-    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation(libs.glide)
 }

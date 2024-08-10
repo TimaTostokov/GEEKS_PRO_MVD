@@ -8,6 +8,8 @@ import java.io.Serializable
 @Parcelize
 data class Notification(
     val id: Int,
+    val month:String,
+    val selection:String,
     val title: String,
     val description: String,
     @SerializedName("created_at")

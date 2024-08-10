@@ -61,7 +61,7 @@ class NotificationsAdapter :
                         && oldItem.description == newItem.description
                         && oldItem.createAt == newItem.createAt
                         && oldItem.isRead == newItem.isRead
-                        && oldItem.category == newItem.category
+                        && oldItem.selection == newItem.selection
 
                 return monthItem || notificationsItem
             }
@@ -87,7 +87,7 @@ class NotificationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         binding.itemNotifDate.text = formatDate(notification.createAt)
         binding.itemNotifTitle.text = notification.title
         binding.itemNotifDescription.text = Html.fromHtml(notification.description)
-        binding.itemNotifCategory.text = notification.category
+        binding.itemNotifSelection.text = notification.selection
         binding.itemNotifNotReadCircle.isVisible = !notification.isRead
     }
 }
@@ -98,11 +98,12 @@ sealed interface NotificationItem {
 
     data class Notification(
         val id: Int,
+        val month:String,
+        val selection:String,
         val title: String,
         val description: String,
         val createAt: String,
         val isRead: Boolean,
-        val category: String
     ) : NotificationItem
 
 }
