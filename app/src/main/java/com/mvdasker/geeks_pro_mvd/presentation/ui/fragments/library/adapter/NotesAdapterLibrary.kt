@@ -28,8 +28,8 @@ class NotesAdapterLibrary(val onClick: (NotePro) -> Unit) :
         }
 
         fun onBind(note: NotePro) = with(binding) {
-            tvTitle.text = highlightText(note.title, searchQuery)
-            tvDescription.text = highlightText(note.description, searchQuery)
+            tvTitle.text = note.title?.let { highlightText(it, searchQuery) }
+            tvDescription.text = note.description?.let { highlightText(it, searchQuery) }
         }
 
         private fun highlightText(text: String, query: String): SpannableString {

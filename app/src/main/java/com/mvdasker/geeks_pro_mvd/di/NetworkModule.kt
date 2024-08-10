@@ -1,7 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.di
 
 import com.mvdasker.geeks_pro_mvd.data.remote.apiservice.SanaripAskerApi
-import com.mvdasker.geeks_pro_mvd.utils.AppDispatchers
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

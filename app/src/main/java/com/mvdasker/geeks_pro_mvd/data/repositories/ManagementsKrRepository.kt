@@ -2,8 +2,8 @@ package com.mvdasker.geeks_pro_mvd.data.repositories
 
 import com.mvdasker.geeks_pro_mvd.data.remote.apiservice.SanaripAskerApi
 import com.mvdasker.geeks_pro_mvd.data.remote.model.mangements.Governance
-import com.mvdasker.geeks_pro_mvd.utils.AppDispatchers
-import com.mvdasker.geeks_pro_mvd.utils.Either
+import com.mvdasker.geeks_pro_mvd.common.AppDispatchers
+import com.mvdasker.geeks_pro_mvd.common.Either
 import com.mvdasker.geeks_pro_mvd.utils.base.BaseRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
@@ -27,6 +27,7 @@ class ManagementsKrRepository @Inject constructor(
             sanaripAskerApi.fetchConstitutionsVVKr()
         }.flowOn(dispatchers.io)
     }
+
     fun getData():List<Governance> {
         getData.add(
             Governance(
@@ -38,4 +39,5 @@ class ManagementsKrRepository @Inject constructor(
             ))
         return getData
     }
+
 }

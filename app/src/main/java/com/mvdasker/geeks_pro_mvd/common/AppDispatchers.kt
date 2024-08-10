@@ -1,4 +1,4 @@
-package com.mvdasker.geeks_pro_mvd.utils
+package com.mvdasker.geeks_pro_mvd.common
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers

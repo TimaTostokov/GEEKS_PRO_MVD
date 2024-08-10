@@ -5,7 +5,7 @@ import com.mvdasker.geeks_pro_mvd.data.repositories.CharterRepository
 import com.mvdasker.geeks_pro_mvd.data.repositories.LawRepository
 import com.mvdasker.geeks_pro_mvd.data.repositories.ManagementsKrRepository
 import com.mvdasker.geeks_pro_mvd.data.repositories.NotificationRepository
-import com.mvdasker.geeks_pro_mvd.utils.AppDispatchers
+import com.mvdasker.geeks_pro_mvd.common.AppDispatchers
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

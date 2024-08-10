@@ -42,33 +42,49 @@ class NotificationsViewModel @Inject constructor(private val notificationReposit
                 val listNotifications = notificationRepository.getListNotifications()
                 listNotifications.forEach { notification ->
                     if (currentMonthDate.isEmpty()) {
-                        val substringBefore = notification.createAt.substringBefore(".")
-                        calendarPrev.time = sdf.parse(substringBefore) ?: error("unknown date")
+                        val substringBefore = notification.createAt?.substringBefore(".")
+                        calendarPrev.time = substringBefore?.let { sdf.parse(it) } ?: error("unknown date")
                         currentMonthDate = substringBefore
                         result.add(NotificationItem.MonthItem(calendarPrev.get(Calendar.MONTH)))
 
                     } else {
                         calendarPrev.time = sdf.parse(currentMonthDate) ?: error("unknown date")
 
-                        calendarNext.time = sdf.parse(notification.createAt.substringBefore("."))
+                        calendarNext.time = sdf.parse(notification.createAt?.substringBefore(".") ?: "")
                             ?: error("unknown date")
                         val nexMonth = calendarNext.get(Calendar.MONTH)
                         if (calendarPrev.get(Calendar.MONTH) != nexMonth) {
                             result.add(NotificationItem.MonthItem(nexMonth))
-                            currentMonthDate = notification.createAt
+                            currentMonthDate = notification.createAt.toString()
                         }
                     }
-                    result.add(
-                        NotificationItem.Notification(
-                            id = notification.id,
-                            month = notification.month,
-                            selection = notification.selection,
-                            title = notification.title,
-                            description = notification.description,
-                            createAt = notification.createAt,
-                            isRead = notification.isRead,
+                    notification.id?.let {
+                        notification.month?.let { it1 ->
+                            notification.selection?.let { it2 ->
+                                notification.title?.let { it3 ->
+                                    notification.createAt?.let { it4 ->
+                                        notification.description?.let { it5 ->
+                                            notification.isRead?.let { it6 ->
+                                                NotificationItem.Notification(
+                                                    id = it,
+                                                    month = it1,
+                                                    selection = it2,
+                                                    title = it3,
+                                                    description = it5,
+                                                    createAt = it4,
+                                                    isRead = it6,
+                                                )
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }?.let {
+                        result.add(
+                            it
                         )
-                    )
+                    }
                 }
                 _notifications.update {
                     val not = it.notifications.toMutableList()

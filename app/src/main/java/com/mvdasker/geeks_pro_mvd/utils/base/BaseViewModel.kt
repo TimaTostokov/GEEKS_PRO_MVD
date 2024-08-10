@@ -2,20 +2,18 @@ package com.mvdasker.geeks_pro_mvd.utils.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mvdasker.geeks_pro_mvd.utils.Either
-import com.mvdasker.geeks_pro_mvd.utils.ext.UiState
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.mvdasker.geeks_pro_mvd.common.Either
+import com.mvdasker.geeks_pro_mvd.common.UiState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
-@HiltViewModel
 abstract class BaseViewModel : ViewModel() {
 
     protected open fun <T> Flow<Either<Throwable, T>>.collectFlowAsState(
         state: MutableStateFlow<UiState<T>>,
 
-    ) {
+        ) {
         viewModelScope.launch {
             this@collectFlowAsState.collect {
                 when (it) {

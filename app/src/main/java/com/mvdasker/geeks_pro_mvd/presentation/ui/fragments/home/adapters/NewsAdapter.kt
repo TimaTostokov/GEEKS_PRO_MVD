@@ -25,7 +25,7 @@ class NewsAdapter(private val onClick: (DataItem) -> Unit) :
             binding.ivItem.setImageResource(item.image[0])
             binding.tvData.text = item.data
             binding.tvUrgentNews.text = item.urgentNews
-            binding.tvDescription.text = item.tittle
+            binding.tvDescription.text = item.title
         }
     }
 

@@ -79,8 +79,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private fun searchCharacter(query: String) {
         val filteredList = notesList.filter { note ->
-            note.title.contains(query, ignoreCase = true) ||
-                    note.description.contains(query, ignoreCase = true)
+            note.title?.contains(query, ignoreCase = true) == true ||
+                    note.description?.contains(query, ignoreCase = true) == true
         }
         adapter.updateSearchQuery(query)
         adapter.submitList(filteredList)
