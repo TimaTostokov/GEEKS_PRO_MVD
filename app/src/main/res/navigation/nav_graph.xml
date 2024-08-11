@@ -178,7 +178,7 @@
 
     <fragment
         android:id="@+id/controlMIAKRFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.ControlMIAKRFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.mvd.ControlMIAKRFragment"
         android:label="fragment_control_m_i_a_k_r"
         tools:layout="@layout/fragment_control_m_i_a_k_r" />
 
