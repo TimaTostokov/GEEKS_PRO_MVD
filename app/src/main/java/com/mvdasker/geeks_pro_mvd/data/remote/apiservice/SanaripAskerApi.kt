@@ -11,6 +11,7 @@ private const val LAW_END_POINT = "docs/law/"
 private const val CHARTERS_END_POINT = "docs/charter/"
 private const val NOTIFICATION_END_POINT = "docs/notification/"
 private const val MANAGEMENT_VV_END_POINT = "docs/governance/vvmvdkr/"
+private const val MANAGEMENT_MVD_END_POINT = "docs/governance/mvdkr/"
 
 interface SanaripAskerApi {
 
@@ -28,4 +29,7 @@ interface SanaripAskerApi {
 
     @GET(MANAGEMENT_VV_END_POINT)
     suspend fun fetchConstitutionsVVKr(): List<Governance>
+
+    @GET(MANAGEMENT_MVD_END_POINT)
+    suspend fun fetchConstitutionsMVDKr():List<Governance>
 }

@@ -27,6 +27,11 @@ class ManagementsKrRepository @Inject constructor(
             sanaripAskerApi.fetchConstitutionsVVKr()
         }.flowOn(dispatchers.io)
     }
+    fun fetchConstitutionsMIAKr(): Flow<Either<Throwable, List<Governance>>>{
+        return  doRequest {
+            sanaripAskerApi.fetchConstitutionsMVDKr()
+        }
+    }
 
     fun getData():List<Governance> {
         getData.add(
