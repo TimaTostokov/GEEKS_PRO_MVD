@@ -79,7 +79,7 @@ object Extensions {
             activity?.window?.setFlags(
                 WindowManager.LayoutParams.FLAG_SECURE,
                 WindowManager.LayoutParams.FLAG_SECURE
-            );
+            )
         } else {
             activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
         }
@@ -103,7 +103,7 @@ inline fun <T> Fragment.observeData(
 fun formatDate(date: String): String {
     val originalFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
     val targetFormat = SimpleDateFormat("dd MMMM yyyy")
-    val date: Date = originalFormat.parse(date)!!
-    val formattedDate = targetFormat.format(date)
+    val data: Date = originalFormat.parse(date)!!
+    val formattedDate = targetFormat.format(data)
     return formattedDate
 }

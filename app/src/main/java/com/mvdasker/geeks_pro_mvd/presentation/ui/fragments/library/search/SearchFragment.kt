@@ -11,7 +11,9 @@ import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.data.remote.model.labrary.NotePro
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentSearchBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.adapter.NotesAdapterLibrary
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private var _binding: FragmentSearchBinding? = null
@@ -77,8 +79,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private fun searchCharacter(query: String) {
         val filteredList = notesList.filter { note ->
-            note.title.contains(query, ignoreCase = true) ||
-                    note.description.contains(query, ignoreCase = true)
+            note.title?.contains(query, ignoreCase = true) == true ||
+                    note.description?.contains(query, ignoreCase = true) == true
         }
         adapter.updateSearchQuery(query)
         adapter.submitList(filteredList)

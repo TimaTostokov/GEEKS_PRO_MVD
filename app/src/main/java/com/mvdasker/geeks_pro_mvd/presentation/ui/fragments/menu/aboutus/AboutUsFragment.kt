@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentAboutUsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AboutUsFragment : Fragment() {
 
     private var _binding: FragmentAboutUsBinding? = null

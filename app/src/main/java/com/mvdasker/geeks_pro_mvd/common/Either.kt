@@ -1,4 +1,4 @@
-package com.mvdasker.geeks_pro_mvd.utils
+package com.mvdasker.geeks_pro_mvd.common
 
 sealed class Either<out L, out R> {
     data class Left<out L>(val left: L? = null) : Either<L, Nothing>()

@@ -9,7 +9,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentNewsBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class NewsFragment : Fragment() {
 
     private var _binding: FragmentNewsBinding? = null

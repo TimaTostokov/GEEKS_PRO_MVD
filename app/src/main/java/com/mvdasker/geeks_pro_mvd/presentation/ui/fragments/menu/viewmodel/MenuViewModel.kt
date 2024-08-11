@@ -3,6 +3,7 @@ package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.MenuFragmentDirections
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

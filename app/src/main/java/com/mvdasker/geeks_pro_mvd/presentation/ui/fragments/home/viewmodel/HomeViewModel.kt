@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mvdasker.geeks_pro_mvd.data.remote.model.news.DataItem
 import com.mvdasker.geeks_pro_mvd.data.repositories.NewsRepository
-import com.mvdasker.geeks_pro_mvd.utils.ext.UiState
+import com.mvdasker.geeks_pro_mvd.common.UiState
 
 class HomeViewModel : ViewModel() {
 

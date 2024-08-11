@@ -66,4 +66,15 @@
         app:backgroundTint="@color/white"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
 
+    <FrameLayout
+        android:id="@+id/fNotifProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:visibility="gone">
+
+        <include layout="@layout/progress_bar" />
+
+    </FrameLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

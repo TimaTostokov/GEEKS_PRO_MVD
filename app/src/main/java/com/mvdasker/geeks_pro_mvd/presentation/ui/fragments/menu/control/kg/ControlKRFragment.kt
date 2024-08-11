@@ -9,7 +9,8 @@ import androidx.navigation.fragment.findNavController
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentControlKRBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.kg.adapter.ControlKgAdapter
-import com.mvdasker.geeks_pro_mvd.utils.ext.UiState
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.kg.viewmodel.ControlKgVIewModel
+import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint

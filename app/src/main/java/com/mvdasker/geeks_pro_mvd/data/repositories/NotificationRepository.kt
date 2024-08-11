@@ -9,53 +9,65 @@ class NotificationRepository @Inject constructor(private val sanaripAskerApi: Sa
     suspend fun getListNotifications(): List<Notification> {
         return sanaripAskerApi.getNotification()
 
-        @Suppress("UNREACHABLE_CODE") val list = listOf(
+        @Suppress("UNREACHABLE_CODE")
+        val listNotification = listOf(
             Notification(
                 0,
-                title = "test",
-                description = "text description",
+                title = "Давайте разбираться вместе: жизнь прекрасна ",
+                month = "month",
+                selection = "Документы",
+                description = "Но постоянный количественный рост и сфера нашей активности способстует подготовке и реализации распределения внутренних резервов и ресурсов",
                 createAt = "2024-07-27T12:15:21.044941Z",
                 isRead = false
             ),
             Notification(
                 0,
-                title = "test",
-                description = "text description",
+                title = "Давайте разбираться вместе: жизнь прекрасна ",
+                month = "month",
+                selection = "Библиотека",
+                description = "Но постоянный количественный рост и сфера нашей активности способстует подготовке и реализации распределения внутренних резервов и ресурсов",
                 createAt = "2024-07-27T12:15:21.044941Z",
                 isRead = false
             ),
             Notification(
                 0,
-                title = "test",
-                description = "text description",
+                title = "Давайте разбираться вместе: жизнь прекрасна ",
+                month = "month",
+                selection = "Документы",
+                description = "Но постоянный количественный рост и сфера нашей активности способстует подготовке и реализации распределения внутренних резервов и ресурсов",
                 createAt = "2024-06-27T12:15:21.044941Z",
                 isRead = true
             ),
 
             Notification(
                 0,
-                title = "test",
-                description = "text description",
+                title = "Давайте разбираться вместе: жизнь прекрасна ",
+                month = "month",
+                selection = "Библиотека",
+                description = "Но постоянный количественный рост и сфера нашей активности способстует подготовке и реализации распределения внутренних резервов и ресурсов",
                 createAt = "2024-06-27T12:15:21.044941Z",
                 isRead = true
             ),
 
             Notification(
                 0,
-                title = "test",
-                description = "text description",
+                title = "Давайте разбираться вместе: жизнь прекрасна ",
+                month = "month",
+                selection = "Библиотека",
+                description = "Но постоянный количественный рост и сфера нашей активности способстует подготовке и реализации распределения внутренних резервов и ресурсов",
                 createAt = "2024-05-27T12:15:21.044941Z",
                 isRead = true
             ),
             Notification(
                 0,
-                title = "test",
-                description = "text description",
+                title = "Давайте разбираться вместе: жизнь прекрасна ",
+                month = "month",
+                selection = "Документы",
+                description = "Но постоянный количественный рост и сфера нашей активности способстует подготовке и реализации распределения внутренних резервов и ресурсов",
                 createAt = "2024-05-27T12:15:21.044941Z",
                 isRead = true
             )
         )
-        @Suppress("UNREACHABLE_CODE")
-        return list
+        return listNotification
     }
 }

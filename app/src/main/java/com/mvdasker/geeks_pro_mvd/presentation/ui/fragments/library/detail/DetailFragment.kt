@@ -9,7 +9,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentDetailBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class DetailFragment : Fragment() {
 
     private var _binding: FragmentDetailBinding? = null
@@ -44,7 +46,7 @@ class DetailFragment : Fragment() {
     }
 
     private fun initialize() {
-        binding.ivPhoto.setImageResource(args.model.image)
+        args.model.image?.let { binding.ivPhoto.setImageResource(it) }
         binding.tvTextAsker.text = args.model.text
     }
 

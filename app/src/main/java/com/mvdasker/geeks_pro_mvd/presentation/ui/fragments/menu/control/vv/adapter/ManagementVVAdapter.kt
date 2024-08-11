@@ -22,7 +22,7 @@ class ManagementVVAdapter :
 
         fun bind(item: Governance) {
             binding.itemName.text = item.name
-            binding.tvData.text = highlightText(item.category, searchQuery)
+            binding.tvData.text = item.category?.let { highlightText(it, searchQuery) }
             Glide.with(itemView.context).load(item.photo).into(binding.imView)
         }
     }

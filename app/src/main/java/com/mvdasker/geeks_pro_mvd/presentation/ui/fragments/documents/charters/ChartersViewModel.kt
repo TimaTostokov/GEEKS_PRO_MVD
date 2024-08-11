@@ -1,10 +1,10 @@
-package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.statutes
+package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.charters
 
 import androidx.lifecycle.viewModelScope
 import com.mvdasker.geeks_pro_mvd.data.remote.model.charter.Charter
 import com.mvdasker.geeks_pro_mvd.data.repositories.CharterRepository
 import com.mvdasker.geeks_pro_mvd.utils.base.BaseViewModel
-import com.mvdasker.geeks_pro_mvd.utils.ext.UiState
+import com.mvdasker.geeks_pro_mvd.common.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -35,4 +35,5 @@ class ChartersViewModel @Inject constructor(private val charterRepository: Chart
             }
         }
     }
+
 }

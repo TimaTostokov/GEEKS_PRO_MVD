@@ -1,7 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.di
 
 import com.mvdasker.geeks_pro_mvd.data.remote.apiservice.SanaripAskerApi
-import com.mvdasker.geeks_pro_mvd.utils.AppDispatchers
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,10 +32,12 @@ object NetworkModule {
         .build()
 
     @Provides
+    @Singleton
     fun provideConverterFactory(): GsonConverterFactory =
         GsonConverterFactory.create()
 
     @Provides
+    @Singleton
     fun provideRetrofit(gsonConverterFactory: GsonConverterFactory): Retrofit =
         Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -44,6 +45,7 @@ object NetworkModule {
             .build()
 
     @Provides
+    @Singleton
     fun provideApi(retrofit: Retrofit): SanaripAskerApi =
         retrofit.create(SanaripAskerApi::class.java)
 }

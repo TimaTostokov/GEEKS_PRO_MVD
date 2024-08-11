@@ -1,4 +1,4 @@
-package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.statutes.adapter
+package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.charters.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -18,11 +18,11 @@ class CharterAdapter : RecyclerView.Adapter<CharterViewHolder>() {
         return CharterViewHolder(view)
     }
 
-    override fun getItemCount(): Int = listCharters.size
-
     override fun onBindViewHolder(holder: CharterViewHolder, position: Int) {
         holder.bindCharter(listCharters[position])
     }
+
+    override fun getItemCount(): Int = listCharters.size
 
     @SuppressLint("NotifyDataSetChanged")
     fun addCharters(charter: List<Charter>) {
@@ -38,4 +38,5 @@ class CharterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bindCharter(charter: Charter) = with(binding) {
         binding.itemDateOfCharter.text = charter.title
     }
+
 }

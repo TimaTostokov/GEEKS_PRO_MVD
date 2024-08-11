@@ -9,7 +9,7 @@
     <string name="goInto">Войти</string>
     <string name="a_za_z0_9_6" tools:ignore="TypographyDashes">^[a-zA-Z0-9.@]{6,}$</string>
     <string name="a_za_z0_9_6_" tools:ignore="TypographyDashes">^[a-zA-Z0-9]{6,}$</string>
-    <string name="MainHome">Главная</string>
+    <string name="MainHome">Новости</string>
     <string name="Library">Библиотека</string>
     <string name="Documents">Документы</string>
     <string name="MenuOthers">Меню</string>
