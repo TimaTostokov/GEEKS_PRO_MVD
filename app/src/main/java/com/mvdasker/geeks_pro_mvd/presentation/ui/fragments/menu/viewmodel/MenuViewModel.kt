@@ -16,6 +16,13 @@ class MenuViewModel : ViewModel() {
     private val _selectedButtonId = MutableStateFlow<Int?>(null)
     val selectedButtonId: StateFlow<Int?> get() = _selectedButtonId.asStateFlow()
 
+    private val _selectedFragment = MutableStateFlow<Int?>(null)
+    val selectedFragment: StateFlow<Int?> get() = _selectedFragment
+
+    fun setSelectedFragment(fragmentId: Int) {
+        _selectedFragment.value = fragmentId
+    }
+
     fun setNavController(navController: NavController) {
         _navController = navController
     }
@@ -48,11 +55,6 @@ class MenuViewModel : ViewModel() {
         if (isChecked) {
             setSelectedButtonId(checkedId)
         }
-    }
-
-    fun onClickAboutUsButton() {
-        val action = MenuFragmentDirections.actionMenuFragmentToAboutUsFragment()
-        navController.navigate(action)
     }
 
     fun onClickControlKRButton() {

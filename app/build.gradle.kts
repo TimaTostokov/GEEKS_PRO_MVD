@@ -80,5 +80,7 @@ dependencies {
 
     implementation(libs.circleimageview)
 
+    implementation(libs.advrecyclerview)
+
     implementation(libs.glide)
 }
