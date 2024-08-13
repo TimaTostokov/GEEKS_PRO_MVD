@@ -136,10 +136,6 @@
         tools:layout="@layout/fragment_menu">
 
         <action
-            android:id="@+id/action_menuFragment_to_aboutUsFragment"
-            app:destination="@id/aboutUsFragment" />
-
-        <action
             android:id="@+id/action_menuFragment_to_controlKRFragment"
             app:destination="@id/controlKRFragment" />
 
@@ -154,6 +150,15 @@
         <action
             android:id="@+id/action_menuFragment_to_webViewFragment"
             app:destination="@id/webViewFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_historyOfKyrgyzstanFragment"
+            app:destination="@id/historyOfKyrgyzstanFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_historyMVDKRFragment"
+            app:destination="@id/historyMVDKRFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_historyVVMVDKRFragment"
+            app:destination="@id/historyVVMVDKRFragment" />
 
     </fragment>
 
@@ -226,5 +231,20 @@
         android:id="@+id/controlITMIAKRFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.ControlITMIAKRFragment"
         android:label="ControlITMIAKRFragment" />
+    <fragment
+        android:id="@+id/historyMVDKRFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.aboutus.content.HistoryMVDKRFragment"
+        android:label="fragment_history_m_v_d_k_r"
+        tools:layout="@layout/fragment_history_m_v_d_k_r" />
+    <fragment
+        android:id="@+id/historyOfKyrgyzstanFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.aboutus.content.HistoryOfKyrgyzstanFragment"
+        android:label="fragment_history_of_kyrgyzstan"
+        tools:layout="@layout/fragment_history_of_kyrgyzstan" />
+    <fragment
+        android:id="@+id/historyVVMVDKRFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.aboutus.content.HistoryVVMVDKRFragment"
+        android:label="fragment_history_v_v_m_v_d_k_r"
+        tools:layout="@layout/fragment_history_v_v_m_v_d_k_r" />
 
 </navigation>

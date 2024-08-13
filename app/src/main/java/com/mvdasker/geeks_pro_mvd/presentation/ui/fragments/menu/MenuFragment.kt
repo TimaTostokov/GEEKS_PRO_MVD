@@ -5,13 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentMenuBinding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.data.remote.model.parent.ParentModel
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.aboutus.content.HistoryAdapter
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.viewmodel.MenuViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -23,6 +27,8 @@ class MenuFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: MenuViewModel by viewModels()
+
+    private var isRecyclerViewVisible = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,15 +42,43 @@ class MenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.setNavController(findNavController())
+        binding.recyclerView.isVisible = false
+        binding.line.isVisible = isRecyclerViewVisible
 
         initListeners()
         setupClickListeners()
+        setupRecyclerView()
         openBrowser()
 
         lifecycleScope.launch {
             viewModel.selectedButtonId.collect { selectedId ->
                 selectedId?.let { updateButtonState(it) }
             }
+        }
+    }
+
+    private fun setupRecyclerView() {
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        val historyAdapter = HistoryAdapter(getSampleData(), this::onClicker)
+        binding.recyclerView.adapter = historyAdapter
+    }
+
+    private fun getSampleData(): List<ParentModel> {
+        return listOf(
+            ParentModel("История Кыргызстана"),
+            ParentModel("История ВВ МВД КР"),
+            ParentModel("История МВД КР")
+        )
+    }
+
+    private fun onClicker(position: Int){
+        when (position) {
+            0 -> {findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToHistoryOfKyrgyzstanFragment())
+                isRecyclerViewVisible = false}
+            1 -> {findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToHistoryVVMVDKRFragment())
+                isRecyclerViewVisible = false}
+            2 -> {findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToHistoryMVDKRFragment())
+                isRecyclerViewVisible = false}
         }
     }
 
@@ -86,7 +120,14 @@ class MenuFragment : Fragment() {
     private fun initListeners() {
         binding.apply {
             aboutUsButton.setOnClickListener {
-                viewModel.onClickAboutUsButton()
+                isRecyclerViewVisible = !isRecyclerViewVisible
+                binding.recyclerView.isVisible = isRecyclerViewVisible
+                binding.line.isVisible = isRecyclerViewVisible
+                if (isRecyclerViewVisible) {
+                    binding.spinner.setImageResource(R.drawable.spinner_icon)
+                }else{
+                    binding.spinner.setImageResource(R.drawable.spinner_icon2)
+                }
             }
             controlKRButton.setOnClickListener {
                 viewModel.onClickControlKRButton()
