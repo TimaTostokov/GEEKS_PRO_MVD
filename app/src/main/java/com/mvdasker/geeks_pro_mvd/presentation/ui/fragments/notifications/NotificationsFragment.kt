@@ -10,6 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentNotificationsBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications.adapter.NotificationsAdapter
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
 import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,21 +48,15 @@ class NotificationsFragment : Fragment() {
             binding.fNotifList.smoothScrollToPosition(0)
         }
 
-        observeData(viewModel.notification) { uiState ->
-            if (uiState.isLoading) {
-                onLoading()
-            } else if (uiState.error != null) {
-                onError()
+        observeData(viewModel.notification) { notificationState ->
+            if (notificationState.isLoading) {
+                binding.fNotifProgressBar.visible()
+            } else if (notificationState.error != null) {
+                error("Loading Error")
             } else {
-                adapter.submitList(uiState.notifications)
+                adapter.submitList(notificationState.notifications)
+                binding.fNotifProgressBar.gone()
             }
         }
     }
-
-    private fun onLoading() {
-    }
-
-    private fun onError() {
-    }
-
 }
