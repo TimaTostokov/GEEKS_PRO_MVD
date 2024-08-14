@@ -5,5 +5,5 @@ import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications.adapte
 data class NotificationState(
     val error: String? = null,
     val notifications: List<NotificationItem> = mutableListOf(),
-    val isLoading: Boolean = true,
+    val isLoading: Boolean = false,
 )
