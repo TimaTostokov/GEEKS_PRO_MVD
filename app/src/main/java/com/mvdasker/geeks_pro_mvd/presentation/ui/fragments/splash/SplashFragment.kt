@@ -21,7 +21,7 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
         super.onViewCreated(view, savedInstanceState)
         Handler(Looper.getMainLooper()).postDelayed({
             findNavController().navigate(R.id.action_splashFragment_to_authorizationFragment)
-        }, 1400)
+        }, 1500)
 
         activity?.window?.let { window ->
             window.navigationBarColor = ContextCompat.getColor(requireContext(), R.color.white)

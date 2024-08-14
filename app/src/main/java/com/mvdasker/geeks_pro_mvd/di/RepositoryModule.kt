@@ -1,11 +1,13 @@
 package com.mvdasker.geeks_pro_mvd.di
 
+import com.mvdasker.geeks_pro_mvd.common.AppDispatchers
 import com.mvdasker.geeks_pro_mvd.data.remote.apiservice.SanaripAskerApi
+import com.mvdasker.geeks_pro_mvd.data.repositories.AuthorizationRepository
 import com.mvdasker.geeks_pro_mvd.data.repositories.CharterRepository
 import com.mvdasker.geeks_pro_mvd.data.repositories.LawRepository
+import com.mvdasker.geeks_pro_mvd.data.repositories.LibraryRepository
 import com.mvdasker.geeks_pro_mvd.data.repositories.ManagementsKrRepository
 import com.mvdasker.geeks_pro_mvd.data.repositories.NotificationRepository
-import com.mvdasker.geeks_pro_mvd.common.AppDispatchers
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,4 +42,13 @@ object RepositoryModule {
     @Singleton
     fun provideAppDispatchers(): AppDispatchers = AppDispatchers()
 
+    @Provides
+    @Singleton
+    fun provideLibraryRepository(sanaripAskerApi: SanaripAskerApi): LibraryRepository =
+        LibraryRepository(sanaripAskerApi)
+
+    @Provides
+    @Singleton
+    fun provideAuthorizationRepository(sanaripAskerApi: SanaripAskerApi): AuthorizationRepository =
+        AuthorizationRepository(sanaripAskerApi)
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF3B30</color>
@@ -7,6 +8,7 @@
     <color name="green">#34C759</color>
     <color name="white_blue">#51A0D5</color>
     <color name="dark_blue">#003669</color>
+    <color name="search_color">#03A9F4</color>
     <color name="gray">#a4a4a4</color>
     <color name="brown">#535353</color>
     <color name="statusBarC">#FFFFFF</color>
@@ -19,5 +21,6 @@
     <color name="light_gray">#F5F5F5</color>
     <color name="orange">#FF9500</color>
     <color name="color_date_notif">#414141</color>
+    <color name="design_default_color_error">#FF0E00</color>
 
 </resources>

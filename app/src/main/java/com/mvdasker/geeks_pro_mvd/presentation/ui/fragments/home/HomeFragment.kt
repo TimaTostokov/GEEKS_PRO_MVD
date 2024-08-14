@@ -19,10 +19,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private val adapter = NewsAdapter(::onClick)
-    private val viewModel by viewModels<HomeViewModel>()
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+
+    private val adapter = NewsAdapter(::onClick)
+
+    private val viewModel by viewModels<HomeViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,4 +68,5 @@ class HomeFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
 }

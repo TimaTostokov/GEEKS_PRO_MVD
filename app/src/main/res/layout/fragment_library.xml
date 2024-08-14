@@ -42,6 +42,7 @@
                 android:src="@drawable/bell" />
 
         </FrameLayout>
+
         <TextView
             android:id="@+id/et_search"
             android:layout_width="match_parent"
@@ -52,11 +53,11 @@
             android:layout_marginBottom="8dp"
             android:background="@drawable/rounder_search"
             android:drawablePadding="10dp"
-            android:padding="10dp"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:padding="14dp"
             android:text="@string/find"
             android:textColor="@color/black"
             android:textSize="18sp"
-            android:foreground="?attr/selectableItemBackgroundBorderless"
             app:drawableStartCompat="@drawable/search_line_sc" />
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -66,8 +67,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="8dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:paddingBottom="?attr/actionBarSize"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         tools:listitem="@layout/item_abstract" />
 

@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="4dp"
-            android:text="KG"
+            android:text="@string/kg"
             android:textColor="@color/dark_blue"
             android:textSize="16sp"
             app:backgroundTint="@color/white"
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="4dp"
-            android:text="RU"
+            android:text="@string/ru"
             android:textColor="@color/white"
             android:textSize="16sp"
             app:backgroundTint="@color/dark_blue"
@@ -66,8 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="13dp"
-            android:fontFamily="@font/roboto_bold"
+            android:layout_marginTop="14dp"
             android:padding="7dp"
             android:text="@string/authorization"
             android:textColor="@color/black"
@@ -91,18 +90,20 @@
             android:translationY="-2.62sp" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tILLogin"
             style="@style/CustomTextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="10dp"
+            android:textColorHint="#414141"
             app:boxCornerRadiusBottomEnd="12dp"
             app:boxCornerRadiusBottomStart="12dp"
             app:boxCornerRadiusTopEnd="12dp"
             app:boxCornerRadiusTopStart="12dp"
             app:boxStrokeColor="@color/dark_blue"
             app:endIconMode="clear_text"
-            app:hintTextColor="@color/dark_blue">
+            app:hintTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etUserLogin"
@@ -115,19 +116,32 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:id="@+id/errorLoginText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="Неверный логин"
+            android:textColor="@color/red"
+            android:visibility="gone" />
+
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tILPassword"
             style="@style/CustomTextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="10dp"
+            android:textColorHint="#414141"
             app:boxCornerRadiusBottomEnd="12dp"
             app:boxCornerRadiusBottomStart="12dp"
             app:boxCornerRadiusTopEnd="12dp"
             app:boxCornerRadiusTopStart="12dp"
             app:boxStrokeColor="@color/dark_blue"
+            app:endIconTint="#414141"
             app:endIconMode="password_toggle"
-            app:hintTextColor="@color/dark_blue">
+            app:hintTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etUserPasswords"
@@ -139,6 +153,16 @@
                 android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/errorPasswordText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="Неверный пароль"
+            android:textColor="@color/red"
+            android:visibility="gone" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnContinue"

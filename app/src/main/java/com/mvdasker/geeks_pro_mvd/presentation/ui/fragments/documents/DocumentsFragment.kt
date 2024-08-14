@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.common.Screen
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentDocumentsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -27,10 +28,15 @@ class DocumentsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         binding.layoutConstitution.setOnClickListener { navigateToScreen(Screen.Constitution) }
         binding.layoutLaw.setOnClickListener { navigateToScreen(Screen.Law) }
         binding.layoutStatutes.setOnClickListener { navigateToScreen(Screen.Statutes) }
         binding.fDocNotification.setOnClickListener { navigateToScreen(Screen.Notifications) }
+
+        binding.fDocUpBtn.setOnClickListener {
+            binding.nestedSvDocument.smoothScrollTo(0, 0)
+        }
     }
 
     private fun navigateToScreen(screen: Screen) {
@@ -40,13 +46,6 @@ class DocumentsFragment : Fragment() {
             Screen.Statutes -> findNavController().navigate(R.id.action_documentsFragment_to_statutesFragment)
             Screen.Notifications -> findNavController().navigate(R.id.action_documentsFragment_to_notificationsFragment)
         }
-    }
-
-    sealed class Screen {
-        data object Constitution : Screen()
-        data object Law : Screen()
-        data object Statutes : Screen()
-        data object Notifications : Screen()
     }
 
     override fun onDestroy() {

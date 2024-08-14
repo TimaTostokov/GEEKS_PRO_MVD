@@ -22,15 +22,12 @@ class ManagementsKrRepository @Inject constructor(
         }.flowOn(dispatchers.io)
     }
 
-    fun fetchConstitutionsVVKr(): Flow<Either<Throwable, List<Governance>>> {
-        return doRequest {
-            sanaripAskerApi.fetchConstitutionsVVKr()
-        }.flowOn(dispatchers.io)
+    suspend fun fetchConstitutionsVVKr(jobTittle: String? = null): List<Governance>{
+        return sanaripAskerApi.fetchConstitutionsVVKr(jobTittle)
     }
-    fun fetchConstitutionsMIAKr(): Flow<Either<Throwable, List<Governance>>>{
-        return  doRequest {
-            sanaripAskerApi.fetchConstitutionsMVDKr()
-        }
+
+    suspend fun fetchConstitutionsMIAKr(jobTittle: String? = null): List<Governance>{
+        return sanaripAskerApi.fetchConstitutionsMVDKr(jobTittle)
     }
 
     fun getData():List<Governance> {

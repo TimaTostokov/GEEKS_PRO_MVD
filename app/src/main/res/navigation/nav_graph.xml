@@ -14,7 +14,6 @@
         <action
             android:id="@+id/action_splashFragment_to_authorizationFragment"
             app:destination="@id/authorizationFragment"
-            app:enterAnim="@anim/from_right"
             app:popUpTo="@id/splashFragment"
             app:popUpToInclusive="true" />
 
@@ -29,7 +28,6 @@
         <action
             android:id="@+id/action_authorizationFragment_to_homeFragment"
             app:destination="@id/homeFragment"
-            app:enterAnim="@anim/from_right"
             app:popUpTo="@id/authorizationFragment"
             app:popUpToInclusive="true" />
 
@@ -150,12 +148,15 @@
         <action
             android:id="@+id/action_menuFragment_to_webViewFragment"
             app:destination="@id/webViewFragment" />
+
         <action
             android:id="@+id/action_menuFragment_to_historyOfKyrgyzstanFragment"
             app:destination="@id/historyOfKyrgyzstanFragment" />
+
         <action
             android:id="@+id/action_menuFragment_to_historyMVDKRFragment"
             app:destination="@id/historyMVDKRFragment" />
+
         <action
             android:id="@+id/action_menuFragment_to_historyVVMVDKRFragment"
             app:destination="@id/historyVVMVDKRFragment" />
@@ -180,12 +181,19 @@
         android:label="fragment_about_us"
         tools:layout="@layout/fragment_about_us" />
 
-
     <fragment
         android:id="@+id/controlMIAKRFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.mvd.ControlMIAKRFragment"
         android:label="fragment_control_m_i_a_k_r"
-        tools:layout="@layout/fragment_control_m_i_a_k_r" />
+        tools:layout="@layout/fragment_control_m_i_a_k_r">
+
+        <action
+            android:id="@+id/action_controlMIAKRFragment_to_searchControlFragment"
+            app:destination="@id/searchControlFragment"
+            app:popUpTo="@id/controlMIAKRFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/searchFragment"
@@ -207,7 +215,7 @@
 
         <argument
             android:name="model"
-            app:argType="com.mvdasker.geeks_pro_mvd.data.remote.model.labrary.NotePro" />
+            app:argType="com.mvdasker.geeks_pro_mvd.data.remote.model.library.Library" />
 
         <action
             android:id="@+id/action_detailFragment_to_notificationsFragment"
@@ -230,17 +238,54 @@
     <fragment
         android:id="@+id/controlITMIAKRFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.ControlITMIAKRFragment"
-        android:label="ControlITMIAKRFragment" />
+        android:label="ControlITMIAKRFragment">
+
+        <action
+            android:id="@+id/action_controlITMIAKRFragment_to_searchControlVVFragment"
+            app:destination="@id/searchControlVVFragment"
+            app:popUpTo="@id/controlITMIAKRFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchControlFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.mvd.search_mvd.SearchControlFragment"
+        android:label="fragment_search_control"
+        tools:layout="@layout/fragment_search_control" />
+
+    <fragment
+        android:id="@+id/searchControlVVFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.search_vv.SearchControlVVFragment"
+        android:label="fragment_search_control_v_v"
+        tools:layout="@layout/fragment_search_control_v_v" />
+
+    <fragment
+        android:id="@+id/techMalfunctionsFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.malfunctions.MalfunctionsFragment"
+        android:label="fragment_tech_malfunctions"
+        tools:layout="@layout/fragment_malfunctions">
+
+        <action
+            android:id="@+id/action_techMalfunctionsFragment_to_homeFragment"
+            app:destination="@id/authorizationFragment"
+            app:popUpTo="@id/techMalfunctionsFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
     <fragment
         android:id="@+id/historyMVDKRFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.aboutus.content.HistoryMVDKRFragment"
         android:label="fragment_history_m_v_d_k_r"
         tools:layout="@layout/fragment_history_m_v_d_k_r" />
+
     <fragment
         android:id="@+id/historyOfKyrgyzstanFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.aboutus.content.HistoryOfKyrgyzstanFragment"
         android:label="fragment_history_of_kyrgyzstan"
         tools:layout="@layout/fragment_history_of_kyrgyzstan" />
+
     <fragment
         android:id="@+id/historyVVMVDKRFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.aboutus.content.HistoryVVMVDKRFragment"

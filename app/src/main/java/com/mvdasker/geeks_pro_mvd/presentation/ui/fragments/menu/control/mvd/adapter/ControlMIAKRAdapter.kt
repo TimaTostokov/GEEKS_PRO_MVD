@@ -15,6 +15,7 @@ import com.mvdasker.geeks_pro_mvd.databinding.ItemManagementKgBinding
 
 class ControlMIAKRAdapter :
     ListAdapter<Governance, ControlMIAKRAdapter.ManagmentsKgViewHolder>(DiffUtilCallback()) {
+
     private var searchQuery: String = ""
 
     inner class ManagmentsKgViewHolder(private val binding: ItemManagementKgBinding) :

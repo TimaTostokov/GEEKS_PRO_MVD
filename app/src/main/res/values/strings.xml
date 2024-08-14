@@ -6,12 +6,15 @@
     <string name="notice">Если вы забыли логин или пароль, обратитесь к своему руководителю</string>
     <string name="Login">Логин</string>
     <string name="Password">Пароль</string>
+    <string name="login_error">Неверный логин</string>
+    <string name="password_error">Неверный пароль</string>
     <string name="goInto">Войти</string>
     <string name="a_za_z0_9_6" tools:ignore="TypographyDashes">^[a-zA-Z0-9.@]{6,}$</string>
     <string name="a_za_z0_9_6_" tools:ignore="TypographyDashes">^[a-zA-Z0-9]{6,}$</string>
     <string name="MainHome">Новости</string>
     <string name="Library">Библиотека</string>
     <string name="Documents">Документы</string>
+    <string name="cross">Отмена</string>
     <string name="MenuOthers">Меню</string>
     <string name="fragment_statutes_title">Уставы вооруженых сил КР</string>
     <string name="fragment_law_title">Закон “О статусе военнослужащих”</string>
@@ -85,6 +88,15 @@
     <string name="_12">12 результатов найдено</string>
     <string name="fragment_notification_title">Уведомления</string>
     <string name="management_mvd_kg">Руководство МВД КР</string>
+    <string name="ru">RU</string>
+    <string name="kg">KG</string>
+    <string name="kyrgyz_alert">Кыргызча</string>
+    <string name="russian_alert">Русский</string>
+    <string name="n_n">Выберите язык для \n продолжения, в дальнейшем вы \n всегда можете изменить его.</string>
+    <string name="n_n_n">Улантуу үчүн тилиңизди \n тандаңыз. Аны төмөндө өзгөртө \n аласыз.</string>
+    <string name="tech_error">Технические неполадки</string>
+    <string name="tech_text">Извините за неудобства, возникли технические неполадки в нашем приложении. Мы работаем над исправлением проблемы. Пожалуйста, попробуйте обновить приложение. Спасибо за ваше понимание!</string>
+    <string name="update">Обновить</string>
     <string-array name="months">
         <item>Январь</item>
         <item>Февраль</item>

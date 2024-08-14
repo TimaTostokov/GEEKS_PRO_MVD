@@ -5,17 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class DetailFragment : Fragment() {
 
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: DetailViewModel by viewModels()
+
     private val args by navArgs<DetailFragmentArgs>()
 
     override fun onCreateView(
@@ -46,8 +52,13 @@ class DetailFragment : Fragment() {
     }
 
     private fun initialize() {
-        args.model.image?.let { binding.ivPhoto.setImageResource(it) }
-        binding.tvTextAsker.text = args.model.text
+        viewModel.getNoteDetail(args.model.id.hashCode())
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.noteDetail.collect { note ->
+                note?.image?.let { binding.ivPhoto.setImageResource(it) }
+                binding.tvTextAsker.text = note?.conspect ?: ""
+            }
+        }
     }
 
 }

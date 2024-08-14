@@ -1,11 +1,19 @@
 package com.mvdasker.geeks_pro_mvd.utils.ext
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.FrameLayout
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
@@ -25,23 +33,43 @@ object Extensions {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
-    @SuppressLint("ShowToast")
-    fun Snackbar.showSnack(message: String) {
-        view.let {
-            Snackbar.make(it, message, Snackbar.LENGTH_INDEFINITE).apply {
-                setAction(context.getString(R.string.ok)) {
-                    dismiss()
-                }
-            }
+    fun Fragment.snackbar(msg: String) {
+        view?.apply {
+            Snackbar.make(this, msg, Snackbar.LENGTH_LONG).show()
         }
+    }
+
+    @SuppressLint("SetTextI18n", "InflateParams")
+    fun Context.showNoInternetSnackbar() {
+        val snackbarLayout =
+            LayoutInflater.from(this).inflate(R.layout.custom_snackbar_layout, null) as LinearLayout
+        val textView = snackbarLayout.findViewById<TextView>(R.id.snackbar_text)
+        textView.text =
+            "Сеть недоступна. Убедитесь, что Wi-Fi включен или мобильные данные активны."
+
+        val rootView = (this as Activity).findViewById<View>(android.R.id.content)
+        val snackbar = Snackbar.make(rootView, "", Snackbar.LENGTH_SHORT)
+        val snackbarView = snackbar.view as ViewGroup
+        snackbarView.removeAllViews()
+        snackbarView.addView(snackbarLayout, 0)
+
+        val params = snackbarView.layoutParams as FrameLayout.LayoutParams
+        params.width = ViewGroup.LayoutParams.MATCH_PARENT
+        params.setMargins(0, 0, 0, 0)
+        params.gravity = Gravity.TOP
+        snackbarView.layoutParams = params
+
+        snackbar.animationMode = Snackbar.ANIMATION_MODE_FADE
+        snackbarView.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
+        snackbar.show()
     }
 
     fun showAlertDialog(
         context: Context,
         title: String,
         message: String,
-        positiveButtonText: String = "Кыргызча",
-        negativeButtonText: String = "Русский",
+        positiveButtonText: String = "",
+        negativeButtonText: String = "",
         onPositiveButtonClick: (() -> Unit)? = null,
         onNegativeButtonClick: (() -> Unit)? = null
     ) {

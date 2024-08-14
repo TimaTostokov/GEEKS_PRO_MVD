@@ -44,6 +44,8 @@ android {
 
 dependencies {
 
+    implementation(libs.firebase.database.ktx)
+
     ksp(libs.hilt.android.compiler)
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation)
@@ -64,8 +66,7 @@ dependencies {
 
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.recyclerview)
-    implementation(libs.volley)
-    
+
     implementation(libs.okHttpClient)
     implementation(libs.logging.interceptor)
 

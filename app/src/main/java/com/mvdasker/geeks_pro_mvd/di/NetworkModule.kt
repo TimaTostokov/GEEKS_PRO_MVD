@@ -1,9 +1,14 @@
 package com.mvdasker.geeks_pro_mvd.di
 
+import android.content.Context
+import android.content.SharedPreferences
+import com.mvdasker.geeks_pro_mvd.common.Constants.BASE_URL
+import com.mvdasker.geeks_pro_mvd.common.Pref
 import com.mvdasker.geeks_pro_mvd.data.remote.apiservice.SanaripAskerApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -15,7 +20,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-    private const val BASE_URL = "http://16.171.160.120/api/v1/"
 
     @Provides
     @Singleton
@@ -48,4 +52,11 @@ object NetworkModule {
     @Singleton
     fun provideApi(retrofit: Retrofit): SanaripAskerApi =
         retrofit.create(SanaripAskerApi::class.java)
+
+    @Provides
+    @Singleton
+    fun providePreference(@ApplicationContext context: Context): SharedPreferences {
+        return context.getSharedPreferences(Pref.PREF_NAME, Context.MODE_PRIVATE)
+    }
+
 }
