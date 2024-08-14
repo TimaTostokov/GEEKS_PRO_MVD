@@ -41,6 +41,7 @@ class MenuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.setNavController(findNavController())
+
         binding.recyclerView.isVisible = false
         binding.line.isVisible = isRecyclerViewVisible
 

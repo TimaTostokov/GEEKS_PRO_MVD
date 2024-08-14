@@ -31,25 +31,11 @@ class HistoryAdapter(private var mList: List<ParentModel>, var onClick: (positio
     }
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
-        val languageData = mList[position]
         val history = mList[position]
         holder.bind(history)
 
         holder.itemView.setOnClickListener {
-            isAnyItemExpanded(position)
-            languageData.isExpandable = !languageData.isExpandable
-            notifyItemChanged(position, Unit)
             onClick(position)
-        }
-    }
-
-    private fun isAnyItemExpanded(position: Int) {
-        val temp = mList.indexOfFirst {
-            it.isExpandable
-        }
-        if (temp >= 0 && temp != position) {
-            mList[temp].isExpandable = false
-            notifyItemChanged(temp, 0)
         }
     }
 
