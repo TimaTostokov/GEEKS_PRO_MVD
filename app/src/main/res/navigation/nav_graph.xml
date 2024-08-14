@@ -72,8 +72,7 @@
 
         <action
             android:id="@+id/action_libraryFragment_to_searchFragment"
-            app:destination="@id/searchFragment"
-            app:enterAnim="@anim/from_bottom" />
+            app:destination="@id/searchFragment"/>
 
         <action
             android:id="@+id/action_libraryFragment_to_detailFragment"
