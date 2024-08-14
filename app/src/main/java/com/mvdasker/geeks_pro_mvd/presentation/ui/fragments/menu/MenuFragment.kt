@@ -16,7 +16,6 @@ import com.google.android.material.button.MaterialButton
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.data.remote.model.parent.ParentModel
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.aboutus.content.HistoryAdapter
-import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.viewmodel.MenuViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -119,7 +118,7 @@ class MenuFragment : Fragment() {
 
     private fun initListeners() {
         binding.apply {
-            aboutUsButton.setOnClickListener {
+            spinner.setOnClickListener {
                 isRecyclerViewVisible = !isRecyclerViewVisible
                 binding.recyclerView.isVisible = isRecyclerViewVisible
                 binding.line.isVisible = isRecyclerViewVisible
@@ -129,6 +128,7 @@ class MenuFragment : Fragment() {
                     binding.spinner.setImageResource(R.drawable.spinner_icon2)
                 }
             }
+
             controlKRButton.setOnClickListener {
                 viewModel.onClickControlKRButton()
             }

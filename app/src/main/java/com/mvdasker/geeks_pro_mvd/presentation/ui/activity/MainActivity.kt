@@ -6,7 +6,6 @@ import android.view.View
 import android.view.WindowInsetsController
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -33,20 +32,28 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
-        val fragmentsWithoutBottomNav = setOf(
+        val fragmentsWithBottomNav = setOf(
             R.id.homeFragment,
             R.id.libraryFragment,
             R.id.documentsFragment,
             R.id.menuFragment
         )
 
+        val fragmentWithoutBottomNav = setOf(
+            R.id.splashFragment,
+            R.id.authorizationFragment
+        )
+
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (!fragmentsWithoutBottomNav.contains(destination.id)) {
-                hideBottomNavigationView(navView)
-                supportActionBar?.hide()
-            } else {
+            val isFragmentWithoutBottomNav = fragmentWithoutBottomNav.contains(destination.id)
+            navView.visibility = if (isFragmentWithoutBottomNav) View.GONE else View.VISIBLE
+
+            if (fragmentsWithBottomNav.contains(destination.id)) {
                 showBottomNavigationView(navView)
                 supportActionBar?.show()
+            } else {
+                hideBottomNavigationView(navView)
+                supportActionBar?.hide()
             }
         }
 
@@ -85,4 +92,5 @@ class MainActivity : AppCompatActivity() {
         view.clearAnimation()
         view.animate().translationY(0f).setDuration(500)
     }
+
 }

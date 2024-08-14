@@ -1,0 +1,38 @@
+package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv
+
+import android.util.Log
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.mvdasker.geeks_pro_mvd.data.remote.model.mangements.Governance
+import com.mvdasker.geeks_pro_mvd.data.repositories.ManagementsKrRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import javax.inject.Inject
+
+@HiltViewModel
+class ControlITMIAKRViewModel @Inject constructor(private val repository: ManagementsKrRepository) :
+    ViewModel() {
+
+    private val _managementStateVv = MutableStateFlow<List<Governance>?>(null)
+    val managementVv: StateFlow<List<Governance>?> = _managementStateVv
+
+    init {
+        getControlVV()
+    }
+
+    private fun getControlVV(jobTitle: String? = null) {
+        viewModelScope.launch {
+            try {
+                val result = repository.fetchConstitutionsVVKr(jobTitle)
+                _managementStateVv.value = result
+                Log.e("control", "${_managementStateVv.value}")
+            } catch (e: Exception) {
+                _managementStateVv.value = emptyList()
+                Log.e("error", "Exception occurred: ${e.message}")
+            }
+        }
+    }
+
+}

@@ -38,7 +38,7 @@ class AboutUsFragment : Fragment() {
 
     private fun initListeners() {
         binding.btnBack.setOnClickListener {
-            findNavController().navigateUp()
+            findNavController().popBackStack()
         }
     }
 

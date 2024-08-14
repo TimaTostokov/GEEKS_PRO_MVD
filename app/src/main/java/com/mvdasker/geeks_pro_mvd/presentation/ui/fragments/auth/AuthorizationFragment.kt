@@ -2,13 +2,22 @@ package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.auth
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.button.MaterialButton
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentAuthorizationBinding
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.MenuViewModel
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.showToast
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.util.regex.Pattern
 
 @AndroidEntryPoint
@@ -16,9 +25,78 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
 
     private val binding by viewBinding(FragmentAuthorizationBinding::bind)
 
+    private val viewModel: MenuViewModel by viewModels()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (savedInstanceState == null) {
+            alertDialog()
+        }
+
         onContinueButtonClick()
+        setupClickListeners()
+
+        lifecycleScope.launch {
+            viewModel.selectedButtonId.collect { selectedId ->
+                selectedId?.let { updateButtonState(it) }
+            }
+        }
+
+        binding.etUserLogin.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                binding.tILLogin.boxStrokeColor =
+                    ContextCompat.getColor(requireContext(), R.color.dark_blue)
+                binding.errorLoginText.visibility = View.GONE
+            }
+        }
+        binding.etUserPasswords.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+                binding.tILPassword.boxStrokeColor =
+                    ContextCompat.getColor(requireContext(), R.color.dark_blue)
+                binding.errorPasswordText.visibility = View.GONE
+            }
+        }
+    }
+
+    private fun updateButtonState(checkedId: Int) {
+        setButtonState(binding.kgBtn, checkedId == R.id.kg_btn)
+        setButtonState(binding.ruBtn, checkedId == R.id.ru_btn)
+    }
+
+    private fun setButtonState(button: MaterialButton, isSelected: Boolean) {
+        if (isSelected) {
+            button.backgroundTintList =
+                ContextCompat.getColorStateList(requireContext(), R.color.dark_blue)
+            button.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
+        } else {
+            button.backgroundTintList =
+                ContextCompat.getColorStateList(requireContext(), R.color.white)
+            button.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_blue))
+        }
+    }
+
+    private fun setupClickListeners() {
+        binding.buttonToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            viewModel.onButtonToggleGroupCheckedChange(checkedId, isChecked)
+        }
+    }
+
+    private fun alertDialog() {
+        val builder = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog)
+            .create()
+        val view = layoutInflater.inflate(R.layout.change_language_alert_diaolog, null)
+        val buttonKg = view.findViewById<Button>(R.id.dialogButtonKg)
+        val buttonRu = view.findViewById<Button>(R.id.dialogButtonRu)
+        builder.setView(view)
+        buttonKg.setOnClickListener {
+            builder.dismiss()
+        }
+        buttonRu.setOnClickListener {
+            builder.dismiss()
+        }
+        builder.setCanceledOnTouchOutside(false)
+        builder.show()
     }
 
     private fun onContinueButtonClick() {
@@ -27,8 +105,9 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
             val password = binding.etUserPasswords.text.toString()
 
             if (validateInput(login, password)) {
-                showToast(requireContext(), "Successfully")
                 findNavController().navigate(R.id.action_authorizationFragment_to_homeFragment)
+            } else {
+                !validateInput(login, password)
             }
         }
     }
@@ -45,26 +124,28 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
 
             password.isEmpty() -> {
                 showToast(requireContext(), "Password must not be empty")
+                binding.tILPassword.boxStrokeColor =
+                    ContextCompat.getColor(requireContext(), R.color.red)
+                binding.errorPasswordText.visible()
                 false
             }
 
             !loginPattern.matcher(login).matches() -> {
-                showToast(
-                    requireContext(),
-                    "Логин должен быть больше 6 символов и содержать только английские буквы"
-                )
+                binding.tILLogin.boxStrokeColor =
+                    ContextCompat.getColor(requireContext(), R.color.red);
+                binding.errorLoginText.visible()
                 false
             }
 
             !passwordPattern.matcher(password).matches() -> {
-                showToast(
-                    requireContext(),
-                    "Пароль должен быть больше 6 символов и содержать только английские буквы и цифры"
-                )
+                binding.tILPassword.boxStrokeColor =
+                    ContextCompat.getColor(requireContext(), R.color.red);
+                binding.errorPasswordText.visible()
                 false
             }
 
             else -> true
         }
     }
+
 }

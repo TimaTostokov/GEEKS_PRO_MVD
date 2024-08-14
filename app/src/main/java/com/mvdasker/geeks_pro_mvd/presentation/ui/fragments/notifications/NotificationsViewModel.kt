@@ -3,6 +3,7 @@ package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications
 import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mvdasker.geeks_pro_mvd.data.remote.model.notification.NotificationState
 import com.mvdasker.geeks_pro_mvd.data.repositories.NotificationRepository
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications.adapter.NotificationItem
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,6 +30,7 @@ class NotificationsViewModel @Inject constructor(private val notificationReposit
     private var result = mutableListOf<NotificationItem>()
     private val calendarPrev = Calendar.getInstance()
     private val calendarNext = Calendar.getInstance()
+
     @SuppressLint("SimpleDateFormat")
     private val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
 
@@ -43,15 +45,17 @@ class NotificationsViewModel @Inject constructor(private val notificationReposit
                 listNotifications.forEach { notification ->
                     if (currentMonthDate.isEmpty()) {
                         val substringBefore = notification.createAt?.substringBefore(".")
-                        calendarPrev.time = substringBefore?.let { sdf.parse(it) } ?: error("unknown date")
+                        calendarPrev.time =
+                            substringBefore?.let { sdf.parse(it) } ?: error("unknown date")
                         currentMonthDate = substringBefore
                         result.add(NotificationItem.MonthItem(calendarPrev.get(Calendar.MONTH)))
 
                     } else {
                         calendarPrev.time = sdf.parse(currentMonthDate) ?: error("unknown date")
 
-                        calendarNext.time = sdf.parse(notification.createAt?.substringBefore(".") ?: "")
-                            ?: error("unknown date")
+                        calendarNext.time =
+                            sdf.parse(notification.createAt?.substringBefore(".") ?: "")
+                                ?: error("unknown date")
                         val nexMonth = calendarNext.get(Calendar.MONTH)
                         if (calendarPrev.get(Calendar.MONTH) != nexMonth) {
                             result.add(NotificationItem.MonthItem(nexMonth))
@@ -102,10 +106,5 @@ class NotificationsViewModel @Inject constructor(private val notificationReposit
             }
         }
     }
-}
 
-data class NotificationState(
-    val error: String? = null,
-    val notifications: List<NotificationItem> = mutableListOf(),
-    val isLoading: Boolean = true,
-)
+}

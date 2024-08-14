@@ -8,6 +8,4 @@
         <item name="android:windowBackground">@color/white</item>
     </style>
 
-    <style name="Theme.GEEKS_PRO_MVD" parent="Base.Theme.GEEKS_PRO_MVD" />
-
 </resources>

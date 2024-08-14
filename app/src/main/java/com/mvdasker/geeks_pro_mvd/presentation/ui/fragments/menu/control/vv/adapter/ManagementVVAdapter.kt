@@ -1,6 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.adapter
 
-import android.graphics.Color
+import android.annotation.SuppressLint
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -10,11 +10,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.data.remote.model.mangements.Governance
 import com.mvdasker.geeks_pro_mvd.databinding.ItemManagementKgBinding
 
 class ManagementVVAdapter :
     ListAdapter<Governance, ManagementVVAdapter.ManagementsKgViewHolder>(DiffUtilCallback()) {
+
     private var searchQuery: String = ""
 
     inner class ManagementsKgViewHolder(private val binding: ItemManagementKgBinding) :
@@ -27,6 +29,7 @@ class ManagementVVAdapter :
         }
     }
 
+    @SuppressLint("ResourceAsColor")
     private fun highlightText(text: String, query: String): SpannableString {
         val spannableString = SpannableString(text)
         if (query.isNotEmpty()) {
@@ -34,7 +37,7 @@ class ManagementVVAdapter :
             while (startIndex >= 0) { // Подсвечиваем все вхождения запроса
                 val endIndex = startIndex + query.length
                 spannableString.setSpan(
-                    ForegroundColorSpan(Color.parseColor("#03A9F4")),
+                    ForegroundColorSpan(R.color.search_color),
                     startIndex,
                     endIndex,
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -58,7 +61,6 @@ class ManagementVVAdapter :
 
     fun updateSearchQuery(query: String) {
         searchQuery = query
-
     }
 
     override fun onBindViewHolder(holder: ManagementsKgViewHolder, position: Int) {
@@ -73,14 +75,14 @@ class ManagementVVAdapter :
                 oldItem: Governance,
                 newItem: Governance
             ): Boolean {
-                return oldItem== newItem
+                return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
                 oldItem: Governance,
                 newItem: Governance
             ): Boolean {
-                return oldItem == newItem
+                return oldItem.id == newItem.id
             }
         }
     }

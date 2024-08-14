@@ -11,4 +11,7 @@
     // ViewDp
     <dimen name="viewDp_22">22dp</dimen>
 
+    <dimen name="_18_2sp">18.2sp</dimen>
+    <dimen name="snackbar_side_margin">1dp</dimen>
+
 </resources>

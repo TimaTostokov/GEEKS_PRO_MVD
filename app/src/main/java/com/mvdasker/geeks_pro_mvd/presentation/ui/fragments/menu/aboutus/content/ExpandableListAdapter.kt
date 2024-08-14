@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.data.remote.model.parent.ParentModel
 import com.mvdasker.geeks_pro_mvd.databinding.ParentItemBinding
 
-class HistoryAdapter(private var mList: List<ParentModel>, var onClick:(position: Int) -> Unit) :
+class HistoryAdapter(private var mList: List<ParentModel>, var onClick: (position: Int) -> Unit) :
     RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
 
     inner class HistoryViewHolder(private val binding: ParentItemBinding) :
@@ -31,11 +31,25 @@ class HistoryAdapter(private var mList: List<ParentModel>, var onClick:(position
     }
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
+        val languageData = mList[position]
         val history = mList[position]
         holder.bind(history)
 
         holder.itemView.setOnClickListener {
+            isAnyItemExpanded(position)
+            languageData.isExpandable = !languageData.isExpandable
+            notifyItemChanged(position, Unit)
             onClick(position)
+        }
+    }
+
+    private fun isAnyItemExpanded(position: Int) {
+        val temp = mList.indexOfFirst {
+            it.isExpandable
+        }
+        if (temp >= 0 && temp != position) {
+            mList[temp].isExpandable = false
+            notifyItemChanged(temp, 0)
         }
     }
 
