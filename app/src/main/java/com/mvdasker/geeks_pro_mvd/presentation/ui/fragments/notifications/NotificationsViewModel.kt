@@ -3,6 +3,7 @@ package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications
 import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.data.remote.model.notification.Notification
 import com.mvdasker.geeks_pro_mvd.data.remote.model.notification.NotificationItem
 import com.mvdasker.geeks_pro_mvd.data.remote.model.notification.NotificationState
@@ -12,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -26,6 +28,9 @@ class NotificationsViewModel @Inject constructor(private val notificationReposit
         MutableStateFlow(NotificationState())
     val notification: Flow<NotificationState> =
         _notifications.asStateFlow()
+
+    private val _messageFlow = MutableStateFlow<Messages?>(null)
+    val messageFlow: Flow<Messages> = _messageFlow.filterNotNull()
 
     private var currentMonthDate = ""
     private var result = mutableListOf<NotificationItem>()
@@ -89,6 +94,7 @@ class NotificationsViewModel @Inject constructor(private val notificationReposit
                 _notifications.update {
                     it.copy(error = "")
                 }
+                _messageFlow.value = Messages.NetworkIsDisconnected
             }
         }
     }

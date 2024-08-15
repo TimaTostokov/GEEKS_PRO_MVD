@@ -14,7 +14,7 @@ import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.data.remote.model.library.Library
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentLibraryBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.adapter.NotesAdapterLibrary
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.snackbar
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -47,9 +47,8 @@ class LibraryFragment : Fragment() {
         observeData(viewModel.messageFlow) { message ->
             when (message) {
                 is Messages.NetworkIsDisconnected ->
-                    snackbar("Connect to Internet...")
-                else -> {
-                }
+                    noInternetSnackbar()
+                else -> {}
             }
             viewModel.clearMessage()
         }
@@ -90,5 +89,4 @@ class LibraryFragment : Fragment() {
             )
         )
     }
-
 }

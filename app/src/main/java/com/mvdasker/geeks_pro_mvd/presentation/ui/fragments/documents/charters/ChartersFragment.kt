@@ -12,7 +12,7 @@ import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentChartersBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.charters.adapter.CharterAdapter
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.snackbar
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
 import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
@@ -38,11 +38,12 @@ class ChartersFragment : Fragment(R.layout.fragment_charters) {
 
         observeData(viewModel.messageFlow) { message ->
             when (message) {
-                is Messages.NetworkIsDisconnected ->
-                    snackbar("Connect to Internet...")
-
-                else -> {
+                is Messages.NetworkIsDisconnected -> {
+                    noInternetSnackbar()
+                    binding.fchartProgressBar.gone()
                 }
+
+                else -> {}
             }
             viewModel.clearMessage()
         }
@@ -56,8 +57,7 @@ class ChartersFragment : Fragment(R.layout.fragment_charters) {
                     binding.fchartProgressBar.gone()
                 }
 
-                is UiState.Error ->
-                    error("Loading Error")
+                is UiState.Error -> ""
             }
         }
     }
