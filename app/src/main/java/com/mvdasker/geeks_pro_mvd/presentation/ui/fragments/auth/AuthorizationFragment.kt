@@ -26,6 +26,8 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
 
     private val viewModel: MenuViewModel by viewModels()
 
+    private val viewModelAuth: AuthViewModel by viewModels()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

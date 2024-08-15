@@ -1,10 +1,10 @@
 package com.mvdasker.geeks_pro_mvd.data.remote.model.authorization
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import com.google.gson.annotations.SerializedName
 
-@Parcelize
 data class Authorization(
+    @SerializedName("login")
     val login: String,
+    @SerializedName("password")
     val password: String
-) : Parcelable
+)
