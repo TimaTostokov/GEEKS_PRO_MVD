@@ -116,16 +116,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/errorLoginText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:text="Неверный логин"
-            android:textColor="@color/red"
-            android:visibility="gone" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tILPassword"
             style="@style/CustomTextInputLayout"
@@ -153,16 +143,6 @@
                 android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/errorPasswordText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:text="Неверный пароль"
-            android:textColor="@color/red"
-            android:visibility="gone" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnContinue"

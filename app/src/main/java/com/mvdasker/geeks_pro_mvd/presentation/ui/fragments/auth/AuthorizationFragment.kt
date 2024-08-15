@@ -14,7 +14,6 @@ import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentAuthorizationBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.MenuViewModel
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.showToast
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -44,17 +43,18 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
         }
 
         binding.etUserLogin.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
+            if (!hasFocus) {
                 binding.tILLogin.boxStrokeColor =
                     ContextCompat.getColor(requireContext(), R.color.dark_blue)
-                binding.errorLoginText.visibility = View.GONE
+                binding.tILLogin.error = null
             }
         }
+
         binding.etUserPasswords.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
+            if (!hasFocus) {
                 binding.tILPassword.boxStrokeColor =
                     ContextCompat.getColor(requireContext(), R.color.dark_blue)
-                binding.errorPasswordText.visibility = View.GONE
+                binding.tILPassword.error = null
             }
         }
     }
@@ -106,8 +106,6 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
 
             if (validateInput(login, password)) {
                 findNavController().navigate(R.id.action_authorizationFragment_to_homeFragment)
-            } else {
-                !validateInput(login, password)
             }
         }
     }
@@ -119,6 +117,7 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
         return when {
             login.isEmpty() -> {
                 showToast(requireContext(), "Login must not be empty")
+                binding.tILLogin.error = "Неверный логин"
                 false
             }
 
@@ -126,21 +125,21 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
                 showToast(requireContext(), "Password must not be empty")
                 binding.tILPassword.boxStrokeColor =
                     ContextCompat.getColor(requireContext(), R.color.red)
-                binding.errorPasswordText.visible()
+                binding.tILPassword.error = "Неверный пароль"
                 false
             }
 
             !loginPattern.matcher(login).matches() -> {
                 binding.tILLogin.boxStrokeColor =
                     ContextCompat.getColor(requireContext(), R.color.red);
-                binding.errorLoginText.visible()
+                binding.tILLogin.error = "Неверный логин"
                 false
             }
 
             !passwordPattern.matcher(password).matches() -> {
+                binding.tILPassword.error = "Неверный пароль"
                 binding.tILPassword.boxStrokeColor =
                     ContextCompat.getColor(requireContext(), R.color.red);
-                binding.errorPasswordText.visible()
                 false
             }
 
