@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentNotificationsBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications.adapter.NotificationsAdapter
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
 import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,6 +58,15 @@ class NotificationsFragment : Fragment() {
             } else {
                 adapter.submitList(notificationState.notifications)
                 binding.fNotifProgressBar.gone()
+            }
+        }
+        observeData(viewModel.messageFlow) { messages ->
+            when (messages) {
+                is Messages.NetworkIsDisconnected -> {
+                    noInternetSnackbar()
+                    binding.fNotifProgressBar.gone()
+                }
+                else -> {}
             }
         }
     }

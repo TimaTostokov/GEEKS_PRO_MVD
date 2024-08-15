@@ -7,20 +7,13 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Bundle
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentMalfunctionsBinding
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.showNoInternetSnackbar
 
 class MalfunctionsFragment : Fragment() {
 
@@ -44,7 +37,6 @@ class MalfunctionsFragment : Fragment() {
         setupNetworkCallback()
         binding.btnUpdate.setOnClickListener { handleUpdateButtonClick() }
         checkNetworkAndShowScreen()
-        requireContext().showNoInternetSnackbar()
     }
 
     private fun setupNetworkCallback() {
@@ -69,8 +61,6 @@ class MalfunctionsFragment : Fragment() {
     private fun handleUpdateButtonClick() {
         if (isNetworkAvailable) {
             findNavController().navigate(R.id.action_techMalfunctionsFragment_to_homeFragment)
-        } else {
-            requireContext().showNoInternetSnackbar()
         }
     }
 
@@ -84,7 +74,8 @@ class MalfunctionsFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun showNoInternetScreen() {
         binding.tvErrorMessage.visibility = View.VISIBLE
-        binding.tvFetchedData.text = "Сеть недоступна. Убедитесь, что Wi-Fi включен или мобильные данные активны."
+        binding.tvFetchedData.text =
+            "Сеть недоступна. Убедитесь, что Wi-Fi включен или мобильные данные активны."
         binding.btnUpdate.visibility = View.VISIBLE
     }
 
@@ -102,5 +93,4 @@ class MalfunctionsFragment : Fragment() {
         return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
             ?: false
     }
-
 }
