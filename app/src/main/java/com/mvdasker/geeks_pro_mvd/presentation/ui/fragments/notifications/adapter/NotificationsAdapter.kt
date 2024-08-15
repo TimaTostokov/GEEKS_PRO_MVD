@@ -1,6 +1,5 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications.adapter
 
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +8,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.data.remote.model.notification.NotificationItem
 import com.mvdasker.geeks_pro_mvd.databinding.ItemNotificationBinding
 import com.mvdasker.geeks_pro_mvd.databinding.ItemNotificationMonthBinding
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
 import com.mvdasker.geeks_pro_mvd.utils.ext.formatDate
 
 class NotificationsAdapter :
@@ -84,26 +86,16 @@ class NotificationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     private val binding = ItemNotificationBinding.bind(itemView)
 
     fun bindNotification(notification: NotificationItem.Notification) {
-        binding.itemNotifDate.text = formatDate(notification.createAt)
+        binding.itemNotifDate.text = notification.createAt?.let { formatDate(it) }
         binding.itemNotifTitle.text = notification.title
-        binding.itemNotifDescription.text = Html.fromHtml(notification.description)
-        binding.itemNotifSelection.text = notification.selection
-        binding.itemNotifNotReadCircle.isVisible = !notification.isRead
+        binding.itemNotifDescription.text = notification.description
+
+        if (notification.selection != null) {
+            binding.itemNotifSelection.text = notification.selection
+            binding.itemNotifSelection.visible()
+        } else
+            binding.itemNotifSelection.gone()
+
+        binding.itemNotifNotReadCircle.isVisible = !notification.isRead!!
     }
-}
-
-sealed interface NotificationItem {
-
-    data class MonthItem(val month: Int) : NotificationItem
-
-    data class Notification(
-        val id: Int,
-        val month:String,
-        val selection:String,
-        val title: String,
-        val description: String,
-        val createAt: String,
-        val isRead: Boolean,
-    ) : NotificationItem
-
 }
