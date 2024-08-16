@@ -1,7 +1,10 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import com.mvdasker.geeks_pro_mvd.data.remote.model.parent.ParentModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -17,12 +20,40 @@ class MenuViewModel : ViewModel() {
     private val _selectedFragment = MutableStateFlow<Int?>(null)
     val selectedFragment: StateFlow<Int?> get() = _selectedFragment
 
+    private val _isRecyclerViewVisible = MutableLiveData<Boolean>(false)
+    val isRecyclerViewVisible: LiveData<Boolean> get() = _isRecyclerViewVisible
+
     fun setSelectedFragment(fragmentId: Int) {
         _selectedFragment.value = fragmentId
     }
 
     fun setNavController(navController: NavController) {
         _navController = navController
+    }
+
+    fun getSampleData(): List<ParentModel> = listOf(
+        ParentModel("История Кыргызстана"),
+        ParentModel("История ВВ МВД КР"),
+        ParentModel("История МВД КР")
+    )
+
+    fun onItemClick(position: Int) {
+        val direction = when (position) {
+            0 -> MenuFragmentDirections.actionMenuFragmentToHistoryOfKyrgyzstanFragment()
+            1 -> MenuFragmentDirections.actionMenuFragmentToHistoryVVMVDKRFragment()
+            2 -> MenuFragmentDirections.actionMenuFragmentToHistoryMVDKRFragment()
+            else -> return
+        }
+        _isRecyclerViewVisible.value = true
+        navController.navigate(direction)
+    }
+
+    fun toggleRecyclerViewVisibility() {
+        _isRecyclerViewVisible.value = !_isRecyclerViewVisible.value!!
+    }
+
+    fun hideRecyclerView() {
+        _isRecyclerViewVisible.value = false
     }
 
     fun onOpenDictionaryClick() {

@@ -87,7 +87,7 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/roboto"
-                android:text="@string/_1917_1918_20_1918_20_1918_200_1918_11_49_1919_1918_1920_21_27_3_1919_1_3_1_5_21_1919_25_1918_1920_1919_40_191_3_1919"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -106,5 +106,16 @@
         android:src="@drawable/arrow_up"
         app:backgroundTint="@color/white"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
+
+    <FrameLayout
+        android:id="@+id/fNotifProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:visibility="gone">
+
+        <include layout="@layout/progress_bar" />
+
+    </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

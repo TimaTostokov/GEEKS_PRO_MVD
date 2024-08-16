@@ -14,8 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
 import com.mvdasker.geeks_pro_mvd.R
-import com.mvdasker.geeks_pro_mvd.data.remote.model.parent.ParentModel
-import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.aboutus.content.HistoryAdapter
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history.adapter.HistoryAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -26,8 +25,6 @@ class MenuFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: MenuViewModel by viewModels()
-
-    private var isRecyclerViewVisible = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,14 +39,18 @@ class MenuFragment : Fragment() {
 
         viewModel.setNavController(findNavController())
 
-        binding.recyclerView.isVisible = false
-        binding.line.isVisible = isRecyclerViewVisible
-
-        initListeners()
-        setupClickListeners()
+        observeViewModel()
         setupRecyclerView()
-        openBrowser()
+        setupListeners()
 
+        viewModel.isRecyclerViewVisible.observe(viewLifecycleOwner) { isVisible ->
+            binding.recyclerView.isVisible = isVisible
+            binding.line.isVisible = isVisible
+            updateSpinnerIcon(isVisible)
+        }
+    }
+
+    private fun observeViewModel() {
         lifecycleScope.launch {
             viewModel.selectedButtonId.collect { selectedId ->
                 selectedId?.let { updateButtonState(it) }
@@ -59,27 +60,12 @@ class MenuFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        val historyAdapter = HistoryAdapter(getSampleData(), this::onClicker)
+        val historyAdapter = HistoryAdapter(viewModel.getSampleData(), this::onClicker)
         binding.recyclerView.adapter = historyAdapter
     }
 
-    private fun getSampleData(): List<ParentModel> {
-        return listOf(
-            ParentModel("История Кыргызстана"),
-            ParentModel("История ВВ МВД КР"),
-            ParentModel("История МВД КР")
-        )
-    }
-
-    private fun onClicker(position: Int){
-        when (position) {
-            0 -> {findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToHistoryOfKyrgyzstanFragment())
-                isRecyclerViewVisible = false}
-            1 -> {findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToHistoryVVMVDKRFragment())
-                isRecyclerViewVisible = false}
-            2 -> {findNavController().navigate(MenuFragmentDirections.actionMenuFragmentToHistoryMVDKRFragment())
-                isRecyclerViewVisible = false}
-        }
+    private fun onClicker(position: Int) {
+        viewModel.onItemClick(position)
     }
 
     private fun updateButtonState(checkedId: Int) {
@@ -88,62 +74,64 @@ class MenuFragment : Fragment() {
     }
 
     private fun setButtonState(button: MaterialButton, isSelected: Boolean) {
-        if (isSelected) {
-            button.backgroundTintList =
-                ContextCompat.getColorStateList(requireContext(), R.color.dark_blue)
-            button.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-        } else {
-            button.backgroundTintList =
-                ContextCompat.getColorStateList(requireContext(), R.color.white)
-            button.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_blue))
+        button.apply {
+            backgroundTintList = ContextCompat.getColorStateList(
+                requireContext(),
+                if (isSelected) R.color.dark_blue else R.color.white
+            )
+            setTextColor(ContextCompat.getColor(requireContext(),
+                if (isSelected) R.color.white else R.color.dark_blue
+            ))
         }
     }
 
-    private fun openBrowser() {
-        binding.openDictionaryBtn.setOnClickListener {
-            viewModel.onOpenDictionaryClick()
-        }
-        binding.mapBtn.setOnClickListener {
-            viewModel.onMapClick()
-        }
-        binding.trafficRulesButton.setOnClickListener {
-            viewModel.onTrafficRulesClick()
-        }
+    private fun updateSpinnerIcon(isVisible: Boolean) {
+        binding.spinner.setImageResource(
+            if (isVisible) R.drawable.spinner_icon else R.drawable.spinner_icon2
+        )
     }
 
-    private fun setupClickListeners() {
-        binding.buttonToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
-            viewModel.onButtonToggleGroupCheckedChange(checkedId, isChecked)
-        }
-    }
-
-    private fun initListeners() {
+    private fun setupListeners() {
         binding.apply {
             spinner.setOnClickListener {
-                isRecyclerViewVisible = !isRecyclerViewVisible
-                binding.recyclerView.isVisible = isRecyclerViewVisible
-                binding.line.isVisible = isRecyclerViewVisible
-                if (isRecyclerViewVisible) {
-                    binding.spinner.setImageResource(R.drawable.spinner_icon)
-                }else{
-                    binding.spinner.setImageResource(R.drawable.spinner_icon2)
-                }
+                viewModel.toggleRecyclerViewVisibility()
             }
-
+            aboutUsButton.setOnClickListener {
+                viewModel.toggleRecyclerViewVisibility()
+            }
             controlKRButton.setOnClickListener {
                 viewModel.onClickControlKRButton()
+                viewModel.hideRecyclerView()
             }
             controlMIAKRButton.setOnClickListener {
                 viewModel.onClickControlMIAKRButton()
+                viewModel.hideRecyclerView()
             }
             controlITMIAKRButton.setOnClickListener {
                 viewModel.onClickControlITMIAKRButton()
+                viewModel.hideRecyclerView()
+            }
+            openDictionaryBtn.setOnClickListener {
+                viewModel.onOpenDictionaryClick()
+                viewModel.hideRecyclerView()
+            }
+            mapBtn.setOnClickListener {
+                viewModel.onMapClick()
+                viewModel.hideRecyclerView()
+            }
+            trafficRulesButton.setOnClickListener {
+                viewModel.onTrafficRulesClick()
+                viewModel.hideRecyclerView()
+            }
+            buttonToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
+                viewModel.onButtonToggleGroupCheckedChange(checkedId, isChecked)
+                viewModel.hideRecyclerView()
             }
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         _binding = null
     }
 
