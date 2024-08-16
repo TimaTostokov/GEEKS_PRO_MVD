@@ -175,12 +175,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/aboutUsFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.aboutus.AboutUsFragment"
-        android:label="fragment_about_us"
-        tools:layout="@layout/fragment_about_us" />
-
-    <fragment
         android:id="@+id/controlMIAKRFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.mvd.ControlMIAKRFragment"
         android:label="fragment_control_m_i_a_k_r"
@@ -275,20 +269,23 @@
 
     <fragment
         android:id="@+id/historyMVDKRFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.aboutus.content.HistoryMVDKRFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history.HistoryMVDKRFragment"
         android:label="fragment_history_m_v_d_k_r"
-        tools:layout="@layout/fragment_history_m_v_d_k_r" />
+        tools:layout="@layout/fragment_history_m_v_d_k_r" >
+    </fragment>
 
     <fragment
         android:id="@+id/historyOfKyrgyzstanFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.aboutus.content.HistoryOfKyrgyzstanFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history.HistoryOfKyrgyzstanFragment"
         android:label="fragment_history_of_kyrgyzstan"
-        tools:layout="@layout/fragment_history_of_kyrgyzstan" />
+        tools:layout="@layout/fragment_history_of_kyrgyzstan" >
+    </fragment>
 
     <fragment
         android:id="@+id/historyVVMVDKRFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.aboutus.content.HistoryVVMVDKRFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history.HistoryVVMVDKRFragment"
         android:label="fragment_history_v_v_m_v_d_k_r"
-        tools:layout="@layout/fragment_history_v_v_m_v_d_k_r" />
+        tools:layout="@layout/fragment_history_v_v_m_v_d_k_r" >
+    </fragment>
 
 </navigation>

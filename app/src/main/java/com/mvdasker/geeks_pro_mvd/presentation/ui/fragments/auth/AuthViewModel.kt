@@ -18,10 +18,13 @@ class AuthViewModel @Inject constructor(private val repository: AuthorizationRep
     private val _authorization = MutableStateFlow<Authorization?>(null)
     val authorization: StateFlow<Authorization?> = _authorization
 
-    fun postAuthorization(login: String, password: String) {
+    private var username: String = ""
+    private var password: String = ""
+
+   private fun postAuthorization() {
         viewModelScope.launch {
             try {
-                val response = repository.postAuthorization(login, password)
+                val response = repository.postAuthorization(username, password)
                 _authorization.value = response
             } catch (e: Exception) {
                 Log.e("AuthViewModel", "Authorization failed: ${e.message}")
@@ -29,4 +32,11 @@ class AuthViewModel @Inject constructor(private val repository: AuthorizationRep
             }
         }
     }
+
+    fun putLogin(username: String, password: String){
+        this.username = username
+        this.password = password
+
+    }
+
 }
