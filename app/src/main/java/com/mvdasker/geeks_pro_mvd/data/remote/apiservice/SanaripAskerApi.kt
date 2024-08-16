@@ -7,7 +7,9 @@ import com.mvdasker.geeks_pro_mvd.common.Constants.HISTORY_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.LAW_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.MANAGEMENT_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.MANAGEMENT_MVD_END_POINT
+import com.mvdasker.geeks_pro_mvd.common.Constants.MANAGEMENT_VV_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.NOTIFICATION_END_POINT
+import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.Authorization
 import com.mvdasker.geeks_pro_mvd.data.remote.model.charter.Charter
 import com.mvdasker.geeks_pro_mvd.data.remote.model.history.HistoryResponse
 import com.mvdasker.geeks_pro_mvd.data.remote.model.law.Law
@@ -19,8 +21,6 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
-
-private const val MANAGEMENT_VV_END_POINT = "docs/governance/vvmvdkr/"
 
 interface SanaripAskerApi {
 
@@ -59,8 +59,8 @@ interface SanaripAskerApi {
 
     @POST(AUTHORIZATION_END_POINT)
     suspend fun postAuthorization(
-        @Query("login") login: String? = null,
-        @Query("password") password: String? = null
-    )
+        @Query("username") username: String,
+        @Query("password") password: String
+    ): Authorization
 
 }

@@ -85,7 +85,7 @@
     <string name="centre_square">Центральной площади города</string>
     <string name="made_by_geeks_pro">Made by Geeks Pro</string>
     <string name="_16_2024">16 июля 2024</string>
-    <string name="_12">12 результатов найдено</string>
+    <string name="_12">результатов найдено</string>
     <string name="fragment_notification_title">Уведомления</string>
     <string name="management_mvd_kg">Руководство МВД КР</string>
     <string name="ru">RU</string>
@@ -97,6 +97,7 @@
     <string name="tech_error">Технические неполадки</string>
     <string name="tech_text">Извините за неудобства, возникли технические неполадки в нашем приложении. Мы работаем над исправлением проблемы. Пожалуйста, попробуйте обновить приложение. Спасибо за ваше понимание!</string>
     <string name="update">Обновить</string>
+    <string name="no_internet_text">Сеть недоступна. Убедитесь, что Wi-Fi включен или мобильные данные активны.</string>
     <string-array name="months">
         <item>Январь</item>
         <item>Февраль</item>

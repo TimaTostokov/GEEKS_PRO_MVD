@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -38,11 +40,12 @@ class NotesAdapterLibrary(val onClick: (Library) -> Unit) :
         private fun highlightText(text: String, query: String): SpannableString {
             val spannableString = SpannableString(text)
             if (query.isNotEmpty()) {
+                val color = ContextCompat.getColor(binding.root.context, R.color.search_color)
                 var startIndex = text.lowercase().indexOf(query.lowercase())
-                while (startIndex >= 0) { // Подсвечиваем все вхождения запроса
+                while (startIndex >= 0) {
                     val endIndex = startIndex + query.length
                     spannableString.setSpan(
-                        ForegroundColorSpan(R.color.search_color),
+                        ForegroundColorSpan(color),
                         startIndex,
                         endIndex,
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -70,7 +73,10 @@ class NotesAdapterLibrary(val onClick: (Library) -> Unit) :
 
     fun updateSearchQuery(query: String) {
         searchQuery = query
+        Log.d("NotesAdapter", "Search query updated: $query")
+        notifyDataSetChanged()
     }
+
 
     class DiffUtilCallback : DiffUtil.ItemCallback<Library>() {
         override fun areItemsTheSame(oldItem: Library, newItem: Library): Boolean {

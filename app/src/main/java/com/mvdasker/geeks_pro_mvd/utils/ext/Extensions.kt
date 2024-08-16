@@ -1,18 +1,17 @@
 package com.mvdasker.geeks_pro_mvd.utils.ext
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.os.Build
+import android.util.TypedValue
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.FrameLayout
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -26,6 +25,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import kotlin.math.roundToInt
 
 object Extensions {
 
@@ -33,35 +33,41 @@ object Extensions {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 
-    fun Fragment.snackbar(msg: String) {
+    fun Fragment.noInternetSnackbar() {
         view?.apply {
-            Snackbar.make(this, msg, Snackbar.LENGTH_LONG).show()
+            val snackbar = Snackbar.make(this, R.string.no_internet_text, Snackbar.LENGTH_SHORT)
+            val view = snackbar.view
+            val mTextView =
+                view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                mTextView.textAlignment = View.TEXT_ALIGNMENT_CENTER
+            } else {
+                mTextView.gravity = Gravity.CENTER_HORIZONTAL
+            }
+                .apply {
+                    view.background =
+                        ContextCompat.getDrawable(context, R.drawable.snackbar_background)
+
+                    val params = view.layoutParams
+                    if (params is FrameLayout.LayoutParams) {
+                        params.gravity = Gravity.TOP
+                        params.topMargin = TypedValue.applyDimension(
+                            TypedValue.COMPLEX_UNIT_DIP,
+                            56f,
+                            context.resources.displayMetrics
+                        ).roundToInt()
+                    } else if (params is CoordinatorLayout.LayoutParams) {
+                        params.gravity = Gravity.TOP
+                        params.topMargin = TypedValue.applyDimension(
+                            TypedValue.COMPLEX_UNIT_DIP,
+                            56f,
+                            context.resources.displayMetrics
+                        ).roundToInt()
+                    }
+                    view.layoutParams = params
+                }
+            snackbar.show()
         }
-    }
-
-    @SuppressLint("SetTextI18n", "InflateParams")
-    fun Context.showNoInternetSnackbar() {
-        val snackbarLayout =
-            LayoutInflater.from(this).inflate(R.layout.custom_snackbar_layout, null) as LinearLayout
-        val textView = snackbarLayout.findViewById<TextView>(R.id.snackbar_text)
-        textView.text =
-            "Сеть недоступна. Убедитесь, что Wi-Fi включен или мобильные данные активны."
-
-        val rootView = (this as Activity).findViewById<View>(android.R.id.content)
-        val snackbar = Snackbar.make(rootView, "", Snackbar.LENGTH_SHORT)
-        val snackbarView = snackbar.view as ViewGroup
-        snackbarView.removeAllViews()
-        snackbarView.addView(snackbarLayout, 0)
-
-        val params = snackbarView.layoutParams as FrameLayout.LayoutParams
-        params.width = ViewGroup.LayoutParams.MATCH_PARENT
-        params.setMargins(0, 0, 0, 0)
-        params.gravity = Gravity.TOP
-        snackbarView.layoutParams = params
-
-        snackbar.animationMode = Snackbar.ANIMATION_MODE_FADE
-        snackbarView.setBackgroundColor(ContextCompat.getColor(this, R.color.white))
-        snackbar.show()
     }
 
     fun showAlertDialog(

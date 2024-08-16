@@ -26,8 +26,15 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
 
     private val viewModel: MenuViewModel by viewModels()
 
+    private val viewModelAuth: AuthViewModel by viewModels()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModelAuth.putLogin(
+            username = binding.etUserLogin.toString(),
+            password = binding.etUserPasswords.toString()
+        )
 
         if (savedInstanceState == null) {
             alertDialog()
