@@ -1,5 +1,7 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications.adapter
 
+import android.os.Build
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -88,7 +90,11 @@ class NotificationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     fun bindNotification(notification: NotificationItem.Notification) {
         binding.itemNotifDate.text = notification.createAt?.let { formatDate(it) }
         binding.itemNotifTitle.text = notification.title
-        binding.itemNotifDescription.text = notification.description
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            binding.itemNotifDescription.text =
+                Html.fromHtml(notification.description, Html.FROM_HTML_MODE_LEGACY)
+        }
 
         if (notification.selection != null) {
             binding.itemNotifSelection.text = notification.selection
@@ -96,6 +102,7 @@ class NotificationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
         } else
             binding.itemNotifSelection.gone()
 
-        binding.itemNotifNotReadCircle.isVisible = !notification.isRead!!
+        binding.itemNotifNotReadCircle.isVisible = notification.isRead == true
     }
+
 }

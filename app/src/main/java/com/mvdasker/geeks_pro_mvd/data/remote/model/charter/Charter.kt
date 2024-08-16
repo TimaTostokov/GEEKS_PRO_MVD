@@ -12,6 +12,4 @@ data class Charter(
     val title: String? = null,
     @SerializedName("pdf_file")
     val url: String? = null,
-    @SerializedName("date")
-    val date: String? = null,
 ): Parcelable

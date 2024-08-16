@@ -7,5 +7,5 @@ import javax.inject.Inject
 class CharterRepository @Inject constructor(private val sanaripAskerApi: SanaripAskerApi) {
 
     suspend fun getListCharters(): List<Charter> =
-        sanaripAskerApi.getCharters()
+        sanaripAskerApi.getCharters().reversed()
 }

@@ -27,8 +27,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
+
     private val viewModel: LibraryViewModel by viewModels()
+
     private var adapter = NotesAdapterLibrary(::onCLick)
+
     private var noteList: List<Library> = listOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,7 +43,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         crossToLibraryFragment()
         showData()
         binding.etSearch.isSelected = true
-
     }
 
     private fun showData() {
@@ -70,7 +72,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     searchCharacter(s.toString())
                 }
             }
-
             override fun afterTextChanged(s: Editable?) {}
         })
     }
@@ -78,10 +79,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun searchCharacter(query: String) {
         adapter.updateSearchQuery(query)
         val filteredList = noteList.filter {
-            it.title.contains(query, ignoreCase = true) || it.conspect.contains(
-                query,
-                ignoreCase = true
-            )
+            it.title?.contains(query, ignoreCase = true) ?: false ||
+                    it.conspect?.contains(query, ignoreCase = true) ?: false
         }
         updateItemCount()
         adapter.submitList(filteredList)

@@ -7,5 +7,5 @@ import javax.inject.Inject
 class NotificationRepository @Inject constructor(private val sanaripAskerApi: SanaripAskerApi) {
 
     suspend fun getListNotifications(): List<Notification> =
-        sanaripAskerApi.getNotification()
+        sanaripAskerApi.getNotification().sortedByDescending { it.createAt }
 }

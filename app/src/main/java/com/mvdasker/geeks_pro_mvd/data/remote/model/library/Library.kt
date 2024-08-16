@@ -10,17 +10,17 @@ data class Library(
     @SerializedName("id")
     val id: Int? = null,
     @SerializedName("title")
-    val title: String,
+    val title: String? = null,
     @SerializedName("title_ru")
-    val titleRu: String,
+    val titleRu: String? = null,
     @SerializedName("title_ky")
-    val titleKy: String,
+    val titleKy: String? = null,
     @SerializedName("conspect")
-    val conspect: String,
+    val conspect: String? = null,
     @SerializedName("conspect_ru")
-    val conspectRu: String,
+    val conspectRu: String? = null,
     @SerializedName("conspect_ky")
-    val conspectKy: String,
+    val conspectKy: String? = null,
     @SerializedName("image")
     @DrawableRes
     val image: Int? = null

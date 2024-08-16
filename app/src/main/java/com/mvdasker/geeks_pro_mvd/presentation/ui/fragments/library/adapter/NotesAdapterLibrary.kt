@@ -32,8 +32,8 @@ class NotesAdapterLibrary(val onClick: (Library) -> Unit) :
         }
 
         fun bind(note: Library) = with(binding) {
-            tvTitle.text = highlightText(note.title, searchQuery)
-            tvDescription.text = highlightText(note.conspect, searchQuery)
+            tvTitle.text = note.title?.let { highlightText(it, searchQuery) }
+            tvDescription.text = note.conspect?.let { highlightText(it, searchQuery) }
         }
 
         @SuppressLint("ResourceAsColor")
@@ -71,6 +71,7 @@ class NotesAdapterLibrary(val onClick: (Library) -> Unit) :
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateSearchQuery(query: String) {
         searchQuery = query
         Log.d("NotesAdapter", "Search query updated: $query")
