@@ -11,8 +11,16 @@ data class Library(
     val id: Int? = null,
     @SerializedName("title")
     val title: String,
+    @SerializedName("title_ru")
+    val titleRu: String,
+    @SerializedName("title_ky")
+    val titleKy: String,
     @SerializedName("conspect")
     val conspect: String,
+    @SerializedName("conspect_ru")
+    val conspectRu: String,
+    @SerializedName("conspect_ky")
+    val conspectKy: String,
     @SerializedName("image")
     @DrawableRes
     val image: Int? = null
