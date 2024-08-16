@@ -1,4 +1,4 @@
-package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.aboutus.content
+package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history.adapter
 
 import android.view.LayoutInflater
 import android.view.View

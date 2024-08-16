@@ -7,8 +7,8 @@ import javax.inject.Inject
 
 class AuthorizationRepository @Inject constructor(private val sanaripAskerApi: SanaripAskerApi) {
 
-    suspend fun postAuthorization(login: String, password: String): Authorization {
+    suspend fun postAuthorization(username: String, password: String): Authorization {
         Log.e("tag", "данные в реп нет", )
-        return sanaripAskerApi.postAuthorization(login, password)
+        return sanaripAskerApi.postAuthorization(username, password)
     }
 }

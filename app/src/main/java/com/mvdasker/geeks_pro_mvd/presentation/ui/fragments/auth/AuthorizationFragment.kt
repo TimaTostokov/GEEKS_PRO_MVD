@@ -31,6 +31,11 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModelAuth.putLogin(
+            username = binding.etUserLogin.toString(),
+            password = binding.etUserPasswords.toString()
+        )
+
         if (savedInstanceState == null) {
             alertDialog()
         }
