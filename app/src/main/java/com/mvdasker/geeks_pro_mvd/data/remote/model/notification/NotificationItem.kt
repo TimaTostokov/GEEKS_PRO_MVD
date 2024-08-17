@@ -7,10 +7,10 @@ sealed interface NotificationItem {
 
     data class Notification(
         val id: Int? = null,
-        val selection: String? = "",
+        val section: String? = "",
         val title: String? = "",
         val description: String? = "",
         val createAt: String? = "",
-        val isRead: Boolean? = false,
+        val isRead: Boolean = false,
     ) : NotificationItem
 }
