@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.data.remote.model.mangements.Governance
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentSearchControlVVBinding
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.ControlITMIAKRViewModel
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.adapter.ManagementVVAdapter
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +27,7 @@ import kotlinx.coroutines.launch
 class SearchControlVVFragment : Fragment(R.layout.fragment_search_control_v_v) {
 
     private val binding by viewBinding(FragmentSearchControlVVBinding::bind)
-    private val viewModel: SearchControlVVViewModel by viewModels()
+    private val viewModel: ControlITMIAKRViewModel by viewModels()
     private var adapterVV = ManagementVVAdapter()
     private var controlVVList: List<Governance> = listOf()
 
@@ -41,9 +42,10 @@ class SearchControlVVFragment : Fragment(R.layout.fragment_search_control_v_v) {
 
     private fun showData() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.controlITMIAKR.collect { controls ->
+            viewModel.managementVv.collect { controls ->
                 adapterVV.submitList(controls)
                 Log.e("control", "$controls")
+                controlVVList = controls ?: emptyList()
                 updateItemCount()
             }
         }
@@ -72,7 +74,7 @@ class SearchControlVVFragment : Fragment(R.layout.fragment_search_control_v_v) {
     private fun searchCharacter(query: String) {
         adapterVV.updateSearchQuery(query)
         val filteredList = controlVVList.filter {
-            it.jobTittle?.contains(query, ignoreCase = true) == true || it.jobTittle?.contains(
+            it.jobTittle?.contains(query, ignoreCase = true) == true || it.category?.contains(
                 query,
                 ignoreCase = true
             ) == true

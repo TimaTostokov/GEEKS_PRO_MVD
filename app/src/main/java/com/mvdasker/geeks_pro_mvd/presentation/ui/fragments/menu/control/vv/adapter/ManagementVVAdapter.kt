@@ -1,6 +1,7 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.adapter
 
 import android.annotation.SuppressLint
+import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -37,7 +38,7 @@ class ManagementVVAdapter :
             while (startIndex >= 0) {
                 val endIndex = startIndex + query.length
                 spannableString.setSpan(
-                    ForegroundColorSpan(R.color.search_color),
+                    ForegroundColorSpan(Color.parseColor("#03A9F4")),
                     startIndex,
                     endIndex,
                     Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -61,6 +62,7 @@ class ManagementVVAdapter :
 
     fun updateSearchQuery(query: String) {
         searchQuery = query
+        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: ManagementsKgViewHolder, position: Int) {
@@ -69,7 +71,6 @@ class ManagementVVAdapter :
         }
     }
 
-    companion object {
         class DiffUtilCallback : DiffUtil.ItemCallback<Governance>() {
             override fun areItemsTheSame(
                 oldItem: Governance,
@@ -82,9 +83,7 @@ class ManagementVVAdapter :
                 oldItem: Governance,
                 newItem: Governance
             ): Boolean {
-                return oldItem.id == newItem.id
+                return oldItem == newItem
             }
         }
-    }
-
 }
