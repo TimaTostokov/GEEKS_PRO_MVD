@@ -9,16 +9,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mvdasker.geeks_pro_mvd.R
-import com.mvdasker.geeks_pro_mvd.data.remote.model.news.DataItem
+import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentHomeBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.adapters.NewsAdapter
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.viewmodel.HomeViewModel
-import com.mvdasker.geeks_pro_mvd.common.UiState
+import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
-
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -38,8 +37,10 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initialize()
         observe()
-
-        binding.fhNotif.setOnClickListener{
+        binding.fDocUpBtn.setOnClickListener {
+            binding.nestedSv.smoothScrollTo(0, 0)
+        }
+        binding.fhNotif.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_notificationsFragment)
         }
     }
@@ -49,24 +50,30 @@ class HomeFragment : Fragment() {
     }
 
     private fun observe() {
-        viewModel.newsLiveData.observe(viewLifecycleOwner) { uistate ->
-            when (uistate) {
-                is UiState.Error -> Log.d("tag", "данные не пришли: ")
+        observeData(viewModel.newsState) {
+            when (it) {
+                is UiState.Error -> {
+                    Log.e("tag", "данные не пришли frag")
+                }
+
                 UiState.Loading -> {}
+
                 is UiState.Success -> {
-                    adapter.submitList(uistate.data)
+                    adapter.submitList(it.data)
+                    Log.d("tag", "данные пришли")
                 }
             }
         }
     }
 
-    private fun onClick(model: DataItem) {
-        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToNewsFragment(model))
+    private fun onClick(id: String) {
+        findNavController().navigate(
+            HomeFragmentDirections.actionHomeFragmentToNewsFragment(id)
+        )
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
-
 }

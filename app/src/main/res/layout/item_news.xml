@@ -15,8 +15,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:background="@color/white"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <ImageView
@@ -29,7 +29,7 @@
             tools:ignore="ContentDescription" />
 
         <TextView
-            android:id="@+id/tv_data"
+            android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
@@ -41,24 +41,30 @@
 
         <TextView
             android:id="@+id/tv_urgent_news"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="10dp"
+            android:layout_marginEnd="12dp"
+            android:ellipsize="end"
+            android:maxLines="2"
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/roboto_bold"
-            android:text="@string/fastnews"
+            tools:text="@string/fastnews"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_description"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
+            android:maxLines="1"
+            android:layout_marginEnd="12dp"
+            android:ellipsize="end"
             android:fontFamily="@font/roboto"
-            android:text="@string/office_ipsum_you_must_be_muted_office_ipsum"
+            tools:text="@string/office_ipsum_you_must_be_muted_office_ipsum"
             android:textColor="@color/black" />
 
         <TextView
@@ -71,7 +77,6 @@
             android:fontFamily="@font/roboto"
             android:text="@string/goread"
             android:textColor="@color/white_blue" />
-
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

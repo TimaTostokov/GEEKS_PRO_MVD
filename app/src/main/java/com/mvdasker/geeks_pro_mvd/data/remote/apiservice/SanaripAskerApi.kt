@@ -8,6 +8,8 @@ import com.mvdasker.geeks_pro_mvd.common.Constants.LAW_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.MANAGEMENT_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.MANAGEMENT_MVD_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.MANAGEMENT_VV_END_POINT
+import com.mvdasker.geeks_pro_mvd.common.Constants.NEWS_DETAIL_ENDPOINT
+import com.mvdasker.geeks_pro_mvd.common.Constants.NEWS_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.NOTIFICATION_END_POINT
 import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.Authorization
 import com.mvdasker.geeks_pro_mvd.data.remote.model.charter.Charter
@@ -15,6 +17,8 @@ import com.mvdasker.geeks_pro_mvd.data.remote.model.history.HistoryResponse
 import com.mvdasker.geeks_pro_mvd.data.remote.model.law.Law
 import com.mvdasker.geeks_pro_mvd.data.remote.model.library.Library
 import com.mvdasker.geeks_pro_mvd.data.remote.model.mangements.Governance
+import com.mvdasker.geeks_pro_mvd.data.remote.model.news.NewsDetail
+import com.mvdasker.geeks_pro_mvd.data.remote.model.news.NewsResponse
 import com.mvdasker.geeks_pro_mvd.data.remote.model.notification.Notification
 import retrofit2.Response
 import retrofit2.http.GET
@@ -63,4 +67,9 @@ interface SanaripAskerApi {
         @Query("password") password: String
     ): Authorization
 
+    @GET(NEWS_END_POINT)
+    suspend fun getNews(): NewsResponse
+
+    @GET(NEWS_DETAIL_ENDPOINT)
+    suspend fun getNewsId(@Path("id") id: Int): NewsDetail
 }

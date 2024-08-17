@@ -8,6 +8,7 @@ import com.mvdasker.geeks_pro_mvd.data.repositories.HistoryRepository
 import com.mvdasker.geeks_pro_mvd.data.repositories.LawRepository
 import com.mvdasker.geeks_pro_mvd.data.repositories.LibraryRepository
 import com.mvdasker.geeks_pro_mvd.data.repositories.ManagementsKrRepository
+import com.mvdasker.geeks_pro_mvd.data.repositories.NewsRepository
 import com.mvdasker.geeks_pro_mvd.data.repositories.NotificationRepository
 import dagger.Module
 import dagger.Provides
@@ -57,4 +58,9 @@ object RepositoryModule {
     @Singleton
     fun provideHistoryRepository(sanaripAskerApi: SanaripAskerApi): HistoryRepository =
         HistoryRepository(sanaripAskerApi)
+
+    @Provides
+    @Singleton
+    fun provideNewsRepository(sanaripAskerApi: SanaripAskerApi): NewsRepository =
+        NewsRepository(sanaripAskerApi, provideAppDispatchers())
 }
