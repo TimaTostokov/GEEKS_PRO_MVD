@@ -34,7 +34,7 @@ class ManagementVVAdapter :
         val spannableString = SpannableString(text)
         if (query.isNotEmpty()) {
             var startIndex = text.lowercase().indexOf(query.lowercase())
-            while (startIndex >= 0) { // Подсвечиваем все вхождения запроса
+            while (startIndex >= 0) {
                 val endIndex = startIndex + query.length
                 spannableString.setSpan(
                     ForegroundColorSpan(R.color.search_color),

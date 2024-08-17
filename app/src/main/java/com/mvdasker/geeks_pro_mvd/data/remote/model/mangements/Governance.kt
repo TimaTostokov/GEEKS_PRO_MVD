@@ -16,4 +16,8 @@ data class Governance(
     val name: String? = null,
     @SerializedName("job_tittle")
     val jobTittle: String? = null,
+    @SerializedName("job_title_ru")
+    val jobTitleRu: String? = null,
+    @SerializedName("job_title_ky")
+    val jobTitleKy: String? = null
 ): Parcelable

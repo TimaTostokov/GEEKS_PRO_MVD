@@ -32,7 +32,7 @@ class ControlMIAKRAdapter :
         val spannableString = SpannableString(text)
         if (query.isNotEmpty()) {
             var startIndex = text.lowercase().indexOf(query.lowercase())
-            while (startIndex >= 0) { // Подсвечиваем все вхождения запроса
+            while (startIndex >= 0) {
                 val endIndex = startIndex + query.length
                 spannableString.setSpan(
                     ForegroundColorSpan(Color.parseColor("#03A9F4")),
@@ -56,6 +56,7 @@ class ControlMIAKRAdapter :
 
     fun updateSearchQuery(query: String) {
         searchQuery = query
+        notifyDataSetChanged()
 
     }
 
@@ -65,20 +66,19 @@ class ControlMIAKRAdapter :
         }
     }
 
-    companion object {
-        class DiffUtilCallback : DiffUtil.ItemCallback<Governance>() {
-            override fun areItemsTheSame(
-                oldItem: Governance, newItem: Governance
-            ): Boolean {
-                return oldItem == newItem
-            }
+    class DiffUtilCallback : DiffUtil.ItemCallback<Governance>() {
+        override fun areItemsTheSame(
+            oldItem: Governance,
+            newItem: Governance
+        ): Boolean {
+            return oldItem.id == newItem.id
+        }
 
-            override fun areContentsTheSame(
-                oldItem: Governance, newItem: Governance
-            ): Boolean {
-                return oldItem == newItem
-            }
+        override fun areContentsTheSame(
+            oldItem: Governance,
+            newItem: Governance
+        ): Boolean {
+            return oldItem == newItem
         }
     }
-
 }
