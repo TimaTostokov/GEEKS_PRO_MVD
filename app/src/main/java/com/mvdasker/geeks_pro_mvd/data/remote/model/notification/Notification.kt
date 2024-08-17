@@ -10,8 +10,8 @@ data class Notification(
     val id: Int? = null,
     @SerializedName("month")
     val month: String? = null,
-    @SerializedName("selection")
-    val selection: String? = null,
+    @SerializedName("section")
+    val section: String? = null,
     @SerializedName("title")
     val title: String? = null,
     @SerializedName("description")
@@ -19,5 +19,5 @@ data class Notification(
     @SerializedName("created_at")
     val createAt: String? = null,
     @SerializedName("is_read")
-    val isRead: Boolean? = false
+    val isRead: Boolean = false
 ) : Parcelable

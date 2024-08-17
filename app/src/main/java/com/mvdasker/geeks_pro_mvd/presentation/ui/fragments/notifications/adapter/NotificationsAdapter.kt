@@ -65,7 +65,7 @@ class NotificationsAdapter :
                         && oldItem.description == newItem.description
                         && oldItem.createAt == newItem.createAt
                         && oldItem.isRead == newItem.isRead
-                        && oldItem.selection == newItem.selection
+                        && oldItem.section == newItem.section
 
                 return monthItem || notificationsItem
             }
@@ -96,13 +96,12 @@ class NotificationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
                 Html.fromHtml(notification.description, Html.FROM_HTML_MODE_LEGACY)
         }
 
-        if (notification.selection != null) {
-            binding.itemNotifSelection.text = notification.selection
-            binding.itemNotifSelection.visible()
+        if (notification.section != null) {
+            binding.itemNotifSection.text = notification.section
+            binding.itemNotifSection.visible()
         } else
-            binding.itemNotifSelection.gone()
+            binding.itemNotifSection.gone()
 
-        binding.itemNotifNotReadCircle.isVisible = notification.isRead == true
+        binding.itemNotifNotReadCircle.isVisible = !notification.isRead
     }
-
 }
