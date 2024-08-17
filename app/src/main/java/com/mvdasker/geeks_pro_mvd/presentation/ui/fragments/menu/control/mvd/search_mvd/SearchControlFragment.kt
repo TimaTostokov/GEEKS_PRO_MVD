@@ -35,13 +35,19 @@ class SearchControlFragment : Fragment(R.layout.fragment_search_control) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentSearchControlBinding.bind(view)
-        deleteClearBtn()
         initialize()
-        crossToSearchControlFragment()
-        searchCharacterListener()
         showData()
-    }
+        searchCharacterListener()
+        crossToSearchControlFragment()
+        deleteClearBtn()
 
+    }
+    private fun initialize() {
+        binding.recyclerViewManagement.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = this@SearchControlFragment.adapter
+        }
+    }
     private fun showData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.management.collect { controls ->
@@ -50,12 +56,6 @@ class SearchControlFragment : Fragment(R.layout.fragment_search_control) {
                 Log.e("control", "$controls")
                 updateItemCount()
             }
-        }
-    }
-
-    private fun crossToSearchControlFragment() {
-        binding.btnCross.setOnClickListener {
-            findNavController().navigateUp()
         }
     }
 
@@ -98,10 +98,11 @@ class SearchControlFragment : Fragment(R.layout.fragment_search_control) {
         binding.number2.text = spannableString
     }
 
-    private fun initialize() {
-        binding.recyclerViewManagement.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = this@SearchControlFragment.adapter
+
+
+    private fun crossToSearchControlFragment() {
+        binding.btnCross.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 

@@ -5,27 +5,32 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.mvdasker.geeks_pro_mvd.data.remote.model.news.DataItem
+import com.bumptech.glide.Glide
+import com.mvdasker.geeks_pro_mvd.data.remote.model.news.News
 import com.mvdasker.geeks_pro_mvd.databinding.ItemNewsBinding
+import com.mvdasker.geeks_pro_mvd.utils.ext.formatDate
 
-class NewsAdapter(private val onClick: (DataItem) -> Unit) :
-    ListAdapter<DataItem, NewsAdapter.NewsViewHolder>(DiffUtilCallback()) {
+class NewsAdapter(val onClick: (id: String) -> Unit) :
+    ListAdapter<News, NewsAdapter.NewsViewHolder>(DiffUtilCallback()) {
 
     inner class NewsViewHolder(private val binding: ItemNewsBinding) : ViewHolder(binding.root) {
+
 
         init {
             binding.root.setOnClickListener {
                 getItem(absoluteAdapterPosition)?.let {
-                    onClick(it)
+                    onClick(it.id.toString())
                 }
             }
         }
 
-        fun bind(item: DataItem) {
-            binding.ivItem.setImageResource(item.image[0])
-            binding.tvData.text = item.data
-            binding.tvUrgentNews.text = item.urgentNews
-            binding.tvDescription.text = item.title
+        fun bind(data: News) {
+            binding.tvDate.text = formatDate(data.date!!)
+            binding.tvUrgentNews.text = data.title
+            binding.tvDescription.text = data.description
+            if (data.images.isNotEmpty()) {
+                Glide.with(itemView.context).load(data.images[0].image).into(binding.ivItem)
+            }
         }
     }
 
@@ -42,21 +47,20 @@ class NewsAdapter(private val onClick: (DataItem) -> Unit) :
     }
 
     companion object {
-        class DiffUtilCallback : DiffUtil.ItemCallback<DataItem>() {
+        class DiffUtilCallback : DiffUtil.ItemCallback<News>() {
             override fun areItemsTheSame(
-                oldItem: DataItem,
-                newItem: DataItem
+                oldItem: News,
+                newItem: News
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: DataItem,
-                newItem: DataItem
+                oldItem: News,
+                newItem: News
             ): Boolean {
                 return oldItem == newItem
             }
         }
     }
-
 }
