@@ -2,9 +2,13 @@ package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.sea
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.Spannable
+import android.text.SpannableString
 import android.text.TextWatcher
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -13,7 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.data.remote.model.mangements.Governance
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentSearchControlVVBinding
-import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.mvd.adapter.ControlMIAKRAdapter
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.ControlITMIAKRViewModel
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.adapter.ManagementVVAdapter
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -22,12 +27,9 @@ import kotlinx.coroutines.launch
 class SearchControlVVFragment : Fragment(R.layout.fragment_search_control_v_v) {
 
     private val binding by viewBinding(FragmentSearchControlVVBinding::bind)
-
-    private val viewModel: SearchControlVVViewModel by viewModels()
-
-    private var adapterVV = ControlMIAKRAdapter()
-
-    private val controlVVList: List<Governance> = listOf()
+    private val viewModel: ControlITMIAKRViewModel by viewModels()
+    private var adapterVV = ManagementVVAdapter()
+    private var controlVVList: List<Governance> = listOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -40,9 +42,11 @@ class SearchControlVVFragment : Fragment(R.layout.fragment_search_control_v_v) {
 
     private fun showData() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.controlITMIAKR.collect { controls ->
+            viewModel.managementVv.collect { controls ->
                 adapterVV.submitList(controls)
                 Log.e("control", "$controls")
+                controlVVList = controls ?: emptyList()
+                updateItemCount()
             }
         }
     }
@@ -70,12 +74,26 @@ class SearchControlVVFragment : Fragment(R.layout.fragment_search_control_v_v) {
     private fun searchCharacter(query: String) {
         adapterVV.updateSearchQuery(query)
         val filteredList = controlVVList.filter {
-            it.jobTittle?.contains(query, ignoreCase = true) == true || it.jobTittle?.contains(
+            it.jobTittle?.contains(query, ignoreCase = true) == true || it.category?.contains(
                 query,
                 ignoreCase = true
             ) == true
         }
         adapterVV.submitList(filteredList)
+        updateItemCount()
+    }
+
+    private fun updateItemCount() {
+        val num = adapterVV.itemCount
+        val spannableString = SpannableString(num.toString())
+        val color = ContextCompat.getColor(binding.root.context, R.color.search_color)
+        spannableString.setSpan(
+            ForegroundColorSpan(color),
+            0,
+            spannableString.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        binding.number2.text = spannableString
     }
 
     private fun initialize() {

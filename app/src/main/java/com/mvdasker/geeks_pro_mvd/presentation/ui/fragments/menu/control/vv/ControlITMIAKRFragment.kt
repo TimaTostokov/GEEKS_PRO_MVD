@@ -19,9 +19,7 @@ import kotlinx.coroutines.launch
 class ControlITMIAKRFragment : Fragment(R.layout.fragment_control_i_t_m_i_a_k_r) {
 
     private val binding by viewBinding(FragmentControlITMIAKRBinding::bind)
-
     private val managementAdapter = ManagementVVAdapter()
-
     private val viewModel: ControlITMIAKRViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

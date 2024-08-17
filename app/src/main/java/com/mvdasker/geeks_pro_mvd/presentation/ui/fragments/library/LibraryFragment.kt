@@ -24,9 +24,7 @@ class LibraryFragment : Fragment() {
 
     private var _binding: FragmentLibraryBinding? = null
     private val binding get() = _binding!!
-
     private val viewModel: LibraryViewModel by viewModels()
-
     private val adapter = NotesAdapterLibrary(::onClick)
 
     override fun onCreateView(
