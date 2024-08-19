@@ -56,10 +56,10 @@ class SearchControlVVFragment : Fragment(R.layout.fragment_search_control_v_v) {
             when (message) {
                 is Messages.NetworkIsDisconnected ->
                     noInternetSnackbar()
-
-                else -> {
-                    Extensions.showToast(requireContext(), "Failed to show progress bar")
-                }
+                is Messages.HideProgressBar ->
+                    binding.fSearchControlVVProgressBar.gone()
+                is Messages.ShowProgressBar ->
+                    binding.fSearchControlVVProgressBar.visible()
             }
             viewModel.clearMessage()
         }

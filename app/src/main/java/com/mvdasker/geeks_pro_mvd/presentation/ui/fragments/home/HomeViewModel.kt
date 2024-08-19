@@ -22,7 +22,7 @@ class HomeViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     private val _newsState = MutableStateFlow<UiState<List<News>>>(UiState.Loading)
-    val newsState = _newsState.asStateFlow()
+    val newsState:Flow<UiState<List<News>>> = _newsState.asStateFlow()
 
     private val _messageFlow = MutableStateFlow<Messages?>(null)
     val messageFlow: Flow<Messages> = _messageFlow.filterNotNull()

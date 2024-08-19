@@ -67,11 +67,8 @@ class NotificationsFragment : Fragment() {
             when (messages) {
                 is Messages.NetworkIsDisconnected -> {
                     noInternetSnackbar()
-                    binding.fNotifProgressBar.visible()
                 }
-                else -> {
-                    Extensions.showToast(requireContext(),"Failed to connect progress bar")
-                }
+                else -> {}
             }
             viewModel.clearMessage()
         }

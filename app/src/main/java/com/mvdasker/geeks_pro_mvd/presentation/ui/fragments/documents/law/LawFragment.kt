@@ -56,6 +56,7 @@ class LawFragment : Fragment(R.layout.fragment_law) {
 
                 is UiState.Error -> {
                     Log.e("toli", "данные не пришли frag")
+                    binding.fcLawProgressBar.gone()
                 }
             }
         }
@@ -67,9 +68,7 @@ class LawFragment : Fragment(R.layout.fragment_law) {
                 is Messages.NetworkIsDisconnected ->
                     noInternetSnackbar()
 
-                else -> {
-                    Extensions.showToast(requireContext(), "Failed to show progress bar")
-                }
+                else -> {}
             }
             viewModel.clearMessage()
         }

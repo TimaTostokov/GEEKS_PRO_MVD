@@ -56,6 +56,7 @@ class NewsViewModel @Inject constructor(
                         Log.e("toli", "во viewModel не пришли данные")
                         _detailState.value = UiState.Error(error, error.message ?: "unknown error!")
                         _messageFlow.value = Messages.NetworkIsDisconnected
+                        _messageFlow.value = Messages.HideProgressBar
                     }
                 )
             }

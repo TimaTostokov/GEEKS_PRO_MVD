@@ -34,15 +34,18 @@ class LibraryViewModel @Inject constructor(
     }
 
     private fun getLibraries(title: String? = null, description: String? = null) {
+        _messageFlow.value = Messages.ShowProgressBar
         viewModelScope.launch {
             try {
                 val result = repository.searchNotes(title, description)
                 _libraries.value = result
                 Log.e("librariesdan", "${_libraries.value}")
+                _messageFlow.value = Messages.HideProgressBar
             } catch (e: Exception) {
                 _libraries.value = emptyList()
                 Log.e("error", "Exception occurred: ${e.message}")
                 _messageFlow.value = Messages.NetworkIsDisconnected
+                _messageFlow.value = Messages.HideProgressBar
             }
         }
     }

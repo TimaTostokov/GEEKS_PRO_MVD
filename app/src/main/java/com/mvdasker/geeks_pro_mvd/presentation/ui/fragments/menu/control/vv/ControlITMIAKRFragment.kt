@@ -45,10 +45,10 @@ class ControlITMIAKRFragment : Fragment(R.layout.fragment_control_i_t_m_i_a_k_r)
             when (message) {
                 is Messages.NetworkIsDisconnected ->
                     noInternetSnackbar()
-
-                else -> {
-                    Extensions.showToast(requireContext(), "Failed to show progress bar")
-                }
+                is Messages.ShowProgressBar ->
+                    binding.fcRukVMKProgressBar.visible()
+                is Messages.HideProgressBar ->
+                    binding.fcRukVMKProgressBar.gone()
             }
             viewModel.clearMessage()
         }

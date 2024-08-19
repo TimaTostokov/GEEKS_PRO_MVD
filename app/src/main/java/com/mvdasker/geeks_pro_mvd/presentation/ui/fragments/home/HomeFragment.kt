@@ -44,6 +44,7 @@ class HomeFragment : Fragment() {
         observe()
         showSnack()
 
+
         binding.fDocUpBtn.setOnClickListener {
             binding.nestedSv.smoothScrollTo(0, 0)
         }
@@ -70,6 +71,7 @@ class HomeFragment : Fragment() {
                 }
                 is UiState.Error -> {
                     Log.e("toli", "данные не пришли frag")
+                    binding.fHomeProgressBar.gone()
                 }
             }
         }
@@ -81,9 +83,7 @@ class HomeFragment : Fragment() {
                 is Messages.NetworkIsDisconnected ->
                     noInternetSnackbar()
 
-                else -> {
-                    Extensions.showToast(requireContext(), "Failed to show progress bar")
-                }
+                else -> {}
             }
             viewModel.clearMessage()
         }

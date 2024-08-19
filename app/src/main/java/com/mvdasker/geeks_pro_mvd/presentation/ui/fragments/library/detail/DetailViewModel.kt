@@ -30,15 +30,17 @@ class DetailViewModel @Inject constructor(
     }
 
     fun getNoteDetail(id: Int) {
+        _messageFlow.value = Messages.ShowProgressBar
         viewModelScope.launch {
             try {
                 val response = repository.searchNotes()
                 _noteDetail.value = response.find { it.id == id }
+                _messageFlow.value = Messages.HideProgressBar
             } catch (e: Exception) {
                 Log.e("error", "${e.message}")
                 _messageFlow.value = Messages.NetworkIsDisconnected
+                _messageFlow.value = Messages.HideProgressBar
             }
         }
     }
-
 }

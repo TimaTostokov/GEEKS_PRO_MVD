@@ -1,7 +1,8 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.detail
 
+import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
-import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentDetailBinding
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
@@ -49,15 +48,17 @@ class DetailFragment : Fragment() {
         showSnack()
     }
 
-    private fun showSnack(){
+    private fun showSnack() {
         observeData(viewModel.messageFlow) { message ->
             when (message) {
                 is Messages.NetworkIsDisconnected ->
                     noInternetSnackbar()
 
-                else -> {
-                    Extensions.showToast(requireContext(), "Failed to show progress bar")
-                }
+                is Messages.ShowProgressBar ->
+                    binding.detailsProgressBar.visible()
+
+                is Messages.HideProgressBar ->
+                    binding.detailsProgressBar.gone()
             }
             viewModel.clearMessage()
         }
@@ -86,7 +87,10 @@ class DetailFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.noteDetail.collect { note ->
                 note?.image?.let { binding.ivPhoto.setImageResource(it) }
-                binding.tvTextAsker.text = note?.conspect ?: ""
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    binding.tvTextAsker.text =
+                        Html.fromHtml(note?.conspect ?: "", Html.FROM_HTML_MODE_LEGACY)
+                }
             }
         }
     }
