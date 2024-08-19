@@ -1,5 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.mvd.adapter
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableString
@@ -54,6 +55,7 @@ class ControlMIAKRAdapter :
         )
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateSearchQuery(query: String) {
         searchQuery = query
         notifyDataSetChanged()
@@ -81,4 +83,5 @@ class ControlMIAKRAdapter :
             return oldItem == newItem
         }
     }
+
 }

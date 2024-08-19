@@ -11,10 +11,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvdasker.geeks_pro_mvd.common.Messages
+import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.data.remote.model.library.Library
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentLibraryBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.adapter.NotesAdapterLibrary
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
 import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -24,7 +28,9 @@ class LibraryFragment : Fragment() {
 
     private var _binding: FragmentLibraryBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: LibraryViewModel by viewModels()
+
+    private val viewModel by viewModels<LibraryViewModel>()
+
     private val adapter = NotesAdapterLibrary(::onClick)
 
     override fun onCreateView(
@@ -41,12 +47,37 @@ class LibraryFragment : Fragment() {
         goToSearch()
         goToNotification()
         observerData()
+        progressBar()
+        showSnack()
+    }
 
+    private fun progressBar() {
+        observeData(viewModel.messageFlow) {
+            when (it) {
+                is Messages.HideProgressBar ->
+                    binding.LibraryProgressBar.visible()
+
+                is Messages.ShowProgressBar ->
+                    binding.LibraryProgressBar.gone()
+
+                else -> {
+                    noInternetSnackbar()
+                    binding.LibraryProgressBar.visible()
+                    Extensions.showToast(requireContext(), "Failed to show progress bar")
+                }
+            }
+        }
+    }
+
+    private fun showSnack(){
         observeData(viewModel.messageFlow) { message ->
             when (message) {
                 is Messages.NetworkIsDisconnected ->
                     noInternetSnackbar()
-                else -> {}
+
+                else -> {
+                    Extensions.showToast(requireContext(), "Failed to show progress bar")
+                }
             }
             viewModel.clearMessage()
         }
@@ -87,4 +118,5 @@ class LibraryFragment : Fragment() {
             )
         )
     }
+
 }

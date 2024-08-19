@@ -8,9 +8,10 @@ object Constants {
     const val NOTIFICATION_END_POINT = "docs/notification/"
     const val END_POINT_LIBRARY = "docs/library"
     const val MANAGEMENT_MVD_END_POINT = "docs/governance/mvdkr/"
-    const val AUTHORIZATION_END_POINT = "docs/authorization/"
     const val MANAGEMENT_VV_END_POINT = "docs/governance/vvmvdkr/"
     const val HISTORY_END_POINT = "docs/history/{pk}/"
+    const val AUTHORIZATION_END_POINT = "users/login/"
+    const val AUTHORIZATION_GET_END_POINT = "users/{pk}/"
     const val NEWS_END_POINT = "news/"
     const val NEWS_DETAIL_ENDPOINT = "news/{id}/"
 }

@@ -5,9 +5,11 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Authorization(
+data class User(
+    @SerializedName("id")
+    val id: Int? = null,
     @SerializedName("username")
     val username: String? = null,
-    @SerializedName("password")
-    val password: String? = null
+    @SerializedName("image_url")
+    val img: String? = null
 ) : Parcelable

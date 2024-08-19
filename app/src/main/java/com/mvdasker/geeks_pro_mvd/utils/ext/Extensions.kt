@@ -1,7 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.utils.ext
 
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Context
 import android.os.Build
 import android.util.TypedValue
@@ -70,42 +69,12 @@ object Extensions {
         }
     }
 
-    fun showAlertDialog(
-        context: Context,
-        title: String,
-        message: String,
-        positiveButtonText: String = "",
-        negativeButtonText: String = "",
-        onPositiveButtonClick: (() -> Unit)? = null,
-        onNegativeButtonClick: (() -> Unit)? = null
-    ) {
-        val builder = AlertDialog.Builder(context)
-            .setTitle(title)
-            .setMessage(message)
-            .setPositiveButton(positiveButtonText) { dialog, _ ->
-                onPositiveButtonClick?.invoke()
-                dialog.dismiss()
-            }
-
-        builder.setNegativeButton(negativeButtonText) { dialog, _ ->
-            onNegativeButtonClick?.invoke()
-            dialog.dismiss()
-        }
-
-        val dialog = builder.create()
-        dialog.show()
-    }
-
     fun View.visible() {
         this.visibility = View.VISIBLE
     }
 
     fun View.gone() {
         this.visibility = View.GONE
-    }
-
-    fun View.invisible() {
-        this.visibility = View.INVISIBLE
     }
 
     fun Fragment.disableScreenShot(isSecure: Boolean) {

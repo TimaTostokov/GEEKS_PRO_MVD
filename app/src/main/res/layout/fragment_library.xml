@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:fontFamily="@font/roboto_bold"
+                android:fontFamily="@font/roboto"
                 android:text="@string/library"
                 android:textColor="@color/black"
                 android:textSize="24sp"
@@ -38,6 +38,7 @@
                 android:layout_gravity="end"
                 android:layout_marginEnd="16dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
+                android:importantForAccessibility="no"
                 android:padding="4dp"
                 android:src="@drawable/bell" />
 
@@ -71,5 +72,16 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         tools:listitem="@layout/item_abstract" />
+
+    <FrameLayout
+        android:id="@+id/LibraryProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:visibility="gone">
+
+        <include layout="@layout/progress_bar" />
+
+    </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

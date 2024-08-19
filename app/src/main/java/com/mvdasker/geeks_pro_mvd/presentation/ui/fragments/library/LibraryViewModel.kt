@@ -40,9 +40,9 @@ class LibraryViewModel @Inject constructor(
                 _libraries.value = result
                 Log.e("librariesdan", "${_libraries.value}")
             } catch (e: Exception) {
-                _messageFlow.value = Messages.NetworkIsDisconnected
                 _libraries.value = emptyList()
                 Log.e("error", "Exception occurred: ${e.message}")
+                _messageFlow.value = Messages.NetworkIsDisconnected
             }
         }
     }

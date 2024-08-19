@@ -7,13 +7,14 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.mvdasker.geeks_pro_mvd.databinding.FragmentMenuBinding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.databinding.FragmentMenuBinding
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.LibraryViewModel
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history.adapter.HistoryAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -24,7 +25,7 @@ class MenuFragment : Fragment() {
     private var _binding: FragmentMenuBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: MenuViewModel by viewModels()
+    private val viewModel by viewModels<MenuViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,12 +37,11 @@ class MenuFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel.setNavController(findNavController())
-
         observeViewModel()
         setupRecyclerView()
         setupListeners()
+
+        viewModel.setNavController(findNavController())
 
         viewModel.isRecyclerViewVisible.observe(viewLifecycleOwner) { isVisible ->
             binding.recyclerView.isVisible = isVisible
@@ -79,9 +79,12 @@ class MenuFragment : Fragment() {
                 requireContext(),
                 if (isSelected) R.color.dark_blue else R.color.white
             )
-            setTextColor(ContextCompat.getColor(requireContext(),
-                if (isSelected) R.color.white else R.color.dark_blue
-            ))
+            setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    if (isSelected) R.color.white else R.color.dark_blue
+                )
+            )
         }
     }
 
@@ -91,42 +94,31 @@ class MenuFragment : Fragment() {
         )
     }
 
-    private fun setupListeners() {
-        binding.apply {
-            spinner.setOnClickListener {
-                viewModel.toggleRecyclerViewVisibility()
-            }
-            aboutUsButton.setOnClickListener {
-                viewModel.toggleRecyclerViewVisibility()
-            }
-            controlKRButton.setOnClickListener {
-                viewModel.onClickControlKRButton()
+    private fun setupListeners() = with(binding) {
+        spinner.setOnClickListener { viewModel.toggleRecyclerViewVisibility() }
+        aboutUsButton.setOnClickListener { viewModel.toggleRecyclerViewVisibility() }
+
+        val hideRecyclerViewActions = listOf(
+            controlKRButton to { viewModel.onClickControlKRButton() },
+            controlMIAKRButton to { viewModel.onClickControlMIAKRButton() },
+            controlITMIAKRButton to { viewModel.onClickControlITMIAKRButton() },
+            openDictionaryBtn to { viewModel.onOpenDictionaryClick() },
+            mapBtn to { viewModel.onMapClick() },
+            tvLogoGeeks to { viewModel.openInstagram() },
+            imgLogoGeeks to { viewModel.openInstagram() },
+            trafficRulesButton to { viewModel.onTrafficRulesClick() }
+        )
+
+        hideRecyclerViewActions.forEach { (button, action) ->
+            button.setOnClickListener {
+                action()
                 viewModel.hideRecyclerView()
             }
-            controlMIAKRButton.setOnClickListener {
-                viewModel.onClickControlMIAKRButton()
-                viewModel.hideRecyclerView()
-            }
-            controlITMIAKRButton.setOnClickListener {
-                viewModel.onClickControlITMIAKRButton()
-                viewModel.hideRecyclerView()
-            }
-            openDictionaryBtn.setOnClickListener {
-                viewModel.onOpenDictionaryClick()
-                viewModel.hideRecyclerView()
-            }
-            mapBtn.setOnClickListener {
-                viewModel.onMapClick()
-                viewModel.hideRecyclerView()
-            }
-            trafficRulesButton.setOnClickListener {
-                viewModel.onTrafficRulesClick()
-                viewModel.hideRecyclerView()
-            }
-            buttonToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
-                viewModel.onButtonToggleGroupCheckedChange(checkedId, isChecked)
-                viewModel.hideRecyclerView()
-            }
+        }
+
+        buttonToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            viewModel.onButtonToggleGroupCheckedChange(checkedId, isChecked)
+            viewModel.hideRecyclerView()
         }
     }
 

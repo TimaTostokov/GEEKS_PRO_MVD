@@ -1,6 +1,7 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.common.Messages
+import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentDetailBinding
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
+import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -20,7 +28,7 @@ class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: DetailViewModel by viewModels()
+    private val viewModel by viewModels<DetailViewModel>()
 
     private val args by navArgs<DetailFragmentArgs>()
 
@@ -37,6 +45,28 @@ class DetailFragment : Fragment() {
         initialize()
         goBack()
         goNotification()
+        fubBtn()
+        showSnack()
+    }
+
+    private fun showSnack(){
+        observeData(viewModel.messageFlow) { message ->
+            when (message) {
+                is Messages.NetworkIsDisconnected ->
+                    noInternetSnackbar()
+
+                else -> {
+                    Extensions.showToast(requireContext(), "Failed to show progress bar")
+                }
+            }
+            viewModel.clearMessage()
+        }
+    }
+
+    private fun fubBtn() {
+        binding.upBtn.setOnClickListener {
+            binding.nestedLibrary.smoothScrollTo(0, 0)
+        }
     }
 
     private fun goBack() {

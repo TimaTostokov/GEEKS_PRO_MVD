@@ -9,8 +9,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.common.Messages
+import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentControlITMIAKRBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.adapter.ManagementVVAdapter
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
+import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -19,8 +26,10 @@ import kotlinx.coroutines.launch
 class ControlITMIAKRFragment : Fragment(R.layout.fragment_control_i_t_m_i_a_k_r) {
 
     private val binding by viewBinding(FragmentControlITMIAKRBinding::bind)
+
     private val managementAdapter = ManagementVVAdapter()
-    private val viewModel: ControlITMIAKRViewModel by viewModels()
+
+    private val viewModel by viewModels<ControlITMIAKRViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -28,6 +37,21 @@ class ControlITMIAKRFragment : Fragment(R.layout.fragment_control_i_t_m_i_a_k_r)
         initialize()
         goToSearch()
         goBack()
+        showSnack()
+    }
+
+    private fun showSnack(){
+        observeData(viewModel.messageFlow) { message ->
+            when (message) {
+                is Messages.NetworkIsDisconnected ->
+                    noInternetSnackbar()
+
+                else -> {
+                    Extensions.showToast(requireContext(), "Failed to show progress bar")
+                }
+            }
+            viewModel.clearMessage()
+        }
     }
 
     private fun observerData() {

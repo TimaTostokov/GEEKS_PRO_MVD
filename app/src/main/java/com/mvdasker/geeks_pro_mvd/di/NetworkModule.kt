@@ -1,14 +1,10 @@
 package com.mvdasker.geeks_pro_mvd.di
 
-import android.content.Context
-import android.content.SharedPreferences
 import com.mvdasker.geeks_pro_mvd.common.Constants.BASE_URL
-import com.mvdasker.geeks_pro_mvd.common.Pref
 import com.mvdasker.geeks_pro_mvd.data.remote.apiservice.SanaripAskerApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -42,7 +38,10 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient, gsonConverterFactory: GsonConverterFactory): Retrofit =
+    fun provideRetrofit(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit =
         Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(BASE_URL)
@@ -53,11 +52,4 @@ object NetworkModule {
     @Singleton
     fun provideApi(retrofit: Retrofit): SanaripAskerApi =
         retrofit.create(SanaripAskerApi::class.java)
-
-    @Provides
-    @Singleton
-    fun providePreference(@ApplicationContext context: Context): SharedPreferences {
-        return context.getSharedPreferences(Pref.PREF_NAME, Context.MODE_PRIVATE)
-    }
-
 }

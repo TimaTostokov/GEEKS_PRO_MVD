@@ -57,11 +57,11 @@
         <action
             android:id="@+id/action_newsFragment_to_notificationsFragment"
             app:destination="@id/notificationsFragment" />
+
         <argument
             android:name="id"
             app:argType="string"
             app:nullable="true" />
-
 
     </fragment>
 
@@ -93,8 +93,7 @@
 
         <action
             android:id="@+id/action_documentsFragment_to_lawFragment"
-            app:destination="@id/lawFragment"
-            app:enterAnim="@anim/from_right" />
+            app:destination="@id/lawFragment" />
 
         <action
             android:id="@+id/action_documentsFragment_to_statutesFragment"
@@ -102,8 +101,7 @@
 
         <action
             android:id="@+id/action_documentsFragment_to_constitutionFragment"
-            app:destination="@id/constitutionFragment"
-            app:enterAnim="@anim/from_right" />
+            app:destination="@id/constitutionFragment" />
 
         <action
             android:id="@+id/action_documentsFragment_to_notificationsFragment"
@@ -183,7 +181,8 @@
 
         <action
             android:id="@+id/action_controlMIAKRFragment_to_searchControlFragment"
-            app:destination="@id/searchControlFragment"/>
+            app:destination="@id/searchControlFragment" />
+
         <action
             android:id="@+id/action_controlMIAKRFragment_to_searchControlFragment2"
             app:destination="@id/searchControlFragment" />
@@ -271,18 +270,24 @@
         android:id="@+id/historyMVDKRFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history.HistoryMVDKRFragment"
         android:label="fragment_history_m_v_d_k_r"
-        tools:layout="@layout/fragment_history_m_v_d_k_r"></fragment>
+        tools:layout="@layout/fragment_history_m_v_d_k_r">
+
+    </fragment>
 
     <fragment
         android:id="@+id/historyOfKyrgyzstanFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history.HistoryOfKyrgyzstanFragment"
         android:label="fragment_history_of_kyrgyzstan"
-        tools:layout="@layout/fragment_history_of_kyrgyzstan"></fragment>
+        tools:layout="@layout/fragment_history_of_kyrgyzstan">
+
+    </fragment>
 
     <fragment
         android:id="@+id/historyVVMVDKRFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history.HistoryVVMVDKRFragment"
         android:label="fragment_history_v_v_m_v_d_k_r"
-        tools:layout="@layout/fragment_history_v_v_m_v_d_k_r"></fragment>
+        tools:layout="@layout/fragment_history_v_v_m_v_d_k_r">
+
+    </fragment>
 
 </navigation>

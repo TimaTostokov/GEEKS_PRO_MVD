@@ -16,6 +16,7 @@ class WebViewFragment : Fragment() {
 
     private var _binding: FragmentWebViewBinding? = null
     private val binding get() = _binding!!
+
     private val args: WebViewFragmentArgs by navArgs()
 
     override fun onCreateView(

@@ -78,7 +78,6 @@ class NotesAdapterLibrary(val onClick: (Library) -> Unit) :
         notifyDataSetChanged()
     }
 
-
     class DiffUtilCallback : DiffUtil.ItemCallback<Library>() {
         override fun areItemsTheSame(oldItem: Library, newItem: Library): Boolean {
             return oldItem.id == newItem.id

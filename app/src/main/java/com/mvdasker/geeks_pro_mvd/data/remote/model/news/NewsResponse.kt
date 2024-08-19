@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 data class NewsResponse(
     @SerializedName("count")
-    val count: Int,
+    val count: Int? = null,
     @SerializedName("next")
     val next: String? = null,
     @SerializedName("previous")
     val previous: String? = null,
     @SerializedName("results")
-    val results: List<News>,
+    val results: List<News>? = null
 )

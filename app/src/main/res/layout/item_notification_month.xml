@@ -4,12 +4,11 @@
     android:id="@+id/itemMonth"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="16dp"
     android:layout_marginVertical="16dp"
-    android:textStyle="bold"
-    android:fontFamily="@font/roboto_bold"
+    android:layout_marginStart="16dp"
+    android:fontFamily="@font/roboto"
     android:textAlignment="center"
     android:textColor="@color/black"
-    tools:text="Июнь"
-    android:textSize="22dp"
-    />
+    android:textSize="22sp"
+    android:textStyle="bold"
+    tools:text="Июнь" />

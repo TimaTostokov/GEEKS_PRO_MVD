@@ -9,7 +9,8 @@
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,70 +24,69 @@
                 android:layout_height="84dp"
                 android:layout_marginTop="24dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/avatar"
+                android:src="@drawable/logo_mvd"
                 tools:ignore="MissingClass" />
 
             <TextView
+                android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/roboto_bold"
                 android:text="@string/name"
                 android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="18sp" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <com.google.android.material.button.MaterialButtonToggleGroup
                     android:id="@+id/buttonToggleGroup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     app:selectionRequired="true"
                     app:singleSelection="true">
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/kg_btn"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/roboto_bold"
+                        android:fontFamily="@font/roboto"
                         android:text="@string/kyrgyz"
+                        android:textSize="16sp"
                         android:textAllCaps="false"
                         android:textColor="@color/dark_blue"
                         app:backgroundTint="@color/white"
-                        app:cornerRadius="8dp"
+                        app:cornerRadius="10dp"
                         app:iconGravity="textStart"
                         app:strokeColor="@color/dark_blue"
                         app:strokeWidth="1dp" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/ru_btn"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/roboto_bold"
+                        android:fontFamily="@font/roboto"
                         android:text="@string/russian"
                         android:textAllCaps="false"
+                        android:textSize="16sp"
                         android:textColor="@color/white"
                         app:backgroundTint="@color/dark_blue"
-                        app:cornerRadius="8dp"
+                        app:cornerRadius="10dp"
                         app:iconGravity="textStart"
                         app:strokeColor="@color/dark_blue"
                         app:strokeWidth="1dp" />
 
                 </com.google.android.material.button.MaterialButtonToggleGroup>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -317,13 +317,17 @@
                     tools:ignore="UseCompoundDrawables">
 
                     <TextView
+                        android:id="@+id/tv_logo_geeks"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:fontFamily="@font/roboto"
+                        android:textSize="14sp"
                         android:text="@string/made_by_geeks_pro"
                         android:textColor="@color/black"
                         android:textStyle="bold" />
 
                     <ImageView
+                        android:id="@+id/img_logo_geeks"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"

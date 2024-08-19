@@ -22,5 +22,6 @@
     <color name="orange">#FF9500</color>
     <color name="color_date_notif">#414141</color>
     <color name="design_default_color_error">#FF0E00</color>
+    <color name="dark_brown">#414141</color>
 
 </resources>
