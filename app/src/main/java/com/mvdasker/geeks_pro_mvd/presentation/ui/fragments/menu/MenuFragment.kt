@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentMenuBinding
-import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.LibraryViewModel
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history.adapter.HistoryAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -90,7 +89,7 @@ class MenuFragment : Fragment() {
 
     private fun updateSpinnerIcon(isVisible: Boolean) {
         binding.spinner.setImageResource(
-            if (isVisible) R.drawable.spinner_icon else R.drawable.spinner_icon2
+            if (isVisible) R.drawable.spinner_icon else R.drawable.spinner_icon_two
         )
     }
 

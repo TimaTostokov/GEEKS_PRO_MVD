@@ -7,6 +7,6 @@ import javax.inject.Inject
 class LibraryRepository @Inject constructor(private val sanaripAskerApi: SanaripAskerApi) {
 
     suspend fun searchNotes(title: String? = null, description: String? = null): List<Library> {
-        return sanaripAskerApi.getLibrary(title, description)
+        return sanaripAskerApi.getLibrary(title, description).reversed()
     }
 }

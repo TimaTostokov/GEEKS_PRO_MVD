@@ -7,10 +7,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentControlKRBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.kg.adapter.ControlKgAdapter
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
 import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
@@ -30,6 +32,7 @@ class ControlKRFragment : Fragment(R.layout.fragment_control_k_r) {
         initialize()
         setupListeners()
         goBack()
+        showSnack()
     }
 
     private fun initialize() {
@@ -53,6 +56,22 @@ class ControlKRFragment : Fragment(R.layout.fragment_control_k_r) {
                     binding.fcRukKrProgressBar.gone()
                 }
             }
+        }
+    }
+
+    private fun showSnack() {
+        observeData(viewModel.messageFlow) { message ->
+            when (message) {
+                is Messages.NetworkIsDisconnected ->
+                    noInternetSnackbar()
+
+                is Messages.ShowProgressBar ->
+                    binding.fcRukKrProgressBar.visible()
+
+                is Messages.HideProgressBar ->
+                    binding.fcRukKrProgressBar.gone()
+            }
+            viewModel.clearMessage()
         }
     }
 

@@ -38,7 +38,7 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideManagementRepository(sanaripAskerApi: SanaripAskerApi): ManagementsKrRepository =
-        ManagementsKrRepository(sanaripAskerApi, provideAppDispatchers())
+        ManagementsKrRepository(sanaripAskerApi)
 
     @Provides
     @Singleton

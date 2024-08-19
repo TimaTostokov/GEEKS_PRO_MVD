@@ -73,8 +73,7 @@ class NewsFragment : Fragment() {
                             val imageUrl = if (!it.image.isNullOrEmpty()) {
                                 it.image[0].image
                             } else null
-                            Glide.with(binding.ivItem).load(imageUrl)
-                                .placeholder(R.drawable.about_as).into(binding.ivItem)
+                            Glide.with(binding.ivItem).load(imageUrl).into(binding.ivItem)
 
                             binding.tvNewsTitle.text = it.title
                             binding.tvData.text = it.description
@@ -93,7 +92,7 @@ class NewsFragment : Fragment() {
                 is Messages.HideProgressBar ->
                     binding.fNewsProgressBar.gone()
 
-                is Messages.ShowProgressBar ->{}
+                is Messages.ShowProgressBar -> {}
 
                 is Messages.NetworkIsDisconnected -> {
                     noInternetSnackbar()

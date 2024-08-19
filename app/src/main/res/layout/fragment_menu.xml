@@ -134,7 +134,7 @@
                                 android:clickable="true"
                                 android:focusable="true"
                                 android:padding="16dp"
-                                android:src="@drawable/spinner_icon2"
+                                android:src="@drawable/spinner_icon_two"
                                 tools:ignore="ContentDescription" />
 
                         </FrameLayout>

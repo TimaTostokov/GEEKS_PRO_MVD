@@ -16,12 +16,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
-import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.data.remote.model.library.Library
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentSearchBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.LibraryViewModel
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.adapter.NotesAdapterLibrary
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
@@ -44,6 +42,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentSearchBinding.bind(view)
+
         deleteClearBtn()
         initialize()
         searchCharacterListener()
@@ -53,15 +52,17 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         binding.etSearch.isSelected = true
     }
 
-    private fun showSnack(){
+    private fun showSnack() {
         observeData(viewModel.messageFlow) { message ->
             when (message) {
                 is Messages.NetworkIsDisconnected ->
                     noInternetSnackbar()
 
-                else -> {
-                    Extensions.showToast(requireContext(), "Failed to show progress bar")
-                }
+                is Messages.HideProgressBar ->
+                    binding.fDetalProgressBar.gone()
+
+                is Messages.ShowProgressBar ->
+                    binding.fDetalProgressBar.visible()
             }
             viewModel.clearMessage()
         }
@@ -93,6 +94,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                     searchCharacter(s.toString())
                 }
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
     }

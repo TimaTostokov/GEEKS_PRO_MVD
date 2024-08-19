@@ -22,7 +22,7 @@ class HomeViewModel @Inject constructor(
 ) : BaseViewModel() {
 
     private val _newsState = MutableStateFlow<UiState<List<News>>>(UiState.Loading)
-    val newsState:Flow<UiState<List<News>>> = _newsState.asStateFlow()
+    val newsState: Flow<UiState<List<News>>> = _newsState.asStateFlow()
 
     private val _messageFlow = MutableStateFlow<Messages?>(null)
     val messageFlow: Flow<Messages> = _messageFlow.filterNotNull()
@@ -38,7 +38,7 @@ class HomeViewModel @Inject constructor(
     private fun fetchNews() {
         viewModelScope.launch(dispatchers.io) {
             try {
-                val result = repository.getNews().results
+                val result = repository.getNews().results?.sortedByDescending { it.date }
                 if (result != null) {
                     _newsState.value = UiState.Success(result)
                 }

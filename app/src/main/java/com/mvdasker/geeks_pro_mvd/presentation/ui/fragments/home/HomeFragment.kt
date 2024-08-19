@@ -83,7 +83,9 @@ class HomeFragment : Fragment() {
                 is Messages.NetworkIsDisconnected ->
                     noInternetSnackbar()
 
-                else -> {}
+                else -> {
+                    Extensions.showToast(requireContext(),"Network is disconnected")
+                }
             }
             viewModel.clearMessage()
         }
