@@ -12,14 +12,20 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.common.Messages
+import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.data.remote.model.mangements.Governance
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentSearchControlBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.mvd.ControlMIAKRViewModel
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.mvd.adapter.ControlMIAKRAdapter
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
+import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -28,26 +34,46 @@ class SearchControlFragment : Fragment(R.layout.fragment_search_control) {
 
     private var _binding: FragmentSearchControlBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ControlMIAKRViewModel by viewModels()
+
     private var adapter = ControlMIAKRAdapter()
+
+    private val viewModel by viewModels<ControlMIAKRViewModel>()
+
     private var controlList: List<Governance> = listOf()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentSearchControlBinding.bind(view)
+
         initialize()
         showData()
         searchCharacterListener()
         crossToSearchControlFragment()
         deleteClearBtn()
-
+        showSnack()
     }
+
+    private fun showSnack() {
+        observeData(viewModel.messageFlow) { message ->
+            when (message) {
+                is Messages.NetworkIsDisconnected ->
+                    noInternetSnackbar()
+
+                else -> {
+                    Extensions.showToast(requireContext(), "Failed to show progress bar")
+                }
+            }
+            viewModel.clearMessage()
+        }
+    }
+
     private fun initialize() {
         binding.recyclerViewManagement.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = this@SearchControlFragment.adapter
         }
     }
+
     private fun showData() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.management.collect { controls ->
@@ -97,7 +123,6 @@ class SearchControlFragment : Fragment(R.layout.fragment_search_control) {
         )
         binding.number2.text = spannableString
     }
-
 
 
     private fun crossToSearchControlFragment() {

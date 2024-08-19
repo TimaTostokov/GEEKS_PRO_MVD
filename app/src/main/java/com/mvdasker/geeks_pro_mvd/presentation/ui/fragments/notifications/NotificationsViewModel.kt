@@ -44,6 +44,10 @@ class NotificationsViewModel @Inject constructor(private val notificationReposit
         loadNotificationsList()
     }
 
+    fun clearMessage() {
+        _messageFlow.value = null
+    }
+
     private fun loadNotificationsList() {
         viewModelScope.launch(Dispatchers.IO) {
             try {

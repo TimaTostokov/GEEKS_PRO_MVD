@@ -11,6 +11,7 @@
         android:layout_width="@dimen/_256dp"
         android:layout_height="@dimen/_256dp_"
         android:layout_gravity="center"
-        android:background="@drawable/mvd_splash"/>
+        android:background="@drawable/mvd_splash"
+        android:importantForAccessibility="no" />
 
 </FrameLayout>

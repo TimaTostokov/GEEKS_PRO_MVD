@@ -10,7 +10,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentNotificationsBinding
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history.viewmodel.HistoryViewModel
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications.adapter.NotificationsAdapter
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
@@ -23,7 +25,7 @@ class NotificationsFragment : Fragment() {
     private var _binding: FragmentNotificationsBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: NotificationsViewModel by viewModels()
+    private val viewModel by viewModels<NotificationsViewModel>()
 
     private val adapter = NotificationsAdapter()
 
@@ -60,14 +62,19 @@ class NotificationsFragment : Fragment() {
                 binding.fNotifProgressBar.gone()
             }
         }
+
         observeData(viewModel.messageFlow) { messages ->
             when (messages) {
                 is Messages.NetworkIsDisconnected -> {
                     noInternetSnackbar()
-                    binding.fNotifProgressBar.gone()
+                    binding.fNotifProgressBar.visible()
                 }
-                else -> {}
+                else -> {
+                    Extensions.showToast(requireContext(),"Failed to connect progress bar")
+                }
             }
+            viewModel.clearMessage()
         }
     }
+
 }

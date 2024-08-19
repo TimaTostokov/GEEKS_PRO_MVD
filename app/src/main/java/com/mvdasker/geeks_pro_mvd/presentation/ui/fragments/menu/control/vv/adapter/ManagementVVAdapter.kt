@@ -60,6 +60,7 @@ class ManagementVVAdapter :
         )
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateSearchQuery(query: String) {
         searchQuery = query
         notifyDataSetChanged()
@@ -71,19 +72,20 @@ class ManagementVVAdapter :
         }
     }
 
-        class DiffUtilCallback : DiffUtil.ItemCallback<Governance>() {
-            override fun areItemsTheSame(
-                oldItem: Governance,
-                newItem: Governance
-            ): Boolean {
-                return oldItem.id == newItem.id
-            }
-
-            override fun areContentsTheSame(
-                oldItem: Governance,
-                newItem: Governance
-            ): Boolean {
-                return oldItem == newItem
-            }
+    class DiffUtilCallback : DiffUtil.ItemCallback<Governance>() {
+        override fun areItemsTheSame(
+            oldItem: Governance,
+            newItem: Governance
+        ): Boolean {
+            return oldItem.id == newItem.id
         }
+
+        override fun areContentsTheSame(
+            oldItem: Governance,
+            newItem: Governance
+        ): Boolean {
+            return oldItem == newItem
+        }
+    }
+
 }

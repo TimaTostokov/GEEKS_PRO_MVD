@@ -9,39 +9,21 @@ data class News(
     @SerializedName("id")
     val id: Int? = null,
     @SerializedName("images")
-    val images: List<NewsImage>,
+    val images: List<NewsImage>? = null,
     @SerializedName("videos")
-    val video: List<NewsVideo>,
+    val video: List<NewsVideo>? = null,
     @SerializedName("title")
     val title: String? = null,
     @SerializedName("title_ru")
-    val titleRu: String?,
+    val titleRu: String? = null,
     @SerializedName("title_ky")
-    val titleKy: String?,
+    val titleKy: String? = null,
     @SerializedName("description")
-    val description: String?,
+    val description: String? = null,
     @SerializedName("description_ru")
-    val descriptionRu: String?,
+    val descriptionRu: String? = null,
     @SerializedName("description_ky")
-    val descriptionKy: String?,
+    val descriptionKy: String? = null,
     @SerializedName("date")
-    val date: String?
-) : Parcelable
-
-@Parcelize
-data class NewsImage(
-    @SerializedName("id")
-    val id: Int,
-    @SerializedName("image")
-    val image: String,
-    @SerializedName("news")
-    val news: Int
-) : Parcelable
-
-@Parcelize
-data class NewsVideo(
-    @SerializedName("id")
-    val id: Int? = null,
-    @SerializedName("videos")
-    val video: String?,
+    val date: String? = null
 ) : Parcelable

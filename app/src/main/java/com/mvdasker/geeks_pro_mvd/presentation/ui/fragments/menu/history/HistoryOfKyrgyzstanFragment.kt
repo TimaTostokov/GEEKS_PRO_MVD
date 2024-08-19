@@ -2,21 +2,22 @@ package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
-import com.mvdasker.geeks_pro_mvd.data.remote.model.history.HistoryResponse
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentHistoryOfKyrgyzstanBinding
-import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.MenuViewModel
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history.viewmodel.HistoryViewModel
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
+import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -27,7 +28,7 @@ class HistoryOfKyrgyzstanFragment : Fragment() {
     private var _binding: FragmentHistoryOfKyrgyzstanBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: HistoryViewModel by viewModels()
+    private val viewModel by viewModels<HistoryViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,12 +40,12 @@ class HistoryOfKyrgyzstanFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initListeners()
+        observe()
+        snackBar()
 
         val pk = 1
         viewModel.fetchHistory(pk)
-
-        initListeners()
-        observe()
 
         binding.upBtn.setOnClickListener {
             binding.nestedSv.smoothScrollTo(0, 0)
@@ -57,23 +58,40 @@ class HistoryOfKyrgyzstanFragment : Fragment() {
                 .collectLatest { uiState ->
                     when (uiState) {
                         is UiState.Loading -> {
-                            binding.fNotifProgressBar.visible()
+                            binding.fAboutKyrgyzProgressBar.visible()
                         }
+
                         is UiState.Error -> {
                             Log.d("tag", "Данные не пришли: ${uiState.message}")
                             binding.tvInfo.text = "Ошибка загрузки данных"
                         }
+
                         is UiState.Success -> {
-                            binding.fNotifProgressBar.gone()
-                            val firstItem = uiState.data
+                            binding.fAboutKyrgyzProgressBar.gone()
+                            val firstItem = uiState.data?.text_ru
                             if (firstItem != null) {
-                                binding.tvInfo.text = firstItem.text_ru
+                                binding.tvInfo.text = firstItem
                             } else {
                                 binding.tvInfo.text = "Нет данных"
                             }
                         }
                     }
                 }
+        }
+    }
+
+    private fun snackBar() {
+        observeData(viewModel.messageFlow) { messages ->
+            when (messages) {
+                is Messages.NetworkIsDisconnected -> {
+                    noInternetSnackbar()
+                    binding.fAboutKyrgyzProgressBar.visible()
+                }
+                else -> {
+                    Extensions.showToast(requireContext(), "Failed to connect progress bar")
+                }
+            }
+            viewModel.clearMessage()
         }
     }
 

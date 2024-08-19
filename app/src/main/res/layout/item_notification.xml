@@ -82,5 +82,7 @@
         android:layout_gravity="top|end"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="12dp"
-        android:background="@drawable/circle_notification" />
+        android:background="@drawable/circle_notification"
+        android:importantForAccessibility="no" />
+
 </androidx.cardview.widget.CardView>

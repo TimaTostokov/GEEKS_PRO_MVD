@@ -15,10 +15,17 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.common.Messages
+import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.data.remote.model.library.Library
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentSearchBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.LibraryViewModel
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.adapter.NotesAdapterLibrary
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
+import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -28,7 +35,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private var _binding: FragmentSearchBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: LibraryViewModel by viewModels()
+    private val viewModel by viewModels<LibraryViewModel>()
 
     private var adapter = NotesAdapterLibrary(::onCLick)
 
@@ -42,7 +49,22 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         searchCharacterListener()
         crossToLibraryFragment()
         showData()
+        showSnack()
         binding.etSearch.isSelected = true
+    }
+
+    private fun showSnack(){
+        observeData(viewModel.messageFlow) { message ->
+            when (message) {
+                is Messages.NetworkIsDisconnected ->
+                    noInternetSnackbar()
+
+                else -> {
+                    Extensions.showToast(requireContext(), "Failed to show progress bar")
+                }
+            }
+            viewModel.clearMessage()
+        }
     }
 
     private fun showData() {
@@ -52,7 +74,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 Log.e("libraries", "$libraries")
                 noteList = libraries ?: emptyList()
                 updateItemCount()
-
             }
         }
     }

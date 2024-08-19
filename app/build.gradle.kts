@@ -44,8 +44,6 @@ android {
 
 dependencies {
 
-    implementation(libs.firebase.database.ktx)
-
     ksp(libs.hilt.android.compiler)
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation)

@@ -9,15 +9,20 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentHomeBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.adapters.NewsAdapter
-import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.viewmodel.HomeViewModel
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
 import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
+
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -37,9 +42,12 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initialize()
         observe()
+        showSnack()
+
         binding.fDocUpBtn.setOnClickListener {
             binding.nestedSv.smoothScrollTo(0, 0)
         }
+
         binding.fhNotif.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_notificationsFragment)
         }
@@ -52,17 +60,32 @@ class HomeFragment : Fragment() {
     private fun observe() {
         observeData(viewModel.newsState) {
             when (it) {
-                is UiState.Error -> {
-                    Log.e("tag", "данные не пришли frag")
+                UiState.Loading -> {
+                    binding.fHomeProgressBar.visible()
                 }
-
-                UiState.Loading -> {}
-
                 is UiState.Success -> {
                     adapter.submitList(it.data)
-                    Log.d("tag", "данные пришли")
+                    binding.fHomeProgressBar.gone()
+                    Log.d("toli", "данные пришли")
+                }
+                is UiState.Error -> {
+                    Log.e("toli", "данные не пришли frag")
                 }
             }
+        }
+    }
+
+    private fun showSnack(){
+        observeData(viewModel.messageFlow) { message ->
+            when (message) {
+                is Messages.NetworkIsDisconnected ->
+                    noInternetSnackbar()
+
+                else -> {
+                    Extensions.showToast(requireContext(), "Failed to show progress bar")
+                }
+            }
+            viewModel.clearMessage()
         }
     }
 
@@ -76,4 +99,5 @@ class HomeFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
 }

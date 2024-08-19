@@ -7,21 +7,31 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentNewsBinding
-import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.viewmodel.NewsViewModel
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
+import com.mvdasker.geeks_pro_mvd.utils.ext.formatDate
+import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class NewsFragment : Fragment() {
 
     private var _binding: FragmentNewsBinding? = null
     private val binding get() = _binding!!
+
     private val args by navArgs<NewsFragmentArgs>()
+
     private val viewModel by viewModels<NewsViewModel>()
 
     override fun onCreateView(
@@ -35,28 +45,61 @@ class NewsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        args.id?.let {
-            viewModel.setId(it)
-        }
         subscribe()
         toBack()
         toNotification()
+        showSnack()
 
+        args.id?.let {
+            viewModel.setId(it)
+        }
+
+        binding.upBtn.setOnClickListener {
+            binding.nestredScroll.smoothScrollTo(0, 0)
+        }
     }
 
     private fun subscribe() {
-        viewModel.detailState.observe(viewLifecycleOwner) { uiState ->
-            when (uiState) {
-                is UiState.Error -> Log.e("tag", "нету новостей")
-                UiState.Loading -> {}
-                is UiState.Success -> {
-                    uiState.data.let {
-                        Glide.with(binding.ivItem).load(it.image[0].image).into(binding.ivItem)
-                        binding.tvNewsTitle.text = it.title
-                        binding.tvData.text = it.description
+        lifecycleScope.launch {
+            viewModel.detailState.collect { uiState ->
+                when (uiState) {
+                    is UiState.Error -> Log.e("toli", "нету новостей")
+
+                    UiState.Loading -> {}
+
+                    is UiState.Success -> {
+                        uiState.data.let {
+                            val imageUrl = if (!it.image.isNullOrEmpty()) {
+                                it.image[0].image
+                            } else null
+                            Glide.with(binding.ivItem).load(imageUrl).placeholder(R.drawable.about_as).into(binding.ivItem)
+
+                            binding.tvNewsTitle.text = it.title
+                            binding.tvData.text = it.description
+                            binding.date.text = formatDate(it.date.toString())
+                        }
+                        binding.fNewsProgressBar.gone()
                     }
                 }
             }
+        }
+    }
+
+    private fun showSnack(){
+        observeData(viewModel.messageFlow) {
+            when (it) {
+                is Messages.HideProgressBar ->
+                    binding.fNewsProgressBar.gone()
+
+                is Messages.ShowProgressBar ->
+                    binding.fNewsProgressBar.visible()
+
+                else -> {
+                    noInternetSnackbar()
+                    Extensions.showToast(requireContext(), "Failed to show progress bar")
+                }
+            }
+            viewModel.clearMessage()
         }
     }
 
@@ -71,4 +114,5 @@ class NewsFragment : Fragment() {
             findNavController().navigate(R.id.action_newsFragment_to_notificationsFragment)
         }
     }
+
 }

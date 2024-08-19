@@ -20,8 +20,9 @@ class MalfunctionsFragment : Fragment() {
     private var _binding: FragmentMalfunctionsBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var connectivityManager: ConnectivityManager
-    private lateinit var networkCallback: ConnectivityManager.NetworkCallback
+    private var connectivityManager: ConnectivityManager? = null
+    private var networkCallback: ConnectivityManager.NetworkCallback? = null
+
     private var isNetworkAvailable = false
 
     override fun onCreateView(
@@ -34,6 +35,7 @@ class MalfunctionsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setupNetworkCallback()
         binding.btnUpdate.setOnClickListener { handleUpdateButtonClick() }
         checkNetworkAndShowScreen()
@@ -52,10 +54,14 @@ class MalfunctionsFragment : Fragment() {
                 activity?.runOnUiThread { showNoInternetScreen() }
             }
         }
+
         val networkRequest = NetworkRequest.Builder()
             .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
             .build()
-        connectivityManager.registerNetworkCallback(networkRequest, networkCallback)
+        connectivityManager?.registerNetworkCallback(
+            networkRequest,
+            networkCallback as ConnectivityManager.NetworkCallback
+        )
     }
 
     private fun handleUpdateButtonClick() {
@@ -81,16 +87,17 @@ class MalfunctionsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        connectivityManager.unregisterNetworkCallback(networkCallback)
+        networkCallback?.let { connectivityManager?.unregisterNetworkCallback(it) }
         _binding = null
     }
 
     @SuppressLint("NewApi")
     private fun isNetworkAvailable(): Boolean {
-        val networkCapabilities = connectivityManager.activeNetwork?.let {
-            connectivityManager.getNetworkCapabilities(it)
+        val networkCapabilities = connectivityManager?.activeNetwork?.let {
+            connectivityManager?.getNetworkCapabilities(it)
         }
         return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
             ?: false
     }
+
 }

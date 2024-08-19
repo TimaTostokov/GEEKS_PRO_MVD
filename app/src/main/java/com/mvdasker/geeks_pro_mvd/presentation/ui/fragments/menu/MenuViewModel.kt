@@ -71,6 +71,11 @@ class MenuViewModel : ViewModel() {
         openWebView(url)
     }
 
+    fun openInstagram() {
+        val url = "https://www.instagram.com/geeks_pro/"
+        openWebView(url)
+    }
+
     private fun openWebView(url: String) {
         val action = MenuFragmentDirections.actionMenuFragmentToWebViewFragment(url)
         navController.navigate(action)

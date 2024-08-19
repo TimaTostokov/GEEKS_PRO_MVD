@@ -5,36 +5,32 @@ import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputLayout
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentAuthorizationBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.MenuViewModel
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.showToast
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import java.util.regex.Pattern
 
 @AndroidEntryPoint
 class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
 
     private val binding by viewBinding(FragmentAuthorizationBinding::bind)
 
-    private val viewModel: MenuViewModel by viewModels()
+    private val viewModel by viewModels<MenuViewModel>()
 
-    private val viewModelAuth: AuthViewModel by viewModels()
+    private val viewModelAuth by viewModels<AuthViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModelAuth.putLogin(
-            username = binding.etUserLogin.toString(),
-            password = binding.etUserPasswords.toString()
-        )
 
         if (savedInstanceState == null) {
             alertDialog()
@@ -49,20 +45,28 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
             }
         }
 
-        binding.etUserLogin.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                binding.tILLogin.boxStrokeColor =
-                    ContextCompat.getColor(requireContext(), R.color.dark_blue)
-                binding.tILLogin.error = null
-            }
-        }
+        binding.etUserLogin.addTextChangedListener { viewModelAuth.onLoginChanged() }
+        binding.etUserPasswords.addTextChangedListener { viewModelAuth.onPasswordChanged() }
 
-        binding.etUserPasswords.setOnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                binding.tILPassword.boxStrokeColor =
-                    ContextCompat.getColor(requireContext(), R.color.dark_blue)
-                binding.tILPassword.error = null
-            }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModelAuth.state
+                .collect { state ->
+                    if (!state.isLoginValid) {
+                        binding.tILLogin.setError("Неверный логин")
+                    } else {
+                        binding.tILLogin.setDefaultState()
+                    }
+                    if (!state.isPasswordValid) {
+                        binding.tILPassword.setErrorState("Неверный пароль")
+                    } else {
+                        binding.tILPassword.setDefaultState()
+                    }
+                    if (state.needNavigateToHome) {
+                        Extensions.showToast(requireContext(), "Успешная аутентификация!")
+                        viewModelAuth.onNavigatedToHome()
+                        findNavController().navigate(R.id.action_authorizationFragment_to_homeFragment)
+                    }
+                }
         }
     }
 
@@ -96,12 +100,8 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
         val buttonKg = view.findViewById<Button>(R.id.dialogButtonKg)
         val buttonRu = view.findViewById<Button>(R.id.dialogButtonRu)
         builder.setView(view)
-        buttonKg.setOnClickListener {
-            builder.dismiss()
-        }
-        buttonRu.setOnClickListener {
-            builder.dismiss()
-        }
+        buttonKg.setOnClickListener { builder.dismiss() }
+        buttonRu.setOnClickListener { builder.dismiss() }
         builder.setCanceledOnTouchOutside(false)
         builder.show()
     }
@@ -110,48 +110,17 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
         binding.btnContinue.setOnClickListener {
             val login = binding.etUserLogin.text.toString()
             val password = binding.etUserPasswords.text.toString()
-
-            if (validateInput(login, password)) {
-                findNavController().navigate(R.id.action_authorizationFragment_to_homeFragment)
-            }
+            viewModelAuth.onLoginClick(login, password)
         }
     }
+}
 
-    private fun validateInput(login: String, password: String): Boolean {
-        val loginPattern = Pattern.compile(getString(R.string.a_za_z0_9_6))
-        val passwordPattern = Pattern.compile(getString(R.string.a_za_z0_9_6_))
+private fun TextInputLayout.setDefaultState() {
+    boxStrokeColor = ContextCompat.getColor(context, R.color.dark_blue)
+    error = null
+}
 
-        return when {
-            login.isEmpty() -> {
-                showToast(requireContext(), "Login must not be empty")
-                binding.tILLogin.error = "Неверный логин"
-                false
-            }
-
-            password.isEmpty() -> {
-                showToast(requireContext(), "Password must not be empty")
-                binding.tILPassword.boxStrokeColor =
-                    ContextCompat.getColor(requireContext(), R.color.red)
-                binding.tILPassword.error = "Неверный пароль"
-                false
-            }
-
-            !loginPattern.matcher(login).matches() -> {
-                binding.tILLogin.boxStrokeColor =
-                    ContextCompat.getColor(requireContext(), R.color.red);
-                binding.tILLogin.error = "Неверный логин"
-                false
-            }
-
-            !passwordPattern.matcher(password).matches() -> {
-                binding.tILPassword.error = "Неверный пароль"
-                binding.tILPassword.boxStrokeColor =
-                    ContextCompat.getColor(requireContext(), R.color.red);
-                false
-            }
-
-            else -> true
-        }
-    }
-
+private fun TextInputLayout.setErrorState(message: String) {
+    boxStrokeColor = ContextCompat.getColor(context, R.color.design_default_color_error)
+    error = message
 }

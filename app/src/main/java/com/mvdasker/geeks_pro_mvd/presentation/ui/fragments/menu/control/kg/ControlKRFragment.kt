@@ -7,10 +7,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentControlKRBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.kg.adapter.ControlKgAdapter
-import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.kg.viewmodel.ControlKgVIewModel
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
 import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -19,8 +23,10 @@ import dagger.hilt.android.AndroidEntryPoint
 class ControlKRFragment : Fragment(R.layout.fragment_control_k_r) {
 
     private val binding by viewBinding(FragmentControlKRBinding::bind)
+
     private val managementAdapter = ControlKgAdapter()
-    private val viewModel: ControlKgVIewModel by viewModels()
+
+    private val viewModel by viewModels<ControlKgVIewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,8 +43,8 @@ class ControlKRFragment : Fragment(R.layout.fragment_control_k_r) {
         observeData(viewModel.managementState) { state ->
             when (state) {
                 is UiState.Error -> Log.e("management", "данные не получены: ")
-                UiState.Loading -> {
-                }
+
+                UiState.Loading -> {}
 
                 is UiState.Success -> managementAdapter.submitList(state.data)
             }
@@ -50,4 +56,5 @@ class ControlKRFragment : Fragment(R.layout.fragment_control_k_r) {
             findNavController().navigateUp()
         }
     }
+
 }

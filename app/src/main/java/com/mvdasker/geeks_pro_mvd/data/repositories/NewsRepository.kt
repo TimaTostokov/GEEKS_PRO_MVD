@@ -1,6 +1,5 @@
 package com.mvdasker.geeks_pro_mvd.data.repositories
 
-import android.util.Log
 import com.mvdasker.geeks_pro_mvd.common.AppDispatchers
 import com.mvdasker.geeks_pro_mvd.data.remote.apiservice.SanaripAskerApi
 import com.mvdasker.geeks_pro_mvd.data.remote.model.news.NewsDetail
@@ -22,4 +21,5 @@ class NewsRepository @Inject constructor(
             sanaripAskerApi.getNewsId(id)
         }
     }
+
 }

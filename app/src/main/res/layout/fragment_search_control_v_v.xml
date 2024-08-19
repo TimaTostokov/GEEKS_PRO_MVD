@@ -17,17 +17,12 @@
         android:background="@drawable/rounder_search"
         android:drawableStart="@drawable/search_line_sc"
         android:drawablePadding="8dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:freezesText="true"
         android:hint="@string/find"
         android:inputType="text"
-        android:marqueeRepeatLimit="marquee_forever"
         android:padding="10dp"
-        android:paddingEnd="40dp"
-        android:scrollHorizontally="true"
         android:singleLine="true"
         android:textColor="@color/black"
+        android:textColorHint="@color/black"
         android:textSize="16sp"
         tools:ignore="RtlSymmetry" />
 
@@ -58,29 +53,28 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="88dp"
         android:layout_marginEnd="85dp"
-        android:layout_marginStart="16dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/number2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/twelve"
             android:textColor="@color/black"
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            tools:text="@string/twelve" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-
             android:text="@string/_12"
             android:textColor="@color/black"
             android:textSize="13sp" />
+
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -90,5 +84,16 @@
         android:layout_marginTop="105dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_management_kg" />
+
+    <FrameLayout
+        android:id="@+id/fSearchControlVVProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:visibility="gone">
+
+        <include layout="@layout/progress_bar" />
+
+    </FrameLayout>
 
 </RelativeLayout>

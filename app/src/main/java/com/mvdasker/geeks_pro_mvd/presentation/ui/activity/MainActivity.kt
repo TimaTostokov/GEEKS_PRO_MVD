@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.bottomNavigation
         val navController = findNavController(R.id.nav_host_fragment)
 
-        binding.bottomNavigation.setOnItemSelectedListener { item ->
+        binding.bottomNavigation.setOnItemSelectedListener { _ ->
             updateIcon()
             true
         }
@@ -56,7 +56,6 @@ class MainActivity : AppCompatActivity() {
                 supportActionBar?.hide()
             }
         }
-
         navView.setupWithNavController(navController)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {

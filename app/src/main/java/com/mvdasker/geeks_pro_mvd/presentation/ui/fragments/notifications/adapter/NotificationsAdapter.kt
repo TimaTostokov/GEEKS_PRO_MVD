@@ -104,4 +104,5 @@ class NotificationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
         binding.itemNotifNotReadCircle.isVisible = !notification.isRead
     }
+
 }
