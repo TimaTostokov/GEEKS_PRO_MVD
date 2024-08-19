@@ -11,7 +11,6 @@ import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentChartersBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.charters.adapter.CharterAdapter
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
@@ -42,9 +41,8 @@ class ChartersFragment : Fragment(R.layout.fragment_charters) {
                 is Messages.NetworkIsDisconnected -> {
                     noInternetSnackbar()
                 }
-                else -> {
-                    Extensions.showToast(requireContext(),"Network is disconnected")
-                }
+
+                else -> {}
             }
             viewModel.clearMessage()
         }
@@ -58,8 +56,7 @@ class ChartersFragment : Fragment(R.layout.fragment_charters) {
                     binding.fchartProgressBar.gone()
                 }
 
-                is UiState.Error ->
-                    Extensions.showToast(requireContext(),"Failed 404")
+                is UiState.Error -> binding.fchartProgressBar.gone()
             }
         }
     }

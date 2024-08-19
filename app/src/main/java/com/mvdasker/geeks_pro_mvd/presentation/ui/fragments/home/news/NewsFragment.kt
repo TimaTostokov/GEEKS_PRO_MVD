@@ -15,7 +15,6 @@ import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentNewsBinding
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
@@ -65,14 +64,17 @@ class NewsFragment : Fragment() {
                 when (uiState) {
                     is UiState.Error -> Log.e("toli", "нету новостей")
 
-                    UiState.Loading -> {}
+                    UiState.Loading -> {
+                        binding.fNewsProgressBar.visible()
+                    }
 
                     is UiState.Success -> {
                         uiState.data.let {
                             val imageUrl = if (!it.image.isNullOrEmpty()) {
                                 it.image[0].image
                             } else null
-                            Glide.with(binding.ivItem).load(imageUrl).placeholder(R.drawable.about_as).into(binding.ivItem)
+                            Glide.with(binding.ivItem).load(imageUrl)
+                                .placeholder(R.drawable.about_as).into(binding.ivItem)
 
                             binding.tvNewsTitle.text = it.title
                             binding.tvData.text = it.description
@@ -85,18 +87,16 @@ class NewsFragment : Fragment() {
         }
     }
 
-    private fun showSnack(){
+    private fun showSnack() {
         observeData(viewModel.messageFlow) {
             when (it) {
                 is Messages.HideProgressBar ->
                     binding.fNewsProgressBar.gone()
 
-                is Messages.ShowProgressBar ->
-                    binding.fNewsProgressBar.visible()
+                is Messages.ShowProgressBar ->{}
 
-                else -> {
+                is Messages.NetworkIsDisconnected -> {
                     noInternetSnackbar()
-                    Extensions.showToast(requireContext(), "Failed to show progress bar")
                 }
             }
             viewModel.clearMessage()

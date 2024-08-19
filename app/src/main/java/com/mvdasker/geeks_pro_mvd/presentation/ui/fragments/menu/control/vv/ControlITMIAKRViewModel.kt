@@ -33,15 +33,18 @@ class ControlITMIAKRViewModel @Inject constructor(private val repository: Manage
     }
 
     private fun getControlVV(jobTitle: String? = null) {
+        _messageFlow.value = Messages.ShowProgressBar
         viewModelScope.launch {
             try {
                 val result = repository.fetchConstitutionsVVKr(jobTitle)
                 _managementStateVv.value = result
                 Log.e("control", "${_managementStateVv.value}")
+                _messageFlow.value = Messages.HideProgressBar
             } catch (e: Exception) {
                 _managementStateVv.value = emptyList()
                 Log.e("error", "Exception occurred: ${e.message}")
                 _messageFlow.value = Messages.NetworkIsDisconnected
+                _messageFlow.value = Messages.HideProgressBar
             }
         }
     }

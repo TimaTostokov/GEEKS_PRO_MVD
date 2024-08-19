@@ -1,6 +1,8 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history
 
+import android.os.Build
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -63,14 +65,17 @@ class HistoryOfKyrgyzstanFragment : Fragment() {
 
                         is UiState.Error -> {
                             Log.d("tag", "Данные не пришли: ${uiState.message}")
-                            binding.tvInfo.text = "Ошибка загрузки данных"
+                            binding.fAboutKyrgyzProgressBar.gone()
                         }
 
                         is UiState.Success -> {
                             binding.fAboutKyrgyzProgressBar.gone()
                             val firstItem = uiState.data?.text_ru
                             if (firstItem != null) {
-                                binding.tvInfo.text = firstItem
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                    binding.tvInfo.text =
+                                        Html.fromHtml(firstItem, Html.FROM_HTML_MODE_LEGACY)
+                                }
                             } else {
                                 binding.tvInfo.text = "Нет данных"
                             }
