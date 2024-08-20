@@ -29,12 +29,24 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
 
     private val viewModelAuth by viewModels<AuthViewModel>()
 
+    private var isShowDialog: Boolean = true
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(ALERT_DIALOG_KEY, isShowDialog)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        if (savedInstanceState != null) {
+            isShowDialog = savedInstanceState.getBoolean(ALERT_DIALOG_KEY)
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (savedInstanceState == null) {
-            alertDialog()
-        }
+        alertDialog()
 
         onContinueButtonClick()
         setupClickListeners()
@@ -94,16 +106,23 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
     }
 
     private fun alertDialog() {
+        if (!isShowDialog) return
         val builder = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog)
             .create()
         val view = layoutInflater.inflate(R.layout.change_language_alert_diaolog, null)
         val buttonKg = view.findViewById<Button>(R.id.dialogButtonKg)
         val buttonRu = view.findViewById<Button>(R.id.dialogButtonRu)
         builder.setView(view)
-        buttonKg.setOnClickListener { builder.dismiss() }
-        buttonRu.setOnClickListener { builder.dismiss() }
+        buttonKg.setOnClickListener {
+            builder.dismiss()
+            isShowDialog = false
+        }
+        buttonRu.setOnClickListener {
+            builder.dismiss()
+            isShowDialog = false
+        }
         builder.setCanceledOnTouchOutside(false)
-        builder.show()
+            builder.show()
     }
 
     private fun onContinueButtonClick() {
@@ -113,14 +132,19 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
             viewModelAuth.onLoginClick(login, password)
         }
     }
-}
 
-private fun TextInputLayout.setDefaultState() {
-    boxStrokeColor = ContextCompat.getColor(context, R.color.dark_blue)
-    error = null
-}
+    private fun TextInputLayout.setDefaultState() {
+        boxStrokeColor = ContextCompat.getColor(context, R.color.dark_blue)
+        error = null
+    }
 
-private fun TextInputLayout.setErrorState(message: String) {
-    boxStrokeColor = ContextCompat.getColor(context, R.color.design_default_color_error)
-    error = message
+    private fun TextInputLayout.setErrorState(message: String) {
+        boxStrokeColor = ContextCompat.getColor(context, R.color.design_default_color_error)
+        error = message
+    }
+
+    companion object {
+        const val ALERT_DIALOG_KEY = "alertDialog"
+
+    }
 }

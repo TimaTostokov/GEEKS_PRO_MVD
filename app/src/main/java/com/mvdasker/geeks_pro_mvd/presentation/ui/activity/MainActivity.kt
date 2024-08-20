@@ -84,12 +84,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun hideBottomNavigationView(view: BottomNavigationView) {
         view.clearAnimation()
-        view.animate().translationY(view.height.toFloat()).setDuration(500)
+        view.animate().translationY(300f).setDuration(300)
     }
 
     private fun showBottomNavigationView(view: BottomNavigationView) {
         view.clearAnimation()
-        view.animate().translationY(0f).setDuration(500)
+        view.animate().translationY(0f).setDuration(300)
     }
-
 }
