@@ -1,5 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
@@ -54,6 +55,7 @@ class HistoryOfKyrgyzstanFragment : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun observe() {
         lifecycleScope.launch {
             viewModel.history
