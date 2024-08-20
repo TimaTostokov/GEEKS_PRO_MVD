@@ -1,8 +1,11 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.adapter
 
 import android.annotation.SuppressLint
+import android.os.Build
+import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
@@ -32,16 +35,24 @@ class NotesAdapterLibrary(val onClick: (Library) -> Unit) :
         }
 
         fun bind(note: Library) = with(binding) {
-            tvTitle.text = note.title?.let { highlightText(it, searchQuery) }
-            tvDescription.text = note.conspect?.let { highlightText(it, searchQuery) }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                tvDescription.text = highlightText(
+                    Html.fromHtml(note.conspect, Html.FROM_HTML_MODE_LEGACY),
+                    searchQuery
+                )
+                tvTitle.text = highlightText(
+                    Html.fromHtml(note.title, Html.FROM_HTML_MODE_LEGACY),
+                    searchQuery
+                )
+            }
         }
 
         @SuppressLint("ResourceAsColor")
-        private fun highlightText(text: String, query: String): SpannableString {
+        private fun highlightText(text: Spanned, query: String): SpannableString {
             val spannableString = SpannableString(text)
             if (query.isNotEmpty()) {
                 val color = ContextCompat.getColor(binding.root.context, R.color.search_color)
-                var startIndex = text.lowercase().indexOf(query.lowercase())
+                var startIndex = text.toString().lowercase().indexOf(query.lowercase())
                 while (startIndex >= 0) {
                     val endIndex = startIndex + query.length
                     spannableString.setSpan(
@@ -50,7 +61,7 @@ class NotesAdapterLibrary(val onClick: (Library) -> Unit) :
                         endIndex,
                         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
                     )
-                    startIndex = text.lowercase().indexOf(query.lowercase(), endIndex)
+                    startIndex = text.toString().lowercase().indexOf(query.lowercase(), endIndex)
                 }
             }
             return spannableString
@@ -87,5 +98,4 @@ class NotesAdapterLibrary(val onClick: (Library) -> Unit) :
             return oldItem.id == newItem.id
         }
     }
-
 }
