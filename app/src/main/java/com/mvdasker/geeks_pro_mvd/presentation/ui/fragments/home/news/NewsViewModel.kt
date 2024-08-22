@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class NewsViewModel @Inject constructor(
     private val repository: NewsRepository,
-    private val savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val _detailState = MutableStateFlow<UiState<NewsDetail>>(UiState.Loading)
@@ -29,18 +29,14 @@ class NewsViewModel @Inject constructor(
     private val _messageFlow = MutableStateFlow<Messages?>(null)
     val messageFlow: Flow<Messages> = _messageFlow.filterNotNull()
 
+    private val id = savedStateHandle.get<String>(ID_KAY)
+
     init {
         getNews()
     }
 
     fun clearMessage() {
         _messageFlow.value = null
-    }
-
-    private val id = savedStateHandle.get<String>(ID_KAY)
-
-    fun setId(id: String) {
-        savedStateHandle[ID_KAY] = id
     }
 
     private fun getNews() {
@@ -66,5 +62,4 @@ class NewsViewModel @Inject constructor(
     companion object {
         private const val ID_KAY = "id"
     }
-
 }

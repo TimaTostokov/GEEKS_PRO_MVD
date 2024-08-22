@@ -18,14 +18,23 @@ import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NotificationsFragment : Fragment() {
+class NotificationsFragment() : Fragment() {
 
     private var _binding: FragmentNotificationsBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<NotificationsViewModel>()
 
-    private val adapter = NotificationsAdapter()
+    private val adapter = NotificationsAdapter(
+        onNotificationClick = { section, itemId ->
+            when (section) {
+                "Библиотека" -> ""
+                "Закон" -> ""
+                "Устав" -> ""
+                "Руководство" -> ""
+            }
+        }
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,5 +81,4 @@ class NotificationsFragment : Fragment() {
             viewModel.clearMessage()
         }
     }
-
 }

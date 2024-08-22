@@ -208,8 +208,8 @@
         tools:layout="@layout/fragment_detail">
 
         <argument
-            android:name="model"
-            app:argType="com.mvdasker.geeks_pro_mvd.data.remote.model.library.Library" />
+            android:name="id"
+            app:argType="string" />
 
         <action
             android:id="@+id/action_detailFragment_to_notificationsFragment"

@@ -6,6 +6,7 @@ import com.mvdasker.geeks_pro_mvd.common.Constants.CHARTERS_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.END_POINT_LIBRARY
 import com.mvdasker.geeks_pro_mvd.common.Constants.HISTORY_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.LAW_END_POINT
+import com.mvdasker.geeks_pro_mvd.common.Constants.LIBRARY_DETAIL_ENDPOINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.MANAGEMENT_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.MANAGEMENT_MVD_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.MANAGEMENT_VV_END_POINT
@@ -64,6 +65,9 @@ interface SanaripAskerApi {
         @Query("title") title: String? = null,
         @Query("description") description: String? = null
     ): List<Library>
+
+    @GET(LIBRARY_DETAIL_ENDPOINT)
+    suspend fun getLibraryById(@Path("id") id: Int): Library
 
     @POST(AUTHORIZATION_END_POINT)
     suspend fun postAuthorization(

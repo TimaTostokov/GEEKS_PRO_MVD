@@ -18,21 +18,16 @@ import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.data.remote.model.library.Library
 import com.mvdasker.geeks_pro_mvd.databinding.ItemAbstractBinding
 
-class NotesAdapterLibrary(val onClick: (Library) -> Unit) :
+class NotesAdapterLibrary(private val onClick: (String) -> Unit) :
     ListAdapter<Library, NotesAdapterLibrary.ViewHolder>(DiffUtilCallback()) {
 
     private var searchQuery: String = ""
 
-    inner class ViewHolder(private val binding: ItemAbstractBinding) :
+    inner class ViewHolder(
+        private val binding: ItemAbstractBinding,
+        val onClick: (String) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
-
-        init {
-            binding.root.setOnClickListener {
-                getItem(absoluteAdapterPosition)?.let {
-                    onClick(it)
-                }
-            }
-        }
 
         fun bind(note: Library) = with(binding) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -44,6 +39,9 @@ class NotesAdapterLibrary(val onClick: (Library) -> Unit) :
                     Html.fromHtml(note.title, Html.FROM_HTML_MODE_LEGACY),
                     searchQuery
                 )
+            }
+            binding.cardLibrary.setOnClickListener {
+                onClick(note.id.toString())
             }
         }
 
@@ -72,7 +70,7 @@ class NotesAdapterLibrary(val onClick: (Library) -> Unit) :
         return ViewHolder(
             ItemAbstractBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
-            )
+            ), onClick
         )
     }
 
