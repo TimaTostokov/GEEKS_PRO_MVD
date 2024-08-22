@@ -50,7 +50,7 @@
                 android:layout_gravity="end"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="4dp"
-                android:src="@drawable/bell"
+                android:src="@drawable/bell_not_empty"
                 tools:ignore="ContentDescription" />
 
         </FrameLayout>
@@ -90,9 +90,9 @@
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/roboto"
                 android:lineSpacingExtra="4dp"
-                tools:text="@string/text_asker"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:text="@string/text_asker" />
 
             <ImageView
                 android:id="@+id/iv_photo"
@@ -102,8 +102,8 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:scaleType="centerCrop"
-                tools:src="@drawable/photo_asker"
-                tools:ignore="ContentDescription" />
+                tools:ignore="ContentDescription"
+                tools:src="@drawable/photo_asker" />
 
             <TextView
                 android:id="@+id/tv_text_asker_twotv"
@@ -114,9 +114,9 @@
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/roboto"
                 android:lineSpacingExtra="4dp"
-                tools:text="@string/text_asker"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:text="@string/text_asker" />
 
         </LinearLayout>
 

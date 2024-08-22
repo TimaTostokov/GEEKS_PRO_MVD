@@ -138,12 +138,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
     }
 
-    private fun onCLick(model: Library) {
+    private fun onCLick(id: String) {
         findNavController().navigate(
             SearchFragmentDirections.actionSearchFragmentToDetailFragment(
-                model
+                id
             )
         )
     }
-
 }

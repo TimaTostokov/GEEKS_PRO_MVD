@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
@@ -30,8 +29,6 @@ class NewsFragment : Fragment() {
     private var _binding: FragmentNewsBinding? = null
     private val binding get() = _binding!!
 
-    private val args by navArgs<NewsFragmentArgs>()
-
     private val viewModel by viewModels<NewsViewModel>()
 
     override fun onCreateView(
@@ -49,10 +46,6 @@ class NewsFragment : Fragment() {
         toBack()
         toNotification()
         showSnack()
-
-        args.id?.let {
-            viewModel.setId(it)
-        }
 
         binding.upBtn.setOnClickListener {
             binding.nestredScroll.smoothScrollTo(0, 0)
@@ -115,5 +108,4 @@ class NewsFragment : Fragment() {
             findNavController().navigate(R.id.action_newsFragment_to_notificationsFragment)
         }
     }
-
 }

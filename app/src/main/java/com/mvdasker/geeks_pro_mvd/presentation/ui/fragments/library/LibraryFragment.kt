@@ -11,7 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvdasker.geeks_pro_mvd.common.Messages
-import com.mvdasker.geeks_pro_mvd.data.remote.model.library.Library
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentLibraryBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.adapter.NotesAdapterLibrary
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
@@ -93,12 +92,11 @@ class LibraryFragment : Fragment() {
         }
     }
 
-    private fun onClick(model: Library) {
+    private fun onClick(id: String) {
         findNavController().navigate(
             LibraryFragmentDirections.actionLibraryFragmentToDetailFragment(
-                model
+                id
             )
         )
     }
-
 }
