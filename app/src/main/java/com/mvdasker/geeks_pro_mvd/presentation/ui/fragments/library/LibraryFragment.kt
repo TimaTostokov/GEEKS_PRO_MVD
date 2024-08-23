@@ -92,7 +92,7 @@ class LibraryFragment : Fragment() {
         }
     }
 
-    private fun onClick(id: String) {
+    private fun onClick(id: Int) {
         findNavController().navigate(
             LibraryFragmentDirections.actionLibraryFragmentToDetailFragment(
                 id

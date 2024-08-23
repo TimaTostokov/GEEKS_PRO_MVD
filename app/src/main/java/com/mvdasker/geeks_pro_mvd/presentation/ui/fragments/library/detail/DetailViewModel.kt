@@ -27,7 +27,7 @@ class DetailViewModel @Inject constructor(
     private val _messageFlow = MutableStateFlow<Messages?>(null)
     val messageFlow: Flow<Messages> = _messageFlow.filterNotNull()
 
-    private var id = savedStateHandle.get<String>(LIBRARY_ID_KEY)
+    private var id = savedStateHandle.get<Int>(LIBRARY_ID_KEY)
 
     init {
         getNoteDetail()
@@ -41,7 +41,7 @@ class DetailViewModel @Inject constructor(
         _messageFlow.value = Messages.ShowProgressBar
         viewModelScope.launch {
             try {
-                val response = id?.let { repository.getLibraryById(it.toInt()) }
+                val response = id?.let { repository.getLibraryById(it) }
                 _noteDetail.value = response
                 _messageFlow.value = Messages.HideProgressBar
             } catch (e: Exception) {
