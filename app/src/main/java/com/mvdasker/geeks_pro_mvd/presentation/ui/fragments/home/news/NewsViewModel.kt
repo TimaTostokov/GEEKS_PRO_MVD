@@ -29,7 +29,7 @@ class NewsViewModel @Inject constructor(
     private val _messageFlow = MutableStateFlow<Messages?>(null)
     val messageFlow: Flow<Messages> = _messageFlow.filterNotNull()
 
-    private val id = savedStateHandle.get<String>(ID_KAY)
+    private val id = savedStateHandle.get<Int>(ID_KAY)
 
     init {
         getNews()
@@ -43,7 +43,7 @@ class NewsViewModel @Inject constructor(
         _messageFlow.value = Messages.ShowProgressBar
         viewModelScope.launch {
             id?.let { newsId ->
-                repository.getNewsId(newsId.toInt()).fold(
+                repository.getNewsId(newsId).fold(
                     onSuccess = { newsDetail ->
                         _detailState.value = UiState.Success(newsDetail)
                         _messageFlow.value = Messages.HideProgressBar

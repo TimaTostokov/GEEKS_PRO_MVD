@@ -2,7 +2,6 @@ package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -12,7 +11,7 @@ import com.mvdasker.geeks_pro_mvd.data.remote.model.news.News
 import com.mvdasker.geeks_pro_mvd.databinding.ItemNewsBinding
 import com.mvdasker.geeks_pro_mvd.utils.ext.formatDate
 
-class NewsAdapter(val onClick: (id: String) -> Unit) :
+class NewsAdapter(val onClick: (id: Int) -> Unit) :
     ListAdapter<News, NewsAdapter.NewsViewHolder>(DiffUtilCallback()) {
 
     inner class NewsViewHolder(private val binding: ItemNewsBinding) : ViewHolder(binding.root) {
@@ -20,7 +19,7 @@ class NewsAdapter(val onClick: (id: String) -> Unit) :
         init {
             binding.root.setOnClickListener {
                 getItem(absoluteAdapterPosition)?.let {
-                    onClick(it.id.toString())
+                    it.id?.let { it1 -> onClick(it1) }
                 }
             }
         }
@@ -69,5 +68,4 @@ class NewsAdapter(val onClick: (id: String) -> Unit) :
             }
         }
     }
-
 }

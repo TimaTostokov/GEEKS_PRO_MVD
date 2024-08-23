@@ -138,7 +138,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         }
     }
 
-    private fun onCLick(id: String) {
+    private fun onCLick(id: Int) {
         findNavController().navigate(
             SearchFragmentDirections.actionSearchFragmentToDetailFragment(
                 id

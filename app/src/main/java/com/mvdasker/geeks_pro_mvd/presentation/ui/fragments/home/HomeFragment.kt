@@ -91,7 +91,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun onClick(id: String) {
+    private fun onClick(id: Int) {
         findNavController().navigate(
             HomeFragmentDirections.actionHomeFragmentToNewsFragment(id)
         )
@@ -101,5 +101,4 @@ class HomeFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-
 }
