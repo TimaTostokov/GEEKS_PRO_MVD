@@ -17,7 +17,7 @@ import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.AuthResponse
 import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.Authorization
 import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.User
 import com.mvdasker.geeks_pro_mvd.data.remote.model.charter.Charter
-import com.mvdasker.geeks_pro_mvd.data.remote.model.history.HistoryResponse
+import com.mvdasker.geeks_pro_mvd.data.remote.model.history.HistoryModel
 import com.mvdasker.geeks_pro_mvd.data.remote.model.law.Law
 import com.mvdasker.geeks_pro_mvd.data.remote.model.library.Library
 import com.mvdasker.geeks_pro_mvd.data.remote.model.mangements.Governance
@@ -43,9 +43,8 @@ interface SanaripAskerApi {
     suspend fun getNotification(): List<Notification>
 
     @GET(HISTORY_END_POINT)
-    suspend fun getHistory(
-        @Path("pk") pk: Int
-    ): Response<HistoryResponse>
+    suspend fun getHistory(@Path("slug") slug: String)
+    : Response<HistoryModel>
 
     @GET(MANAGEMENT_END_POINT)
     suspend fun fetchConstitutionsKr(): List<Governance>

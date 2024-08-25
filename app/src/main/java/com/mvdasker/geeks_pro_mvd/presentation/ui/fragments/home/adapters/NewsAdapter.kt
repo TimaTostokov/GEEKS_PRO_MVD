@@ -2,6 +2,7 @@ package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
@@ -30,11 +31,11 @@ class NewsAdapter(val onClick: (id: Int) -> Unit) :
             binding.tvDescription.text = data.description
 
             if (data.images?.isNotEmpty() == true) {
-                data.images.firstOrNull()?.let { image ->
-                    Glide.with(itemView.context).load(image.image).into(binding.ivItem)
+                data.images.firstOrNull().let { images ->
+                    Glide.with(itemView.context).load(images?.image).into(binding.ivItem)
                 }
             } else {
-                Glide.with(itemView.context).load(R.drawable.about_as).into(binding.ivItem)
+                Glide.with(itemView.context).load(itemView.isVisible).into(binding.ivItem)
             }
         }
     }

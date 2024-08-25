@@ -67,7 +67,7 @@ class HomeFragment : Fragment() {
                 is UiState.Success -> {
                     adapter.submitList(it.data)
                     binding.fHomeProgressBar.gone()
-                    Log.d("toli", "данные пришли")
+                    Log.d("toli", "данные пришли${it.data}")
                 }
                 is UiState.Error -> {
                     Log.e("toli", "данные не пришли frag")

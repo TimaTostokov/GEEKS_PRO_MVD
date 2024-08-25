@@ -1,6 +1,8 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.auth
 
 import android.os.Bundle
+import android.util.Base64
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
@@ -12,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
+import com.mvdasker.geeks_pro_mvd.App
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentAuthorizationBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.MenuViewModel
@@ -19,6 +22,7 @@ import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 @AndroidEntryPoint
 class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
@@ -45,7 +49,6 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         alertDialog()
 
         onContinueButtonClick()
@@ -61,25 +64,38 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
         binding.etUserPasswords.addTextChangedListener { viewModelAuth.onPasswordChanged() }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModelAuth.state
-                .collect { state ->
-                    if (!state.isLoginValid) {
-                        binding.tILLogin.setError("Неверный логин")
-                    } else {
-                        binding.tILLogin.setDefaultState()
-                    }
-                    if (!state.isPasswordValid) {
-                        binding.tILPassword.setErrorState("Неверный пароль")
-                    } else {
-                        binding.tILPassword.setDefaultState()
-                    }
-                    if (state.needNavigateToHome) {
-                        Extensions.showToast(requireContext(), "Успешная аутентификация!")
-                        viewModelAuth.onNavigatedToHome()
-                        findNavController().navigate(R.id.action_authorizationFragment_to_homeFragment)
-                    }
+            viewModelAuth.state.collect { state ->
+                binding.tILLogin.apply {
+                    if (state.isLoginValid) setDefaultState() else setError("Неверный логин")
                 }
+                binding.tILPassword.apply {
+                    if (state.isPasswordValid) setDefaultState() else setErrorState("Неверный пароль")
+                }
+                if (state.needNavigateToHome) {
+                    val userId = state.user?.access?.let { getUserIdFromToken(it) }
+                    if (userId != null) {
+                        (requireContext().applicationContext as App).userProvider?.saveUserId(
+                            userId
+                        )
+                    }
+                    Extensions.showToast(requireContext(), "Успешная аутентификация!")
+                    viewModelAuth.onNavigatedToHome()
+                    findNavController().navigate(R.id.action_authorizationFragment_to_homeFragment)
+                }
+            }
         }
+    }
+
+    private fun getUserIdFromToken(token: String): Int {
+        // Разделить токен на три части
+        val parts = token.split(".")
+        // Декодировать полезную нагрузку (payload)
+        val payload = String(Base64.decode(parts[1], Base64.URL_SAFE))
+        // Преобразовать payload в JSON-объект
+        val jsonObject = JSONObject(payload)
+        // Извлечь id пользователя
+        return jsonObject.getInt("user_id")
+        Log.e("ololo", "Authorization failed: ${jsonObject.getInt("user_id")}")
     }
 
     private fun updateButtonState(checkedId: Int) {
@@ -122,7 +138,7 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
             isShowDialog = false
         }
         builder.setCanceledOnTouchOutside(false)
-            builder.show()
+        builder.show()
     }
 
     private fun onContinueButtonClick() {

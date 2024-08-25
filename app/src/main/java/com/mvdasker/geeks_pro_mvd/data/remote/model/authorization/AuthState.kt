@@ -8,4 +8,5 @@ data class AuthState(
     val isLoginValid: Boolean = true,
     val isPasswordValid: Boolean = true,
     val needNavigateToHome: Boolean = false,
+    val user : AuthResponse? = null
 ): Parcelable

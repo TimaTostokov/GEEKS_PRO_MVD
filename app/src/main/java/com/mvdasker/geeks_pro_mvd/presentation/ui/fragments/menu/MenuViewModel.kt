@@ -1,5 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -20,8 +21,8 @@ class MenuViewModel : ViewModel() {
     private val _selectedFragment = MutableStateFlow<Int?>(null)
     val selectedFragment: StateFlow<Int?> get() = _selectedFragment
 
-    private val _isRecyclerViewVisible = MutableLiveData<Boolean>(false)
-    val isRecyclerViewVisible: LiveData<Boolean> get() = _isRecyclerViewVisible
+    private val _isRecyclerViewVisible = MutableStateFlow<Boolean>(false)
+    val isRecyclerViewVisible: StateFlow<Boolean> get() = _isRecyclerViewVisible
 
     fun setSelectedFragment(fragmentId: Int) {
         _selectedFragment.value = fragmentId
@@ -45,15 +46,18 @@ class MenuViewModel : ViewModel() {
             else -> return
         }
         _isRecyclerViewVisible.value = true
+        Log.d("isVisible", "Видно: ${_isRecyclerViewVisible.value}")
         navController.navigate(direction)
     }
 
     fun toggleRecyclerViewVisibility() {
-        _isRecyclerViewVisible.value = !_isRecyclerViewVisible.value!!
+        _isRecyclerViewVisible.value = !_isRecyclerViewVisible.value
+        Log.d("isVisible", "хз: ${_isRecyclerViewVisible.value}")
     }
 
     fun hideRecyclerView() {
         _isRecyclerViewVisible.value = false
+        Log.d("isVisible", "Не видно: ${_isRecyclerViewVisible.value}")
     }
 
     fun onOpenDictionaryClick() {

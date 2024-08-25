@@ -14,7 +14,7 @@ data class Governance(
     val photo: String? = null,
     @SerializedName("name")
     val name: String? = null,
-    @SerializedName("job_tittle")
+    @SerializedName("job_title")
     val jobTittle: String? = null,
     @SerializedName("job_title_ru")
     val jobTitleRu: String? = null,
