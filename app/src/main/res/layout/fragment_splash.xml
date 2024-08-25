@@ -9,7 +9,7 @@
     <View
         android:id="@+id/img_splash_asker"
         android:layout_width="@dimen/_256dp"
-        android:layout_height="@dimen/_256dp_"
+        android:layout_height="@dimen/_300dp"
         android:layout_gravity="center"
         android:background="@drawable/mvd_splash"
         android:importantForAccessibility="no" />

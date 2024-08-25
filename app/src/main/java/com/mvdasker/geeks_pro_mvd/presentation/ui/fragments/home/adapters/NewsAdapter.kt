@@ -34,9 +34,7 @@ class NewsAdapter(val onClick: (id: Int) -> Unit) :
                 data.images.firstOrNull().let { images ->
                     Glide.with(itemView.context).load(images?.image).into(binding.ivItem)
                 }
-            } else {
-                Glide.with(itemView.context).load(itemView.isVisible).into(binding.ivItem)
-            }
+            } else Glide.with(itemView.context).load(itemView.isVisible).into(binding.ivItem)
         }
     }
 
@@ -69,4 +67,5 @@ class NewsAdapter(val onClick: (id: Int) -> Unit) :
             }
         }
     }
+
 }

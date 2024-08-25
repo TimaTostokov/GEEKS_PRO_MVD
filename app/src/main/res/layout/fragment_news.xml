@@ -112,6 +112,53 @@
                     tools:ignore="ContentDescription"
                     tools:src="@drawable/image_news" />
 
+                <!--                <androidx.viewpager.widget.ViewPager-->
+                <!--                    android:id="@+id/img_slider"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="198dp"-->
+                <!--                    android:layout_margin="16dp"-->
+                <!--                    android:background="@drawable/bg_card"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@id/btn_notification"  />-->
+
+                <!--                <ImageButton-->
+                <!--                    android:id="@+id/btn_slide_right"-->
+                <!--                    android:layout_width="28dp"-->
+                <!--                    android:layout_height="28dp"-->
+                <!--                    android:layout_marginEnd="16dp"-->
+                <!--                    android:background="@drawable/ic_btn_slide"-->
+                <!--                    android:elevation="10dp"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@id/img_slider"-->
+                <!--                    app:layout_constraintEnd_toEndOf="@id/img_slider"-->
+                <!--                    app:layout_constraintTop_toTopOf="@id/img_slider" />-->
+
+                <!--                <ImageButton-->
+                <!--                    android:id="@+id/btn_slide_left"-->
+                <!--                    android:layout_width="28dp"-->
+                <!--                    android:layout_height="28dp"-->
+                <!--                    android:layout_marginStart="16dp"-->
+                <!--                    android:background="@drawable/ic_btn_slide"-->
+                <!--                    android:elevation="10dp"-->
+                <!--                    android:rotation="180"-->
+                <!--                    app:layout_constraintBottom_toBottomOf="@id/img_slider"-->
+                <!--                    app:layout_constraintStart_toStartOf="@id/img_slider"-->
+                <!--                    app:layout_constraintTop_toTopOf="@id/img_slider" />-->
+
+
+                <!--                <me.relex.circleindicator.CircleIndicator-->
+                <!--                    android:id="@+id/slideDotLL"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="16dp"-->
+                <!--                    android:layout_margin="16dp"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@id/img_slider"-->
+                <!--                    app:ci_drawable="@drawable/tab_indicator"-->
+                <!--                    />-->
+
+
+
             </com.google.android.material.card.MaterialCardView>
 
             <TextView

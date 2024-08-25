@@ -55,4 +55,5 @@ class DetailViewModel @Inject constructor(
     companion object {
         const val LIBRARY_ID_KEY = "id"
     }
+
 }

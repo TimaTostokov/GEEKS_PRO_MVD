@@ -13,5 +13,6 @@
 
     <dimen name="_18_2sp">18.2sp</dimen>
     <dimen name="snackbar_side_margin">1dp</dimen>
+    <dimen name="_300dp">300dp</dimen>
 
 </resources>

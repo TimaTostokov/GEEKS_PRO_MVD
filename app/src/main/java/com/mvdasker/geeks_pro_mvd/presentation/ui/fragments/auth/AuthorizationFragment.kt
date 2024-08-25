@@ -161,6 +161,5 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
 
     companion object {
         const val ALERT_DIALOG_KEY = "alertDialog"
-
     }
 }
