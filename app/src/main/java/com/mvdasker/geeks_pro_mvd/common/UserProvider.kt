@@ -14,13 +14,12 @@ class UserProvider @Inject constructor(
     val accessToken: String
         get() = prefs.getString(ACCESS_TOKEN_KEY, "").orEmpty()
 
-    fun saveAuthResponse(authResponse: AuthResponse) {
-        prefs.edit()
-            .putString(USER_NAME_KEY, authResponse.name)
-            .putString(USER_PHOTO_URL_KEY, authResponse.photo)
-            .putString(ACCESS_TOKEN_KEY, authResponse.access)
-            .putString(REFRESH_TOKEN_KEY, authResponse.refreshToken)
-            .apply()
+    fun saveUserId(userId: Int) {
+        prefs.edit().putInt(USER_ID, userId).apply()
+    }
+
+    fun getUserId(): Int {
+        return prefs.getInt(USER_ID, -1)
     }
 
     companion object {
@@ -28,6 +27,7 @@ class UserProvider @Inject constructor(
         private const val USER_PHOTO_URL_KEY = "USER_PHOTO_URL_KEY"
         private const val ACCESS_TOKEN_KEY = "ACCESS_TOKEN_KEY"
         private const val REFRESH_TOKEN_KEY = "REFRESH_TOKEN_KEY"
+        private const val USER_ID = "USER_ID"
     }
 
 }

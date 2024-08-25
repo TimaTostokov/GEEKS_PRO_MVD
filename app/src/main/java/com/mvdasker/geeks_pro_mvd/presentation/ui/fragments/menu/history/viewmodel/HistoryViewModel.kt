@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
-import com.mvdasker.geeks_pro_mvd.data.remote.model.history.HistoryResponse
+import com.mvdasker.geeks_pro_mvd.data.remote.model.history.HistoryModel
 import com.mvdasker.geeks_pro_mvd.data.repositories.HistoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -20,9 +20,9 @@ import javax.inject.Inject
 class HistoryViewModel @Inject constructor(private val repository: HistoryRepository) :
     ViewModel() {
 
-    private val _history: MutableStateFlow<UiState<HistoryResponse?>> =
+    private val _history: MutableStateFlow<UiState<HistoryModel?>> =
         MutableStateFlow(UiState.Loading)
-    val history: StateFlow<UiState<HistoryResponse?>> = _history.asStateFlow()
+    val history: StateFlow<UiState<HistoryModel?>> = _history.asStateFlow()
 
     private val _messageFlow = MutableStateFlow<Messages?>(null)
     val messageFlow: Flow<Messages> = _messageFlow.filterNotNull()
@@ -31,10 +31,10 @@ class HistoryViewModel @Inject constructor(private val repository: HistoryReposi
         _messageFlow.value = null
     }
 
-    fun fetchHistory(pk: Int) {
+    fun fetchHistory(slug: String) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val result = repository.getHistory(pk)
+                val result = repository.getHistory(slug)
                 _history.value = UiState.Success(result)
             } catch (t: Throwable) {
                 _messageFlow.value = Messages.NetworkIsDisconnected

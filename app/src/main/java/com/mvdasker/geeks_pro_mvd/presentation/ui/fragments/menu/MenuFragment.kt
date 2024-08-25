@@ -1,6 +1,10 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,10 +16,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
+import com.mvdasker.geeks_pro_mvd.App
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentMenuBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history.adapter.HistoryAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -25,6 +31,8 @@ class MenuFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModels<MenuViewModel>()
+
+    private var spinnerIconUpdated = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,20 +44,23 @@ class MenuFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observeViewModel()
-        setupRecyclerView()
-        setupListeners()
 
         viewModel.setNavController(findNavController())
-
-        viewModel.isRecyclerViewVisible.observe(viewLifecycleOwner) { isVisible ->
-            binding.recyclerView.isVisible = isVisible
-            binding.line.isVisible = isVisible
-            updateSpinnerIcon(isVisible)
-        }
+        val id = (requireContext().applicationContext as App).userProvider?.getUserId().toString()
+        Log.d("ololo", "Данные не пришли: ${id}")
+        setupRecyclerView()
+        setupListeners()
+        observeViewModel()
     }
 
     private fun observeViewModel() {
+        lifecycleScope.launch {
+            viewModel.isRecyclerViewVisible.collectLatest { isVisible ->
+                binding.recyclerView.isVisible = isVisible
+                binding.line.isVisible = isVisible
+            }
+        }
+
         lifecycleScope.launch {
             viewModel.selectedButtonId.collect { selectedId ->
                 selectedId?.let { updateButtonState(it) }
@@ -58,9 +69,10 @@ class MenuFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        val historyAdapter = HistoryAdapter(viewModel.getSampleData(), this::onClicker)
-        binding.recyclerView.adapter = historyAdapter
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = HistoryAdapter(viewModel.getSampleData(), this@MenuFragment::onClicker)
+        }
     }
 
     private fun onClicker(position: Int) {
@@ -68,34 +80,43 @@ class MenuFragment : Fragment() {
     }
 
     private fun updateButtonState(checkedId: Int) {
-        setButtonState(binding.kgBtn, checkedId == R.id.kg_btn)
-        setButtonState(binding.ruBtn, checkedId == R.id.ru_btn)
+        binding.kgBtn.updateState(checkedId == R.id.kg_btn)
+        binding.ruBtn.updateState(checkedId == R.id.ru_btn)
     }
 
-    private fun setButtonState(button: MaterialButton, isSelected: Boolean) {
-        button.apply {
-            backgroundTintList = ContextCompat.getColorStateList(
+    private fun MaterialButton.updateState(isSelected: Boolean) {
+        backgroundTintList = ContextCompat.getColorStateList(
+            requireContext(),
+            if (isSelected) R.color.dark_blue else R.color.white
+        )
+        setTextColor(
+            ContextCompat.getColor(
                 requireContext(),
-                if (isSelected) R.color.dark_blue else R.color.white
+                if (isSelected) R.color.white else R.color.dark_blue
             )
-            setTextColor(
-                ContextCompat.getColor(
-                    requireContext(),
-                    if (isSelected) R.color.white else R.color.dark_blue
-                )
-            )
-        }
-    }
-
-    private fun updateSpinnerIcon(isVisible: Boolean) {
-        binding.spinner.setImageResource(
-            if (isVisible) R.drawable.spinner_icon else R.drawable.spinner_icon_two
         )
     }
 
+    private fun updateSpinnerIcon(isVisible: Boolean) {
+        ObjectAnimator.ofFloat(binding.spinner, "rotation",
+            if (isVisible) 0f else 180f, if (isVisible) 180f else 0f).apply {
+            duration = 300L
+        }.start()
+    }
+
     private fun setupListeners() = with(binding) {
-        spinner.setOnClickListener { viewModel.toggleRecyclerViewVisibility() }
-        aboutUsButton.setOnClickListener { viewModel.toggleRecyclerViewVisibility() }
+        spinner.setOnClickListener {
+            viewModel.toggleRecyclerViewVisibility()
+            spinnerIconUpdated = false
+            expandRecyclerView(viewModel.isRecyclerViewVisible.value ?: false)
+            updateSpinnerIcon(viewModel.isRecyclerViewVisible.value ?: false)
+        }
+        aboutUsButton.setOnClickListener {
+            viewModel.toggleRecyclerViewVisibility()
+            spinnerIconUpdated = false
+            expandRecyclerView(viewModel.isRecyclerViewVisible.value ?: false)
+            updateSpinnerIcon(viewModel.isRecyclerViewVisible.value ?: false)
+        }
 
         val hideRecyclerViewActions = listOf(
             controlKRButton to { viewModel.onClickControlKRButton() },
@@ -111,14 +132,26 @@ class MenuFragment : Fragment() {
         hideRecyclerViewActions.forEach { (button, action) ->
             button.setOnClickListener {
                 action()
-                viewModel.hideRecyclerView()
             }
         }
 
         buttonToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
-            viewModel.onButtonToggleGroupCheckedChange(checkedId, isChecked)
-            viewModel.hideRecyclerView()
+            if (isChecked) {
+                viewModel.onButtonToggleGroupCheckedChange(checkedId, isChecked)
+            }
         }
+    }
+
+    private fun expandRecyclerView(isVisible: Boolean) {
+        ObjectAnimator.ofFloat(binding.recyclerView, "alpha",
+            if (isVisible) 0f else 1f, if (isVisible) 1f else 0f).apply {
+            duration = 300L
+            addListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    binding.recyclerView.visibility = if (isVisible) View.VISIBLE else View.GONE
+                }
+            })
+        }.start()
     }
 
     override fun onDestroyView() {
