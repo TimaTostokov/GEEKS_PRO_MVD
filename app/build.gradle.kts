@@ -82,4 +82,7 @@ dependencies {
     implementation(libs.advrecyclerview)
 
     implementation(libs.glide)
+
+    implementation(libs.androidx.viewpager2)
+    implementation(libs.circelIndicator)
 }

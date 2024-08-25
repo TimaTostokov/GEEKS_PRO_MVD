@@ -1,19 +1,16 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history
 
 import android.annotation.SuppressLint
-import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
@@ -82,7 +79,11 @@ class HistoryOfKyrgyzstanFragment : Fragment() {
                                     Html.fromHtml(firstItem, Html.FROM_HTML_MODE_LEGACY)
                             } else binding.tvInfo.text = getString(R.string.no_data)
 
-                            uiState.data?.images?.get(0)?.image?.let { binding.imageView.loadImage(it) }
+                            uiState.data?.images?.get(0)?.image?.let {
+                                binding.imageView.loadImage(
+                                    it
+                                )
+                            }
                         }
                     }
                 }

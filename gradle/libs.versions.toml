@@ -27,8 +27,13 @@ safeargs = "2.7.7"
 okhttppClient = "4.12.0"
 loggingInterceptor = "4.12.0"
 okhttpprofiler = "1.0.7"
+viewpager2 = "1.1.0"
+circleIndicator = "2.1.6"
 
 [libraries]
+
+androidx-viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpager2" }
+circelIndicator = {module ="me.relex:circleindicator", version.ref = "circleIndicator"}
 
 advrecyclerview = { module = "com.h6ah4i.android.widget.advrecyclerview:advrecyclerview", version.ref = "advrecyclerview" }
 

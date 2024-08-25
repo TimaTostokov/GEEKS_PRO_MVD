@@ -101,4 +101,5 @@ class NotesAdapterLibrary(private val onClick: (Int) -> Unit) :
             return oldItem.id == newItem.id
         }
     }
+
 }
