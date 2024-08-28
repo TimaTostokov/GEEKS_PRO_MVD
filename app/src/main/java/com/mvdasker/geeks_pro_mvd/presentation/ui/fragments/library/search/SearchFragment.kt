@@ -22,16 +22,16 @@ import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.LibraryViewM
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.adapter.NotesAdapterLibrary
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
-import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
+import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SearchFragment : Fragment(R.layout.fragment_search) {
 
-    private var _binding: FragmentSearchBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBinding(FragmentSearchBinding::bind)
 
     private val viewModel by viewModels<LibraryViewModel>()
 
@@ -41,7 +41,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentSearchBinding.bind(view)
 
         deleteClearBtn()
         initialize()
@@ -145,4 +144,5 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             )
         )
     }
+
 }

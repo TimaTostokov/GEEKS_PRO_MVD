@@ -13,8 +13,8 @@ import com.mvdasker.geeks_pro_mvd.databinding.FragmentControlKRBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.kg.adapter.ControlKgAdapter
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
-import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,6 +29,7 @@ class ControlKRFragment : Fragment(R.layout.fragment_control_k_r) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initialize()
         setupListeners()
         goBack()

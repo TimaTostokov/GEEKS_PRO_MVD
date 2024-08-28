@@ -1,5 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.adapters
 
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -7,10 +8,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
-import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.data.remote.model.news.News
 import com.mvdasker.geeks_pro_mvd.databinding.ItemNewsBinding
-import com.mvdasker.geeks_pro_mvd.utils.ext.formatDate
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.formatDate
 
 class NewsAdapter(val onClick: (id: Int) -> Unit) :
     ListAdapter<News, NewsAdapter.NewsViewHolder>(DiffUtilCallback()) {
@@ -26,15 +26,14 @@ class NewsAdapter(val onClick: (id: Int) -> Unit) :
         }
 
         fun bind(data: News) {
-            binding.tvDate.text = data.date?.let { formatDate(it) }
-            binding.tvUrgentNews.text = data.title
-            binding.tvDescription.text = data.description
+            with(binding) {
+                tvDate.text = data.date?.let { formatDate(it) }
+                tvUrgentNews.text = data.title
+                tvDescription.text = Html.fromHtml(data.description, Html.FROM_HTML_MODE_LEGACY)
 
-            if (data.images?.isNotEmpty() == true) {
-                data.images.firstOrNull().let { images ->
-                    Glide.with(itemView.context).load(images?.image).into(binding.ivItem)
-                }
-            } else Glide.with(itemView.context).load(itemView.isVisible).into(binding.ivItem)
+                val imageUrl = data.images?.firstOrNull()?.image
+                Glide.with(itemView.context).load(imageUrl ?: itemView.isVisible).into(ivItem)
+            }
         }
     }
 

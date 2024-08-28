@@ -3,9 +3,7 @@ package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -17,32 +15,25 @@ import com.mvdasker.geeks_pro_mvd.databinding.FragmentHistoryMVDKRBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history.viewmodel.HistoryViewModel
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.loadImage
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
-import com.mvdasker.geeks_pro_mvd.utils.ext.loadImage
-import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
+import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HistoryMVDKRFragment : Fragment() {
+class HistoryMVDKRFragment : Fragment(R.layout.fragment_history_m_v_d_k_r) {
 
-    private var _binding: FragmentHistoryMVDKRBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBinding(FragmentHistoryMVDKRBinding::bind)
 
     private val viewModel by viewModels<HistoryViewModel>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentHistoryMVDKRBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initListeners()
         observe()
         snackBar()
@@ -52,6 +43,7 @@ class HistoryMVDKRFragment : Fragment() {
         binding.upBtn.setOnClickListener {
             binding.nestedSv.smoothScrollTo(0, 0)
         }
+
     }
 
     private fun observe() {
@@ -77,39 +69,39 @@ class HistoryMVDKRFragment : Fragment() {
                                     Html.fromHtml(firstItem, Html.FROM_HTML_MODE_LEGACY)
                             } else binding.tvInfo.text = getString(R.string.no_data)
 
-                            uiState.data?.images?.get(0)?.image?.let { binding.imageView.loadImage(it) }
+                            uiState.data?.images?.get(0)?.image?.let {
+                                binding.imageView.loadImage(
+                                    it
+                                )
+                            }
                         }
                     }
                 }
         }
     }
 
-private fun snackBar() {
-    observeData(viewModel.messageFlow) { messages ->
-        when (messages) {
-            is Messages.NetworkIsDisconnected -> {
-                noInternetSnackbar()
-                binding.fAboutUsProgressBar.visible()
-            }
+    private fun snackBar() {
+        observeData(viewModel.messageFlow) { messages ->
+            when (messages) {
+                is Messages.NetworkIsDisconnected -> {
+                    noInternetSnackbar()
+                    binding.fAboutUsProgressBar.visible()
+                }
 
-            else -> {
-                Extensions.showToast(requireContext(), "Failed to connect progress bar")
+                else -> {
+                    Extensions.showToast(requireContext(), "Network is disconnected")
+                }
             }
+            viewModel.clearMessage()
         }
-        viewModel.clearMessage()
     }
-}
 
-private fun initListeners() {
-    binding.btnBack.setOnClickListener {
-        findNavController().navigateUp()
+    private fun initListeners() {
+        binding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
-}
 
-override fun onDestroy() {
-    super.onDestroy()
-    _binding = null
-}
     companion object {
         const val SLUG = "mvdkr"
     }

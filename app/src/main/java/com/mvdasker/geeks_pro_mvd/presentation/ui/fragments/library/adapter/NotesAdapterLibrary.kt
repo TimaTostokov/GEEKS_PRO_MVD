@@ -37,6 +37,7 @@ class NotesAdapterLibrary(private val onClick: (Int) -> Unit) :
             }
         }
 
+        @SuppressLint("ObsoleteSdkInt")
         fun bind(note: Library) = with(binding) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 tvDescription.text = highlightText(

@@ -38,7 +38,7 @@ class LawViewModel @Inject constructor(private val lawRepository: LawRepository)
                 val result = lawRepository.getLaw()
                 _law.value = UiState.Success(result)
             } catch (t: Throwable) {
-                _law.value = UiState.Error(throwable = t, message = "loading error")
+                _law.value = UiState.Error(throwable = t, message = "Error 404")
                 _messageFlow.value = Messages.NetworkIsDisconnected
             }
         }

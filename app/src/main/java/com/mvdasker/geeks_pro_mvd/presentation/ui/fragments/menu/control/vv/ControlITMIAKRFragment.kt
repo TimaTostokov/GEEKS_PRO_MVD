@@ -10,14 +10,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
-import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentControlITMIAKRBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.adapter.ManagementVVAdapter
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
-import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -33,6 +31,7 @@ class ControlITMIAKRFragment : Fragment(R.layout.fragment_control_i_t_m_i_a_k_r)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         observerData()
         initialize()
         goToSearch()
@@ -40,13 +39,15 @@ class ControlITMIAKRFragment : Fragment(R.layout.fragment_control_i_t_m_i_a_k_r)
         showSnack()
     }
 
-    private fun showSnack(){
+    private fun showSnack() {
         observeData(viewModel.messageFlow) { message ->
             when (message) {
                 is Messages.NetworkIsDisconnected ->
                     noInternetSnackbar()
+
                 is Messages.ShowProgressBar ->
                     binding.fcRukVMKProgressBar.visible()
+
                 is Messages.HideProgressBar ->
                     binding.fcRukVMKProgressBar.gone()
             }

@@ -1,27 +1,27 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentNotificationsBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications.adapter.NotificationsAdapter
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
-import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
+import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class NotificationsFragment() : Fragment() {
+class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
 
-    private var _binding: FragmentNotificationsBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBinding(FragmentNotificationsBinding::bind)
 
     private val viewModel by viewModels<NotificationsViewModel>()
 
@@ -35,15 +35,6 @@ class NotificationsFragment() : Fragment() {
             }
         }
     )
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentNotificationsBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -76,9 +67,12 @@ class NotificationsFragment() : Fragment() {
                     noInternetSnackbar()
                 }
 
-                else -> {}
+                else -> {
+                    Extensions.showToast(requireContext(), "Network is disconnected")
+                }
             }
             viewModel.clearMessage()
         }
     }
+
 }

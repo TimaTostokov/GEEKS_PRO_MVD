@@ -9,15 +9,20 @@ import com.bumptech.glide.Glide
 import com.mvdasker.geeks_pro_mvd.data.remote.model.mangements.Governance
 import com.mvdasker.geeks_pro_mvd.databinding.ItemManagementKgBinding
 
-class ControlKgAdapter : ListAdapter<Governance, ControlKgAdapter.ManagementsKgViewHolder>(DiffUtilCallback()) {
+class ControlKgAdapter :
+    ListAdapter<Governance, ControlKgAdapter.ManagementsKgViewHolder>(DiffUtilCallback()) {
 
     inner class ManagementsKgViewHolder(private val binding: ItemManagementKgBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Governance) {
-            binding.itemName.text = item.name
-            binding.tvData.text = item.category
-            Glide.with(itemView.context).load(item.photo).into(binding.imView)
+            with(binding) {
+                itemName.text = item.name
+                tvData.text = item.jobTittle
+                Glide.with(itemView.context)
+                    .load(item.photo)
+                    .into(imView)
+            }
         }
     }
 

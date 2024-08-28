@@ -35,8 +35,10 @@ class CharterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private val binding = ItemCharterBinding.bind(itemView)
 
-    fun bindCharter(charter: Charter) = with(binding) {
-        binding.itemDateOfCharter.text = charter.title
+    fun bindCharter(charter: Charter) {
+        binding.apply {
+            itemDateOfCharter.text = charter.title
+        }
     }
 
 }

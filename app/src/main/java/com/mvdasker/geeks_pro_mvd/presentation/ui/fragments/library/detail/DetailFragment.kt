@@ -1,43 +1,32 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.detail
 
-import android.os.Build
 import android.os.Bundle
 import android.text.Html
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentDetailBinding
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
-import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
+import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DetailFragment : Fragment() {
+class DetailFragment : Fragment(R.layout.fragment_detail) {
 
-    private var _binding: FragmentDetailBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBinding(FragmentDetailBinding::bind)
 
     private val viewModel by viewModels<DetailViewModel>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentDetailBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         observe()
         goBack()
         goNotification()
@@ -85,11 +74,10 @@ class DetailFragment : Fragment() {
                 .with(requireContext())
                 .load(note?.image)
                 .into(binding.ivPhoto)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                binding.tvTextAsker.text =
-                    Html.fromHtml(note?.conspect ?: "", Html.FROM_HTML_MODE_LEGACY)
-                binding.tvKonstpekt.text = note?.title
-            }
+            binding.tvTextAsker.text =
+                Html.fromHtml(note?.conspect ?: "", Html.FROM_HTML_MODE_LEGACY)
+            binding.tvKonstpekt.text = note?.title
         }
     }
+
 }

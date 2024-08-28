@@ -8,7 +8,6 @@ plugins {
 
 buildscript {
     dependencies {
-        classpath(libs.okhttpprofiler)
         classpath(libs.okHttpClient)
     }
 }

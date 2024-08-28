@@ -41,7 +41,7 @@ class ChartersViewModel @Inject constructor(private val charterRepository: Chart
                 _charters.value = UiState.Success(result)
             } catch (t: Throwable) {
                 _messageFlow.value = Messages.NetworkIsDisconnected
-                _charters.value = UiState.Error(throwable = t, message = "")
+                _charters.value = UiState.Error(throwable = t, message = "Error 404")
             }
         }
     }
