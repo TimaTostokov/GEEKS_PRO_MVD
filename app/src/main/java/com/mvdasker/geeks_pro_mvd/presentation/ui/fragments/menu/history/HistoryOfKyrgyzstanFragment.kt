@@ -4,9 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -18,32 +16,25 @@ import com.mvdasker.geeks_pro_mvd.databinding.FragmentHistoryOfKyrgyzstanBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history.viewmodel.HistoryViewModel
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.loadImage
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
-import com.mvdasker.geeks_pro_mvd.utils.ext.loadImage
-import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
+import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HistoryOfKyrgyzstanFragment : Fragment() {
+class HistoryOfKyrgyzstanFragment : Fragment(R.layout.fragment_history_of_kyrgyzstan) {
 
-    private var _binding: FragmentHistoryOfKyrgyzstanBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBinding(FragmentHistoryOfKyrgyzstanBinding::bind)
 
     private val viewModel by viewModels<HistoryViewModel>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentHistoryOfKyrgyzstanBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initListeners()
         observe()
         snackBar()
@@ -53,6 +44,7 @@ class HistoryOfKyrgyzstanFragment : Fragment() {
         binding.upBtn.setOnClickListener {
             binding.nestedSv.smoothScrollTo(0, 0)
         }
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -99,7 +91,7 @@ class HistoryOfKyrgyzstanFragment : Fragment() {
                 }
 
                 else -> {
-                    Extensions.showToast(requireContext(), "Failed to connect progress bar")
+                    Extensions.showToast(requireContext(), "Network is disconnected")
                 }
             }
             viewModel.clearMessage()
@@ -110,11 +102,6 @@ class HistoryOfKyrgyzstanFragment : Fragment() {
         binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 
     companion object {

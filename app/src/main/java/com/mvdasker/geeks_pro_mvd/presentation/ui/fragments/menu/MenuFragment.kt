@@ -4,10 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -16,41 +13,39 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
-import com.mvdasker.geeks_pro_mvd.App
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.common.Messages
+import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentMenuBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history.adapter.HistoryAdapter
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.loadImage
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
+import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MenuFragment : Fragment() {
+class MenuFragment : Fragment(R.layout.fragment_menu) {
 
-    private var _binding: FragmentMenuBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBinding(FragmentMenuBinding::bind)
 
     private val viewModel by viewModels<MenuViewModel>()
-
-    private var spinnerIconUpdated = false
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentMenuBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.setNavController(findNavController())
-        val id = (requireContext().applicationContext as App).userProvider?.getUserId().toString()
-        Log.d("ololo", "Данные не пришли: ${id}")
+
         setupRecyclerView()
         setupListeners()
         observeViewModel()
+        snackBar()
+
     }
 
     private fun observeViewModel() {
@@ -65,6 +60,47 @@ class MenuFragment : Fragment() {
             viewModel.selectedButtonId.collect { selectedId ->
                 selectedId?.let { updateButtonState(it) }
             }
+        }
+
+        lifecycleScope.launch {
+            viewModel.isSpinnerIconRotated.collectLatest { isRotated ->
+                updateSpinnerIcon(isRotated)
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.getUserId.collectLatest { result ->
+                when (result) {
+                    is UiState.Loading -> {
+                        binding.fMenuProgressBar.visible()
+                    }
+
+                    is UiState.Success -> {
+                        binding.userName.text = result.data?.username
+                        binding.avatarImageView.loadImage(result.data?.img.toString())
+                        binding.fMenuProgressBar.gone()
+                    }
+
+                    is UiState.Error -> {
+                        binding.fMenuProgressBar.gone()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun snackBar() {
+        observeData(viewModel.messageFlow) { messages ->
+            when (messages) {
+                is Messages.NetworkIsDisconnected -> {
+                    noInternetSnackbar()
+                }
+
+                else -> {
+                    Extensions.showToast(requireContext(), "Network is disconnected")
+                }
+            }
+            viewModel.clearMessage()
         }
     }
 
@@ -97,25 +133,28 @@ class MenuFragment : Fragment() {
         )
     }
 
-    private fun updateSpinnerIcon(isVisible: Boolean) {
-        ObjectAnimator.ofFloat(binding.spinner, "rotation",
-            if (isVisible) 0f else 180f, if (isVisible) 180f else 0f).apply {
-            duration = 300L
-        }.start()
+    private fun updateSpinnerIcon(isRotated: Boolean) {
+        val targetRotation = if (isRotated) 180f else 0f
+        val currentRotation = binding.spinner.rotation
+
+        if (currentRotation != targetRotation) {
+            ObjectAnimator.ofFloat(binding.spinner, "rotation", currentRotation, targetRotation)
+                .apply {
+                    duration = 300L
+                    start()
+                }
+        }
     }
 
     private fun setupListeners() = with(binding) {
         spinner.setOnClickListener {
             viewModel.toggleRecyclerViewVisibility()
-            spinnerIconUpdated = false
-            expandRecyclerView(viewModel.isRecyclerViewVisible.value ?: false)
-            updateSpinnerIcon(viewModel.isRecyclerViewVisible.value ?: false)
+            expandRecyclerView(viewModel.isRecyclerViewVisible.value)
         }
+
         aboutUsButton.setOnClickListener {
             viewModel.toggleRecyclerViewVisibility()
-            spinnerIconUpdated = false
-            expandRecyclerView(viewModel.isRecyclerViewVisible.value ?: false)
-            updateSpinnerIcon(viewModel.isRecyclerViewVisible.value ?: false)
+            expandRecyclerView(viewModel.isRecyclerViewVisible.value)
         }
 
         val hideRecyclerViewActions = listOf(
@@ -130,9 +169,7 @@ class MenuFragment : Fragment() {
         )
 
         hideRecyclerViewActions.forEach { (button, action) ->
-            button.setOnClickListener {
-                action()
-            }
+            button.setOnClickListener { action() }
         }
 
         buttonToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
@@ -143,8 +180,10 @@ class MenuFragment : Fragment() {
     }
 
     private fun expandRecyclerView(isVisible: Boolean) {
-        ObjectAnimator.ofFloat(binding.recyclerView, "alpha",
-            if (isVisible) 0f else 1f, if (isVisible) 1f else 0f).apply {
+        ObjectAnimator.ofFloat(
+            binding.recyclerView, "alpha",
+            if (isVisible) 0f else 1f, if (isVisible) 1f else 0f
+        ).apply {
             duration = 300L
             addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator) {
@@ -152,11 +191,6 @@ class MenuFragment : Fragment() {
                 }
             })
         }.start()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
 }

@@ -24,8 +24,8 @@
                 android:layout_height="84dp"
                 android:layout_marginTop="24dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/logo_mvd"
-                tools:ignore="MissingClass" />
+                tools:ignore="MissingClass"
+                tools:src="@drawable/default_user_image" />
 
             <TextView
                 android:id="@+id/userName"
@@ -33,9 +33,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/roboto_bold"
-                android:text="@string/name"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                tools:text="@string/no_user_name" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -59,9 +59,9 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/roboto"
                         android:text="@string/kyrgyz"
-                        android:textSize="16sp"
                         android:textAllCaps="false"
                         android:textColor="@color/dark_blue"
+                        android:textSize="16sp"
                         app:backgroundTint="@color/white"
                         app:cornerRadius="10dp"
                         app:iconGravity="textStart"
@@ -76,8 +76,8 @@
                         android:fontFamily="@font/roboto"
                         android:text="@string/russian"
                         android:textAllCaps="false"
-                        android:textSize="16sp"
                         android:textColor="@color/white"
+                        android:textSize="16sp"
                         app:backgroundTint="@color/dark_blue"
                         app:cornerRadius="10dp"
                         app:iconGravity="textStart"
@@ -129,7 +129,7 @@
                             <ImageView
                                 android:id="@+id/spinner"
                                 android:layout_width="50dp"
-                                android:layout_height="50dp"
+                                android:layout_height="wrap_content"
                                 android:layout_gravity="end|center"
                                 android:clickable="true"
                                 android:focusable="true"
@@ -321,9 +321,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/roboto"
-                        android:textSize="14sp"
                         android:text="@string/made_by_geeks_pro"
                         android:textColor="@color/black"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <ImageView
@@ -341,5 +341,16 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <FrameLayout
+        android:id="@+id/fMenuProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="75dp"
+        android:visibility="gone">
+
+        <include layout="@layout/progress_bar" />
+
+    </FrameLayout>
 
 </FrameLayout>

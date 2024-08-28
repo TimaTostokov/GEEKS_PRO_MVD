@@ -84,5 +84,12 @@ dependencies {
     implementation(libs.glide)
 
     implementation(libs.androidx.viewpager2)
-    implementation(libs.circelIndicator)
+
+    implementation(libs.exoplayer)
+
+    implementation(libs.dotsindicator)
+
+//    implementation("androidx.media3:media3-exoplayer:1.2.0")
+//    implementation("androidx.media3:media3-exoplayer-dash:1.2.0")
+//    implementation("androidx.media3:media3-ui:1.2.0")
 }

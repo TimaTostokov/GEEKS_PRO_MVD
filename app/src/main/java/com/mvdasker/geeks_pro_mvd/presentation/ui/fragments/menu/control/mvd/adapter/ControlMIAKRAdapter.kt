@@ -23,13 +23,17 @@ class ControlMIAKRAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Governance) {
-            binding.itemName.text = item.name
-            binding.tvData.text = item.category?.let { highlightText(it, searchQuery) }
-            Glide.with(itemView.context).load(item.photo).into(binding.imView)
+            with(binding) {
+                itemName.text = item.name
+                tvData.text = item.category?.let { highlightText(it, searchQuery) }
+                Glide.with(itemView.context)
+                    .load(item.photo)
+                    .into(imView)
+            }
         }
     }
 
-    private fun highlightText(text: String, query: String): SpannableString {
+        private fun highlightText(text: String, query: String): SpannableString {
         val spannableString = SpannableString(text)
         if (query.isNotEmpty()) {
             var startIndex = text.lowercase().indexOf(query.lowercase())
@@ -59,7 +63,6 @@ class ControlMIAKRAdapter :
     fun updateSearchQuery(query: String) {
         searchQuery = query
         notifyDataSetChanged()
-
     }
 
     override fun onBindViewHolder(holder: ManagmentsKgViewHolder, position: Int) {

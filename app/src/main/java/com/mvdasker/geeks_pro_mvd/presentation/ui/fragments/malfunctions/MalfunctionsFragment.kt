@@ -7,31 +7,21 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentMalfunctionsBinding
+import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 
-class MalfunctionsFragment : Fragment() {
+class MalfunctionsFragment : Fragment(R.layout.fragment_malfunctions) {
 
-    private var _binding: FragmentMalfunctionsBinding? = null
-    private val binding get() = _binding!!
+    private val binding by viewBinding(FragmentMalfunctionsBinding::bind)
 
     private var connectivityManager: ConnectivityManager? = null
     private var networkCallback: ConnectivityManager.NetworkCallback? = null
 
     private var isNetworkAvailable = false
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentMalfunctionsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -83,12 +73,6 @@ class MalfunctionsFragment : Fragment() {
         binding.tvFetchedData.text =
             "Сеть недоступна. Убедитесь, что Wi-Fi включен или мобильные данные активны."
         binding.btnUpdate.visibility = View.VISIBLE
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        networkCallback?.let { connectivityManager?.unregisterNetworkCallback(it) }
-        _binding = null
     }
 
     @SuppressLint("NewApi")

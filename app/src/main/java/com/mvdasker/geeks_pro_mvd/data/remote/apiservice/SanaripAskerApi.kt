@@ -44,7 +44,7 @@ interface SanaripAskerApi {
 
     @GET(HISTORY_END_POINT)
     suspend fun getHistory(@Path("slug") slug: String)
-    : Response<HistoryModel>
+            : Response<HistoryModel>
 
     @GET(MANAGEMENT_END_POINT)
     suspend fun fetchConstitutionsKr(): List<Governance>
@@ -76,7 +76,7 @@ interface SanaripAskerApi {
     @GET(AUTHORIZATION_GET_END_POINT)
     suspend fun getUserById(
         @Path("pk") userId: Int
-    ): Response<User>
+    ): User?
 
     @GET(NEWS_END_POINT)
     suspend fun getNews(): NewsResponse

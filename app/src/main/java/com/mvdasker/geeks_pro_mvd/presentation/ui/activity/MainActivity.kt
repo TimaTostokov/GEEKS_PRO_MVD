@@ -1,10 +1,11 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.activity
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsetsController
-import androidx.annotation.RequiresApi
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -18,9 +19,11 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    @RequiresApi(Build.VERSION_CODES.M)
+    @SuppressLint("ObsoleteSdkInt")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        window?.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -91,4 +94,10 @@ class MainActivity : AppCompatActivity() {
         view.clearAnimation()
         view.animate().translationY(0f).setDuration(300)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+    }
+
 }

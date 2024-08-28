@@ -16,16 +16,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
-import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.data.remote.model.mangements.Governance
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentSearchControlVVBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.ControlITMIAKRViewModel
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.adapter.ManagementVVAdapter
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
-import com.mvdasker.geeks_pro_mvd.utils.ext.observeData
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -43,21 +41,25 @@ class SearchControlVVFragment : Fragment(R.layout.fragment_search_control_v_v) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         deleteClearBtn()
         initialize()
         crossToSearchControlFragment()
         searchCharacterListener()
         showData()
         showSnack()
+
     }
 
-    private fun showSnack(){
+    private fun showSnack() {
         observeData(viewModel.messageFlow) { message ->
             when (message) {
                 is Messages.NetworkIsDisconnected ->
                     noInternetSnackbar()
+
                 is Messages.HideProgressBar ->
                     binding.fSearchControlVVProgressBar.gone()
+
                 is Messages.ShowProgressBar ->
                     binding.fSearchControlVVProgressBar.visible()
             }

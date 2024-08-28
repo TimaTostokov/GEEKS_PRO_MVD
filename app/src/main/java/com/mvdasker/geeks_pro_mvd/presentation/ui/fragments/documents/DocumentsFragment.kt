@@ -1,30 +1,19 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Screen
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentDocumentsBinding
+import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class DocumentsFragment : Fragment() {
+class DocumentsFragment : Fragment(R.layout.fragment_documents) {
 
-    private var _binding: FragmentDocumentsBinding? = null
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentDocumentsBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    private val binding by viewBinding(FragmentDocumentsBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,11 +35,6 @@ class DocumentsFragment : Fragment() {
             Screen.Statutes -> findNavController().navigate(R.id.action_documentsFragment_to_statutesFragment)
             Screen.Notifications -> findNavController().navigate(R.id.action_documentsFragment_to_notificationsFragment)
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 
 }

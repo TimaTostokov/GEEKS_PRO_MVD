@@ -1,5 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications.adapter
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.text.Html
 import android.view.LayoutInflater
@@ -13,9 +14,9 @@ import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.data.remote.model.notification.NotificationItem
 import com.mvdasker.geeks_pro_mvd.databinding.ItemNotificationBinding
 import com.mvdasker.geeks_pro_mvd.databinding.ItemNotificationMonthBinding
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.formatDate
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
-import com.mvdasker.geeks_pro_mvd.utils.ext.formatDate
 
 class NotificationsAdapter(private val onNotificationClick: (String?, Int) -> Unit) :
     ListAdapter<NotificationItem, RecyclerView.ViewHolder>(NotificationDiffCallback) {
@@ -91,6 +92,7 @@ class NotificationViewHolder(
 
     private val binding = ItemNotificationBinding.bind(itemView)
 
+    @SuppressLint("ObsoleteSdkInt")
     fun bindNotification(notification: NotificationItem.Notification) {
         binding.itemNotifDate.text = notification.createAt?.let { formatDate(it) }
         binding.itemNotifTitle.text = notification.title
@@ -112,4 +114,5 @@ class NotificationViewHolder(
             onNotificationClick(notification.section, 0)
         }
     }
+
 }
