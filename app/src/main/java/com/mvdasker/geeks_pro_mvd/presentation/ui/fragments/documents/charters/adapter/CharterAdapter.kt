@@ -59,6 +59,7 @@ class CharterAdapter(val context: Context) :
     override fun getItemCount(): Int = listCharters.size
 
     fun addCharters(charter: List<Charter>) {
+        listCharters.clear()
         listCharters.addAll(charter)
         notifyDataSetChanged()
     }
