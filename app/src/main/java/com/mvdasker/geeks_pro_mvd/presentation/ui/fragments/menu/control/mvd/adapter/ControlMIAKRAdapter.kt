@@ -2,6 +2,7 @@ package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.mvd.ad
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -25,7 +26,11 @@ class ControlMIAKRAdapter :
         fun bind(item: Governance) {
             with(binding) {
                 itemName.text = item.name
-                tvData.text = item.category?.let { highlightText(it, searchQuery) }
+                tvData.text =
+                    highlightText(
+                        Html.fromHtml(item.jobTittle, Html.FROM_HTML_MODE_LEGACY).toString(),
+                        searchQuery
+                    )
                 Glide.with(itemView.context)
                     .load(item.photo)
                     .into(imView)
@@ -33,7 +38,7 @@ class ControlMIAKRAdapter :
         }
     }
 
-        private fun highlightText(text: String, query: String): SpannableString {
+    private fun highlightText(text: String, query: String): SpannableString {
         val spannableString = SpannableString(text)
         if (query.isNotEmpty()) {
             var startIndex = text.lowercase().indexOf(query.lowercase())

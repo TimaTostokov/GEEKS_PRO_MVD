@@ -20,6 +20,7 @@ import com.mvdasker.geeks_pro_mvd.data.remote.model.mangements.Governance
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentSearchControlBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.mvd.ControlMIAKRViewModel
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.mvd.adapter.ControlMIAKRAdapter
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
@@ -121,9 +122,8 @@ class SearchControlFragment : Fragment() {
             spannableString.length,
             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         )
-        binding.number2.text = spannableString
+        binding.numberTwo.text = spannableString
     }
-
 
     private fun crossToSearchControlFragment() {
         binding.btnCross.setOnClickListener {
