@@ -1,11 +1,13 @@
 package com.mvdasker.geeks_pro_mvd.data.repositories
 
 import com.mvdasker.geeks_pro_mvd.data.remote.apiservice.SanaripAskerApi
-import com.mvdasker.geeks_pro_mvd.data.remote.model.charter.Charter
+import com.mvdasker.geeks_pro_mvd.utils.base.BaseRepository
 import javax.inject.Inject
 
-class CharterRepository @Inject constructor(private val sanaripAskerApi: SanaripAskerApi) {
+class CharterRepository @Inject constructor(private val sanaripAskerApi: SanaripAskerApi) :
+    BaseRepository() {
 
-    suspend fun getListCharters(): List<Charter> =
+    fun getListChartersFlow() = doRequest {
         sanaripAskerApi.getCharters().reversed()
+    }
 }
