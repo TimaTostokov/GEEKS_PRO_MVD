@@ -78,7 +78,6 @@ class NotificationsViewModel @Inject constructor(private val notificationReposit
                                 id = notification.id,
                                 section = notification.section,
                                 title = notification.title,
-                                description = notification.description,
                                 createAt = notification.createAt,
                                 isRead = notification.isRead,
                             )

@@ -10,23 +10,22 @@ import kotlinx.coroutines.launch
 
 abstract class BaseViewModel : ViewModel() {
 
-    protected open fun <T> Flow<Either<Throwable, T>>.collectFlowAsState(
-        state: MutableStateFlow<UiState<T>>,
-        ) {
-
+    protected open fun <T> Flow<Either<Throwable, List<T>>>.collectFlowAsState(
+        state: MutableStateFlow<UiState<List<T>>>,
+    ) {
         viewModelScope.launch {
-            this@collectFlowAsState.collect {
-                when (it) {
+            this@collectFlowAsState.collect { either ->
+                when (either) {
                     is Either.Left -> {
-                        it.left?.let { t ->
-                            val message = t.message ?: "Unknown error!"
-                            state.value = UiState.Error(t, message)
+                        either.left?.let { throwable ->
+                            val message = throwable.message ?: "Unknown error!"
+                            state.value = UiState.Error(throwable, message)
                         }
                     }
 
                     is Either.Right -> {
-                        it.right?.let { data ->
-                            state.value = UiState.Success(data)
+                        either.right?.let { data ->
+                            state.value = UiState.Success(data) // data уже является списком
                         }
                     }
                 }

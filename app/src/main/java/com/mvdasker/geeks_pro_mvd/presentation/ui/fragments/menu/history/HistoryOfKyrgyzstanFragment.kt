@@ -65,7 +65,7 @@ class HistoryOfKyrgyzstanFragment : Fragment(R.layout.fragment_history_of_kyrgyz
                         is UiState.Success -> {
                             binding.fAboutKyrgyzProgressBar.gone()
                             val firstItem = uiState.data?.text
-                            Log.d("ololo", "Данные не пришли: ${uiState.data}")
+                            Log.d("ololo", "Данные: ${uiState.data}")
                             if (firstItem != null) {
                                 binding.tvInfo.text =
                                     Html.fromHtml(firstItem, Html.FROM_HTML_MODE_LEGACY)

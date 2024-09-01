@@ -13,7 +13,7 @@ class RefreshTokenInterceptor @Inject constructor(
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
             .newBuilder()
-            .addHeader("Authorization", "Bearer ${userProvider.accessToken}")
+            .addHeader("Authorization", "JWT ${userProvider.accessToken}")
             .build()
         try {
             chain.proceed(request)

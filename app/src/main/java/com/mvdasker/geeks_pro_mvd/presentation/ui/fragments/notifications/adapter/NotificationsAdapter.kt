@@ -63,7 +63,6 @@ class NotificationsAdapter(private val onNotificationClick: (String?, Int) -> Un
                 val notificationsItem = oldItem is NotificationItem.Notification
                         && newItem is NotificationItem.Notification
                         && oldItem.title == newItem.title
-                        && oldItem.description == newItem.description
                         && oldItem.createAt == newItem.createAt
                         && oldItem.isRead == newItem.isRead
                         && oldItem.section == newItem.section
@@ -96,11 +95,6 @@ class NotificationViewHolder(
     fun bindNotification(notification: NotificationItem.Notification) {
         binding.itemNotifDate.text = notification.createAt?.let { formatDate(it) }
         binding.itemNotifTitle.text = notification.title
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            binding.itemNotifDescription.text =
-                Html.fromHtml(notification.description, Html.FROM_HTML_MODE_LEGACY)
-        }
 
         if (notification.section != null) {
             binding.itemNotifSection.text = notification.section

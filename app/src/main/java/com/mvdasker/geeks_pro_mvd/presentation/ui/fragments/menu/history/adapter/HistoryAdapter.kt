@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.data.remote.model.parent.ParentModel
 import com.mvdasker.geeks_pro_mvd.databinding.ParentItemBinding
 
-class HistoryAdapter(private var mList: List<ParentModel>, var onClick: (position: Int) -> Unit) :
+class HistoryAdapter(
+    private val mList: List<ParentModel>,
+    private val onClick: (position: Int) -> Unit,
+) :
     RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
 
     inner class HistoryViewHolder(private val binding: ParentItemBinding) :
@@ -42,7 +45,7 @@ class HistoryAdapter(private var mList: List<ParentModel>, var onClick: (positio
     override fun onBindViewHolder(
         holder: HistoryViewHolder,
         position: Int,
-        payloads: MutableList<Any>
+        payloads: MutableList<Any>,
     ) {
 
         if (payloads.isNotEmpty() && payloads[0] == 0) {

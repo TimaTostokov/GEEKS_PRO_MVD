@@ -77,7 +77,11 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
 
                     is UiState.Success -> {
                         binding.userName.text = result.data?.username
-                        binding.avatarImageView.loadImage(result.data?.img.toString())
+
+                        if (result.data?.img != null) {
+                            binding.avatarImageView.loadImage(result.data.img.toString())
+                        }
+
                         binding.fMenuProgressBar.gone()
                     }
 

@@ -8,7 +8,6 @@ sealed interface NotificationItem {
         val id: Int? = null,
         val section: String? = null,
         val title: String? = null,
-        val description: String? = null,
         val createAt: String? = null,
         val isRead: Boolean = false,
     ) : NotificationItem

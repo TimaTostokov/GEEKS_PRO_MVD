@@ -173,22 +173,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/controlMIAKRFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.mvd.ControlMIAKRFragment"
-        android:label="fragment_control_m_i_a_k_r"
-        tools:layout="@layout/fragment_control_m_i_a_k_r">
-
-        <action
-            android:id="@+id/action_controlMIAKRFragment_to_searchControlFragment"
-            app:destination="@id/searchControlFragment" />
-
-        <action
-            android:id="@+id/action_controlMIAKRFragment_to_searchControlFragment2"
-            app:destination="@id/searchControlFragment" />
-
-    </fragment>
-
-    <fragment
         android:id="@+id/searchFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.search.SearchFragment"
         android:label="fragment_search"
@@ -229,29 +213,6 @@
         tools:layout="@layout/fragment_control_k_r" />
 
     <fragment
-        android:id="@+id/controlITMIAKRFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.ControlITMIAKRFragment"
-        android:label="ControlITMIAKRFragment">
-
-        <action
-            android:id="@+id/action_controlITMIAKRFragment_to_searchControlVVFragment"
-            app:destination="@id/searchControlVVFragment" />
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/searchControlFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.mvd.search_mvd.SearchControlFragment"
-        android:label="fragment_search_control"
-        tools:layout="@layout/fragment_search_control" />
-
-    <fragment
-        android:id="@+id/searchControlVVFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.search_vv.SearchControlVVFragment"
-        android:label="fragment_search_control_v_v"
-        tools:layout="@layout/fragment_search_control_v_v" />
-
-    <fragment
         android:id="@+id/techMalfunctionsFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.malfunctions.MalfunctionsFragment"
         android:label="fragment_tech_malfunctions"
@@ -288,5 +249,41 @@
         tools:layout="@layout/fragment_history_v_v_m_v_d_k_r">
 
     </fragment>
+
+    <fragment
+        android:id="@+id/controlITMIAKRFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.ControlITMIAKRFragment"
+        android:label="ControlITMIAKRFragment"
+        tools:layout="@layout/fragment_control_i_t_m_i_a_k_r">
+
+        <action
+            android:id="@+id/action_controlITMIAKRFragment_to_searchControlVVFragment"
+            app:destination="@id/searchControlVVFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/controlMIAKRFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.mvd.ControlMIAKRFragment"
+        android:label="fragment_control_m_i_a_k_r"
+        tools:layout="@layout/fragment_control_m_i_a_k_r">
+
+        <action
+            android:id="@+id/action_controlMIAKRFragment_to_searchControlFragment"
+            app:destination="@id/searchControlFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchControlFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.mvd.search_mvd.SearchControlFragment"
+        android:label="fragment_search_control"
+        tools:layout="@layout/fragment_search_control" />
+
+    <fragment
+        android:id="@+id/searchControlVVFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.search_vv.SearchControlVVFragment"
+        android:label="fragment_search_control_v_v"
+        tools:layout="@layout/fragment_search_control_v_v" />
 
 </navigation>

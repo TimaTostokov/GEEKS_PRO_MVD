@@ -1,6 +1,5 @@
 package com.mvdasker.geeks_pro_mvd.di
 
-import android.content.Context
 import com.mvdasker.geeks_pro_mvd.common.AppDispatchers
 import com.mvdasker.geeks_pro_mvd.common.UserProvider
 import com.mvdasker.geeks_pro_mvd.data.remote.apiservice.SanaripAskerApi
@@ -16,7 +15,6 @@ import com.mvdasker.geeks_pro_mvd.data.repositories.NotificationRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -26,23 +24,35 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideLawRepository(sanaripAskerApi: SanaripAskerApi): LawRepository =
-        LawRepository(sanaripAskerApi)
+    fun provideLawRepository(
+        sanaripAskerApi: SanaripAskerApi,
+        userProvider: UserProvider,
+    ): LawRepository =
+        LawRepository(sanaripAskerApi, userProvider)
 
     @Provides
     @Singleton
-    fun provideCharterRepository(sanaripAskerApi: SanaripAskerApi): CharterRepository =
-        CharterRepository(sanaripAskerApi)
+    fun provideCharterRepository(
+        sanaripAskerApi: SanaripAskerApi,
+        userProvider: UserProvider,
+    ): CharterRepository =
+        CharterRepository(sanaripAskerApi, userProvider)
 
     @Provides
     @Singleton
-    fun provideNotificationRepository(sanaripAskerApi: SanaripAskerApi): NotificationRepository =
-        NotificationRepository(sanaripAskerApi)
+    fun provideNotificationRepository(
+        sanaripAskerApi: SanaripAskerApi,
+        userProvider: UserProvider,
+    ): NotificationRepository =
+        NotificationRepository(sanaripAskerApi, userProvider)
 
     @Provides
     @Singleton
-    fun provideManagementRepository(sanaripAskerApi: SanaripAskerApi): ManagementsKrRepository =
-        ManagementsKrRepository(sanaripAskerApi)
+    fun provideManagementRepository(
+        sanaripAskerApi: SanaripAskerApi,
+        userProvider: UserProvider,
+    ): ManagementsKrRepository =
+        ManagementsKrRepository(sanaripAskerApi, userProvider)
 
     @Provides
     @Singleton
@@ -50,14 +60,17 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideLibraryRepository(sanaripAskerApi: SanaripAskerApi): LibraryRepository =
-        LibraryRepository(sanaripAskerApi)
+    fun provideLibraryRepository(
+        sanaripAskerApi: SanaripAskerApi,
+        userProvider: UserProvider,
+    ): LibraryRepository =
+        LibraryRepository(sanaripAskerApi, userProvider)
 
     @Provides
     @Singleton
     fun provideAuthorizationRepository(
         sanaripAskerApi: SanaripAskerApi,
-        userProvider: UserProvider
+        userProvider: UserProvider,
     ): AuthorizationRepository =
         AuthorizationRepository(sanaripAskerApi, userProvider)
 
@@ -65,16 +78,22 @@ object RepositoryModule {
     @Singleton
     fun provideMenuRepository(
         sanaripAskerApi: SanaripAskerApi,
-        userProvider: UserProvider
+        userProvider: UserProvider,
     ): MenuRepository = MenuRepository(sanaripAskerApi, userProvider)
 
     @Provides
     @Singleton
-    fun provideHistoryRepository(sanaripAskerApi: SanaripAskerApi): HistoryRepository =
-        HistoryRepository(sanaripAskerApi)
+    fun provideHistoryRepository(
+        sanaripAskerApi: SanaripAskerApi,
+        userProvider: UserProvider,
+    ): HistoryRepository =
+        HistoryRepository(sanaripAskerApi, userProvider)
 
     @Provides
     @Singleton
-    fun provideNewsRepository(sanaripAskerApi: SanaripAskerApi): NewsRepository =
-        NewsRepository(sanaripAskerApi, provideAppDispatchers())
+    fun provideNewsRepository(
+        sanaripAskerApi: SanaripAskerApi,
+        userProvider: UserProvider,
+    ): NewsRepository =
+        NewsRepository(sanaripAskerApi, provideAppDispatchers(), userProvider)
 }
