@@ -23,7 +23,7 @@ class ChartersViewModel @Inject constructor(private val charterRepository: Chart
     private val _messageFlow = MutableStateFlow<Messages?>(null)
     val messageFlow: Flow<Messages> = _messageFlow.filterNotNull()
 
-    init {
+        init {
         loadChartersList()
     }
 
@@ -32,7 +32,7 @@ class ChartersViewModel @Inject constructor(private val charterRepository: Chart
     }
 
     private fun loadChartersList() {
-        charterRepository.getListChartersFlow()
-            .collectFlowAsState(_charters)
+        charterRepository.getListChartersFlow().collectFlowAsState(_charters)
     }
+
 }
