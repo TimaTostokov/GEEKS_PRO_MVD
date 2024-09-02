@@ -9,7 +9,9 @@ import androidx.navigation.fragment.findNavController
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
+import com.mvdasker.geeks_pro_mvd.data.remote.model.law.Law
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentLawBinding
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.adapter.LawAdapter
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
@@ -24,12 +26,22 @@ class LawFragment : Fragment(R.layout.fragment_law) {
     private val binding by viewBinding(FragmentLawBinding::bind)
 
     private val viewModel by viewModels<LawViewModel>()
+    private var mList = ArrayList<Law>()
+
+    private val adapter = LawAdapter(mList)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initialize()
         setupUI()
         observeViewModel()
+        toGoSearch()
+    }
+
+    private fun initialize() {
+        binding.rvLaws.adapter = adapter
+        binding.rvLaws.setHasFixedSize(true)
+
     }
 
     private fun setupUI() {
@@ -44,7 +56,7 @@ class LawFragment : Fragment(R.layout.fragment_law) {
                 is UiState.Loading -> binding.fcLawProgressBar.visible()
                 is UiState.Success -> {
                     binding.fcLawProgressBar.gone()
-                    Log.d("LawFragment", "Данные пришли")
+                    adapter.setFilteredList(uiState.data)
                 }
 
                 is UiState.Error -> {
@@ -65,4 +77,9 @@ class LawFragment : Fragment(R.layout.fragment_law) {
         }
     }
 
+    private fun toGoSearch() {
+        binding.etSearch.setOnClickListener {
+            findNavController().navigate(R.id.action_lawFragment_to_searchLawsFragment)
+        }
+    }
 }

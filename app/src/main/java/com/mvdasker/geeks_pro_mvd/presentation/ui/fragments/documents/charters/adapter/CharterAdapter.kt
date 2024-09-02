@@ -15,6 +15,7 @@ class CharterAdapter(val context: Context) :
 
     inner class CharterViewHolder(val binding: ItemCharterBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         init {
             binding.itemDownloadBtn.setOnClickListener {
                 val url = it.tag as? String
@@ -40,8 +41,7 @@ class CharterAdapter(val context: Context) :
                 Uri.parse(url).lastPathSegment
             )
 
-
-        val downloadManager = context?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         downloadManager.enqueue(request)
     }
 

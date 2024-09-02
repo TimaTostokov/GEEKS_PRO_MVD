@@ -4,26 +4,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".presentation.ui.fragments.documents.charters.ChartersFragment">
+    tools:context=".presentation.ui.fragments.menu.history.HistoryMVDKRFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical"
         app:elevation="0dp">
 
         <FrameLayout
-            android:id="@+id/fcToolbar"
-            android:layout_width="wrap_content"
+            android:id="@+id/fAboutUsToolbar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp">
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            app:layout_scrollFlags="scroll|enterAlways">
 
             <ImageView
-                android:id="@+id/fcBackBtn"
+                android:id="@+id/btn_back"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
@@ -32,38 +33,28 @@
                 tools:ignore="ContentDescription" />
 
             <TextView
-                android:id="@+id/fcTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="40dp"
                 android:fontFamily="@font/roboto"
-                android:text="@string/fragment_statutes_title"
+                android:text="@string/chapter"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
         </FrameLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"
+                android:text="@string/name"
+                android:textSize="16sp" />
+        </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fc_list_charters"
-        android:layout_width="match_parent"
-        android:layout_height="656dp"
-        android:layout_marginTop="24dp"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        tools:listitem="@layout/item_charter" />
-
-    <FrameLayout
-        android:id="@+id/fchartProgressBar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:visibility="gone">
-
-        <include layout="@layout/progress_bar" />
-
-    </FrameLayout>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -27,7 +27,7 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideLawRepository(sanaripAskerApi: SanaripAskerApi): LawRepository =
-        LawRepository(sanaripAskerApi)
+        LawRepository(sanaripAskerApi, provideAppDispatchers())
 
     @Provides
     @Singleton

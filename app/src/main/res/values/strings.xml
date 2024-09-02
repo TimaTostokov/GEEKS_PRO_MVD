@@ -103,6 +103,8 @@
     <string name="history_mvd_kr">История МВД КР</string>
     <string name="news_home">Новости</string>
     <string name="onas">О Нас</string>
+    <string name="laws">Закон</string>
+    <string name="chapter">глава</string>
     <string-array name="months">
         <item>Январь</item>
         <item>Февраль</item>

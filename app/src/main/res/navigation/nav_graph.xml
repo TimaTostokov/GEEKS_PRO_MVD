@@ -111,7 +111,14 @@
     <fragment
         android:id="@+id/lawFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.LawFragment"
-        android:label="LawFragment" />
+        android:label="LawFragment" >
+        <action
+            android:id="@+id/action_lawFragment_to_detailLawsFragment"
+            app:destination="@id/detailLawsFragment" />
+        <action
+            android:id="@+id/action_lawFragment_to_searchLawsFragment"
+            app:destination="@id/searchLawsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/statutesFragment"
@@ -288,5 +295,15 @@
         tools:layout="@layout/fragment_history_v_v_m_v_d_k_r">
 
     </fragment>
+    <fragment
+        android:id="@+id/detailLawsFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.detail.DetailLawsFragment"
+        android:label="fragment_detail_laws"
+        tools:layout="@layout/fragment_detail_laws" />
+    <fragment
+        android:id="@+id/searchLawsFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.search.SearchLawsFragment"
+        android:label="fragment_search_laws"
+        tools:layout="@layout/fragment_search_laws" />
 
 </navigation>

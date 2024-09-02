@@ -43,7 +43,6 @@ class ChartersFragment : Fragment(R.layout.fragment_charters) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (requireContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
-
             }
         }
     }
@@ -80,5 +79,4 @@ class ChartersFragment : Fragment(R.layout.fragment_charters) {
             }
         }
     }
-
 }
