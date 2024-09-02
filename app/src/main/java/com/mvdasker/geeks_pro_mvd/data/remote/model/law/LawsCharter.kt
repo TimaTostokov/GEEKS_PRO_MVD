@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class LawsCharter(
-    @SerializedName("charter")
+    @SerializedName("chapter")
     val charter: String? = null,
     @SerializedName("article")
     val article: String? = null

@@ -24,6 +24,7 @@
         android:roundIcon="@drawable/mvd_splash"
         android:supportsRtl="true"
         android:theme="@style/Theme.GEEKS_PRO_MVD"
+        android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity

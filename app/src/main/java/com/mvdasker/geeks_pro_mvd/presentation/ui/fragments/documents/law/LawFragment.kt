@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
@@ -22,12 +23,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LawFragment : Fragment(R.layout.fragment_law) {
-
     private val binding by viewBinding(FragmentLawBinding::bind)
-
     private val viewModel by viewModels<LawViewModel>()
     private var mList = ArrayList<Law>()
-
     private val adapter = LawAdapter(mList)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,6 +39,7 @@ class LawFragment : Fragment(R.layout.fragment_law) {
     private fun initialize() {
         binding.rvLaws.adapter = adapter
         binding.rvLaws.setHasFixedSize(true)
+        binding.rvLaws.layoutManager = LinearLayoutManager(requireContext())
 
     }
 

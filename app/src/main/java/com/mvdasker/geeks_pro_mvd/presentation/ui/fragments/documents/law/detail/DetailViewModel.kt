@@ -16,10 +16,10 @@ class DetailViewModel @Inject constructor(private val repository: LawRepository)
     private val _lawDetail = MutableStateFlow<UiState<LawsCharter>>(UiState.Loading)
     val lawDetail = _lawDetail.asStateFlow()
 
-   suspend fun fetchLawDetail(id: Int) {
-        viewModelScope.launch {
-            repository.getLawByTitle(id)
-                .collectFlowAsState(_lawDetail)
-        }
-    }
+//   suspend fun fetchLawDetail(id: Int) {
+//        viewModelScope.launch {
+//            repository.getLawByTitle(id)
+//                .collectFlowAsState(_lawDetail)
+//        }
+//    }
 }

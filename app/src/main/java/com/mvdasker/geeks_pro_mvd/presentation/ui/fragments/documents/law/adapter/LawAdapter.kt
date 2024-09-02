@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,18 +56,20 @@ class LawAdapter(private var mList: List<Law>) :
         searchQuery = query
         notifyDataSetChanged()
     }
-
     override fun onBindViewHolder(holder: LawViewHolder, position: Int) {
         val lawsData = mList[position]
         holder.binding.tvLaws.text = lawsData.section
-        holder.binding.tvCharter.text = lawsData.charter?.get(0)?.charter
-
+        if (lawsData.charter != null && lawsData.charter.size > 1) {
+            holder.binding.tvCharter.text = lawsData.charter[0].charter
+        } else {
+            holder.binding.tvCharter.text = "No data available"
+        }
         val isExpandable: Boolean = lawsData.isExpandable
         holder.binding.tvCharter.visibility = if (isExpandable) View.VISIBLE else View.GONE
         holder.binding.ivSpinner.setOnClickListener {
             isAnyItemExpanded(position)
             lawsData.isExpandable = !lawsData.isExpandable
-            notifyItemChanged(position, Unit)
+            notifyItemChanged(position)
         }
     }
 
