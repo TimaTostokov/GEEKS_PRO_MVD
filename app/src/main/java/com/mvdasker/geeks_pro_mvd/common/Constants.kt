@@ -13,7 +13,7 @@ object Constants {
     const val MANAGEMENT_VV_END_POINT = "docs/governance/vvmvdkr/"
     const val HISTORY_END_POINT = "docs/history/{slug}/"
     const val AUTHORIZATION_END_POINT = "users/login/"
-    const val AUTHORIZATION_GET_END_POINT = "users/{pk}/"
+    const val AUTHORIZATION_GET_END_POINT = "users/{id}/"
     const val NEWS_END_POINT = "news/"
     const val NEWS_DETAIL_ENDPOINT = "news/{id}/"
 }

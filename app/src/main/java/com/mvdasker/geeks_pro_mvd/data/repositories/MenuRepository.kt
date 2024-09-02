@@ -1,6 +1,7 @@
 package com.mvdasker.geeks_pro_mvd.data.repositories
 
 import android.util.Base64
+import android.util.Log
 import com.mvdasker.geeks_pro_mvd.common.UserProvider
 import com.mvdasker.geeks_pro_mvd.data.remote.apiservice.SanaripAskerApi
 import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.User
@@ -9,7 +10,7 @@ import javax.inject.Inject
 
 class MenuRepository @Inject constructor(
     private val sanaripAskerApi: SanaripAskerApi,
-    private val userProvider: UserProvider
+    private val userProvider: UserProvider,
 ) {
 
     private fun getUserIdFromToken(token: String): Int =
@@ -17,18 +18,20 @@ class MenuRepository @Inject constructor(
             .getInt("user_id")
 
     suspend fun getUserId(): User? {
-        val id = userProvider.getAccess()?.let { getUserIdFromToken(it) }
+        val id = getUserIdFromToken(userProvider.accessToken)
 
-            return id?.run {
-                try {
-                    sanaripAskerApi.getUserById(this).also { user ->
-                        user?.username?.let { userProvider.saveUserName(it) }
-                        user?.img?.let { userProvider.saveUserPhoto(it) }
-                    }
-                } catch (e: Exception) {
-                    User(this, userProvider.getUserName(), userProvider.getUserPhoto())
+        return id.run {
+            try {
+                Log.d("ololo", "Использовал id: $this")
+                sanaripAskerApi.getUserById(userProvider.accessToken, this).also { user ->
+                    user?.username?.let { userProvider.saveUserName(it) }
+                    user?.img?.let { userProvider.saveUserPhoto(it) }
                 }
+            } catch (e: Exception) {
+                Log.d("ololo", "Чтото пошло не так: $e")
+                User(this, userProvider.getUserName(), userProvider.getUserPhoto())
             }
+        }
     }
 
 }

@@ -8,6 +8,6 @@ import kotlinx.parcelize.Parcelize
 data class NewsVideo(
     @SerializedName("id")
     val id: Int? = null,
-    @SerializedName("videos")
+    @SerializedName("embed_code")
     val video: String? = null
 ) : Parcelable

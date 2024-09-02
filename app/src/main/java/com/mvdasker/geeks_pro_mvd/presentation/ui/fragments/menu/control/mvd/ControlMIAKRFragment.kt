@@ -73,7 +73,7 @@ class ControlMIAKRFragment : Fragment(R.layout.fragment_control_m_i_a_k_r) {
 
     private fun goToSearch() {
         binding.etSearch.setOnClickListener {
-            findNavController().navigate(R.id.action_controlMIAKRFragment_to_searchControlFragment)
+            findNavController().navigate(ControlMIAKRFragmentDirections.actionControlMIAKRFragmentToSearchControlFragment())
         }
     }
 

@@ -1,5 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.charters.adapter
 
+import android.annotation.SuppressLint
 import android.app.DownloadManager
 import android.content.Context
 import android.net.Uri
@@ -10,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.data.remote.model.charter.Charter
 import com.mvdasker.geeks_pro_mvd.databinding.ItemCharterBinding
 
-class CharterAdapter(val context: Context) :
+class CharterAdapter(private val context: Context) :
     RecyclerView.Adapter<CharterAdapter.CharterViewHolder>() {
 
     inner class CharterViewHolder(val binding: ItemCharterBinding) :
@@ -58,6 +59,7 @@ class CharterAdapter(val context: Context) :
 
     override fun getItemCount(): Int = listCharters.size
 
+    @SuppressLint("NotifyDataSetChanged")
     fun addCharters(charter: List<Charter>) {
         listCharters.clear()
         listCharters.addAll(charter)

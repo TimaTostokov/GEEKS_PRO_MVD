@@ -65,8 +65,7 @@ class HistoryVVMVDKRFragment : Fragment(R.layout.fragment_history_v_v_m_v_d_k_r)
                             val firstItem = uiState.data?.text
                             Log.d("ololo", "Данные не пришли: ${uiState.data}")
                             if (firstItem != null) {
-                                binding.tvInfo.text =
-                                    Html.fromHtml(firstItem, Html.FROM_HTML_MODE_LEGACY)
+                                binding.tvInfo.text = Html.fromHtml(firstItem, Html.FROM_HTML_MODE_LEGACY)
                             } else binding.tvInfo.text = getString(R.string.no_data)
 
                             uiState.data?.images?.get(0)?.image?.let {
