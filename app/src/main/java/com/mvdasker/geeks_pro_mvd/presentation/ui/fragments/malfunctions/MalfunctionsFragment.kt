@@ -1,87 +1,72 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.malfunctions
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.Network
-import android.net.NetworkCapabilities
-import android.net.NetworkRequest
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.activityViewModels
+import com.google.android.material.snackbar.Snackbar
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentMalfunctionsBinding
-import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 
-class MalfunctionsFragment : Fragment(R.layout.fragment_malfunctions) {
+class MalfunctionsFragment : Fragment() {
 
-    private val binding by viewBinding(FragmentMalfunctionsBinding::bind)
+    private var _binding: FragmentMalfunctionsBinding? = null
+    private val binding get() = _binding!!
 
-    private var connectivityManager: ConnectivityManager? = null
-    private var networkCallback: ConnectivityManager.NetworkCallback? = null
+    private val viewModel: ServerStatusViewModel by activityViewModels()
 
-    private var isNetworkAvailable = false
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentMalfunctionsBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupNetworkCallback()
-        binding.btnUpdate.setOnClickListener { handleUpdateButtonClick() }
-        checkNetworkAndShowScreen()
-    }
-
-    private fun setupNetworkCallback() {
-        connectivityManager =
-            requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        networkCallback = object : ConnectivityManager.NetworkCallback() {
-            override fun onAvailable(network: Network) {
-                isNetworkAvailable = true
-            }
-
-            override fun onLost(network: Network) {
-                isNetworkAvailable = false
-                activity?.runOnUiThread { showNoInternetScreen() }
-            }
+        viewModel.serverStatus.observe(viewLifecycleOwner) { status ->
+            handleServerStatus(status)
         }
 
-        val networkRequest = NetworkRequest.Builder()
-            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-            .build()
-        connectivityManager?.registerNetworkCallback(
-            networkRequest,
-            networkCallback as ConnectivityManager.NetworkCallback
-        )
-    }
-
-    private fun handleUpdateButtonClick() {
-        if (isNetworkAvailable) {
-            findNavController().navigate(R.id.action_techMalfunctionsFragment_to_homeFragment)
+        binding.btnUpdate.setOnClickListener {
+            viewModel.startCheckingServerStatus()
+            Snackbar.make(binding.root, getString(R.string.checking_server), Snackbar.LENGTH_SHORT).show()
         }
     }
 
-    private fun checkNetworkAndShowScreen() {
-        isNetworkAvailable = isNetworkAvailable()
-        if (!isNetworkAvailable) {
-            showNoInternetScreen()
+    override fun onResume() {
+        super.onResume()
+        viewModel.startCheckingServerStatus()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.stopCheckingServerStatus()
+    }
+
+    private fun handleServerStatus(status: ServerStatus) {
+        val message = when(status) {
+            ServerStatus.AVAILABLE -> getString(R.string.server_ok)
+            ServerStatus.UNAVAILABLE -> getString(R.string.server_error)
+            ServerStatus.NO_INTERNET -> getString(R.string.no_internet_message)
         }
-    }
 
-    @SuppressLint("SetTextI18n")
-    private fun showNoInternetScreen() {
-        binding.tvErrorMessage.visibility = View.VISIBLE
-        binding.tvFetchedData.text =
-            "Сеть недоступна. Убедитесь, что Wi-Fi включен или мобильные данные активны."
-        binding.btnUpdate.visibility = View.VISIBLE
-    }
-
-    @SuppressLint("NewApi")
-    private fun isNetworkAvailable(): Boolean {
-        val networkCapabilities = connectivityManager?.activeNetwork?.let {
-            connectivityManager?.getNetworkCapabilities(it)
+        if (message.isNotEmpty()) {
+            Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
         }
-        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-            ?: false
+
+        val isUnavailable = status == ServerStatus.UNAVAILABLE
+        binding.tvErrorMessage.isVisible = isUnavailable
+        binding.btnUpdate.isVisible = isUnavailable
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
