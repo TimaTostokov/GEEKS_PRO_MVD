@@ -35,7 +35,7 @@ class MalfunctionsFragment : Fragment() {
 
         binding.btnUpdate.setOnClickListener {
             viewModel.startCheckingServerStatus()
-            Snackbar.make(binding.root, getString(R.string.checking_server), Snackbar.LENGTH_SHORT).show()
+            showSnackbar(getString(R.string.checking_server))
         }
     }
 
@@ -50,19 +50,20 @@ class MalfunctionsFragment : Fragment() {
     }
 
     private fun handleServerStatus(status: ServerStatus) {
-        val message = when(status) {
+        val message = when (status) {
             ServerStatus.AVAILABLE -> getString(R.string.server_ok)
             ServerStatus.UNAVAILABLE -> getString(R.string.server_error)
             ServerStatus.NO_INTERNET -> getString(R.string.no_internet_message)
         }
-
-        if (message.isNotEmpty()) {
-            Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
-        }
+        if (message.isNotEmpty()) showSnackbar(message)
 
         val isUnavailable = status == ServerStatus.UNAVAILABLE
         binding.tvErrorMessage.isVisible = isUnavailable
         binding.btnUpdate.isVisible = isUnavailable
+    }
+
+    private fun showSnackbar(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {

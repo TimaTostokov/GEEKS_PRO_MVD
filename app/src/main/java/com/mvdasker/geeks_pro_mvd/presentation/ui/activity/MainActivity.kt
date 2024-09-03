@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
+import android.view.Window
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.activity.viewModels
@@ -47,8 +48,7 @@ class MainActivity : AppCompatActivity() {
 
         val fragmentsWithBottomNav = setOf(
             R.id.homeFragment,
-            R.id.libraryFragment,
-            R.id.documentsFragment,
+            R.id.libraryFragment,R.id.documentsFragment,
             R.id.menuFragment
         )
 
@@ -82,7 +82,10 @@ class MainActivity : AppCompatActivity() {
         }
         serverStatusViewModel.serverStatus.observe(this) { status ->
             if (status == ServerStatus.UNAVAILABLE) {
-                if (navController.currentDestination?.id != R.id.malfunctionsFragment) {
+                if (navController.currentDestination?.id != R.id.malfunctionsFragment &&
+                    navController.currentDestination?.id != R.id.authorizationFragment &&
+                    navController.currentDestination?.id != R.id.splashFragment
+                ) {
                     navController.navigate(R.id.malfunctionsFragment)
                 }
             } else {
@@ -92,14 +95,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
         serverStatusViewModel.startCheckingServerStatus()
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        return ZoomHelper.getInstance().dispatchTouchEvent(ev!!, this) || super.dispatchTouchEvent(
-            ev
-        )
+        return ZoomHelper.getInstance().dispatchTouchEvent(ev!!, this) || super.dispatchTouchEvent(ev)
     }
 
     private fun updateIcon() {
@@ -130,4 +130,3 @@ class MainActivity : AppCompatActivity() {
         window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
     }
 }
-

@@ -9,27 +9,35 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.isActive
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.net.HttpURLConnection
-
 import java.net.URL
 
 class ServerStatusViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _serverStatus = MutableLiveData<ServerStatus>()
-    val serverStatus: LiveData<ServerStatus> get() = _serverStatus
+    val serverStatus: LiveData<ServerStatus> = _serverStatus
+
+    private val _navigateToMalfunctions = MutableLiveData<Boolean>()
+    val navigateToMalfunctions: LiveData<Boolean> = _navigateToMalfunctions
 
     private var serverStatusCheckJob: Job? = null
-    private val checkInterval = 5000L
+    private val checkInterval = 3000L
+    private var isCheckingEnabled = true
 
     fun startCheckingServerStatus() {
         stopCheckingServerStatus()
-        serverStatusCheckJob = viewModelScope.launch {while (isActive) {
-            val status = withContext(Dispatchers.IO) { checkServerStatus() }
-            _serverStatus.postValue(status)
-            delay(checkInterval)
-        }
+        serverStatusCheckJob = viewModelScope.launch {
+            while (isActive && isCheckingEnabled) {
+                _serverStatus.postValue(checkServerStatus())
+                delay(checkInterval)
+            }
         }
     }
 
@@ -38,44 +46,65 @@ class ServerStatusViewModel(application: Application) : AndroidViewModel(applica
         serverStatusCheckJob = null
     }
 
-    private fun checkServerStatus(): ServerStatus {
-        return if (isInternetAvailable()) {
-            try {
+    fun enableServerStatusCheck() {
+        isCheckingEnabled = true
+        startCheckingServerStatus()
+    }
+
+    fun disableServerStatusCheck() {
+        isCheckingEnabled = false
+        stopCheckingServerStatus()
+    }
+
+    private suspend fun checkServerStatus(): ServerStatus {
+        if (!isInternetAvailable()) return ServerStatus.NO_INTERNET
+
+        return try {
+            withContext(Dispatchers.IO) {
                 val url = URL("http://209.38.228.54:83/api/v1/")
                 with(url.openConnection() as HttpURLConnection) {
                     requestMethod = "HEAD"
-                    connectTimeout = 5000
+                    connectTimeout = 3000
                     connect()
                     if (responseCode == HttpURLConnection.HTTP_OK) {
                         ServerStatus.AVAILABLE
                     } else {
+                        withContext(Dispatchers.Main) {
+                            _navigateToMalfunctions.postValue(true)
+                        }
                         ServerStatus.UNAVAILABLE
                     }
                 }
-            } catch (e: IOException) {
-                ServerStatus.UNAVAILABLE
             }
-        } else {
-            ServerStatus.NO_INTERNET
+        } catch (e: IOException) {
+            withContext(Dispatchers.Main) {
+                _navigateToMalfunctions.postValue(true)
+            }
+            ServerStatus.UNAVAILABLE
         }
     }
 
     @SuppressLint("NewApi")
-    private fun isInternetAvailable(): Boolean{
+    private fun isInternetAvailable(): Boolean {
         val connectivityManager = getApplication<Application>().getSystemService(
             Context.CONNECTIVITY_SERVICE
         ) as ConnectivityManager
-        val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+        val capabilities =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
         return capabilities?.run {
             hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
                     hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
                     hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
         } ?: false
     }
+
+    fun resetNavigationFlag() {
+        _navigateToMalfunctions.value = false
+    }
 }
 
 sealed class ServerStatus {
-    data object AVAILABLE : ServerStatus()
-    data object UNAVAILABLE : ServerStatus()
-    data object NO_INTERNET : ServerStatus()
+    object AVAILABLE : ServerStatus()
+    object UNAVAILABLE : ServerStatus()
+    object NO_INTERNET : ServerStatus()
 }
