@@ -9,4 +9,6 @@ class LibraryRepository @Inject constructor(private val sanaripAskerApi: Sanarip
     suspend fun searchNotes(title: String? = null, description: String? = null): List<Library> {
         return sanaripAskerApi.getLibrary(title, description).reversed()
     }
+
+    suspend fun getLibraryById(id: Int): Library = sanaripAskerApi.getLibraryById(id)
 }

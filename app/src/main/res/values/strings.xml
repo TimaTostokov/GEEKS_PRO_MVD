@@ -29,6 +29,7 @@
     <string name="controlMIAKR">Руководство МВД КР</string>
     <string name="aboutUs">О нас</string>
     <string name="name">Кадыров Марат Азаматович</string>
+    <string name="no_data">Нет данных</string>
     <string name="controlKR">Руководство КР</string>
     <string name="dictionary">Кыргызcко-русский словарь</string>
     <string name="maps">Карта</string>
@@ -63,6 +64,7 @@
     <string name="one">1</string>
     <string name="two">2</string>
     <string name="three">3</string>
+    <string name="no_user_name">No User Name</string>
     <string name="registration_phone_number">Регистрация по номеру</string>
     <string name="phone_number_place_holder_text">+996 --- --- ---</string>
     <string name="phone_number">Номер телефона</string>

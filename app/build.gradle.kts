@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.mvdasker.geeks_pro_mvd"
-        minSdk = 21
+        minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -82,4 +82,14 @@ dependencies {
     implementation(libs.advrecyclerview)
 
     implementation(libs.glide)
+
+    implementation(libs.androidx.viewpager2)
+
+    implementation(libs.exoplayer)
+
+    implementation(libs.dotsindicator)
+
+//    implementation("androidx.media3:media3-exoplayer:1.2.0")
+//    implementation("androidx.media3:media3-exoplayer-dash:1.2.0")
+//    implementation("androidx.media3:media3-ui:1.2.0")
 }

@@ -2,6 +2,7 @@ package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.mvd.ad
 
 import android.annotation.SuppressLint
 import android.graphics.Color
+import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -23,9 +24,17 @@ class ControlMIAKRAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Governance) {
-            binding.itemName.text = item.name
-            binding.tvData.text = item.category?.let { highlightText(it, searchQuery) }
-            Glide.with(itemView.context).load(item.photo).into(binding.imView)
+            with(binding) {
+                itemName.text = item.name
+                tvData.text =
+                    highlightText(
+                        Html.fromHtml(item.jobTittle, Html.FROM_HTML_MODE_LEGACY).toString(),
+                        searchQuery
+                    )
+                Glide.with(itemView.context)
+                    .load(item.photo)
+                    .into(imView)
+            }
         }
     }
 
@@ -59,7 +68,6 @@ class ControlMIAKRAdapter :
     fun updateSearchQuery(query: String) {
         searchQuery = query
         notifyDataSetChanged()
-
     }
 
     override fun onBindViewHolder(holder: ManagmentsKgViewHolder, position: Int) {

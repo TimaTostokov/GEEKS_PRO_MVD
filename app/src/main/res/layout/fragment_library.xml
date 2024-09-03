@@ -40,7 +40,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:importantForAccessibility="no"
                 android:padding="4dp"
-                android:src="@drawable/bell" />
+                android:src="@drawable/bell_not_empty" />
 
         </FrameLayout>
 

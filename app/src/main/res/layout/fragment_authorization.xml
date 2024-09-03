@@ -151,7 +151,7 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="18sp"
-            app:cornerRadius="11dp" />
+            app:cornerRadius="12dp" />
 
     </LinearLayout>
 

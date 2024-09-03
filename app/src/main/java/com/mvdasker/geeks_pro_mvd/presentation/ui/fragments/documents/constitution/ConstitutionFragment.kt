@@ -1,29 +1,18 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvdasker.geeks_pro_mvd.R
-import com.mvdasker.geeks_pro_mvd.common.Messages
-import com.mvdasker.geeks_pro_mvd.common.UiState
-import com.mvdasker.geeks_pro_mvd.data.remote.model.constitution.Constitutions
-import com.mvdasker.geeks_pro_mvd.databinding.FragmentLawBinding
-import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.adapter.ConstitutionsAdapter
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
+import com.mvdasker.geeks_pro_mvd.databinding.FragmentConstitutionBinding
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
-    private val binding by viewBinding(FragmentLawBinding::bind)
+
+    private val binding by viewBinding(FragmentConstitutionBinding::bind)
     private val viewModel by viewModels<ConstitutionsViewModel>()
     private var mList = ArrayList<Constitutions>()
     private val adapter = ConstitutionsAdapter(mList, ::onClick)

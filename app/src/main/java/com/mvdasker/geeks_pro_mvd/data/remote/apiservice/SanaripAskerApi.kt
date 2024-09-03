@@ -6,6 +6,7 @@ import com.mvdasker.geeks_pro_mvd.common.Constants.CHARTERS_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.END_POINT_LIBRARY
 import com.mvdasker.geeks_pro_mvd.common.Constants.HISTORY_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.LAW_END_POINT
+import com.mvdasker.geeks_pro_mvd.common.Constants.LIBRARY_DETAIL_ENDPOINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.MANAGEMENT_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.MANAGEMENT_MVD_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.MANAGEMENT_VV_END_POINT
@@ -16,7 +17,7 @@ import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.AuthResponse
 import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.Authorization
 import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.User
 import com.mvdasker.geeks_pro_mvd.data.remote.model.charter.Charter
-import com.mvdasker.geeks_pro_mvd.data.remote.model.history.HistoryResponse
+import com.mvdasker.geeks_pro_mvd.data.remote.model.history.HistoryModel
 import com.mvdasker.geeks_pro_mvd.data.remote.model.law.Law
 import com.mvdasker.geeks_pro_mvd.data.remote.model.library.Library
 import com.mvdasker.geeks_pro_mvd.data.remote.model.mangements.Governance
@@ -42,9 +43,8 @@ interface SanaripAskerApi {
     suspend fun getNotification(): List<Notification>
 
     @GET(HISTORY_END_POINT)
-    suspend fun getHistory(
-        @Path("pk") pk: Int
-    ): Response<HistoryResponse>
+    suspend fun getHistory(@Path("slug") slug: String)
+            : Response<HistoryModel>
 
     @GET(MANAGEMENT_END_POINT)
     suspend fun fetchConstitutionsKr(): List<Governance>
@@ -65,6 +65,9 @@ interface SanaripAskerApi {
         @Query("description") description: String? = null
     ): List<Library>
 
+    @GET(LIBRARY_DETAIL_ENDPOINT)
+    suspend fun getLibraryById(@Path("id") id: Int): Library
+
     @POST(AUTHORIZATION_END_POINT)
     suspend fun postAuthorization(
         @Body data: Authorization,
@@ -73,7 +76,7 @@ interface SanaripAskerApi {
     @GET(AUTHORIZATION_GET_END_POINT)
     suspend fun getUserById(
         @Path("pk") userId: Int
-    ): Response<User>
+    ): User?
 
     @GET(NEWS_END_POINT)
     suspend fun getNews(): NewsResponse

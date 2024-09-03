@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class NewsViewModel @Inject constructor(
     private val repository: NewsRepository,
-    private val savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val _detailState = MutableStateFlow<UiState<NewsDetail>>(UiState.Loading)
@@ -28,6 +28,8 @@ class NewsViewModel @Inject constructor(
 
     private val _messageFlow = MutableStateFlow<Messages?>(null)
     val messageFlow: Flow<Messages> = _messageFlow.filterNotNull()
+
+    private val id = savedStateHandle.get<Int>(ID_KAY)
 
     init {
         getNews()
@@ -37,17 +39,11 @@ class NewsViewModel @Inject constructor(
         _messageFlow.value = null
     }
 
-    private val id = savedStateHandle.get<String>(ID_KAY)
-
-    fun setId(id: String) {
-        savedStateHandle[ID_KAY] = id
-    }
-
     private fun getNews() {
         _messageFlow.value = Messages.ShowProgressBar
         viewModelScope.launch {
             id?.let { newsId ->
-                repository.getNewsId(newsId.toInt()).fold(
+                repository.getNewsId(newsId).fold(
                     onSuccess = { newsDetail ->
                         _detailState.value = UiState.Success(newsDetail)
                         _messageFlow.value = Messages.HideProgressBar

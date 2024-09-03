@@ -1,5 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications.adapter
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.text.Html
 import android.view.LayoutInflater
@@ -13,11 +14,11 @@ import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.data.remote.model.notification.NotificationItem
 import com.mvdasker.geeks_pro_mvd.databinding.ItemNotificationBinding
 import com.mvdasker.geeks_pro_mvd.databinding.ItemNotificationMonthBinding
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.formatDate
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
-import com.mvdasker.geeks_pro_mvd.utils.ext.formatDate
 
-class NotificationsAdapter :
+class NotificationsAdapter(private val onNotificationClick: (String?, Int) -> Unit) :
     ListAdapter<NotificationItem, RecyclerView.ViewHolder>(NotificationDiffCallback) {
 
     override fun getItemViewType(position: Int): Int = when (getItem(position)) {
@@ -30,7 +31,7 @@ class NotificationsAdapter :
         val v = layoutInflater.inflate(viewType, parent, false)
         return when (viewType) {
             R.layout.item_notification_month -> MonthViewHolder(v)
-            R.layout.item_notification -> NotificationViewHolder(v)
+            R.layout.item_notification -> NotificationViewHolder(onNotificationClick, v)
             else -> error("Unknown view type")
         }
     }
@@ -83,10 +84,15 @@ class MonthViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     }
 }
 
-class NotificationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class NotificationViewHolder(
+    private val onNotificationClick: (String?, Int) -> Unit,
+    itemView: View
+) :
+    RecyclerView.ViewHolder(itemView) {
 
     private val binding = ItemNotificationBinding.bind(itemView)
 
+    @SuppressLint("ObsoleteSdkInt")
     fun bindNotification(notification: NotificationItem.Notification) {
         binding.itemNotifDate.text = notification.createAt?.let { formatDate(it) }
         binding.itemNotifTitle.text = notification.title
@@ -103,6 +109,10 @@ class NotificationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
             binding.itemNotifSection.gone()
 
         binding.itemNotifNotReadCircle.isVisible = !notification.isRead
+
+        binding.itemCardNotif.setOnClickListener {
+            onNotificationClick(notification.section, 0)
+        }
     }
 
 }

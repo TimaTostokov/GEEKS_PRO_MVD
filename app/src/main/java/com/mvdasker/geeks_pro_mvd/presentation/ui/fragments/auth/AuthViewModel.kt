@@ -37,6 +37,7 @@ class AuthViewModel @Inject constructor(private val repository: AuthorizationRep
         viewModelScope.launch {
             try {
                 repository.postAuthorization(login, password)
+                Log.d("AuthResponse", "User data: ${_state.value}")
                 _state.update { it.copy(needNavigateToHome = true) }
             } catch (e: Exception) {
                 Log.e("AuthViewModel", "Authorization failed: ${e.message}")

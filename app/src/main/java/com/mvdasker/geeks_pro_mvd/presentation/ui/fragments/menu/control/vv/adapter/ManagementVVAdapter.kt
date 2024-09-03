@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.data.remote.model.mangements.Governance
 import com.mvdasker.geeks_pro_mvd.databinding.ItemManagementKgBinding
 
@@ -24,9 +23,13 @@ class ManagementVVAdapter :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: Governance) {
-            binding.itemName.text = item.name
-            binding.tvData.text = item.category?.let { highlightText(it, searchQuery) }
-            Glide.with(itemView.context).load(item.photo).into(binding.imView)
+            with(binding) {
+                itemName.text = item.name
+                tvData.text = item.jobTittle?.let { highlightText(it, searchQuery) }
+                Glide.with(itemView.context)
+                    .load(item.photo)
+                    .into(imView)
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.auth
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
@@ -47,7 +48,6 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
         super.onViewCreated(view, savedInstanceState)
 
         alertDialog()
-
         onContinueButtonClick()
         setupClickListeners()
 
@@ -61,24 +61,20 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
         binding.etUserPasswords.addTextChangedListener { viewModelAuth.onPasswordChanged() }
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModelAuth.state
-                .collect { state ->
-                    if (!state.isLoginValid) {
-                        binding.tILLogin.setError("Неверный логин")
-                    } else {
-                        binding.tILLogin.setDefaultState()
-                    }
-                    if (!state.isPasswordValid) {
-                        binding.tILPassword.setErrorState("Неверный пароль")
-                    } else {
-                        binding.tILPassword.setDefaultState()
-                    }
-                    if (state.needNavigateToHome) {
-                        Extensions.showToast(requireContext(), "Успешная аутентификация!")
-                        viewModelAuth.onNavigatedToHome()
-                        findNavController().navigate(R.id.action_authorizationFragment_to_homeFragment)
-                    }
+            viewModelAuth.state.collect { state ->
+                binding.tILLogin.apply {
+                    if (state.isLoginValid) setDefaultState() else setError("Неверный логин")
                 }
+                binding.tILPassword.apply {
+                    if (state.isPasswordValid) setDefaultState() else setErrorState("Неверный пароль")
+                }
+                if (state.needNavigateToHome) {
+                    Log.e("ololo", "Authorization failed: ${state.user}")
+                    Extensions.showToast(requireContext(), "Успешная аутентификация!")
+                    viewModelAuth.onNavigatedToHome()
+                    findNavController().navigate(R.id.action_authorizationFragment_to_homeFragment)
+                }
+            }
         }
     }
 
@@ -122,7 +118,7 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
             isShowDialog = false
         }
         builder.setCanceledOnTouchOutside(false)
-            builder.show()
+        builder.show()
     }
 
     private fun onContinueButtonClick() {
@@ -145,6 +141,6 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
 
     companion object {
         const val ALERT_DIALOG_KEY = "alertDialog"
-
     }
+
 }

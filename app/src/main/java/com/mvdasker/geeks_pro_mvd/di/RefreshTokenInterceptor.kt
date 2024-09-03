@@ -2,7 +2,6 @@ package com.mvdasker.geeks_pro_mvd.di
 
 import android.util.Log
 import com.mvdasker.geeks_pro_mvd.common.UserProvider
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import okhttp3.Interceptor
 import okhttp3.Response
 import retrofit2.HttpException
@@ -20,7 +19,7 @@ class RefreshTokenInterceptor @Inject constructor(
             chain.proceed(request)
         } catch (t: Throwable) {
             if (t is HttpException && t.code() == 403) {
-                Log.e("Anime", "intercept: refreshToken" )
+                Log.e("ololo", "intercept: refreshToken")
             }
         }
         return chain.proceed(request)

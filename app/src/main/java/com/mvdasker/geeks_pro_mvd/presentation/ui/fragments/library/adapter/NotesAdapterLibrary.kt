@@ -18,22 +18,26 @@ import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.data.remote.model.library.Library
 import com.mvdasker.geeks_pro_mvd.databinding.ItemAbstractBinding
 
-class NotesAdapterLibrary(val onClick: (Library) -> Unit) :
+class NotesAdapterLibrary(private val onClick: (Int) -> Unit) :
     ListAdapter<Library, NotesAdapterLibrary.ViewHolder>(DiffUtilCallback()) {
 
     private var searchQuery: String = ""
 
-    inner class ViewHolder(private val binding: ItemAbstractBinding) :
+    inner class ViewHolder(
+        private val binding: ItemAbstractBinding,
+        val onClick: (Int) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
         init {
             binding.root.setOnClickListener {
                 getItem(absoluteAdapterPosition)?.let {
-                    onClick(it)
+                    it.id?.let { it1 -> onClick(it1) }
                 }
             }
         }
 
+        @SuppressLint("ObsoleteSdkInt")
         fun bind(note: Library) = with(binding) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 tvDescription.text = highlightText(
@@ -72,7 +76,7 @@ class NotesAdapterLibrary(val onClick: (Library) -> Unit) :
         return ViewHolder(
             ItemAbstractBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
-            )
+            ), onClick
         )
     }
 
@@ -98,4 +102,5 @@ class NotesAdapterLibrary(val onClick: (Library) -> Unit) :
             return oldItem.id == newItem.id
         }
     }
+
 }
