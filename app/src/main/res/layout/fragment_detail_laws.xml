@@ -50,6 +50,7 @@
             android:padding="20dp">
 
             <TextView
+                android:id="@+id/tv_article"
                 android:layout_width="match_parent"
                 android:textColor="@color/black"
                 android:layout_height="wrap_content"

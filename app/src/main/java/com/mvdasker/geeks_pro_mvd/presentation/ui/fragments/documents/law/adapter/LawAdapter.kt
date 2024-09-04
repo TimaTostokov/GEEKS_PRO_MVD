@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.data.remote.model.law.Law
 import com.mvdasker.geeks_pro_mvd.databinding.ItemLawsBinding
 
-class LawAdapter(private var mList: List<Law>) :
+class LawAdapter(private var mList: List<Law>, private val onCLick: (Int) -> Unit) :
     RecyclerView.Adapter<LawAdapter.LawViewHolder>() {
 
     private var searchQuery: String = ""
@@ -20,7 +19,7 @@ class LawAdapter(private var mList: List<Law>) :
     inner class LawViewHolder(val binding: ItemLawsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun collapseExpandedView() {
-            binding.tvCharter.visibility = View.GONE
+            binding.linear.visibility = View.GONE
         }
     }
 
@@ -56,11 +55,12 @@ class LawAdapter(private var mList: List<Law>) :
         searchQuery = query
         notifyDataSetChanged()
     }
+
     override fun onBindViewHolder(holder: LawViewHolder, position: Int) {
         val lawsData = mList[position]
         holder.binding.tvLaws.text = lawsData.section
         if (lawsData.charter != null && lawsData.charter.size > 1) {
-            holder.binding.tvCharter.text = lawsData.charter[0].charter
+            holder.binding.tvCharter.text = lawsData.charter[0].chapter
         } else {
             holder.binding.tvCharter.text = "No data available"
         }
@@ -70,6 +70,9 @@ class LawAdapter(private var mList: List<Law>) :
             isAnyItemExpanded(position)
             lawsData.isExpandable = !lawsData.isExpandable
             notifyItemChanged(position)
+        }
+        holder.binding.linear.setOnClickListener {
+            onCLick(lawsData.id)
         }
     }
 

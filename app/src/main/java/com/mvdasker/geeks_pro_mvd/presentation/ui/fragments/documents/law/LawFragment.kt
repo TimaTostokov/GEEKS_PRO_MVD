@@ -26,7 +26,7 @@ class LawFragment : Fragment(R.layout.fragment_law) {
     private val binding by viewBinding(FragmentLawBinding::bind)
     private val viewModel by viewModels<LawViewModel>()
     private var mList = ArrayList<Law>()
-    private val adapter = LawAdapter(mList)
+    private val adapter = LawAdapter(mList, ::onClick)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -80,5 +80,9 @@ class LawFragment : Fragment(R.layout.fragment_law) {
         binding.etSearch.setOnClickListener {
             findNavController().navigate(R.id.action_lawFragment_to_searchLawsFragment)
         }
+    }
+
+    private fun onClick(id: Int) {
+        findNavController().navigate(LawFragmentDirections.actionLawFragmentToDetailLawsFragment(id))
     }
 }

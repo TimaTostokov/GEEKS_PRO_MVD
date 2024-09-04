@@ -33,7 +33,7 @@ class LawViewModel @Inject constructor(private val lawRepository: LawRepository)
     }
 
     private fun loadLaw() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch() {
             val lawFlow = lawRepository.getLaw()
             lawFlow.collectFlowAsState(_law)
         }

@@ -260,7 +260,12 @@
         android:id="@+id/detailLawsFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.detail.DetailLawsFragment"
         android:label="fragment_detail_laws"
-        tools:layout="@layout/fragment_detail_laws" />
+
+        tools:layout="@layout/fragment_detail_laws" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/searchLawsFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.search.SearchLawsFragment"

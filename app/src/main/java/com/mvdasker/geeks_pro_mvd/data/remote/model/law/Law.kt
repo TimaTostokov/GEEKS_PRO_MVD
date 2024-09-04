@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Law(
     @SerializedName("id")
-    val id: Int? = null,
+    val id: Int,
     @SerializedName("section")
     val section: String? = null,
     @SerializedName("chapters")
