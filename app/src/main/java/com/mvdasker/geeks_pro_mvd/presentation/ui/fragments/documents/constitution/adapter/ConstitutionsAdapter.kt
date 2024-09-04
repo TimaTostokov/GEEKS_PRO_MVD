@@ -9,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.data.remote.model.constitution.Constitutions
+import com.mvdasker.geeks_pro_mvd.data.remote.model.law.Law
+import com.mvdasker.geeks_pro_mvd.databinding.ItemConstitutionBinding
 
 class ConstitutionsAdapter(
     private var mList: List<Constitutions>,
@@ -18,7 +20,7 @@ class ConstitutionsAdapter(
 
     private var searchQuery: String = ""
 
-    inner class ConstitutionViewHolder(val binding: Ite) :
+    inner class ConstitutionViewHolder(val binding: ItemConstitutionBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun collapseExpandedView() {
             binding.linear.visibility = View.GONE
@@ -49,7 +51,7 @@ class ConstitutionsAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConstitutionViewHolder {
-        val binding = ItemLawsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemConstitutionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ConstitutionViewHolder(binding)
     }
 
@@ -59,22 +61,22 @@ class ConstitutionsAdapter(
     }
 
     override fun onBindViewHolder(holder: ConstitutionViewHolder, position: Int) {
-        val ConstitutionsData = mList[position]
-        holder.binding.tvLaws.text = ConstitutionsData.section
-        if (ConstitutionsData.charter != null && ConstitutionsData.charter.size > 1) {
-            holder.binding.tvCharter.text = ConstitutionsData.charter[0].charter
+        val constitutionsData = mList[position]
+        holder.binding.tvLaws.text = constitutionsData.section
+        if (constitutionsData.chapters.size > 1) {
+            holder.binding.tvCharter.text = constitutionsData.chapters[0].article
         } else {
             holder.binding.tvCharter.text = "No data available"
         }
-        val isExpandable: Boolean = ConstitutionsData.isExpandable
+        val isExpandable: Boolean = constitutionsData.isExpandable
         holder.binding.tvCharter.visibility = if (isExpandable) View.VISIBLE else View.GONE
         holder.binding.ivSpinner.setOnClickListener {
             isAnyItemExpanded(position)
-            ConstitutionsData.isExpandable = !ConstitutionsData.isExpandable
+            constitutionsData.isExpandable = !constitutionsData.isExpandable
             notifyItemChanged(position)
         }
         holder.binding.linear.setOnClickListener {
-            ConstitutionsData.id?.let { it1 -> onCLick(it1) }
+            constitutionsData.id?.let { it1 -> onCLick(it1) }
         }
     }
 

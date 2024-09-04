@@ -12,8 +12,7 @@ abstract class BaseViewModel : ViewModel() {
 
     protected open fun <T> Flow<Either<Throwable, T>>.collectFlowAsState(
         state: MutableStateFlow<UiState<T>>,
-        ) {
-
+    ) {
         viewModelScope.launch {
             this@collectFlowAsState.collect {
                 when (it) {

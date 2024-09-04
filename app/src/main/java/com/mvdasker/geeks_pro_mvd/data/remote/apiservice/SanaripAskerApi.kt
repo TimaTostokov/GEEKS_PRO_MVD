@@ -3,6 +3,8 @@ package com.mvdasker.geeks_pro_mvd.data.remote.apiservice
 import com.mvdasker.geeks_pro_mvd.common.Constants.AUTHORIZATION_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.AUTHORIZATION_GET_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.CHARTERS_END_POINT
+import com.mvdasker.geeks_pro_mvd.common.Constants.CONSTITUTIONS_DETAIL_ENDPOINT
+import com.mvdasker.geeks_pro_mvd.common.Constants.CONSTITUTIONS_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.END_POINT_LIBRARY
 import com.mvdasker.geeks_pro_mvd.common.Constants.HISTORY_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.LAW_END_POINT
@@ -17,6 +19,8 @@ import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.AuthResponse
 import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.Authorization
 import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.User
 import com.mvdasker.geeks_pro_mvd.data.remote.model.charter.Charter
+import com.mvdasker.geeks_pro_mvd.data.remote.model.constitution.Constitutions
+import com.mvdasker.geeks_pro_mvd.data.remote.model.constitution.ConstitutionsChapter
 import com.mvdasker.geeks_pro_mvd.data.remote.model.history.HistoryModel
 import com.mvdasker.geeks_pro_mvd.data.remote.model.law.Law
 import com.mvdasker.geeks_pro_mvd.data.remote.model.library.Library
@@ -27,6 +31,7 @@ import com.mvdasker.geeks_pro_mvd.data.remote.model.notification.Notification
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -83,4 +88,16 @@ interface SanaripAskerApi {
 
     @GET(NEWS_DETAIL_ENDPOINT)
     suspend fun getNewsId(@Path("id") id: Int): NewsDetail
+
+    @GET(CONSTITUTIONS_END_POINT)
+    suspend fun getConstitution(
+        @Header("Authorization") accessToken: String,
+    ): List<Constitutions>
+
+    @GET(CONSTITUTIONS_DETAIL_ENDPOINT)
+    suspend fun getConstitutionById(
+        @Header("Authorization") accessToken: String,
+        @Path("id") id: Int,
+    ): ConstitutionsChapter
+
 }
