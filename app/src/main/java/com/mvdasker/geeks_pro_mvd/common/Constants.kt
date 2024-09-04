@@ -6,6 +6,7 @@ object Constants {
     const val LAW_END_POINT = "docs/law/"
     const val CHARTERS_END_POINT = "docs/charter/"
     const val NOTIFICATION_END_POINT = "docs/notification/"
+    const val NOTIFICATION_DETAIL_END_POINT = "docs/notification/{id}"
     const val END_POINT_LIBRARY = "docs/library"
     const val LIBRARY_DETAIL_ENDPOINT = "docs/library/{id}"
     const val MANAGEMENT_MVD_END_POINT = "docs/governance/mvdkr/"

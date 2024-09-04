@@ -21,8 +21,9 @@ import java.util.Calendar
 import javax.inject.Inject
 
 @HiltViewModel
-class NotificationsViewModel @Inject constructor(private val notificationRepository: NotificationRepository) :
-    ViewModel() {
+class NotificationsViewModel @Inject constructor(
+    private val notificationRepository: NotificationRepository
+) : ViewModel() {
 
     private val _notifications: MutableStateFlow<NotificationState> =
         MutableStateFlow(NotificationState())
@@ -80,6 +81,8 @@ class NotificationsViewModel @Inject constructor(private val notificationReposit
                                 title = notification.title,
                                 createAt = notification.createAt,
                                 isRead = notification.isRead,
+                                notificationId = notification.notificationId,
+                                notificationType = notification.notificationType
                             )
                         )
                     }
@@ -102,6 +105,25 @@ class NotificationsViewModel @Inject constructor(private val notificationReposit
         }
     }
 
-    private fun validateNotif(notif: Notification): Boolean =
-        notif.id != null && notif.createAt != null
+    private fun validateNotif(notif: Notification): Boolean = notif.createAt != null
+
+    fun getNotifById(notifId: Int) {
+        viewModelScope.launch {
+            val notifIdx =
+                _notifications.value.notifications.indexOfFirst { it is NotificationItem.Notification && it.id == notifId }
+            if (notifIdx >= 0) {
+                _notifications.update { state ->
+                    val notifications = state.notifications.toMutableList()
+                    notifications[notifIdx] =
+                        (notifications[notifIdx] as NotificationItem.Notification).copy(
+                            isRead = true,
+                        )
+                    state.copy(
+                        notifications = notifications
+                    )
+                }
+            }
+            notificationRepository.getNotificationById(notifId)
+        }
+    }
 }

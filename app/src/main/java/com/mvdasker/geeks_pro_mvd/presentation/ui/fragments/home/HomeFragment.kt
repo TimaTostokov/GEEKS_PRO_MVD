@@ -83,6 +83,19 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
+    /**
+     * не удалять
+     */
+    private fun notificationsAvailability(){
+        observeData(viewModel.notReadNotifCount){
+            if(it != 0){
+               binding.fhNotif.setImageResource(R.drawable.bell_not_empty)
+            }else{
+                binding.fhNotif.setImageResource(R.drawable.bell)
+            }
+        }
+    }
+
     private fun onClick(id: Int) {
         findNavController().navigate(
             HomeFragmentDirections.actionHomeFragmentToNewsFragment(id)
