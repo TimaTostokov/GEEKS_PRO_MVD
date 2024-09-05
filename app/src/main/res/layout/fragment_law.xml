@@ -38,7 +38,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="40dp"
                 android:fontFamily="@font/roboto"
-                android:text="@string/fragment_law_title"
+                android:text="@string/laws"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -52,21 +52,35 @@
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-        <TextView
-            android:id="@+id/flDescription"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="@font/roboto"
-            android:longClickable="true"
-            android:paddingBottom="24dp"
-            android:text=""
-            android:textColor="@color/black"
-            android:textIsSelectable="true"
-            android:textSize="16sp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/et_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/rounder_search"
+                android:drawablePadding="10dp"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:padding="14dp"
+                android:text="@string/find"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:drawableStartCompat="@drawable/search_line_sc" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_laws"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_laws" />
+
+        </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
 
