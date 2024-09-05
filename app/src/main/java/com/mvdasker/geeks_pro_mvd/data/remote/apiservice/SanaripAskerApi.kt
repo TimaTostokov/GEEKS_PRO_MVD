@@ -21,6 +21,8 @@ import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.AuthResponse
 import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.Authorization
 import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.User
 import com.mvdasker.geeks_pro_mvd.data.remote.model.charter.Charter
+import com.mvdasker.geeks_pro_mvd.data.remote.model.constitution.Constitutions
+import com.mvdasker.geeks_pro_mvd.data.remote.model.constitution.ConstitutionsChapter
 import com.mvdasker.geeks_pro_mvd.data.remote.model.history.HistoryModel
 import com.mvdasker.geeks_pro_mvd.data.remote.model.law.Law
 import com.mvdasker.geeks_pro_mvd.data.remote.model.law.LawsCharter
@@ -123,5 +125,18 @@ interface SanaripAskerApi {
         @Header("Authorization") accessToken: String,
         @Path("id") id: Int,
     ): NewsDetail
+
+    suspend fun getNewsId(@Path("id") id: Int): NewsDetail
+
+    @GET(CONSTITUTIONS_END_POINT)
+    suspend fun getConstitution(
+        @Header("Authorization") accessToken: String,
+    ): List<Constitutions>
+
+    @GET(CONSTITUTIONS_DETAIL_ENDPOINT)
+    suspend fun getConstitutionById(
+        @Header("Authorization") accessToken: String,
+        @Path("id") id: Int,
+    ): ConstitutionsChapter
 
 }
