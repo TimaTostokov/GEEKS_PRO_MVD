@@ -129,7 +129,14 @@
         android:id="@+id/constitutionFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.ConstitutionFragment"
         android:label="fragment_constitution"
-        tools:layout="@layout/fragment_constitution" />
+        tools:layout="@layout/fragment_constitution" >
+        <action
+            android:id="@+id/action_constitutionFragment_to_constitutionsSearchFragment"
+            app:destination="@id/constitutionsSearchFragment" />
+        <action
+            android:id="@+id/action_constitutionFragment_to_constitutionsDetailFragment"
+            app:destination="@id/constitutionsDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/menuFragment"
@@ -308,6 +315,25 @@
         android:label="fragment_history_v_v_m_v_d_k_r"
         tools:layout="@layout/fragment_history_v_v_m_v_d_k_r">
 
+    </fragment>
+    <fragment
+        android:id="@+id/constitutionsDetailFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.detail.ConstitutionsDetailFragment"
+        android:label="fragment_constitutions_detail"
+        tools:layout="@layout/fragment_constitutions_detail">
+
+        <argument
+            android:name="model"
+            app:argType="integer"/>
+    </fragment>
+    <fragment
+        android:id="@+id/constitutionsSearchFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.ConstitutionsSearchFragment"
+        android:label="fragment_constitutions_search"
+        tools:layout="@layout/fragment_constitutions_search" >
+        <action
+            android:id="@+id/action_constitutionsSearchFragment_to_constitutionsDetailFragment"
+            app:destination="@id/constitutionsDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailLawsFragment"
