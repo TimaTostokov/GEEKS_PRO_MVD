@@ -5,8 +5,6 @@ import com.mvdasker.geeks_pro_mvd.common.UserProvider
 import com.mvdasker.geeks_pro_mvd.data.remote.apiservice.SanaripAskerApi
 import com.mvdasker.geeks_pro_mvd.data.repositories.AuthorizationRepository
 import com.mvdasker.geeks_pro_mvd.data.repositories.CharterRepository
-import com.mvdasker.geeks_pro_mvd.data.repositories.DocumentsRepository
-import com.mvdasker.geeks_pro_mvd.data.repositories.ConstitutionsRepository
 import com.mvdasker.geeks_pro_mvd.data.repositories.HistoryRepository
 import com.mvdasker.geeks_pro_mvd.data.repositories.LawRepository
 import com.mvdasker.geeks_pro_mvd.data.repositories.LibraryRepository
@@ -85,11 +83,11 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideHistoryRepository(sanaripAskerApi: SanaripAskerApi): HistoryRepository =
-        HistoryRepository(sanaripAskerApi)
+    fun provideHistoryRepository(sanaripAskerApi: SanaripAskerApi, userProvider: UserProvider): HistoryRepository =
+        HistoryRepository(sanaripAskerApi, userProvider )
 
     @Provides
     @Singleton
-    fun provideNewsRepository(sanaripAskerApi: SanaripAskerApi): NewsRepository =
-        NewsRepository(sanaripAskerApi, provideAppDispatchers())
+    fun provideNewsRepository(sanaripAskerApi: SanaripAskerApi, userProvider: UserProvider): NewsRepository =
+        NewsRepository(sanaripAskerApi, provideAppDispatchers(), userProvider)
 }

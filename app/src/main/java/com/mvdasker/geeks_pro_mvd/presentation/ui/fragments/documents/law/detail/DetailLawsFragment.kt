@@ -1,10 +1,11 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.detail
 
+import android.os.Build
 import android.os.Bundle
-import android.service.controls.ControlsProviderService.TAG
 import android.text.Html
 import android.util.Log
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -22,6 +23,7 @@ class DetailLawsFragment : Fragment(R.layout.fragment_detail_laws) {
     private val viewModel: DetailLawViewModel by viewModels()
     private val args: DetailLawsFragmentArgs by navArgs()
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getLawsDetail(args.id)
@@ -29,6 +31,7 @@ class DetailLawsFragment : Fragment(R.layout.fragment_detail_laws) {
         goBack()
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun observe() {
         observeData(viewModel.lawsDetail) { data ->
             when (data) {
