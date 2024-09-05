@@ -25,8 +25,12 @@ class LibraryViewModel @Inject constructor(
     private val _messageFlow = MutableStateFlow<Messages?>(null)
     val messageFlow: Flow<Messages> = _messageFlow.filterNotNull()
 
+    private val _notReadNotifCount = MutableStateFlow(0)
+    val notReadNotifCount: StateFlow<Int> get() = _notReadNotifCount
+
     init {
         getLibraries()
+        updateNotReadNotifCount()
     }
 
     fun clearMessage() {
@@ -47,6 +51,14 @@ class LibraryViewModel @Inject constructor(
                 _messageFlow.value = Messages.NetworkIsDisconnected
                 _messageFlow.value = Messages.HideProgressBar
             }
+        }
+    }
+
+    private fun updateNotReadNotifCount() {
+        viewModelScope.launch {
+            val result = repository.getIsNotReadNotif()
+            val notReadList = result.filter { !it.isRead }
+            _notReadNotifCount.value =notReadList.size
         }
     }
 

@@ -73,10 +73,6 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
             toBack.setOnClickListener {
                 findNavController().navigateUp()
             }
-
-            ivIcon.setOnClickListener {
-                findNavController().navigate(R.id.action_newsFragment_to_notificationsFragment)
-            }
         }
     }
 

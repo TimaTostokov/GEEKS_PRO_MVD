@@ -26,12 +26,42 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
     private val viewModel by viewModels<NotificationsViewModel>()
 
     private val adapter = NotificationsAdapter(
-        onNotificationClick = { section, itemId ->
-            when (section) {
-                "Библиотека" -> ""
-                "Закон" -> ""
-                "Устав" -> ""
-                "Руководство" -> ""
+        onNotificationClick = { id, notificationType, notificationId ->
+            viewModel.getNotifById(id)
+            when (notificationType) {
+                "Библиотека" -> {
+                    findNavController().navigate(
+                        NotificationsFragmentDirections.actionNotificationsFragmentToDetailFragment(
+                            notificationId
+                        )
+                    )
+                }
+
+                "Конституция" -> {
+                    findNavController().navigate(R.id.action_notificationsFragment_to_constitutionFragment)
+
+                }
+
+                "Закон" -> {
+                    findNavController().navigate(R.id.action_notificationsFragment_to_lawFragment)
+
+                }
+
+                "Устав" -> {
+                    findNavController().navigate(R.id.action_notificationsFragment_to_statutesFragment)
+                }
+
+                "KR Governance" -> {
+                    findNavController().navigate(R.id.action_notificationsFragment_to_controlKRFragment)
+                }
+
+                "MVD KR Governance" -> {
+                    findNavController().navigate(R.id.action_notificationsFragment_to_controlMIAKRFragment)
+                }
+
+                "VV MVD KR Governance" -> {
+                    findNavController().navigate(R.id.action_notificationsFragment_to_controlITMIAKRFragment)
+                }
             }
         }
     )

@@ -204,7 +204,29 @@
         android:id="@+id/notificationsFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications.NotificationsFragment"
         android:label="fragment_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_notifications">
+        <action
+            android:id="@+id/action_notificationsFragment_to_statutesFragment"
+            app:destination="@id/statutesFragment" />
+        <action
+            android:id="@+id/action_notificationsFragment_to_lawFragment"
+            app:destination="@id/lawFragment" />
+        <action
+            android:id="@+id/action_notificationsFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_notificationsFragment_to_controlKRFragment"
+            app:destination="@id/controlKRFragment" />
+        <action
+            android:id="@+id/action_notificationsFragment_to_controlITMIAKRFragment"
+            app:destination="@id/controlITMIAKRFragment" />
+        <action
+            android:id="@+id/action_notificationsFragment_to_controlMIAKRFragment"
+            app:destination="@id/controlMIAKRFragment" />
+        <action
+            android:id="@+id/action_notificationsFragment_to_constitutionFragment"
+            app:destination="@id/constitutionFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/controlKRFragment"

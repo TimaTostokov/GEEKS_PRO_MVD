@@ -60,18 +60,6 @@
             android:textStyle="bold"
             tools:text="Давайте разбираться вместе: жизнь прекрасна" />
 
-        <TextView
-            android:id="@+id/itemNotifDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:ellipsize="end"
-            android:fontFamily="@font/roboto"
-            android:maxLines="3"
-            android:textColor="@color/black"
-            android:textSize="14sp"
-            tools:text="Но постоянный количественный рост и сфера нашей активности способстует подготовке и реализации распределения внутренних резервов и ресурсов" />
-
     </LinearLayout>
 
     <ImageView

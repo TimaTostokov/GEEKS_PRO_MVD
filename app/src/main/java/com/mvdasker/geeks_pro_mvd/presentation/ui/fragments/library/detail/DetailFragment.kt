@@ -29,7 +29,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
         observe()
         goBack()
-        goNotification()
         fubBtn()
         showSnack()
 
@@ -60,12 +59,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
     private fun goBack() {
         binding.ivBellSecond.setOnClickListener {
             findNavController().navigateUp()
-        }
-    }
-
-    private fun goNotification() {
-        binding.flibNotification.setOnClickListener {
-            findNavController().navigate(R.id.action_detailFragment_to_notificationsFragment)
         }
     }
 

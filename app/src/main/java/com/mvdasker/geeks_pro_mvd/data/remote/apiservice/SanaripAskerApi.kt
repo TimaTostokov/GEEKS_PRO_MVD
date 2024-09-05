@@ -12,6 +12,7 @@ import com.mvdasker.geeks_pro_mvd.common.Constants.MANAGEMENT_MVD_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.MANAGEMENT_VV_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.NEWS_DETAIL_ENDPOINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.NEWS_END_POINT
+import com.mvdasker.geeks_pro_mvd.common.Constants.NOTIFICATION_DETAIL_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.NOTIFICATION_END_POINT
 import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.AuthResponse
 import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.Authorization
@@ -48,6 +49,12 @@ interface SanaripAskerApi {
     suspend fun getNotification(
         @Header("Authorization") accessToken: String,
     ): List<Notification>
+
+    @GET(NOTIFICATION_DETAIL_END_POINT)
+    suspend fun getNotification(
+        @Path("id") id: Int,
+        @Header("Authorization") accessToken: String,
+    ): Notification
 
     @GET(HISTORY_END_POINT)
     suspend fun getHistory(

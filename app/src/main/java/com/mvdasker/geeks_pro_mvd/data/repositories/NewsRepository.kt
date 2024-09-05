@@ -5,6 +5,7 @@ import com.mvdasker.geeks_pro_mvd.common.UserProvider
 import com.mvdasker.geeks_pro_mvd.data.remote.apiservice.SanaripAskerApi
 import com.mvdasker.geeks_pro_mvd.data.remote.model.news.NewsDetail
 import com.mvdasker.geeks_pro_mvd.data.remote.model.news.NewsResponse
+import com.mvdasker.geeks_pro_mvd.data.remote.model.notification.Notification
 import com.mvdasker.geeks_pro_mvd.utils.base.BaseRepository
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -23,5 +24,8 @@ class NewsRepository @Inject constructor(
             sanaripAskerApi.getNewsId(userProvider.accessToken, id)
         }
     }
+
+    suspend fun getIsNotReadNotif(): List<Notification> =
+        sanaripAskerApi.getNotification(userProvider.accessToken)
 
 }

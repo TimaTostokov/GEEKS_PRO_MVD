@@ -17,5 +17,9 @@ data class Notification(
     @SerializedName("created_at")
     val createAt: String? = null,
     @SerializedName("is_read")
-    val isRead: Boolean = false
+    val isRead: Boolean = false,
+    @SerializedName("notification_id")
+    val notificationId: Int? = null,
+    @SerializedName("notification_type")
+    val notificationType: String? = null,
 ) : Parcelable
