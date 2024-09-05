@@ -3,8 +3,11 @@ package com.mvdasker.geeks_pro_mvd.data.remote.apiservice
 import com.mvdasker.geeks_pro_mvd.common.Constants.AUTHORIZATION_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.AUTHORIZATION_GET_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.CHARTERS_END_POINT
+import com.mvdasker.geeks_pro_mvd.common.Constants.CONSTITUTIONS_DETAIL_ENDPOINT
+import com.mvdasker.geeks_pro_mvd.common.Constants.CONSTITUTIONS_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.END_POINT_LIBRARY
 import com.mvdasker.geeks_pro_mvd.common.Constants.HISTORY_END_POINT
+import com.mvdasker.geeks_pro_mvd.common.Constants.LAW_END_ID_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.LAW_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.LIBRARY_DETAIL_ENDPOINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.MANAGEMENT_END_POINT
@@ -18,8 +21,11 @@ import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.AuthResponse
 import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.Authorization
 import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.User
 import com.mvdasker.geeks_pro_mvd.data.remote.model.charter.Charter
+import com.mvdasker.geeks_pro_mvd.data.remote.model.constitution.Constitutions
+import com.mvdasker.geeks_pro_mvd.data.remote.model.constitution.ConstitutionsChapter
 import com.mvdasker.geeks_pro_mvd.data.remote.model.history.HistoryModel
 import com.mvdasker.geeks_pro_mvd.data.remote.model.law.Law
+import com.mvdasker.geeks_pro_mvd.data.remote.model.law.LawsCharter
 import com.mvdasker.geeks_pro_mvd.data.remote.model.library.Library
 import com.mvdasker.geeks_pro_mvd.data.remote.model.mangements.Governance
 import com.mvdasker.geeks_pro_mvd.data.remote.model.news.NewsDetail
@@ -39,6 +45,12 @@ interface SanaripAskerApi {
     suspend fun getLaw(
         @Header("Authorization") accessToken: String,
     ): List<Law>
+
+    @GET(LAW_END_ID_POINT)
+    suspend fun getLawById(
+        @Header("Authorization") accessToken: String,
+        @Path("id") id: Int
+    ): LawsCharter
 
     @GET(CHARTERS_END_POINT)
     suspend fun getCharters(
@@ -113,5 +125,18 @@ interface SanaripAskerApi {
         @Header("Authorization") accessToken: String,
         @Path("id") id: Int,
     ): NewsDetail
+
+    suspend fun getNewsId(@Path("id") id: Int): NewsDetail
+
+    @GET(CONSTITUTIONS_END_POINT)
+    suspend fun getConstitution(
+        @Header("Authorization") accessToken: String,
+    ): List<Constitutions>
+
+    @GET(CONSTITUTIONS_DETAIL_ENDPOINT)
+    suspend fun getConstitutionById(
+        @Header("Authorization") accessToken: String,
+        @Path("id") id: Int,
+    ): ConstitutionsChapter
 
 }

@@ -86,9 +86,7 @@ class LibraryFragment : Fragment(R.layout.fragment_library) {
     }
 
     private fun onClick(id: Int) {
-        findNavController().navigate(
-            LibraryFragmentDirections.actionLibraryFragmentToDetailFragment(
-                id
+        findNavController().navigate(LibraryFragmentDirections.actionLibraryFragmentToDetailFragment(id
             )
         )
     }

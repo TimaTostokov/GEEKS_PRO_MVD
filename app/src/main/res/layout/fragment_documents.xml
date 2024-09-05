@@ -109,7 +109,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="10dp"
                     android:fontFamily="@font/roboto"
-                    android:text="@string/law"
+                    android:text="@string/documents_laws"
                     android:textColor="@color/black"
                     android:textSize="14sp"
                     android:textStyle="bold" />
