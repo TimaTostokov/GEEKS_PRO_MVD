@@ -5,6 +5,7 @@ import com.mvdasker.geeks_pro_mvd.common.UserProvider
 import com.mvdasker.geeks_pro_mvd.data.remote.apiservice.SanaripAskerApi
 import com.mvdasker.geeks_pro_mvd.data.repositories.AuthorizationRepository
 import com.mvdasker.geeks_pro_mvd.data.repositories.CharterRepository
+import com.mvdasker.geeks_pro_mvd.data.repositories.ConstitutionsRepository
 import com.mvdasker.geeks_pro_mvd.data.repositories.DocumentsRepository
 import com.mvdasker.geeks_pro_mvd.data.repositories.HistoryRepository
 import com.mvdasker.geeks_pro_mvd.data.repositories.LawRepository
@@ -105,4 +106,14 @@ object RepositoryModule {
         userProvider: UserProvider,
     ): DocumentsRepository =
         DocumentsRepository(sanaripAskerApi, userProvider)
+    fun provideNewsRepository(sanaripAskerApi: SanaripAskerApi): NewsRepository =
+        NewsRepository(sanaripAskerApi, provideAppDispatchers())
+
+    @Provides
+    @Singleton
+    fun provideConstitutionRepository(
+        sanaripAskerApi: SanaripAskerApi,
+        userProvider: UserProvider
+    ): ConstitutionsRepository =
+        ConstitutionsRepository(sanaripAskerApi, userProvider, provideAppDispatchers())
 }

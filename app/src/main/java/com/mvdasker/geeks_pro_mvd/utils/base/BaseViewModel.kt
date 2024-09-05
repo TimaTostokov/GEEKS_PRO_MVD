@@ -6,32 +6,30 @@ import com.mvdasker.geeks_pro_mvd.common.Either
 import com.mvdasker.geeks_pro_mvd.common.UiState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel : ViewModel() {
 
-    protected open fun <T> Flow<Either<Throwable, List<T>>>.collectFlowAsState(
-        state: MutableStateFlow<UiState<List<T>>>,
+    protected open fun <T> Flow<Either<Throwable, T>>.collectFlowAsState(
+        state: MutableStateFlow<UiState<T>>,
     ) {
         viewModelScope.launch {
-            this@collectFlowAsState.collect { either ->
-                when (either) {
+            this@collectFlowAsState.collect {
+                when (it) {
                     is Either.Left -> {
-                        either.left?.let { throwable ->
-                            val message = throwable.message ?: "Unknown error!"
-                            state.value = UiState.Error(throwable, message)
+                        it.left?.let { t ->
+                            val message = t.message ?: "Unknown error!"
+                            state.value = UiState.Error(t, message)
                         }
                     }
 
                     is Either.Right -> {
-                        either.right?.let { data ->
-                            state.value = UiState.Success(data) // data уже является списком
+                        it.right?.let { data ->
+                            state.value = UiState.Success(data)
                         }
                     }
                 }
             }
         }
     }
-
 }
