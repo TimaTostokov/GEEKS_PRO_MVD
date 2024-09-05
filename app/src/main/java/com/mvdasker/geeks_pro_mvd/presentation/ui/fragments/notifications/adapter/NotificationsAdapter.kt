@@ -1,8 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications.adapter
 
 import android.annotation.SuppressLint
-import android.os.Build
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +16,7 @@ import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.formatDate
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
 
-class NotificationsAdapter(private val onNotificationClick: (String?, Int) -> Unit) :
+class NotificationsAdapter(private val onNotificationClick: (Int, String?, Int) -> Unit) :
     ListAdapter<NotificationItem, RecyclerView.ViewHolder>(NotificationDiffCallback) {
 
     override fun getItemViewType(position: Int): Int = when (getItem(position)) {
@@ -63,7 +61,6 @@ class NotificationsAdapter(private val onNotificationClick: (String?, Int) -> Un
                 val notificationsItem = oldItem is NotificationItem.Notification
                         && newItem is NotificationItem.Notification
                         && oldItem.title == newItem.title
-                        && oldItem.description == newItem.description
                         && oldItem.createAt == newItem.createAt
                         && oldItem.isRead == newItem.isRead
                         && oldItem.section == newItem.section
@@ -85,7 +82,7 @@ class MonthViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 }
 
 class NotificationViewHolder(
-    private val onNotificationClick: (String?, Int) -> Unit,
+    private val onNotificationClick: (Int, String?, Int) -> Unit,
     itemView: View
 ) :
     RecyclerView.ViewHolder(itemView) {
@@ -97,11 +94,6 @@ class NotificationViewHolder(
         binding.itemNotifDate.text = notification.createAt?.let { formatDate(it) }
         binding.itemNotifTitle.text = notification.title
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            binding.itemNotifDescription.text =
-                Html.fromHtml(notification.description, Html.FROM_HTML_MODE_LEGACY)
-        }
-
         if (notification.section != null) {
             binding.itemNotifSection.text = notification.section
             binding.itemNotifSection.visible()
@@ -111,7 +103,14 @@ class NotificationViewHolder(
         binding.itemNotifNotReadCircle.isVisible = !notification.isRead
 
         binding.itemCardNotif.setOnClickListener {
-            onNotificationClick(notification.section, 0)
+            notification.id?.let { it1 ->
+                notification.notificationId?.let { it2 ->
+                    onNotificationClick(
+                        it1, notification.notificationType,
+                        it2
+                    )
+                }
+            }
         }
     }
 

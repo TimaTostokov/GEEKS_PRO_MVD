@@ -43,16 +43,6 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/flibNotification"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_gravity="end"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:padding="4dp"
-                android:src="@drawable/bell_not_empty"
-                tools:ignore="ContentDescription" />
-
         </FrameLayout>
 
     </com.google.android.material.appbar.AppBarLayout>

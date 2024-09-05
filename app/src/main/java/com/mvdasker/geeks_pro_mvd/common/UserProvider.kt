@@ -11,10 +11,10 @@ class UserProvider @Inject constructor(
     private val prefs = context.getSharedPreferences("user.store", Context.MODE_PRIVATE)
 
     val accessToken: String
-        get() = prefs.getString(ACCESS_TOKEN_KEY, "").orEmpty()
+        get() = prefs.getString(ACCESS_TOKEN_KEY, "-1").orEmpty()
 
     fun saveAccess(accessToken: String) {
-        prefs.edit().putString(ACCESS_TOKEN_KEY, accessToken).apply()
+        prefs.edit().putString(ACCESS_TOKEN_KEY, "JWT $accessToken").apply()
     }
 
     fun saveUserName(name: String) {
@@ -25,23 +25,18 @@ class UserProvider @Inject constructor(
         prefs.edit().putString(USER_PHOTO_KEY, userPhoto).apply()
     }
 
-    fun getAccess(): String? {
-        return prefs.getString(ACCESS_TOKEN_KEY, "-2")
-    }
-
     fun getUserName(): String {
-        return prefs.getString(USER_NAME_KEY, "").orEmpty()
+        return prefs.getString(USER_NAME_KEY, "-2").orEmpty()
     }
 
     fun getUserPhoto(): String {
-        return prefs.getString(USER_PHOTO_KEY, "").orEmpty()
+        return prefs.getString(USER_PHOTO_KEY, "-3").orEmpty()
     }
 
     companion object {
         private const val USER_NAME_KEY = "USER_NAME_KEY"
         private const val USER_PHOTO_KEY = "USER_PHOTO_KEY"
         private const val ACCESS_TOKEN_KEY = "ACCESS_TOKEN_KEY"
-        private const val REFRESH_TOKEN_KEY = "REFRESH_TOKEN_KEY"
     }
 
 }

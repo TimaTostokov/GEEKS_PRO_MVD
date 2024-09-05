@@ -7,9 +7,10 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class Law(
     @SerializedName("id")
-    val id: Int? = null,
-    @SerializedName("title")
-    val title: String? = null,
-    @SerializedName("text")
-    val text: String? = null
-): Parcelable
+    val id: Int,
+    @SerializedName("section")
+    val section: String? = null,
+    @SerializedName("chapters")
+    val charter: List<LawsCharter>? = null,
+    var isExpandable: Boolean = false
+) : Parcelable

@@ -3,6 +3,9 @@ package com.mvdasker.geeks_pro_mvd.utils.ext
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
+import android.text.Html
+import android.util.Log
+import android.util.Patterns
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -20,6 +23,9 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.common.PlayerItem
+import com.mvdasker.geeks_pro_mvd.data.remote.model.news.NewsImage
+import com.mvdasker.geeks_pro_mvd.data.remote.model.news.NewsVideo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -87,7 +93,7 @@ object Extensions {
         flow: Flow<T>,
         lifecycleOwner: LifecycleOwner = viewLifecycleOwner,
         state: Lifecycle.State = Lifecycle.State.STARTED,
-        crossinline block: (T) -> Unit
+        crossinline block: (T) -> Unit,
     ) = lifecycleOwner.lifecycleScope.launch {
         lifecycleOwner.repeatOnLifecycle(state) {
             flow.collect { data ->
@@ -103,6 +109,40 @@ object Extensions {
         val data: Date = originalFormat.parse(date)!!
         val formattedDate = targetFormat.format(data)
         return formattedDate
+    }
+
+    fun <T, R> mapToMediaItems(
+        items1: List<T>,
+        items2: List<R>,
+        mapper1: (T) -> PlayerItem?,
+        mapper2: (R) -> PlayerItem?
+    ): List<PlayerItem> {
+        val list1 = items1.mapNotNull { mapper1(it) }
+        val list2 = items2.mapNotNull { mapper2(it) }
+        return list1 + list2
+    }
+
+    fun convertIframeToUrlArray(iframeArray: List<NewsVideo>?): List<NewsVideo> {
+        val urlArray = mutableListOf<NewsVideo>()
+
+        iframeArray?.forEach { iframe ->
+            val htmlString = iframe.video
+            Log.d("convertIframeToUrlArray", "Processing iframe: $htmlString")
+
+            val regex = """src="([^"]+)"""".toRegex()
+            val matchResult = regex.find(htmlString.toString())
+            val url = matchResult?.groups?.get(1)?.value
+
+            Log.d("convertIframeToUrlArray", "Extracted URL: $url")
+
+            if (url != null && Patterns.WEB_URL.matcher(url).matches()) {
+                val newsVideo = NewsVideo(video = url)
+                urlArray.add(newsVideo)
+            }
+        }
+
+        Log.d("convertIframeToUrlArray", "Final urlArray: $urlArray")
+        return urlArray
     }
 
 }

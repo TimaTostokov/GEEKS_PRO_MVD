@@ -68,6 +68,28 @@ dependencies {
     implementation(libs.okHttpClient)
     implementation(libs.logging.interceptor)
 
+    implementation(libs.circleimageview)
+
+    implementation(libs.advrecyclerview)
+
+    implementation(libs.glide)
+
+    implementation(libs.androidx.viewpager2)
+
+    implementation(libs.dotsindicator)
+
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.exoplayer.dash)
+    implementation(libs.androidx.media3.ui)
+
+    implementation(libs.androidx.media3.exoplayer.hls)
+
+    implementation(libs.zoomage)
+    implementation(libs.github.zoomhelper)
+
+    implementation(libs.androidx.paging.common.ktx)
+    implementation(libs.androidx.paging.runtime.ktx)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -77,19 +99,4 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation(libs.circleimageview)
-
-    implementation(libs.advrecyclerview)
-
-    implementation(libs.glide)
-
-    implementation(libs.androidx.viewpager2)
-
-    implementation(libs.exoplayer)
-
-    implementation(libs.dotsindicator)
-
-//    implementation("androidx.media3:media3-exoplayer:1.2.0")
-//    implementation("androidx.media3:media3-exoplayer-dash:1.2.0")
-//    implementation("androidx.media3:media3-ui:1.2.0")
 }

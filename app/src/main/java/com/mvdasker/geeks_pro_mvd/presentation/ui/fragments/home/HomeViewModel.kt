@@ -10,6 +10,7 @@ import com.mvdasker.geeks_pro_mvd.utils.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
@@ -27,8 +28,12 @@ class HomeViewModel @Inject constructor(
     private val _messageFlow = MutableStateFlow<Messages?>(null)
     val messageFlow: Flow<Messages> = _messageFlow.filterNotNull()
 
+    private val _notReadNotifCount = MutableStateFlow(0)
+    val notReadNotifCount: StateFlow<Int> get() = _notReadNotifCount
+
     init {
         fetchNews()
+        updateNotReadNotifCount()
     }
 
     fun clearMessage() {
@@ -46,6 +51,14 @@ class HomeViewModel @Inject constructor(
                 _newsState.value = UiState.Error(throwable = t, message = "An error occurred")
                 _messageFlow.value = Messages.NetworkIsDisconnected
             }
+        }
+    }
+
+    private fun updateNotReadNotifCount() {
+        viewModelScope.launch {
+            val result = repository.getIsNotReadNotif()
+            val notReadList = result.filter { !it.isRead }
+            _notReadNotifCount.value = notReadList.size
         }
     }
 

@@ -30,7 +30,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SearchControlFragment : Fragment() {
+class SearchControlFragment : Fragment(R.layout.fragment_search_control) {
 
     private val binding by viewBinding(FragmentSearchControlBinding::bind)
 

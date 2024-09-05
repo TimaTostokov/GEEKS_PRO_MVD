@@ -111,7 +111,14 @@
     <fragment
         android:id="@+id/lawFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.LawFragment"
-        android:label="LawFragment" />
+        android:label="LawFragment" >
+        <action
+            android:id="@+id/action_lawFragment_to_detailLawsFragment"
+            app:destination="@id/detailLawsFragment" />
+        <action
+            android:id="@+id/action_lawFragment_to_searchLawsFragment"
+            app:destination="@id/searchLawsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/statutesFragment"
@@ -227,7 +234,29 @@
         android:id="@+id/notificationsFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications.NotificationsFragment"
         android:label="fragment_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_notifications">
+        <action
+            android:id="@+id/action_notificationsFragment_to_statutesFragment"
+            app:destination="@id/statutesFragment" />
+        <action
+            android:id="@+id/action_notificationsFragment_to_lawFragment"
+            app:destination="@id/lawFragment" />
+        <action
+            android:id="@+id/action_notificationsFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_notificationsFragment_to_controlKRFragment"
+            app:destination="@id/controlKRFragment" />
+        <action
+            android:id="@+id/action_notificationsFragment_to_controlITMIAKRFragment"
+            app:destination="@id/controlITMIAKRFragment" />
+        <action
+            android:id="@+id/action_notificationsFragment_to_controlMIAKRFragment"
+            app:destination="@id/controlMIAKRFragment" />
+        <action
+            android:id="@+id/action_notificationsFragment_to_constitutionFragment"
+            app:destination="@id/constitutionFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/controlKRFragment"
@@ -259,18 +288,10 @@
         tools:layout="@layout/fragment_search_control_v_v" />
 
     <fragment
-        android:id="@+id/techMalfunctionsFragment"
+        android:id="@+id/malfunctionsFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.malfunctions.MalfunctionsFragment"
         android:label="fragment_tech_malfunctions"
-        tools:layout="@layout/fragment_malfunctions">
-
-        <action
-            android:id="@+id/action_techMalfunctionsFragment_to_homeFragment"
-            app:destination="@id/authorizationFragment"
-            app:popUpTo="@id/techMalfunctionsFragment"
-            app:popUpToInclusive="true" />
-
-    </fragment>
+        tools:layout="@layout/fragment_malfunctions"/>
 
     <fragment
         android:id="@+id/historyMVDKRFragment"
@@ -314,5 +335,20 @@
             android:id="@+id/action_constitutionsSearchFragment_to_constitutionsDetailFragment"
             app:destination="@id/constitutionsDetailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/detailLawsFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.detail.DetailLawsFragment"
+        android:label="fragment_detail_laws"
+
+        tools:layout="@layout/fragment_detail_laws" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchLawsFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.search.SearchLawsFragment"
+        android:label="fragment_search_laws"
+        tools:layout="@layout/fragment_search_laws" />
 
 </navigation>

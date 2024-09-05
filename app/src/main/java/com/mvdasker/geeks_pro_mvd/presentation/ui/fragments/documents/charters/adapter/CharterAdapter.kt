@@ -1,20 +1,27 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.charters.adapter
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.DownloadManager
 import android.content.Context
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Environment
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.app.ActivityCompat.requestPermissions
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.data.remote.model.charter.Charter
 import com.mvdasker.geeks_pro_mvd.databinding.ItemCharterBinding
 
-class CharterAdapter(val context: Context) :
+class CharterAdapter(private val context: Context) :
     RecyclerView.Adapter<CharterAdapter.CharterViewHolder>() {
 
     inner class CharterViewHolder(val binding: ItemCharterBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
         init {
             binding.itemDownloadBtn.setOnClickListener {
                 val url = it.tag as? String
@@ -30,7 +37,7 @@ class CharterAdapter(val context: Context) :
         }
     }
 
-    fun downloadCharter(url: String) {
+    private fun downloadCharter(url: String) {
         val request = DownloadManager.Request(Uri.parse(url))
             .setTitle("Downloading file")
             .setDescription("Downloading from $url")
@@ -40,10 +47,11 @@ class CharterAdapter(val context: Context) :
                 Uri.parse(url).lastPathSegment
             )
 
-
-        val downloadManager = context?.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+        val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         downloadManager.enqueue(request)
     }
+
+
 
     private var listCharters = mutableListOf<Charter>()
 
@@ -58,6 +66,7 @@ class CharterAdapter(val context: Context) :
 
     override fun getItemCount(): Int = listCharters.size
 
+    @SuppressLint("NotifyDataSetChanged")
     fun addCharters(charter: List<Charter>) {
         listCharters.clear()
         listCharters.addAll(charter)

@@ -48,5 +48,4 @@ class ControlITMIAKRViewModel @Inject constructor(private val repository: Manage
             }
         }
     }
-
 }

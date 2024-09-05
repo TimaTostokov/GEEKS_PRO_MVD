@@ -14,10 +14,12 @@ data class Notification(
     val section: String? = null,
     @SerializedName("title")
     val title: String? = null,
-    @SerializedName("description")
-    val description: String? = null,
     @SerializedName("created_at")
     val createAt: String? = null,
     @SerializedName("is_read")
-    val isRead: Boolean = false
+    val isRead: Boolean = false,
+    @SerializedName("notification_id")
+    val notificationId: Int? = null,
+    @SerializedName("notification_type")
+    val notificationType: String? = null,
 ) : Parcelable

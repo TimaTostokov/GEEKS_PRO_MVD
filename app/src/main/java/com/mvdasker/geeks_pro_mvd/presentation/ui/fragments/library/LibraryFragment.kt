@@ -91,4 +91,17 @@ class LibraryFragment : Fragment(R.layout.fragment_library) {
         )
     }
 
+    /**
+     * не удалять
+     */
+    private fun notificationsAvailability() {
+        observeData(viewModel.notReadNotifCount) {
+            if (it != 0) {
+                binding.ivBell.setImageResource(R.drawable.bell_not_empty)
+            } else {
+                binding.ivBell.setImageResource(R.drawable.bell)
+            }
+        }
+    }
+
 }

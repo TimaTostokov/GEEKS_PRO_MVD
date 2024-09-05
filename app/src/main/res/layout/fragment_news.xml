@@ -44,16 +44,6 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/iv_icon"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_gravity="end|center"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:padding="4dp"
-                android:src="@drawable/bell_not_empty"
-                tools:ignore="ContentDescription" />
-
         </FrameLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -112,6 +102,13 @@
                     android:scaleType="centerCrop"
                     tools:ignore="ContentDescription"
                     tools:src="@drawable/image_news" />
+
+                <TextView
+                    android:textSize="18sp"
+                    android:layout_marginStart="344dp"
+                    android:text="1/5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
                 <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
                     android:id="@+id/dotsIndicator"

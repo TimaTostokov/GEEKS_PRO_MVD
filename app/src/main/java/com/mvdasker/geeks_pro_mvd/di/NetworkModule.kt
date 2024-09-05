@@ -1,6 +1,7 @@
 package com.mvdasker.geeks_pro_mvd.di
 
 import com.mvdasker.geeks_pro_mvd.common.Constants.BASE_URL
+import com.mvdasker.geeks_pro_mvd.common.UserProvider
 import com.mvdasker.geeks_pro_mvd.data.remote.apiservice.SanaripAskerApi
 import dagger.Module
 import dagger.Provides
@@ -19,12 +20,22 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient = OkHttpClient().newBuilder()
+    fun provideRefreshTokenInterceptor(
+        userProvider: UserProvider,
+    ): RefreshTokenInterceptor =
+        RefreshTokenInterceptor(userProvider)
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(
+//        refreshTokenInterceptor: RefreshTokenInterceptor
+    ): OkHttpClient = OkHttpClient().newBuilder()
         .addInterceptor(
             HttpLoggingInterceptor().setLevel(
                 HttpLoggingInterceptor.Level.BODY
             )
         )
+//        .addInterceptor(refreshTokenInterceptor)
         .connectTimeout(60L, TimeUnit.SECONDS)
         .readTimeout(60L, TimeUnit.SECONDS)
         .writeTimeout(60L, TimeUnit.SECONDS)
@@ -40,13 +51,21 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(
         okHttpClient: OkHttpClient,
-        gsonConverterFactory: GsonConverterFactory
+        gsonConverterFactory: GsonConverterFactory,
     ): Retrofit =
         Retrofit.Builder()
             .client(okHttpClient)
             .baseUrl(BASE_URL)
             .addConverterFactory(gsonConverterFactory)
             .build()
+
+    @Provides
+    @Singleton
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        return interceptor
+    }
 
     @Provides
     @Singleton
