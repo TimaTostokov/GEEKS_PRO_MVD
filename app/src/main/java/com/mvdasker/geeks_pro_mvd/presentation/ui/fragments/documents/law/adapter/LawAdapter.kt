@@ -1,6 +1,7 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.adapter
 
 import android.graphics.Color
+import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -28,6 +29,43 @@ class LawAdapter(private var mList: List<Law>, private val onCLick: (Int) -> Uni
         notifyDataSetChanged()
     }
 
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LawViewHolder {
+        val binding = ItemLawsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return LawViewHolder(binding)
+    }
+
+    fun updateSearchQuery(query: String) {
+        searchQuery = query
+        notifyDataSetChanged()
+    }
+
+    override fun onBindViewHolder(holder: LawViewHolder, position: Int) {
+        val lawsData = mList[position]
+        holder.binding.tvLaws.text = highlightText(
+            Html.fromHtml(lawsData.section, Html.FROM_HTML_MODE_LEGACY).toString(),
+            searchQuery
+        )
+        if (lawsData.charter != null && lawsData.charter.size > 1) {
+            holder.binding.tvCharter.text = highlightText(
+                Html.fromHtml(lawsData.charter[0].chapter, Html.FROM_HTML_MODE_LEGACY).toString(),
+                searchQuery
+            )
+        } else {
+            holder.binding.tvCharter.text = "No data available"
+        }
+        val isExpandable: Boolean = lawsData.isExpandable
+        holder.binding.tvCharter.visibility = if (isExpandable) View.VISIBLE else View.GONE
+        holder.binding.ivSpinner.setOnClickListener {
+            isAnyItemExpanded(position)
+            lawsData.isExpandable = !lawsData.isExpandable
+            notifyItemChanged(position)
+        }
+        holder.binding.linear.setOnClickListener {
+            onCLick(lawsData.id)
+        }
+    }
+
     private fun highlightText(text: String, query: String): SpannableString {
         val spannableString = SpannableString(text)
         if (query.isNotEmpty()) {
@@ -44,36 +82,6 @@ class LawAdapter(private var mList: List<Law>, private val onCLick: (Int) -> Uni
             }
         }
         return spannableString
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LawViewHolder {
-        val binding = ItemLawsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return LawViewHolder(binding)
-    }
-
-    fun updateSearchQuery(query: String) {
-        searchQuery = query
-        notifyDataSetChanged()
-    }
-
-    override fun onBindViewHolder(holder: LawViewHolder, position: Int) {
-        val lawsData = mList[position]
-        holder.binding.tvLaws.text = lawsData.section
-        if (lawsData.charter != null && lawsData.charter.size > 1) {
-            holder.binding.tvCharter.text = lawsData.charter[0].chapter
-        } else {
-            holder.binding.tvCharter.text = "No data available"
-        }
-        val isExpandable: Boolean = lawsData.isExpandable
-        holder.binding.tvCharter.visibility = if (isExpandable) View.VISIBLE else View.GONE
-        holder.binding.ivSpinner.setOnClickListener {
-            isAnyItemExpanded(position)
-            lawsData.isExpandable = !lawsData.isExpandable
-            notifyItemChanged(position)
-        }
-        holder.binding.linear.setOnClickListener {
-            onCLick(lawsData.id)
-        }
     }
 
     private fun isAnyItemExpanded(position: Int) {

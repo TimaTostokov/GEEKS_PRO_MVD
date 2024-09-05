@@ -41,7 +41,7 @@ class DetailLawsFragment : Fragment(R.layout.fragment_detail_laws) {
                 }
 
                 is UiState.Success -> {
-                    binding.tvArticle.text = Html.fromHtml(data.data?.article, Html.FROM_HTML_MODE_LEGACY)
+                    binding.tvArticle.text = Html.fromHtml(data.data?.article, Html.FROM_HTML_MODE_LEGACY).toString()
                     Log.e("error", "succses" )
                 }
             }
