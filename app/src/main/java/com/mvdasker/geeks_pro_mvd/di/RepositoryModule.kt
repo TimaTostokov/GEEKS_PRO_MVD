@@ -29,7 +29,7 @@ object RepositoryModule {
         sanaripAskerApi: SanaripAskerApi,
         userProvider: UserProvider,
     ): LawRepository =
-        LawRepository(sanaripAskerApi, userProvider, provideAppDispatchers())
+        LawRepository(sanaripAskerApi, userProvider)
 
     @Provides
     @Singleton

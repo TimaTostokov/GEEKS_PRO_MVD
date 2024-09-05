@@ -5,6 +5,7 @@ import com.mvdasker.geeks_pro_mvd.common.Constants.AUTHORIZATION_GET_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.CHARTERS_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.END_POINT_LIBRARY
 import com.mvdasker.geeks_pro_mvd.common.Constants.HISTORY_END_POINT
+import com.mvdasker.geeks_pro_mvd.common.Constants.LAW_END_ID_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.LAW_END_POINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.LIBRARY_DETAIL_ENDPOINT
 import com.mvdasker.geeks_pro_mvd.common.Constants.MANAGEMENT_END_POINT
@@ -20,6 +21,7 @@ import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.User
 import com.mvdasker.geeks_pro_mvd.data.remote.model.charter.Charter
 import com.mvdasker.geeks_pro_mvd.data.remote.model.history.HistoryModel
 import com.mvdasker.geeks_pro_mvd.data.remote.model.law.Law
+import com.mvdasker.geeks_pro_mvd.data.remote.model.law.LawsCharter
 import com.mvdasker.geeks_pro_mvd.data.remote.model.library.Library
 import com.mvdasker.geeks_pro_mvd.data.remote.model.mangements.Governance
 import com.mvdasker.geeks_pro_mvd.data.remote.model.news.NewsDetail
@@ -39,6 +41,12 @@ interface SanaripAskerApi {
     suspend fun getLaw(
         @Header("Authorization") accessToken: String,
     ): List<Law>
+
+    @GET(LAW_END_ID_POINT)
+    suspend fun getLawById(
+        @Header("Authorization") accessToken: String,
+        @Path("id") id: Int
+    ): List<LawsCharter>
 
     @GET(CHARTERS_END_POINT)
     suspend fun getCharters(

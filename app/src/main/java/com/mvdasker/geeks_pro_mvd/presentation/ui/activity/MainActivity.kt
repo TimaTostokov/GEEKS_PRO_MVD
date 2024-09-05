@@ -80,22 +80,22 @@ class MainActivity : AppCompatActivity() {
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
-        serverStatusViewModel.serverStatus.observe(this) { status ->
-            if (status == ServerStatus.UNAVAILABLE) {
-                if (navController.currentDestination?.id != R.id.malfunctionsFragment &&
-                    navController.currentDestination?.id != R.id.authorizationFragment &&
-                    navController.currentDestination?.id != R.id.splashFragment
-                ) {
-                    navController.navigate(R.id.malfunctionsFragment)
-                }
-            } else {
-                if (navController.currentDestination?.id == R.id.malfunctionsFragment) {
-                    navController.popBackStack()
-                }
-            }
-        }
-
-        serverStatusViewModel.startCheckingServerStatus()
+//        serverStatusViewModel.serverStatus.observe(this) { status ->
+//            if (status == ServerStatus.UNAVAILABLE) {
+//                if (navController.currentDestination?.id != R.id.malfunctionsFragment &&
+//                    navController.currentDestination?.id != R.id.authorizationFragment &&
+//                    navController.currentDestination?.id != R.id.splashFragment
+//                ) {
+//                    navController.navigate(R.id.malfunctionsFragment)
+//                }
+//            } else {
+//                if (navController.currentDestination?.id == R.id.malfunctionsFragment) {
+//                    navController.popBackStack()
+//                }
+//            }
+//        }
+//
+//        serverStatusViewModel.startCheckingServerStatus()
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
