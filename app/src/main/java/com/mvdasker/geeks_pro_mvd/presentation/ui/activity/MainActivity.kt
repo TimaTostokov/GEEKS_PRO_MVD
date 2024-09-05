@@ -5,8 +5,10 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
+import android.view.Window
 import android.view.WindowInsetsController
 import android.view.WindowManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -14,12 +16,16 @@ import com.aghajari.zoomhelper.ZoomHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.ActivityMainBinding
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.malfunctions.ServerStatus
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.malfunctions.ServerStatusViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    private val serverStatusViewModel: ServerStatusViewModel by viewModels()
 
     @SuppressLint("ObsoleteSdkInt")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,8 +48,7 @@ class MainActivity : AppCompatActivity() {
 
         val fragmentsWithBottomNav = setOf(
             R.id.homeFragment,
-            R.id.libraryFragment,
-            R.id.documentsFragment,
+            R.id.libraryFragment,R.id.documentsFragment,
             R.id.menuFragment
         )
 
@@ -75,12 +80,26 @@ class MainActivity : AppCompatActivity() {
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
+        serverStatusViewModel.serverStatus.observe(this) { status ->
+            if (status == ServerStatus.UNAVAILABLE) {
+                if (navController.currentDestination?.id != R.id.malfunctionsFragment &&
+                    navController.currentDestination?.id != R.id.authorizationFragment &&
+                    navController.currentDestination?.id != R.id.splashFragment
+                ) {
+                    navController.navigate(R.id.malfunctionsFragment)
+                }
+            } else {
+                if (navController.currentDestination?.id == R.id.malfunctionsFragment) {
+                    navController.popBackStack()
+                }
+            }
+        }
+
+        serverStatusViewModel.startCheckingServerStatus()
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
-        return ZoomHelper.getInstance().dispatchTouchEvent(ev!!, this) || super.dispatchTouchEvent(
-            ev
-        )
+        return ZoomHelper.getInstance().dispatchTouchEvent(ev!!, this) || super.dispatchTouchEvent(ev)
     }
 
     private fun updateIcon() {
@@ -110,5 +129,4 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
     }
-
 }
