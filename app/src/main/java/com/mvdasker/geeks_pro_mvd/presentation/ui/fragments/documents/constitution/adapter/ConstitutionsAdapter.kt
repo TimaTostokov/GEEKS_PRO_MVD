@@ -1,6 +1,7 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.adapter
 
 import android.graphics.Color
+import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
@@ -9,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.data.remote.model.constitution.Constitutions
-import com.mvdasker.geeks_pro_mvd.data.remote.model.law.Law
 import com.mvdasker.geeks_pro_mvd.databinding.ItemConstitutionBinding
 
 class ConstitutionsAdapter(
@@ -51,7 +51,8 @@ class ConstitutionsAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConstitutionViewHolder {
-        val binding = ItemConstitutionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemConstitutionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ConstitutionViewHolder(binding)
     }
 
@@ -64,7 +65,8 @@ class ConstitutionsAdapter(
         val constitutionsData = mList[position]
         holder.binding.tvLaws.text = constitutionsData.section
         if (constitutionsData.chapters.size > 1) {
-            holder.binding.tvCharter.text = constitutionsData.chapters[0].article
+            holder.binding.tvCharter.text =
+                Html.fromHtml(constitutionsData.chapters[0].article, Html.FROM_HTML_MODE_LEGACY)
         } else {
             holder.binding.tvCharter.text = "No data available"
         }

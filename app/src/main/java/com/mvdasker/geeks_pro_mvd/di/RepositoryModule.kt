@@ -30,7 +30,7 @@ object RepositoryModule {
         sanaripAskerApi: SanaripAskerApi,
         userProvider: UserProvider,
     ): LawRepository =
-        LawRepository(sanaripAskerApi, userProvider, provideAppDispatchers())
+        LawRepository(sanaripAskerApi, userProvider)
 
     @Provides
     @Singleton
@@ -106,8 +106,6 @@ object RepositoryModule {
         userProvider: UserProvider,
     ): DocumentsRepository =
         DocumentsRepository(sanaripAskerApi, userProvider)
-    fun provideNewsRepository(sanaripAskerApi: SanaripAskerApi): NewsRepository =
-        NewsRepository(sanaripAskerApi, provideAppDispatchers())
 
     @Provides
     @Singleton

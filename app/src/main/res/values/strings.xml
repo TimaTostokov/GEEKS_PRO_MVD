@@ -17,7 +17,7 @@
     <string name="fragment_statutes_title">Уставы вооруженых сил КР</string>
     <string name="fragment_law_title">Закон “О статусе военнослужащих”</string>
     <string name="constitution">Конституция КР</string>
-    <string name="law">Закон “О статусе военнослужащих”</string>
+    <string name="documents_laws">Законы</string>
     <string name="statutes">Уставы Вооруженных сил КР</string>
     <string name="fragment_constitution_title">Конституция КР</string>
     <string name="doc">Документы</string>
