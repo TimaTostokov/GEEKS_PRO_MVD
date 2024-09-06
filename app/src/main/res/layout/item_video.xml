@@ -4,10 +4,9 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.media3.ui.PlayerView
-        android:id="@+id/video_view"
+    <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+        android:id="@+id/youtubePlayerView"
         android:layout_width="match_parent"
-        app:show_timeout="3000"
-        android:layout_height="match_parent" />
+        android:layout_height="230dp" />
 
 </FrameLayout>

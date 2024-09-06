@@ -3,18 +3,13 @@ package com.mvdasker.geeks_pro_mvd.common
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.OptIn
-import androidx.media3.common.MediaItem
-import androidx.media3.common.util.UnstableApi
-import androidx.media3.datasource.DefaultHttpDataSource
-import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.exoplayer.hls.HlsMediaSource
 import androidx.recyclerview.widget.RecyclerView
 import com.aghajari.zoomhelper.ZoomHelper
 import com.bumptech.glide.Glide
 import com.mvdasker.geeks_pro_mvd.databinding.ItemImageBinding
 import com.mvdasker.geeks_pro_mvd.databinding.ItemVideoBinding
-import com.mvdasker.geeks_pro_mvd.utils.ext.ExoPlayerUtil
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 
 class MediaAdapter(private val items: List<PlayerItem>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -55,23 +50,31 @@ class MediaAdapter(private val items: List<PlayerItem>) :
     inner class VideoViewHolder(private val binding: ItemVideoBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        private var exoPlayer: ExoPlayer? = null
+        private var youTubePlayer: YouTubePlayer? = null
 
-        @OptIn(UnstableApi::class)
         fun bind(mediaItem: PlayerItem.Video) {
-            Log.d("VideoViewHoldr", "Initializing ExoPlayer for URL: ${mediaItem.videoUrl}")
-            exoPlayer = ExoPlayerUtil.initializePlayer(binding.root.context, mediaItem.videoUrl)
-            val hlsMediaSource =
-                HlsMediaSource.Factory(DefaultHttpDataSource.Factory()).createMediaSource(
-                    MediaItem.fromUri(mediaItem.videoUrl)
-                )
-            exoPlayer?.setMediaSource(hlsMediaSource)
-            binding.videoView.player = exoPlayer
+            binding.youtubePlayerView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
+                override fun onReady(youTubePlayer: YouTubePlayer) {
+                    this@VideoViewHolder.youTubePlayer = youTubePlayer
+
+                    val videoId = extractYouTubeVideoId(mediaItem.videoUrl)
+                    if (videoId != null) {
+                        youTubePlayer.cueVideo(videoId, 0f)
+                    } else {
+                        Log.e("VideoViewHolder", "Invalid YouTube URL: ${mediaItem.videoUrl}")
+                    }
+                }
+            })
+        }
+
+        private fun extractYouTubeVideoId(url: String): String? {
+            val regex = ".*(?:youtu.be/|v/|embed/|watch\\?v=|v=)([^#]*).*".toRegex()
+            val match = regex.matchEntire(url)
+            return match?.groups?.get(1)?.value
         }
 
         fun releasePlayer() {
-            ExoPlayerUtil.releasePlayer(exoPlayer)
-            exoPlayer = null
+            youTubePlayer?.pause()
         }
     }
 

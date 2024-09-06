@@ -1,17 +1,15 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home
 
 import androidx.lifecycle.viewModelScope
-import com.mvdasker.geeks_pro_mvd.common.AppDispatchers
 import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
-import com.mvdasker.geeks_pro_mvd.data.remote.model.news.News
+import com.mvdasker.geeks_pro_mvd.data.remote.model.news.NewsResponse
 import com.mvdasker.geeks_pro_mvd.data.repositories.NewsRepository
 import com.mvdasker.geeks_pro_mvd.utils.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,11 +17,10 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val repository: NewsRepository,
-    private val dispatchers: AppDispatchers
 ) : BaseViewModel() {
 
-    private val _newsState = MutableStateFlow<UiState<List<News>>>(UiState.Loading)
-    val newsState: Flow<UiState<List<News>>> = _newsState.asStateFlow()
+    private val _newsState = MutableStateFlow<UiState<NewsResponse>>(UiState.Loading)
+    val newsState: StateFlow<UiState<NewsResponse>> = _newsState
 
     private val _messageFlow = MutableStateFlow<Messages?>(null)
     val messageFlow: Flow<Messages> = _messageFlow.filterNotNull()
@@ -31,27 +28,35 @@ class HomeViewModel @Inject constructor(
     private val _notReadNotifCount = MutableStateFlow(0)
     val notReadNotifCount: StateFlow<Int> get() = _notReadNotifCount
 
-    init {
-        fetchNews()
-        updateNotReadNotifCount()
-    }
+    private var currentPage = 1
 
     fun clearMessage() {
         _messageFlow.value = null
     }
 
-    private fun fetchNews() {
-        viewModelScope.launch(dispatchers.io) {
+    init {
+        fetchNews(currentPage)
+    }
+
+    private fun fetchNews(page: Int) {
+        viewModelScope.launch {
             try {
-                val result = repository.getNews().results?.sortedByDescending { it.date }
-                if (result != null) {
-                    _newsState.value = UiState.Success(result)
-                }
-            } catch (t: Throwable) {
-                _newsState.value = UiState.Error(throwable = t, message = "An error occurred")
+                val response = repository.getNews(page)
+                _newsState.value = UiState.Success(response)
+                currentPage = page
+            } catch (e: Exception) {
+                _newsState.value = UiState.Error(throwable = e, message = "Error")
                 _messageFlow.value = Messages.NetworkIsDisconnected
             }
         }
+    }
+
+    fun loadNextPage() {
+        fetchNews(currentPage + 1)
+    }
+
+    fun loadNext() {
+        fetchNews(currentPage - 1)
     }
 
     private fun updateNotReadNotifCount() {
