@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class DetailLawsFragment : Fragment(R.layout.fragment_detail_laws) {
+
     private val binding by viewBinding(FragmentDetailLawsBinding::bind)
     private val viewModel: DetailLawViewModel by viewModels()
     private val args: DetailLawsFragmentArgs by navArgs()

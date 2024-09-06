@@ -46,7 +46,7 @@ interface SanaripAskerApi {
         @Header("Authorization") accessToken: String,
     ): List<Law>
 
-    @GET(LAW_END_ID_POINT)
+  @GET(LAW_END_ID_POINT)
     suspend fun getLawById(
         @Header("Authorization") accessToken: String,
         @Path("id") id: Int
@@ -118,7 +118,7 @@ interface SanaripAskerApi {
     @GET(NEWS_END_POINT)
     suspend fun getNews(
         @Header("Authorization") accessToken: String,
-        @Query("page") page: Int
+        @Query("page") page: Int,
     ): NewsResponse
 
     @GET(NEWS_DETAIL_ENDPOINT)
@@ -126,8 +126,6 @@ interface SanaripAskerApi {
         @Header("Authorization") accessToken: String,
         @Path("id") id: Int,
     ): NewsDetail
-
-    suspend fun getNewsId(@Path("id") id: Int): NewsDetail
 
     @GET(CONSTITUTIONS_END_POINT)
     suspend fun getConstitution(

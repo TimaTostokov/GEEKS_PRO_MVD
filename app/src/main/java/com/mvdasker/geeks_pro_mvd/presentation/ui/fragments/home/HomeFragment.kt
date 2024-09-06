@@ -9,8 +9,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
@@ -73,9 +71,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                             adapter.submitList(result.data.results)
                             binding.fHomeProgressBar.gone()
                         }
+
                         is UiState.Error -> {
                             Log.e("toli", "Ошибка: ${result.throwable}")
                         }
+
                         else -> {
                             binding.fHomeProgressBar.visible()
                         }
@@ -102,11 +102,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     /**
      * не удалять
      */
-    private fun notificationsAvailability(){
-        observeData(viewModel.notReadNotifCount){
-            if(it != 0){
-               binding.fhNotif.setImageResource(R.drawable.bell_not_empty)
-            }else{
+    private fun notificationsAvailability() {
+        observeData(viewModel.notReadNotifCount) {
+            if (it != 0) {
+                binding.fhNotif.setImageResource(R.drawable.bell_not_empty)
+            } else {
                 binding.fhNotif.setImageResource(R.drawable.bell)
             }
         }

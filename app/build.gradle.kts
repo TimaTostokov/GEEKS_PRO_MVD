@@ -78,11 +78,7 @@ dependencies {
 
     implementation(libs.dotsindicator)
 
-    implementation(libs.androidx.media3.exoplayer)
-    implementation(libs.androidx.media3.exoplayer.dash)
-    implementation(libs.androidx.media3.ui)
-
-    implementation(libs.androidx.media3.exoplayer.hls)
+    implementation(libs.androidyoutubeplayer.core)
 
     implementation(libs.zoomage)
     implementation(libs.github.zoomhelper)
