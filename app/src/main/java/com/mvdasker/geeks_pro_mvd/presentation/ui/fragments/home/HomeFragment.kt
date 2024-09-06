@@ -5,6 +5,9 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
@@ -18,6 +21,7 @@ import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -35,6 +39,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         observe()
         showSnack()
 
+        binding.nextButton.setOnClickListener {
+            viewModel.loadNextPage()
+            binding.nestedSv.smoothScrollTo(0, 0)
+        }
+
+        binding.backButton.setOnClickListener {
+            viewModel.loadNext()
+            binding.nestedSv.smoothScrollTo(0, 0)
+        }
+
         binding.fDocUpBtn.setOnClickListener {
             binding.nestedSv.smoothScrollTo(0, 0)
         }
@@ -49,21 +63,23 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun observe() {
-        observeData(viewModel.newsState) {
-            when (it) {
-                UiState.Loading -> {
-                    binding.fHomeProgressBar.visible()
-                }
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.newsState.collect { result ->
+                    when (result) {
+                        is UiState.Success -> {
+                            adapter.submitList(result.data.results)
+                            binding.fHomeProgressBar.gone()
+                        }
 
-                is UiState.Success -> {
-                    adapter.submitList(it.data)
-                    binding.fHomeProgressBar.gone()
-                    Log.d("toli", "данные пришли${it.data}")
-                }
+                        is UiState.Error -> {
+                            Log.e("toli", "Ошибка: ${result.throwable}")
+                        }
 
-                is UiState.Error -> {
-                    Log.e("toli", "данные не пришли frag")
-                    binding.fHomeProgressBar.gone()
+                        else -> {
+                            binding.fHomeProgressBar.visible()
+                        }
+                    }
                 }
             }
         }
@@ -86,11 +102,11 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     /**
      * не удалять
      */
-    private fun notificationsAvailability(){
-        observeData(viewModel.notReadNotifCount){
-            if(it != 0){
-               binding.fhNotif.setImageResource(R.drawable.bell_not_empty)
-            }else{
+    private fun notificationsAvailability() {
+        observeData(viewModel.notReadNotifCount) {
+            if (it != 0) {
+                binding.fhNotif.setImageResource(R.drawable.bell_not_empty)
+            } else {
                 binding.fhNotif.setImageResource(R.drawable.bell)
             }
         }

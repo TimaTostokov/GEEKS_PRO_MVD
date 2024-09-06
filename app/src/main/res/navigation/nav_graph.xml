@@ -235,27 +235,35 @@
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications.NotificationsFragment"
         android:label="fragment_notifications"
         tools:layout="@layout/fragment_notifications">
+
         <action
             android:id="@+id/action_notificationsFragment_to_statutesFragment"
             app:destination="@id/statutesFragment" />
+
         <action
             android:id="@+id/action_notificationsFragment_to_lawFragment"
             app:destination="@id/lawFragment" />
+
         <action
             android:id="@+id/action_notificationsFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+
         <action
             android:id="@+id/action_notificationsFragment_to_controlKRFragment"
             app:destination="@id/controlKRFragment" />
+
         <action
             android:id="@+id/action_notificationsFragment_to_controlITMIAKRFragment"
             app:destination="@id/controlITMIAKRFragment" />
+
         <action
             android:id="@+id/action_notificationsFragment_to_controlMIAKRFragment"
             app:destination="@id/controlMIAKRFragment" />
+
         <action
             android:id="@+id/action_notificationsFragment_to_constitutionFragment"
             app:destination="@id/constitutionFragment" />
+
     </fragment>
 
     <fragment
@@ -316,16 +324,19 @@
         tools:layout="@layout/fragment_history_v_v_m_v_d_k_r">
 
     </fragment>
+
     <fragment
         android:id="@+id/detailLawsFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.detail.DetailLawsFragment"
         android:label="fragment_detail_laws"
-
         tools:layout="@layout/fragment_detail_laws" >
+
         <argument
             android:name="id"
             app:argType="integer" />
+
     </fragment>
+
     <fragment
         android:id="@+id/searchLawsFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.search.SearchLawsFragment"

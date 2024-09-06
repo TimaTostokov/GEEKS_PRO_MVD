@@ -1,5 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.news
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
@@ -9,13 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.MediaAdapter
 import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.PlayerItem
 import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.data.remote.model.news.NewsImage
-import com.mvdasker.geeks_pro_mvd.data.remote.model.news.NewsVideo
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentNewsBinding
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.formatDate
@@ -44,23 +45,36 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
 
     }
 
-    private fun getLists(image: List<NewsImage>?, video: List<NewsVideo>) {
-        val mediaItems = image?.let { it ->
+    @SuppressLint("SetTextI18n")
+    private fun getLists(image: List<NewsImage>?, video: List<String>) {
+        val mediaItems = image?.let { image ->
             mapToMediaItems(
                 video,
-                it,
-                { mediaPlayer -> mediaPlayer.video?.let { PlayerItem.Video(it) } },
+                image,
+                { mediaPlayer -> mediaPlayer.let { PlayerItem.Video(it) } },
                 { imageSlider -> imageSlider.image?.let { PlayerItem.Image(it) } }
             )
         }
-
-        Log.d("getLists", "Not video $mediaItems")
-
+        val itemCount = mediaItems?.size ?: 0
         val adapter = mediaItems?.let { MediaAdapter(it) }
 
         binding.apply {
             viewPager.adapter = adapter
-            dotsIndicator.attachTo(viewPager)
+
+            pageIndicator.visibility = if (itemCount > 1) View.VISIBLE else View.GONE
+            prevButton.visibility =
+                if (itemCount <= 1 || viewPager.currentItem == 0) View.GONE else View.VISIBLE
+            nextButton.visibility =
+                if (itemCount <= 1 || viewPager.currentItem == itemCount - 1) View.GONE else View.VISIBLE
+
+            viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    pageIndicator.text = "${position + 1}/$itemCount"
+                    prevButton.visibility = if (position == 0) View.GONE else View.VISIBLE
+                    nextButton.visibility =
+                        if (position == itemCount - 1) View.GONE else View.VISIBLE
+                }
+            })
         }
     }
 
@@ -72,6 +86,20 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
 
             toBack.setOnClickListener {
                 findNavController().navigateUp()
+            }
+
+            prevButton.setOnClickListener {
+                val currentItem = viewPager.currentItem
+                if (currentItem > 0) {
+                    viewPager.currentItem = currentItem - 1
+                }
+            }
+
+            nextButton.setOnClickListener {
+                val currentItem = viewPager.currentItem
+                if (currentItem < (viewPager.adapter?.itemCount ?: 0) - 1) {
+                    viewPager.currentItem = currentItem + 1
+                }
             }
         }
     }
@@ -85,9 +113,12 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
                     UiState.Loading -> binding.fNewsProgressBar.visible()
 
                     is UiState.Success -> {
-                        Log.d("getLists", "до конвертации ${uiState.data.video}")
-                        val video = Extensions.convertIframeToUrlArray(uiState.data.video)
-                        Log.d("getLists", "после конвертации $video")
+                        val video = Extensions.convertToUrlArray(uiState.data.video) { newsVideo ->
+                            val htmlString = newsVideo.video
+                            val regex = """src="([^"]+)"""".toRegex()
+                            val matchResult = regex.find(htmlString.toString())
+                            matchResult?.groups?.get(1)?.value
+                        }
                         getLists(uiState.data.image, video)
                         with(binding) {
                             tvNewsTitle.text = uiState.data.title

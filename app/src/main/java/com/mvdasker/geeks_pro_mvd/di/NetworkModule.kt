@@ -28,14 +28,12 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideOkHttpClient(
-//        refreshTokenInterceptor: RefreshTokenInterceptor
     ): OkHttpClient = OkHttpClient().newBuilder()
         .addInterceptor(
             HttpLoggingInterceptor().setLevel(
                 HttpLoggingInterceptor.Level.BODY
             )
         )
-//        .addInterceptor(refreshTokenInterceptor)
         .connectTimeout(60L, TimeUnit.SECONDS)
         .readTimeout(60L, TimeUnit.SECONDS)
         .writeTimeout(60L, TimeUnit.SECONDS)

@@ -122,26 +122,22 @@ object Extensions {
         return list1 + list2
     }
 
-    fun convertIframeToUrlArray(iframeArray: List<NewsVideo>?): List<NewsVideo> {
-        val urlArray = mutableListOf<NewsVideo>()
+    fun <T> convertToUrlArray(
+        inputList: List<T>?,
+        extractUrl: (T) -> String?
+    ): List<String> {
+        val urlArray = mutableListOf<String>()
 
-        iframeArray?.forEach { iframe ->
-            val htmlString = iframe.video
-            Log.d("convertIframeToUrlArray", "Processing iframe: $htmlString")
+        inputList?.forEach { item ->
+            val urlString = extractUrl(item)
+            Log.d("convertToUrlArray", "Processing item: $urlString")
 
-            val regex = """src="([^"]+)"""".toRegex()
-            val matchResult = regex.find(htmlString.toString())
-            val url = matchResult?.groups?.get(1)?.value
-
-            Log.d("convertIframeToUrlArray", "Extracted URL: $url")
-
-            if (url != null && Patterns.WEB_URL.matcher(url).matches()) {
-                val newsVideo = NewsVideo(video = url)
-                urlArray.add(newsVideo)
+            if (urlString != null && Patterns.WEB_URL.matcher(urlString).matches()) {
+                urlArray.add(urlString)
             }
         }
 
-        Log.d("convertIframeToUrlArray", "Final urlArray: $urlArray")
+        Log.d("convertToUrlArray", "Final urlArray: $urlArray")
         return urlArray
     }
 
