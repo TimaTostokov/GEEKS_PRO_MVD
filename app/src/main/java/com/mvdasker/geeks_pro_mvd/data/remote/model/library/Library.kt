@@ -3,6 +3,8 @@ package com.mvdasker.geeks_pro_mvd.data.remote.model.library
 import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import com.google.gson.annotations.SerializedName
+import com.mvdasker.geeks_pro_mvd.data.remote.model.history.HistoryImage
+import com.mvdasker.geeks_pro_mvd.data.remote.model.history.HistoryVideo
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -22,6 +24,7 @@ data class Library(
     @SerializedName("conspect_ky")
     val conspectKy: String? = null,
     @SerializedName("image")
-    @DrawableRes
-    val image: Int? = null
+    val images: List<LibraryImage>? = null,
+    @SerializedName("videos")
+    val videos: List<HistoryVideo>? = null
 ) : Parcelable

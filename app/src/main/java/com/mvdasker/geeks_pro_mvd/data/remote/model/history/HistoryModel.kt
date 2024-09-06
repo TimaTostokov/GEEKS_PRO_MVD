@@ -18,5 +18,5 @@ data class HistoryModel(
     @SerializedName("title")
     val title: String? = null,
     @SerializedName("videos")
-    val videos: List<String>? = null
+    val videos: List<HistoryVideo>? = null
 ): Parcelable
