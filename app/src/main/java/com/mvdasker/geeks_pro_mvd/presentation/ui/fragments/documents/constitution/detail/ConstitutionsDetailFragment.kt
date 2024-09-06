@@ -52,4 +52,5 @@ class ConstitutionsDetailFragment : Fragment(R.layout.fragment_constitutions_det
         binding.tvChapterSearch.text = data.chapter
         binding.tvConstSearch.text = data.article
     }
+
 }
