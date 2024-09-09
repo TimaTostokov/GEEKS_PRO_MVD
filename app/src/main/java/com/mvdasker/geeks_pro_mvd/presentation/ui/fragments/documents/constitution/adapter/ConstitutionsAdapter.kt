@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.data.remote.model.constitution.Constitutions
 import com.mvdasker.geeks_pro_mvd.databinding.ItemConstitutionBinding
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.highlightItemCard
 
 class ConstitutionsAdapter(
     private var mList: List<Constitutions>,
@@ -24,6 +25,10 @@ class ConstitutionsAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun collapseExpandedView() {
             binding.linear.visibility = View.GONE
+        }
+
+        fun highlightItemConstitution() {
+            binding.constitutionCardView.highlightItemCard()
         }
     }
 
@@ -105,4 +110,6 @@ class ConstitutionsAdapter(
     }
 
     override fun getItemCount(): Int = mList.size
+
+    fun getPositionForId(id: Int): Int = mList.indexOfFirst { it.id == id }
 }

@@ -20,7 +20,7 @@ class LibraryViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _libraries = MutableStateFlow<List<Library>?>(null)
-    val libraries: StateFlow<List<Library>?> = _libraries
+    val libraries: Flow<List<Library>> = _libraries.filterNotNull()
 
     private val _messageFlow = MutableStateFlow<Messages?>(null)
     val messageFlow: Flow<Messages> = _messageFlow.filterNotNull()

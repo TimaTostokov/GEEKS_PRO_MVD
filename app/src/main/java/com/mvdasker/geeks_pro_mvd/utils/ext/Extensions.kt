@@ -2,8 +2,8 @@ package com.mvdasker.geeks_pro_mvd.utils.ext
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.Resources
 import android.os.Build
-import android.text.Html
 import android.util.Log
 import android.util.Patterns
 import android.util.TypedValue
@@ -13,6 +13,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -24,8 +25,6 @@ import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.PlayerItem
-import com.mvdasker.geeks_pro_mvd.data.remote.model.news.NewsImage
-import com.mvdasker.geeks_pro_mvd.data.remote.model.news.NewsVideo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -139,6 +138,38 @@ object Extensions {
 
         Log.d("convertToUrlArray", "Final urlArray: $urlArray")
         return urlArray
+    }
+
+    fun CardView.highlightItemCard() {
+        val resources: Resources = context.resources
+        val backgroundColor = ContextCompat.getColor(
+            context,
+            R.color.background_item
+        )
+        val whiteColor = ContextCompat.getColor(
+            context,
+            R.color.white
+        )
+        setCardBackgroundColor(backgroundColor)
+        postDelayed({
+            setCardBackgroundColor(whiteColor)
+        }, 1000)
+    }
+
+    fun View.highlightItem() {
+        val resources: Resources = context.resources
+        val backgroundColor = ContextCompat.getColor(
+            context,
+            R.color.background_item
+        )
+        val whiteColor = ContextCompat.getColor(
+            context,
+            R.color.white
+        )
+        setBackgroundColor(backgroundColor)
+        postDelayed({
+            setBackgroundColor(whiteColor)
+        }, 1000)
     }
 
 }

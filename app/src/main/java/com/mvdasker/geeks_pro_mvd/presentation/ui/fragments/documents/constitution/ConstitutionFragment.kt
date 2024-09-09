@@ -6,12 +6,14 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.data.remote.model.constitution.Constitutions
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentConstitutionBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.adapter.ConstitutionsAdapter
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications.NotificationsFragment.Companion.NOTIF_ID
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
@@ -56,6 +58,11 @@ class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
                     binding.fcLawProgressBar.gone()
                     Log.d("LawFragment", "Полученные данные: ${uiState.data}")
                     adapter.setFilteredList(uiState.data)
+                    val notifId = arguments?.getInt(NOTIF_ID) ?: 0
+                    if (notifId > 0) {
+                        arguments?.remove(NOTIF_ID)
+                        scrollToItemWithId(binding.rvConstitution, adapter, notifId)
+                    }
                 }
 
                 is UiState.Error -> {
@@ -88,5 +95,25 @@ class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
                 id
             )
         )
+    }
+
+    private fun scrollToItemWithId(
+        recyclerView: RecyclerView,
+        adapter: ConstitutionsAdapter,
+        itemId: Int
+    ) {
+        val position = adapter.getPositionForId(itemId)
+        if (position != -1) {
+            recyclerView.smoothScrollToPosition(position + 3)
+            recyclerView.nestedScrollBy(0, position)
+            recyclerView.postDelayed({
+                val viewHolder = recyclerView.findViewHolderForAdapterPosition(position)
+                if (viewHolder is ConstitutionsAdapter.ConstitutionViewHolder) {
+                    viewHolder.highlightItemConstitution()
+                }
+            }, 300)
+        } else {
+            Log.e("Scroll", "Элемент с ID $itemId не найден.")
+        }
     }
 }

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.data.remote.model.law.Law
 import com.mvdasker.geeks_pro_mvd.databinding.ItemLawsBinding
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.highlightItemCard
 
 class LawAdapter(private var mList: List<Law>, private val onCLick: (Int) -> Unit) :
     RecyclerView.Adapter<LawAdapter.LawViewHolder>() {
@@ -20,6 +21,10 @@ class LawAdapter(private var mList: List<Law>, private val onCLick: (Int) -> Uni
         RecyclerView.ViewHolder(binding.root) {
         fun collapseExpandedView() {
             binding.linear.visibility = View.GONE
+        }
+
+        fun highlightItemLaw() {
+            binding.lawCardView.highlightItemCard()
         }
     }
 
@@ -99,4 +104,7 @@ class LawAdapter(private var mList: List<Law>, private val onCLick: (Int) -> Uni
     }
 
     override fun getItemCount(): Int = mList.size
+
+    fun getPositionForId(id: Int): Int = mList.indexOfFirst { it.id == id }
+
 }

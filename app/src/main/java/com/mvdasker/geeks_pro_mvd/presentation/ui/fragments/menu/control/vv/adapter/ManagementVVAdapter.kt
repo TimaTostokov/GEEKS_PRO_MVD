@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.mvdasker.geeks_pro_mvd.data.remote.model.mangements.Governance
 import com.mvdasker.geeks_pro_mvd.databinding.ItemManagementKgBinding
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.highlightItem
 
 class ManagementVVAdapter :
     ListAdapter<Governance, ManagementVVAdapter.ManagementsKgViewHolder>(DiffUtilCallback()) {
@@ -30,6 +31,10 @@ class ManagementVVAdapter :
                     .load(item.photo)
                     .into(imView)
             }
+        }
+
+        fun highlightItemControlVV() {
+            binding.llControlKr.highlightItem()
         }
     }
 
@@ -90,5 +95,7 @@ class ManagementVVAdapter :
             return oldItem == newItem
         }
     }
+
+    fun getPositionForId(id: Int): Int = currentList.indexOfFirst { it.id == id }
 
 }

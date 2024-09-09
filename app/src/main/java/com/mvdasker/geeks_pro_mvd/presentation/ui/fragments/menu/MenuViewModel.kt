@@ -104,11 +104,11 @@ class MenuViewModel @Inject constructor(
     }
 
     fun onClickControlKRButton() =
-        navController.navigate(MenuFragmentDirections.actionMenuFragmentToControlKRFragment())
+        navController.navigate(MenuFragmentDirections.actionMenuFragmentToControlKRFragment(0))
 
     fun onClickControlMIAKRButton() =
-        navController.navigate(MenuFragmentDirections.actionMenuFragmentToControlMIAKRFragment())
+        navController.navigate(MenuFragmentDirections.actionMenuFragmentToControlMIAKRFragment(0))
 
     fun onClickControlITMIAKRButton() =
-        navController.navigate(MenuFragmentDirections.actionMenuFragmentToControlITMIAKRFragment())
+        navController.navigate(MenuFragmentDirections.actionMenuFragmentToControlITMIAKRFragment(0))
 }

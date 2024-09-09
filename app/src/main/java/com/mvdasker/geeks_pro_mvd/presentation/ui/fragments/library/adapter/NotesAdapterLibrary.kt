@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.data.remote.model.library.Library
 import com.mvdasker.geeks_pro_mvd.databinding.ItemAbstractBinding
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.highlightItemCard
 
 class NotesAdapterLibrary(private val onClick: (Int) -> Unit) :
     ListAdapter<Library, NotesAdapterLibrary.ViewHolder>(DiffUtilCallback()) {
@@ -70,6 +71,10 @@ class NotesAdapterLibrary(private val onClick: (Int) -> Unit) :
             }
             return spannableString
         }
+
+        fun highlightItemLibrary() {
+            binding.cardLibrary.highlightItemCard()
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -102,5 +107,7 @@ class NotesAdapterLibrary(private val onClick: (Int) -> Unit) :
             return oldItem.id == newItem.id
         }
     }
+
+    fun getPositionForId(id: Int): Int = currentList.indexOfFirst { it.id == id }
 
 }

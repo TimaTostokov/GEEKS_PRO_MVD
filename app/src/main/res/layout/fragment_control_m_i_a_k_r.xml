@@ -69,10 +69,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="8dp"
-        android:paddingBottom="?attr/actionBarSize"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        tools:listitem="@layout/item_management_kg"/>
+        tools:listitem="@layout/item_management_kg" />
 
     <FrameLayout
         android:id="@+id/fcRukMVDMKProgressBar"
