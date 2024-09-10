@@ -59,8 +59,6 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
 
         binding.etUserLogin.addTextChangedListener { viewModelAuth.onLoginChanged() }
         binding.etUserPasswords.addTextChangedListener { viewModelAuth.onPasswordChanged() }
-        binding.etUserLogin.setText("userAlexandr")
-        binding.etUserPasswords.setText("alex123")
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModelAuth.state.collect { state ->
