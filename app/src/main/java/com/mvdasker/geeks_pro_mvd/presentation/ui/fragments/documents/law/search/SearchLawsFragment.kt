@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.UiState
-import com.mvdasker.geeks_pro_mvd.data.remote.model.law.Law
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentSearchLawsBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.LawViewModel
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.adapter.LawAdapter
@@ -24,19 +23,16 @@ import dagger.hilt.android.AndroidEntryPoint
 class SearchLawsFragment : Fragment(R.layout.fragment_search_laws) {
 
     private val binding by viewBinding(FragmentSearchLawsBinding::bind)
-    private var mList = ArrayList<Law>()
-    private var controlList: List<Law> = listOf()
+
     private val viewModel by viewModels<LawViewModel>()
 
-    private var searchQuery: String = ""
-    private val adapter = LawAdapter(mList, ::onClick)
+    private val adapter = LawAdapter(::onClick)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initialize()
         observeViewModel()
         searchInfo()
-        searchCharacter(searchQuery)
         goBack()
         deleteClearBtn()
     }
@@ -51,8 +47,10 @@ class SearchLawsFragment : Fragment(R.layout.fragment_search_laws) {
                 is UiState.Loading -> binding.fcLawProgressBar.visible()
                 is UiState.Success -> {
                     binding.fcLawProgressBar.gone()
-                    adapter.setFilteredList(uiState.data)
-                    controlList = uiState.data
+                    adapter.setFilteredList(
+                        mList = uiState.data,
+                        query = binding.etSearch.text?.toString().orEmpty(),
+                    )
                 }
 
                 is UiState.Error -> {
@@ -68,27 +66,14 @@ class SearchLawsFragment : Fragment(R.layout.fragment_search_laws) {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                s.toString().let {
-                    searchCharacter(s.toString())
-                }
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                viewModel.onSearchQueryChanged(s.toString())
             }
 
             override fun afterTextChanged(s: Editable?) {
             }
 
         })
-    }
-
-    private fun searchCharacter(query: String) {
-        adapter.updateSearchQuery(query)
-        val filteredList = controlList.filter {
-            it.section?.contains(query, ignoreCase = true) == true || it.section?.contains(
-                query,
-                ignoreCase = true
-            ) == true
-        }
-        adapter.setFilteredList(filteredList)
     }
 
     private fun onClick(id: Int) {

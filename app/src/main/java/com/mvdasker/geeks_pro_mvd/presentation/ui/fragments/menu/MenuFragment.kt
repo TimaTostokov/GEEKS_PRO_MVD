@@ -23,6 +23,7 @@ import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.loadImage
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.rotate
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -138,16 +139,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
     }
 
     private fun updateSpinnerIcon(isRotated: Boolean) {
-        val targetRotation = if (isRotated) 180f else 0f
-        val currentRotation = binding.spinner.rotation
-
-        if (currentRotation != targetRotation) {
-            ObjectAnimator.ofFloat(binding.spinner, "rotation", currentRotation, targetRotation)
-                .apply {
-                    duration = 300L
-                    start()
-                }
-        }
+        binding.spinner.rotate(isRotated)
     }
 
     private fun setupListeners() = with(binding) {
