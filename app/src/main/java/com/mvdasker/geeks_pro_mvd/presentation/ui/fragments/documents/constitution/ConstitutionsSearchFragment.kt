@@ -131,9 +131,7 @@ class ConstitutionsSearchFragment : Fragment(R.layout.fragment_constitutions_sea
 
     private fun onCLick(id: Int) {
         findNavController().navigate(
-            ConstitutionsSearchFragmentDirections.actionConstitutionsSearchFragmentToConstitutionsDetailFragment(
-                id
-            )
+            ConstitutionsSearchFragmentDirections.actionConstitutionsSearchFragmentToConstitutionsDetailFragment()
         )
     }
 }

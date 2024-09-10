@@ -28,7 +28,7 @@ object RepositoryModule {
         sanaripAskerApi: SanaripAskerApi,
         userProvider: UserProvider,
     ): LawRepository =
-        LawRepository(sanaripAskerApi, userProvider)
+        LawRepository(sanaripAskerApi, userProvider, provideAppDispatchers())
 
     @Provides
     @Singleton
@@ -83,11 +83,17 @@ object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideHistoryRepository(sanaripAskerApi: SanaripAskerApi, userProvider: UserProvider): HistoryRepository =
-        HistoryRepository(sanaripAskerApi, userProvider )
+    fun provideHistoryRepository(
+        sanaripAskerApi: SanaripAskerApi,
+        userProvider: UserProvider
+    ): HistoryRepository =
+        HistoryRepository(sanaripAskerApi, userProvider)
 
     @Provides
     @Singleton
-    fun provideNewsRepository(sanaripAskerApi: SanaripAskerApi, userProvider: UserProvider): NewsRepository =
+    fun provideNewsRepository(
+        sanaripAskerApi: SanaripAskerApi,
+        userProvider: UserProvider
+    ): NewsRepository =
         NewsRepository(sanaripAskerApi, provideAppDispatchers(), userProvider)
 }

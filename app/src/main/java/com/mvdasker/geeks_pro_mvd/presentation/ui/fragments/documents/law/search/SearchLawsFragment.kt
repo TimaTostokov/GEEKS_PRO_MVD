@@ -92,7 +92,11 @@ class SearchLawsFragment : Fragment(R.layout.fragment_search_laws) {
     }
 
     private fun onClick(id: Int) {
-        findNavController().navigate(SearchLawsFragmentDirections.actionSearchLawsFragmentToDetailLawsFragment(id))
+        findNavController().navigate(
+            SearchLawsFragmentDirections.actionSearchLawsFragmentToDetailLawsFragment(
+                id
+            )
+        )
     }
 
 
@@ -100,7 +104,7 @@ class SearchLawsFragment : Fragment(R.layout.fragment_search_laws) {
         binding.ivBack.setOnClickListener {
             findNavController().navigateUp()
         }
-        binding.btnCross.setOnClickListener{
+        binding.btnCross.setOnClickListener {
             findNavController().navigateUp()
         }
     }

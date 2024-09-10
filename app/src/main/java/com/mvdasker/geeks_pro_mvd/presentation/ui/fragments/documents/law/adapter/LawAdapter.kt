@@ -8,6 +8,7 @@ import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.data.remote.model.law.Law
 import com.mvdasker.geeks_pro_mvd.databinding.ItemLawsBinding
@@ -22,13 +23,28 @@ class LawAdapter(private var mList: List<Law>, private val onCLick: (Int) -> Uni
         fun collapseExpandedView() {
             binding.linear.visibility = View.GONE
         }
+
+        fun bind(lawsData: Law) {
+            binding.tvLaws.text = highlightText(
+                Html.fromHtml(lawsData.section, Html.FROM_HTML_MODE_LEGACY).toString(),
+                searchQuery
+            )
+
+
+            val isExpandable: Boolean = lawsData.isExpandable
+            binding.rvChapter.visibility = if (isExpandable) View.VISIBLE else View.GONE
+            binding.ivSpinner.setOnClickListener {
+                isAnyItemExpanded(position)
+                lawsData.isExpandable = !lawsData.isExpandable
+                notifyItemChanged(position)
+            }
+        }
     }
 
     fun setFilteredList(mList: List<Law>) {
         this.mList = mList
         notifyDataSetChanged()
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LawViewHolder {
         val binding = ItemLawsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -42,26 +58,11 @@ class LawAdapter(private var mList: List<Law>, private val onCLick: (Int) -> Uni
 
     override fun onBindViewHolder(holder: LawViewHolder, position: Int) {
         val lawsData = mList[position]
-        holder.binding.tvLaws.text = highlightText(
-            Html.fromHtml(lawsData.section, Html.FROM_HTML_MODE_LEGACY).toString(),
-            searchQuery
-        )
-        if (lawsData.charter != null && lawsData.charter.size > 1) {
-            holder.binding.tvCharter.text = highlightText(
-                Html.fromHtml(lawsData.charter[0].chapter, Html.FROM_HTML_MODE_LEGACY).toString(),
-                searchQuery
-            )
-        } else {
-            holder.binding.tvCharter.text = "No data available"
-        }
-        val isExpandable: Boolean = lawsData.isExpandable
-        holder.binding.tvCharter.visibility = if (isExpandable) View.VISIBLE else View.GONE
-        holder.binding.ivSpinner.setOnClickListener {
-            isAnyItemExpanded(position)
-            lawsData.isExpandable = !lawsData.isExpandable
-            notifyItemChanged(position)
-        }
-        holder.binding.linear.setOnClickListener {
+        holder.bind(lawsData)
+        val adapter = lawsData.charter?.let { LawsChapterAdapter(it, onCLick) }
+        holder.binding.rvChapter.adapter = adapter
+        holder.binding.rvChapter.layoutManager = LinearLayoutManager(holder.itemView.context)
+        holder.binding.rvChapter.setOnClickListener {
             onCLick(lawsData.id)
         }
     }

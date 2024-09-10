@@ -83,6 +83,6 @@ class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
     }
 
     private fun onClick(id: Int) {
-        findNavController().navigate(ConstitutionFragmentDirections.actionConstitutionFragmentToConstitutionsDetailFragment(id))
+        findNavController().navigate(ConstitutionFragmentDirections.actionConstitutionFragmentToConstitutionsDetailFragment())
     }
 }
