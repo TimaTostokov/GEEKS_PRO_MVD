@@ -115,7 +115,7 @@
     <fragment
         android:id="@+id/lawFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.LawFragment"
-        android:label="LawFragment" >
+        android:label="LawFragment">
         <action
             android:id="@+id/action_lawFragment_to_detailLawsFragment"
             app:destination="@id/detailLawsFragment" />
@@ -143,7 +143,7 @@
         android:id="@+id/constitutionFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.ConstitutionFragment"
         android:label="fragment_constitution"
-        tools:layout="@layout/fragment_constitution" >
+        tools:layout="@layout/fragment_constitution">
         <action
             android:id="@+id/action_constitutionFragment_to_constitutionsSearchFragment"
             app:destination="@id/constitutionsSearchFragment" />
@@ -330,7 +330,7 @@
         android:id="@+id/malfunctionsFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.malfunctions.MalfunctionsFragment"
         android:label="fragment_tech_malfunctions"
-        tools:layout="@layout/fragment_malfunctions"/>
+        tools:layout="@layout/fragment_malfunctions" />
 
     <fragment
         android:id="@+id/historyMVDKRFragment"
@@ -357,30 +357,10 @@
     </fragment>
 
     <fragment
-        android:id="@+id/constitutionsDetailFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.detail.ConstitutionsDetailFragment"
-        android:label="fragment_constitutions_detail"
-        tools:layout="@layout/fragment_constitutions_detail">
-
-        <argument
-            android:name="model"
-            app:argType="integer"/>
-    </fragment>
-    <fragment
-        android:id="@+id/constitutionsSearchFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.ConstitutionsSearchFragment"
-        android:label="fragment_constitutions_search"
-        tools:layout="@layout/fragment_constitutions_search" >
-        <action
-            android:id="@+id/action_constitutionsSearchFragment_to_constitutionsDetailFragment"
-            app:destination="@id/constitutionsDetailFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/detailLawsFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.detail.DetailLawsFragment"
         android:label="fragment_detail_laws"
-        tools:layout="@layout/fragment_detail_laws" >
-
+        tools:layout="@layout/fragment_detail_laws">
         <argument
             android:name="id"
             app:argType="integer" />
@@ -391,6 +371,25 @@
         android:id="@+id/searchLawsFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.search.SearchLawsFragment"
         android:label="fragment_search_laws"
-        tools:layout="@layout/fragment_search_laws" />
+        tools:layout="@layout/fragment_search_laws" >
+        <action
+            android:id="@+id/action_searchLawsFragment_to_detailLawsFragment"
+            app:destination="@id/detailLawsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/constitutionsDetailFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.detail.ConstitutionsDetailFragment"
+        android:label="fragment_constitutions_detail"
+        tools:layout="@layout/fragment_constitutions_detail" />
+
+    <fragment
+        android:id="@+id/constitutionsSearchFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.ConstitutionsSearchFragment"
+        android:label="fragment_constitutions_search"
+        tools:layout="@layout/fragment_constitutions_search" >
+        <action
+            android:id="@+id/action_constitutionsSearchFragment_to_constitutionsDetailFragment"
+            app:destination="@id/constitutionsDetailFragment" />
+    </fragment>
 
 </navigation>

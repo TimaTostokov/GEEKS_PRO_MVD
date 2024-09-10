@@ -5,7 +5,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
-import android.view.Window
 import android.view.WindowInsetsController
 import android.view.WindowManager
 import androidx.activity.viewModels
@@ -16,7 +15,6 @@ import com.aghajari.zoomhelper.ZoomHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.ActivityMainBinding
-import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.malfunctions.ServerStatus
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.malfunctions.ServerStatusViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

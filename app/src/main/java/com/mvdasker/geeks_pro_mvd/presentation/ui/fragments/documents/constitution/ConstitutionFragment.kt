@@ -41,6 +41,8 @@ class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
     private fun initialize() {
         binding.rvConstitution.adapter = adapter
         binding.rvConstitution.setHasFixedSize(true)
+        binding.rvConstitution.layoutManager = LinearLayoutManager(requireContext())
+
     }
 
     private fun setupUI() {
@@ -51,12 +53,10 @@ class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
 
     private fun observeViewModel() {
         observeData(viewModel.constitution) { uiState ->
-            Log.d("ConstitutionFragment", "UI State: $uiState")
             when (uiState) {
                 is UiState.Loading -> binding.fcLawProgressBar.visible()
                 is UiState.Success -> {
                     binding.fcLawProgressBar.gone()
-                    Log.d("LawFragment", "Полученные данные: ${uiState.data}")
                     adapter.setFilteredList(uiState.data)
                     val notifId = arguments?.getInt(NOTIF_ID) ?: 0
                     if (notifId > 0) {
@@ -67,7 +67,7 @@ class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
 
                 is UiState.Error -> {
                     binding.fcLawProgressBar.gone()
-                    Log.e("LawFragment", "Ошибка получения данных: ${uiState.message}")
+                    Log.e("LawFragment", "Ошибка получения данных")
                 }
             }
         }
@@ -85,16 +85,12 @@ class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
 
     private fun toGoSearch() {
         binding.etSearch.setOnClickListener {
-            findNavController().navigate(ConstitutionFragmentDirections.actionConstitutionFragmentToConstitutionsSearchFragment())
+            findNavController().navigate(R.id.action_constitutionFragment_to_constitutionsSearchFragment)
         }
     }
 
     private fun onClick(id: Int) {
-        findNavController().navigate(
-            ConstitutionFragmentDirections.actionConstitutionFragmentToConstitutionsDetailFragment(
-                id
-            )
-        )
+        findNavController().navigate(ConstitutionFragmentDirections.actionConstitutionFragmentToConstitutionsDetailFragment())
     }
 
     private fun scrollToItemWithId(

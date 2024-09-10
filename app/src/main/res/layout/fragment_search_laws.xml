@@ -17,7 +17,7 @@
         app:layout_scrollFlags="scroll|enterAlways">
 
         <ImageView
-            android:id="@+id/fconstBackBtn"
+            android:id="@+id/iv_back"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:background="?attr/selectableItemBackgroundBorderless"
@@ -102,4 +102,14 @@
         app:layout_constraintTop_toBottomOf="@id/et_search"
         tools:listitem="@layout/item_laws" />
 
+    <FrameLayout
+        android:id="@+id/fcLawProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:visibility="gone">
+
+        <include layout="@layout/progress_bar" />
+
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

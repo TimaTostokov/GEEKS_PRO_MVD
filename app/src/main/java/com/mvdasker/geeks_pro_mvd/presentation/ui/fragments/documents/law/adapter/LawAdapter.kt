@@ -1,12 +1,14 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.adapter
 
 import android.graphics.Color
+import android.text.Html
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.data.remote.model.law.Law
 import com.mvdasker.geeks_pro_mvd.databinding.ItemLawsBinding

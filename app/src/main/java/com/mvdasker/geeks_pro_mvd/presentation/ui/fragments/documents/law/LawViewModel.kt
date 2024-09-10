@@ -2,12 +2,11 @@ package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law
 
 import androidx.lifecycle.viewModelScope
 import com.mvdasker.geeks_pro_mvd.common.Messages
+import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.data.remote.model.law.Law
 import com.mvdasker.geeks_pro_mvd.data.repositories.LawRepository
-import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.utils.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
