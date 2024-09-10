@@ -77,5 +77,4 @@ class LawViewHolder(
 
         binding.rvChapter.isVisible = lawsData.isExpandable
     }
-
 }
