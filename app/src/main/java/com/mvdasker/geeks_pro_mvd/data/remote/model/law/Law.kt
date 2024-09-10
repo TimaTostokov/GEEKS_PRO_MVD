@@ -11,6 +11,6 @@ data class Law(
     @SerializedName("section")
     val section: String? = null,
     @SerializedName("chapters")
-    val charter: List<LawsCharter>? = null,
+    val charter: List<LawsChapter>? = null,
     var isExpandable: Boolean = false
 ) : Parcelable

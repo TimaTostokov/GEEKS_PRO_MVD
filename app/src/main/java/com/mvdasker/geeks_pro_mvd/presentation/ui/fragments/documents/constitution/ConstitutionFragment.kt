@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
@@ -22,7 +23,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
-
     private val binding by viewBinding(FragmentConstitutionBinding::bind)
     private val viewModel by viewModels<ConstitutionsViewModel>()
     private var mList = ArrayList<Constitutions>()
@@ -39,6 +39,8 @@ class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
     private fun initialize() {
         binding.rvConstitution.adapter = adapter
         binding.rvConstitution.setHasFixedSize(true)
+        binding.rvConstitution.layoutManager = LinearLayoutManager(requireContext())
+
     }
 
     private fun setupUI() {
@@ -49,18 +51,16 @@ class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
 
     private fun observeViewModel() {
         observeData(viewModel.constitution) { uiState ->
-            Log.d("ConstitutionFragment", "UI State: $uiState")
             when (uiState) {
                 is UiState.Loading -> binding.fcLawProgressBar.visible()
                 is UiState.Success -> {
                     binding.fcLawProgressBar.gone()
-                    Log.d("LawFragment", "Полученные данные: ${uiState.data}")
                     adapter.setFilteredList(uiState.data)
                 }
 
                 is UiState.Error -> {
                     binding.fcLawProgressBar.gone()
-                    Log.e("LawFragment", "Ошибка получения данных: ${uiState.message}")
+                    Log.e("LawFragment", "Ошибка получения данных")
                 }
             }
         }
@@ -78,15 +78,11 @@ class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
 
     private fun toGoSearch() {
         binding.etSearch.setOnClickListener {
-            findNavController().navigate(ConstitutionFragmentDirections.actionConstitutionFragmentToConstitutionsSearchFragment())
+            findNavController().navigate(R.id.action_constitutionFragment_to_constitutionsSearchFragment)
         }
     }
 
     private fun onClick(id: Int) {
-        findNavController().navigate(
-            ConstitutionFragmentDirections.actionConstitutionFragmentToConstitutionsDetailFragment(
-                id
-            )
-        )
+        findNavController().navigate(ConstitutionFragmentDirections.actionConstitutionFragmentToConstitutionsDetailFragment())
     }
 }

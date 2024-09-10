@@ -26,18 +26,18 @@ class ConstitutionsDetailFragment : Fragment(R.layout.fragment_constitutions_det
 
         val id = arguments?.getInt("id") ?: return
 
-        viewModel.loadConstitutionById(id)
+        viewModel.getConstitutionsDetailDetail(id)
 
         observeViewModel()
     }
 
     private fun observeViewModel() {
-        observeData(viewModel.constitutionDetail) { uiState ->
+        observeData(viewModel.constitutionsDetail) { uiState ->
             when (uiState) {
                 is UiState.Loading -> binding.progressBar.visible()
                 is UiState.Success -> {
                     binding.progressBar.gone()
-                    displayData(uiState.data)
+                    uiState.data?.let { displayData(it) }
                 }
 
                 is UiState.Error -> {
@@ -52,5 +52,4 @@ class ConstitutionsDetailFragment : Fragment(R.layout.fragment_constitutions_det
         binding.tvChapterSearch.text = data.chapter
         binding.tvConstSearch.text = data.article
     }
-
 }
