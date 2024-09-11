@@ -2,7 +2,10 @@ package com.mvdasker.geeks_pro_mvd.utils.ext
 
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
 import android.text.Spannable
@@ -27,6 +30,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.common.LanguagePreference
 import com.mvdasker.geeks_pro_mvd.common.PlayerItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -171,6 +175,49 @@ object Extensions {
 
         Log.d("convertToUrlArray", "Final urlArray: $urlArray")
         return urlArray
+    }
+
+    fun Activity.changeLanguage() {
+        val listItems = arrayOf("Кыргызский", "Русский")
+        val mBuilder = AlertDialog.Builder(this)
+        mBuilder.setTitle("Выберите язык")
+        mBuilder.setSingleChoiceItems(listItems, -1) { dialog, which ->
+            when (which) {
+
+                0 -> {
+                    setLocale("ky", this)
+                }
+
+                1 -> {
+                    setLocale("ru", this)
+                }
+            }
+            this.recreate()
+            dialog.dismiss()
+        }
+        val mDialog = mBuilder.create()
+        mDialog.show()
+    }
+
+    private fun setLocale(s: String, context: Context) {
+        val locale = Locale(s)
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.locale = locale
+        context.resources.updateConfiguration(
+            config,
+            context.resources.displayMetrics
+        )
+        LanguagePreference.getInstance(context)?.saveLanguage(s)
+
+    }
+
+    fun loadLocale(context: Context) {
+        var language: String? = LanguagePreference.getInstance(context)?.getLanguage
+        if (language != null) {
+            setLocale(language, context)
+            Log.d("ololo", "Перевод: $language")
+        }
     }
 
 }
