@@ -1,11 +1,11 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.User
 import com.mvdasker.geeks_pro_mvd.data.remote.model.parent.ParentModel
@@ -28,9 +28,6 @@ class MenuViewModel @Inject constructor(
     private var _navController: NavController? = null
     private val navController get() = _navController!!
 
-    private val _selectedButtonId = MutableStateFlow<Int?>(null)
-    val selectedButtonId: StateFlow<Int?> = _selectedButtonId.asStateFlow()
-
     private val _isRecyclerViewVisible = MutableStateFlow(false)
     val isRecyclerViewVisible: StateFlow<Boolean> = _isRecyclerViewVisible
 
@@ -40,8 +37,15 @@ class MenuViewModel @Inject constructor(
     private val _getUserId = MutableStateFlow<UiState<User?>>(UiState.Loading)
     val getUserId: Flow<UiState<User?>> = _getUserId.filterNotNull()
 
+    private val _messageFlow = MutableStateFlow<Messages?>(null)
+    val messageFlow: Flow<Messages> = _messageFlow.filterNotNull()
+
     init {
         getUserId()
+    }
+
+    fun clearMessage() {
+        _messageFlow.value = null
     }
 
     fun setNavController(navController: NavController) {
@@ -55,6 +59,7 @@ class MenuViewModel @Inject constructor(
                 _getUserId.value = UiState.Success(result)
             } catch (e: Exception) {
                 _getUserId.value = UiState.Error(throwable = e, message = "Error getting user")
+                _messageFlow.value = Messages.NetworkIsDisconnected
             }
         }
     }

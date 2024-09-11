@@ -15,14 +15,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.button.MaterialButton
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentMenuBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history.adapter.HistoryAdapter
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.loadImage
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.rotate
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,7 +46,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
         setupListeners()
         observeViewModel()
         snackBar()
-
+        loadSavedLanguage()
     }
 
     private fun observeViewModel() {
@@ -55,12 +56,6 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
                 binding.line.isVisible = isVisible
             }
         }
-
-//        lifecycleScope.launch {
-//            viewModel.selectedButtonId.collect { selectedId ->
-//                selectedId?.let { updateButtonState(it) }
-//            }
-//        }
 
         lifecycleScope.launch {
             viewModel.isSpinnerIconRotated.collectLatest { isRotated ->
@@ -112,11 +107,11 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
         }
 
         kgBtn.setOnClickListener {
-            updateLocale("ky") // Установить киргизский язык ("ky")
+            updateLocale("ky")
         }
 
         ruBtn.setOnClickListener {
-            updateLocale("ru") // Установить русский язык ("ru")
+            updateLocale("ru")
         }
 
         aboutUsButton.setOnClickListener {
