@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class LibraryRepository @Inject constructor(
     private val sanaripAskerApi: SanaripAskerApi,
-    private val userProvider: UserProvider
+    private val userProvider: UserProvider,
 ) {
 
     suspend fun searchNotes(title: String? = null, description: String? = null): List<Library> {

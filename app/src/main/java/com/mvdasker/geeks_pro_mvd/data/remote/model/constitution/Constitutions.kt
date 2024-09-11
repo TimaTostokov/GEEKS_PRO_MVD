@@ -11,6 +11,6 @@ data class Constitutions(
     @SerializedName("section")
     val section: String? = null,
     @SerializedName("chapters")
-    val chapters: List<ConstitutionsChapter>,
+    val chapters: List<ConstitutionsChapter>? = null,
     var isExpandable: Boolean = false
-): Parcelable
+) : Parcelable

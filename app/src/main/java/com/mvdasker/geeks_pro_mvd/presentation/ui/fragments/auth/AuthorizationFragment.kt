@@ -53,12 +53,6 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
         setupClickListeners()
         loadSavedLanguage()
 
-//        lifecycleScope.launch {
-//            viewModel.selectedButtonId.collect { selectedId ->
-//                selectedId?.let { updateButtonState(it) }
-//            }
-//        }
-
         binding.etUserLogin.addTextChangedListener { viewModelAuth.onLoginChanged() }
         binding.etUserPasswords.addTextChangedListener { viewModelAuth.onPasswordChanged() }
 
@@ -169,10 +163,8 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
         val intent = requireActivity().intent
         requireActivity().apply {
             viewModel.saveSelectedLanguage(languageCode)
-
             recreate()
         }
-
     }
 
     companion object {

@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class DocumentsRepository @Inject constructor(
     private val sanaripAskerApi: SanaripAskerApi,
-    private val userProvider: UserProvider
+    private val userProvider: UserProvider,
 ) {
 
     suspend fun getIsNotReadNotif(): List<Notification> =

@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class CharterRepository @Inject constructor(
     private val sanaripAskerApi: SanaripAskerApi,
-    private val userProvider: UserProvider
+    private val userProvider: UserProvider,
 ) : BaseRepository() {
 
     fun getListChartersFlow() = doRequest {

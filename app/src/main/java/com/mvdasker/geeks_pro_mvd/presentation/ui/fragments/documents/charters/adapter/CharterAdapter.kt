@@ -1,20 +1,16 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.charters.adapter
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.DownloadManager
 import android.content.Context
-import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Environment
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat.requestPermissions
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.data.remote.model.charter.Charter
 import com.mvdasker.geeks_pro_mvd.databinding.ItemCharterBinding
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.highlightItemCard
 
 class CharterAdapter(private val context: Context) :
     RecyclerView.Adapter<CharterAdapter.CharterViewHolder>() {
@@ -35,6 +31,10 @@ class CharterAdapter(private val context: Context) :
             itemDateOfCharter.text = charter.title
             itemDownloadBtn.tag = charter.url
         }
+
+        fun highlightItemCharter() {
+            binding.itemCarter.highlightItemCard()
+        }
     }
 
     private fun downloadCharter(url: String) {
@@ -50,8 +50,6 @@ class CharterAdapter(private val context: Context) :
         val downloadManager = context.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
         downloadManager.enqueue(request)
     }
-
-
 
     private var listCharters = mutableListOf<Charter>()
 
@@ -72,4 +70,7 @@ class CharterAdapter(private val context: Context) :
         listCharters.addAll(charter)
         notifyDataSetChanged()
     }
+
+    fun getPositionForId(id: Int): Int = listCharters.indexOfFirst { it.id == id }
+
 }

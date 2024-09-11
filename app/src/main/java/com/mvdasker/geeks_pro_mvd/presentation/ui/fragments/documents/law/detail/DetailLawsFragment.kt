@@ -1,6 +1,7 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.detail
 
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -18,11 +19,14 @@ import dagger.hilt.android.AndroidEntryPoint
 class DetailLawsFragment : Fragment(R.layout.fragment_detail_laws) {
 
     private val binding by viewBinding(FragmentDetailLawsBinding::bind)
+
     private val viewModel: DetailLawViewModel by viewModels()
+
     private val args: DetailLawsFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         args.id.let {
             viewModel.setId(it)
         }
@@ -43,7 +47,7 @@ class DetailLawsFragment : Fragment(R.layout.fragment_detail_laws) {
                 }
 
                 is UiState.Success -> {
-                    binding.tvArticle.text = data.data?.article
+                    binding.tvArticle.text = Html.fromHtml(  data.data?.article, Html.FROM_HTML_MODE_LEGACY)
                     Log.e("error", "succses")
                 }
             }
@@ -55,4 +59,5 @@ class DetailLawsFragment : Fragment(R.layout.fragment_detail_laws) {
             findNavController().navigateUp()
         }
     }
+
 }

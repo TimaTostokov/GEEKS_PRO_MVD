@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -40,7 +41,6 @@ class HomeViewModel @Inject constructor(
             NewsPagingSource(repository)
         }.flow.cachedIn(viewModelScope)
 
-
 //    init {
 //        fetchNews(currentPage)
 //    }
@@ -55,14 +55,6 @@ class HomeViewModel @Inject constructor(
 //                _messageFlow.value = Messages.NetworkIsDisconnected
 //            }
 //        }
-//    }
-//
-//    fun loadNextPage() {
-//        fetchNews(currentPage + 1)
-//    }
-//
-//    fun loadNext() {
-//        fetchNews(currentPage - 1)
 //    }
 //
 //    private fun updateNotReadNotifCount() {

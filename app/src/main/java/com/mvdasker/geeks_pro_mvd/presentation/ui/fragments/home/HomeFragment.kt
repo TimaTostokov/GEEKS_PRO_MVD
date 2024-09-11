@@ -17,7 +17,7 @@ import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentHomeBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.adapters.NewsAdapter
-import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.paging.NewsLoadingStateAdapter
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.adapters.NewsLoadingStateAdapter
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
@@ -43,6 +43,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         initialize()
 //        observe()
         showSnack()
+        notificationsAvailability()
 
         binding.rvMain.adapter = adapter.withLoadStateHeaderAndFooter(
             header = NewsLoadingStateAdapter(adapter),
@@ -53,14 +54,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             binding.fHomeProgressBar.isVisible = state.refresh == LoadState.Loading
         }
 
-        lifecycleScope.launchWhenStarted {
-            viewModel.newsPager.collectLatest { pagingData ->
-                adapter.submitData(pagingData)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.newsPager.collectLatest { pagingData ->
+                    adapter.submitData(pagingData)
+                }
             }
         }
 
         binding.fDocUpBtn.setOnClickListener {
-            binding.rvMain.smoothScrollToPosition(0)
+            binding.rvMain.smoothScrollToPosition( 0)
         }
 
         binding.fhNotif.setOnClickListener {
@@ -109,9 +112,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
     }
 
-    /**
-     * не удалять
-     */
     private fun notificationsAvailability() {
         observeData(viewModel.notReadNotifCount) {
             if (it != 0) {

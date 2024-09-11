@@ -9,6 +9,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.mvdasker.geeks_pro_mvd.common.ServerStatus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -101,10 +102,5 @@ class ServerStatusViewModel(application: Application) : AndroidViewModel(applica
     fun resetNavigationFlag() {
         _navigateToMalfunctions.value = false
     }
-}
 
-sealed class ServerStatus {
-    object AVAILABLE : ServerStatus()
-    object UNAVAILABLE : ServerStatus()
-    object NO_INTERNET : ServerStatus()
 }

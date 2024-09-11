@@ -36,7 +36,6 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
         observe()
         setupClickListeners()
         showSnack()
-
     }
 
     @SuppressLint("SetTextI18n")

@@ -50,10 +50,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_controll"
         android:layout_width="match_parent"
-        tools:listitem="@layout/item_management_kg"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:layout_height="wrap_content"/>
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        tools:listitem="@layout/item_management_kg" />
 
     <FrameLayout
         android:id="@+id/fcRukKrProgressBar"

@@ -62,7 +62,7 @@ class NotificationsAdapter(private val onNotificationClick: (Int, String?, Int) 
                         && newItem is NotificationItem.Notification
                         && oldItem.title == newItem.title
                         && oldItem.createAt == newItem.createAt
-                        && oldItem.isRead == newItem.isRead
+                        && oldItem.readed == newItem.readed
                         && oldItem.section == newItem.section
 
                 return monthItem || notificationsItem
@@ -100,7 +100,7 @@ class NotificationViewHolder(
         } else
             binding.itemNotifSection.gone()
 
-        binding.itemNotifNotReadCircle.isVisible = !notification.isRead
+        binding.itemNotifNotReadCircle.isVisible = !notification.readed
 
         binding.itemCardNotif.setOnClickListener {
             notification.id?.let { it1 ->

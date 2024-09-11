@@ -1,4 +1,4 @@
-package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.paging
+package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,10 +8,9 @@ import androidx.paging.LoadStateAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.ItemLoadingStateBinding
-import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.adapters.NewsAdapter
 
 class NewsLoadingStateAdapter(
-    private val adapter: NewsAdapter,
+    private val adapter: NewsAdapter
 ) : LoadStateAdapter<NewsLoadingStateAdapter.NetworkStateItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState) =
@@ -22,12 +21,13 @@ class NewsLoadingStateAdapter(
             )
         ) { adapter.retry() }
 
+
     override fun onBindViewHolder(holder: NetworkStateItemViewHolder, loadState: LoadState) =
         holder.bind(loadState)
 
     class NetworkStateItemViewHolder(
         private val binding: ItemLoadingStateBinding,
-        private val retryCallback: () -> Unit,
+        private val retryCallback: () -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {

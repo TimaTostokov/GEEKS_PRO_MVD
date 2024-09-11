@@ -12,7 +12,7 @@ import javax.inject.Inject
 class MenuRepository @Inject constructor(
     private val sanaripAskerApi: SanaripAskerApi,
     private val userProvider: UserProvider,
-    private val languagePreference: LanguagePreference
+    private val languagePreference: LanguagePreference,
 ) {
 
     private fun getUserIdFromToken(token: String): Int =

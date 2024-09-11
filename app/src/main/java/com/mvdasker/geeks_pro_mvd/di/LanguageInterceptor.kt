@@ -6,7 +6,7 @@ import okhttp3.Response
 import javax.inject.Inject
 
 class LanguageInterceptor @Inject constructor(
-    private val languagePreference: LanguagePreference
+    private val languagePreference: LanguagePreference,
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {

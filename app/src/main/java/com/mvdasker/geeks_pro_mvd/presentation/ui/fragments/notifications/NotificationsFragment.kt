@@ -2,6 +2,7 @@ package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -31,36 +32,62 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
             when (notificationType) {
                 "Библиотека" -> {
                     findNavController().navigate(
-                        NotificationsFragmentDirections.actionNotificationsFragmentToDetailFragment(
+                        NotificationsFragmentDirections.actionNotificationsFragmentToLibraryFragment(
                             notificationId
                         )
                     )
                 }
 
                 "Конституция" -> {
-                    findNavController().navigate(R.id.action_notificationsFragment_to_constitutionFragment)
-
+                    findNavController().navigate(
+                        NotificationsFragmentDirections.actionNotificationsFragmentToConstitutionFragment(
+                            notificationId
+                        )
+                    )
                 }
 
                 "Закон" -> {
-                    findNavController().navigate(R.id.action_notificationsFragment_to_lawFragment)
-
+                    findNavController().navigate(
+                        NotificationsFragmentDirections.actionNotificationsFragmentToLawFragment(
+                            notificationId
+                        )
+                    )
                 }
 
                 "Устав" -> {
-                    findNavController().navigate(R.id.action_notificationsFragment_to_statutesFragment)
+                    findNavController().navigate(
+                        NotificationsFragmentDirections.actionNotificationsFragmentToStatutesFragment(
+                            notificationId
+                        )
+                    )
                 }
 
                 "KR Governance" -> {
-                    findNavController().navigate(R.id.action_notificationsFragment_to_controlKRFragment)
+                    findNavController().navigate(
+                        NotificationsFragmentDirections.actionNotificationsFragmentToControlKRFragment(
+                            notificationId
+                        )
+                    )
                 }
 
                 "MVD KR Governance" -> {
-                    findNavController().navigate(R.id.action_notificationsFragment_to_controlMIAKRFragment)
+                    findNavController().navigate(
+                        NotificationsFragmentDirections.actionNotificationsFragmentToControlMIAKRFragment(
+                            notificationId
+                        )
+                    )
                 }
 
                 "VV MVD KR Governance" -> {
-                    findNavController().navigate(R.id.action_notificationsFragment_to_controlITMIAKRFragment)
+                    findNavController().navigate(
+                        NotificationsFragmentDirections.actionNotificationsFragmentToControlITMIAKRFragment(
+                            notificationId
+                        )
+                    )
+                }
+
+                else -> {
+                    Extensions.showToast(requireContext(),"Элемент не найден")
                 }
             }
         }
@@ -103,6 +130,10 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
             }
             viewModel.clearMessage()
         }
+    }
+
+    companion object {
+        const val NOTIF_ID = "notif_id"
     }
 
 }

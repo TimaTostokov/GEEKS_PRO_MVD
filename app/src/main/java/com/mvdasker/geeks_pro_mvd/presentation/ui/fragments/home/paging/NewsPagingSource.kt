@@ -6,15 +6,14 @@ import com.mvdasker.geeks_pro_mvd.data.remote.model.news.News
 import com.mvdasker.geeks_pro_mvd.data.repositories.NewsRepository
 
 class NewsPagingSource(
-    private val repository: NewsRepository,
+    private val repository: NewsRepository
 ) : PagingSource<Int, News>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, News> {
         return try {
             val page = params.key ?: 1
-            val pageSize = params.loadSize.takeIf { it > 0 } ?: 20
+            val pageSize = 20
             val data = repository.getPagingNews(page = page, pageSize = pageSize)
-
             val nextKey = if (data.results.isEmpty() || data.results.size < pageSize) {
                 null
             } else {
@@ -34,9 +33,9 @@ class NewsPagingSource(
 
     override fun getRefreshKey(state: PagingState<Int, News>): Int? {
         return state.anchorPosition?.let { position ->
-            state.closestPageToPosition(position)?.let { anchorPage ->
-                anchorPage.prevKey?.plus(1) ?: anchorPage.nextKey?.minus(1)
-            }
+            state.closestPageToPosition(position)?.prevKey?.plus(1) ?: state.closestPageToPosition(
+                position
+            )?.nextKey?.minus(1)
         }
     }
 

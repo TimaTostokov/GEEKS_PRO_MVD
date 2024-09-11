@@ -6,6 +6,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.graphics.Color
 import android.os.Build
 import android.text.Spannable
@@ -20,6 +21,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -175,6 +177,60 @@ object Extensions {
         return urlArray
     }
 
+    fun CardView.highlightItemCard() {
+        val resources: Resources = context.resources
+        val backgroundColor = ContextCompat.getColor(
+            context,
+            R.color.background_item
+        )
+        val whiteColor = ContextCompat.getColor(
+            context,
+            R.color.white
+        )
+        setCardBackgroundColor(backgroundColor)
+        postDelayed({
+            setCardBackgroundColor(whiteColor)
+        }, 1000)
+    }
+
+    fun View.highlightItem() {
+        val resources: Resources = context.resources
+        val backgroundColor = ContextCompat.getColor(
+            context,
+            R.color.background_item
+        )
+        val whiteColor = ContextCompat.getColor(
+            context,
+            R.color.white
+        )
+        setBackgroundColor(backgroundColor)
+        postDelayed({
+            setBackgroundColor(whiteColor)
+        }, 1000)
+    }
+
+    fun Activity.changeLanguage() {
+        val listItems = arrayOf("Кыргызский", "Русский")
+        val mBuilder = AlertDialog.Builder(this)
+        mBuilder.setTitle("Выберите язык")
+        mBuilder.setSingleChoiceItems(listItems, -1) { dialog, which ->
+            when (which) {
+
+                0 -> {
+                    setLocale("ky", this)
+                }
+
+                1 -> {
+                    setLocale("ru", this)
+                }
+            }
+            this.recreate()
+            dialog.dismiss()
+        }
+        val mDialog = mBuilder.create()
+        mDialog.show()
+    }
+
     private fun setLocale(s: String, context: Context) {
         val locale = Locale(s)
         Locale.setDefault(locale)
@@ -192,36 +248,6 @@ object Extensions {
         var language: String? = LanguagePreference.getInstance(context)?.getLanguage
         if (language != null) {
             setLocale(language, context)
-        }
-
-        fun View.rotate(isRotated: Boolean) {
-            val targetRotation = if (isRotated) 180f else 0f
-
-            if (rotation != targetRotation) {
-                ObjectAnimator.ofFloat(this, "rotation", rotation, targetRotation)
-                    .apply {
-                        duration = 300L
-                        start()
-                    }
-            }
-
-            fun TextView.highlightText(text: String, query: String) {
-                val spannableString = SpannableString(text)
-                if (query.isNotEmpty()) {
-                    var startIndex = text.lowercase().indexOf(query.lowercase())
-                    while (startIndex >= 0) {
-                        val endIndex = startIndex + query.length
-                        spannableString.setSpan(
-                            ForegroundColorSpan(Color.parseColor("#03A9F4")),
-                            startIndex,
-                            endIndex,
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                        )
-                        startIndex = text.lowercase().indexOf(query.lowercase(), endIndex)
-                    }
-                }
-                this.text = spannableString
-            }
         }
     }
 

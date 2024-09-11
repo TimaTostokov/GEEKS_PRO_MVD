@@ -80,15 +80,6 @@ class MenuViewModel @Inject constructor(
         navController.navigate(direction)
     }
 
-    fun onClickControlKRButton() =
-        navController.navigate(MenuFragmentDirections.actionMenuFragmentToControlKRFragment())
-
-    fun onClickControlMIAKRButton() =
-        navController.navigate(MenuFragmentDirections.actionMenuFragmentToControlMIAKRFragment())
-
-    fun onClickControlITMIAKRButton() =
-        navController.navigate(MenuFragmentDirections.actionMenuFragmentToControlITMIAKRFragment())
-
     fun onOpenDictionaryClick() = openWebView("https://el-sozduk.kg/")
     fun onMapClick() = openWebView("https://www.google.com/maps")
     fun onTrafficRulesClick() = openWebView("https://joldo.kg/ru")
@@ -107,9 +98,15 @@ class MenuViewModel @Inject constructor(
     fun saveSelectedLanguage(languageCode: String) {
         menuRepository.saveSelectedLanguage(languageCode)
     }
+    fun onClickControlKRButton() =
+        navController.navigate(MenuFragmentDirections.actionMenuFragmentToControlKRFragment(0))
 
     fun getSavedLanguage(): String {
         return menuRepository.getSavedLanguage()
     }
+    fun onClickControlMIAKRButton() =
+        navController.navigate(MenuFragmentDirections.actionMenuFragmentToControlMIAKRFragment(0))
 
+    fun onClickControlITMIAKRButton() =
+        navController.navigate(MenuFragmentDirections.actionMenuFragmentToControlITMIAKRFragment(0))
 }

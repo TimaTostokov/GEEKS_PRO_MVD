@@ -82,6 +82,10 @@
             android:id="@+id/action_libraryFragment_to_notificationsFragment"
             app:destination="@id/notificationsFragment" />
 
+        <argument
+            android:name="notif_id"
+            app:argType="integer"/>
+
     </fragment>
 
     <fragment
@@ -118,12 +122,22 @@
         <action
             android:id="@+id/action_lawFragment_to_searchLawsFragment"
             app:destination="@id/searchLawsFragment" />
+
+        <argument
+            android:name="notif_id"
+            app:argType="integer"/>
     </fragment>
 
     <fragment
         android:id="@+id/statutesFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.charters.ChartersFragment"
-        android:label="StatutesFragment" />
+        android:label="StatutesFragment" >
+
+        <argument
+            android:name="notif_id"
+            app:argType="integer"/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/constitutionFragment"
@@ -136,6 +150,10 @@
         <action
             android:id="@+id/action_constitutionFragment_to_constitutionsDetailFragment"
             app:destination="@id/constitutionsDetailFragment" />
+
+        <argument
+            android:name="notif_id"
+            app:argType="integer"/>
     </fragment>
 
     <fragment
@@ -200,6 +218,10 @@
             android:id="@+id/action_controlMIAKRFragment_to_searchControlFragment2"
             app:destination="@id/searchControlFragment" />
 
+        <argument
+            android:name="notif_id"
+            app:argType="integer"/>
+
     </fragment>
 
     <fragment
@@ -245,9 +267,8 @@
             app:destination="@id/lawFragment" />
 
         <action
-            android:id="@+id/action_notificationsFragment_to_detailFragment"
-            app:destination="@id/detailFragment" />
-
+            android:id="@+id/action_notificationsFragment_to_libraryFragment"
+            app:destination="@id/libraryFragment" />
         <action
             android:id="@+id/action_notificationsFragment_to_controlKRFragment"
             app:destination="@id/controlKRFragment" />
@@ -270,16 +291,26 @@
         android:id="@+id/controlKRFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.kg.ControlKRFragment"
         android:label="fragment_control_k_r"
-        tools:layout="@layout/fragment_control_k_r" />
+        tools:layout="@layout/fragment_control_k_r" >
+
+        <argument
+            android:name="notif_id"
+            app:argType="integer"/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/controlITMIAKRFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.ControlITMIAKRFragment"
-        android:label="ControlITMIAKRFragment">
+        android:label="ControlITMIAKRFragment" >
 
         <action
             android:id="@+id/action_controlITMIAKRFragment_to_searchControlVVFragment"
             app:destination="@id/searchControlVVFragment" />
+
+        <argument
+            android:name="notif_id"
+            app:argType="integer"/>
 
     </fragment>
 
@@ -349,7 +380,12 @@
         android:id="@+id/constitutionsDetailFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.detail.ConstitutionsDetailFragment"
         android:label="fragment_constitutions_detail"
-        tools:layout="@layout/fragment_constitutions_detail" />
+        tools:layout="@layout/fragment_constitutions_detail" >
+
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/constitutionsSearchFragment"
