@@ -7,27 +7,19 @@ import com.mvdasker.geeks_pro_mvd.data.remote.model.law.LawsChapter
 import com.mvdasker.geeks_pro_mvd.databinding.ItemChapterLawsBinding
 
 class LawsChapterAdapter(
-    private val lawsChapterList: List<LawsChapter>,
-    private val onCLick: (Int) -> Unit,
-) :
-    RecyclerView.Adapter<LawsChapterAdapter.LawsChapterViewHolder>() {
-    inner class LawsChapterViewHolder(val binding: ItemChapterLawsBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(data: LawsChapter) {
-            binding.tvCharter.text = data.chapter.toString()
-        }
-        init {
-            binding.linear.setOnClickListener {
-                onCLick(it.id)
-            }
-        }
-    }
+    private val onChapterClick: (Int) -> Unit,
+) : RecyclerView.Adapter<LawsChapterViewHolder>() {
+    private val lawsChapterList = mutableListOf<LawsChapter>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LawsChapterViewHolder {
         val binding =
             ItemChapterLawsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return LawsChapterViewHolder(binding)
+        return LawsChapterViewHolder(binding, onChapterClick)
+    }
+
+    fun setChapters(chapter: List<LawsChapter>) {
+        lawsChapterList.clear()
+        lawsChapterList.addAll(chapter)
     }
 
     override fun getItemCount(): Int = lawsChapterList.size
@@ -35,4 +27,24 @@ class LawsChapterAdapter(
     override fun onBindViewHolder(holder: LawsChapterViewHolder, position: Int) {
         holder.bind(lawsChapterList[position])
     }
+}
+
+class LawsChapterViewHolder(
+    private val binding: ItemChapterLawsBinding,
+    private val onCLick: (Int) -> Unit,
+) : RecyclerView.ViewHolder(binding.root) {
+
+    private var chapter: LawsChapter? = null
+
+    init {
+        binding.linear.setOnClickListener {
+            chapter?.id?.let(onCLick)
+        }
+    }
+
+    fun bind(data: LawsChapter) {
+        this.chapter = data
+        binding.tvCharter.text = data.chapter.toString()
+    }
+
 }

@@ -1,111 +1,80 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.adapter
 
-import android.graphics.Color
 import android.text.Html
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.data.remote.model.law.Law
 import com.mvdasker.geeks_pro_mvd.databinding.ItemLawsBinding
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.highlightText
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.rotate
 
-class LawAdapter(private var mList: List<Law>, private val onCLick: (Int) -> Unit) :
-    RecyclerView.Adapter<LawAdapter.LawViewHolder>() {
+class LawAdapter(
+    private val onChapterCLick: (Int) -> Unit,
+) : RecyclerView.Adapter<LawViewHolder>() {
 
     private var searchQuery: String = ""
+    private var mList = mutableListOf<Law>()
 
-    inner class LawViewHolder(val binding: ItemLawsBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun collapseExpandedView() {
-            binding.linear.visibility = View.GONE
-        }
-
-        fun bind(lawsData: Law) {
-            binding.tvLaws.text = highlightText(
-                Html.fromHtml(lawsData.section, Html.FROM_HTML_MODE_LEGACY).toString(),
-                searchQuery
-            )
-
-
-            val isExpandable: Boolean = lawsData.isExpandable
-            binding.rvChapter.visibility = if (isExpandable) View.VISIBLE else View.GONE
-            binding.ivSpinner.setOnClickListener {
-                isAnyItemExpanded(position)
-                lawsData.isExpandable = !lawsData.isExpandable
-                notifyItemChanged(position)
-            }
-        }
-    }
-
-    fun setFilteredList(mList: List<Law>) {
-        this.mList = mList
+    fun setFilteredList(mList: List<Law>, query: String) {
+        this.searchQuery = query
+        this.mList.clear()
+        this.mList.addAll(mList)
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LawViewHolder {
         val binding = ItemLawsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return LawViewHolder(binding)
+        return LawViewHolder(
+            binding = binding,
+            onClick = ::onClick,
+            onChapterClick = onChapterCLick,
+        )
     }
 
-    fun updateSearchQuery(query: String) {
-        searchQuery = query
-        notifyDataSetChanged()
+    private fun onClick(adapterPosition: Int) {
+        val law = mList[adapterPosition]
+        mList[adapterPosition] = law.copy(isExpandable = !law.isExpandable)
+        notifyItemChanged(adapterPosition)
     }
 
     override fun onBindViewHolder(holder: LawViewHolder, position: Int) {
-        val lawsData = mList[position]
-        holder.bind(lawsData)
-        val adapter = lawsData.charter?.let { LawsChapterAdapter(it, onCLick) }
-        holder.binding.rvChapter.adapter = adapter
-        holder.binding.rvChapter.layoutManager = LinearLayoutManager(holder.itemView.context)
-        holder.binding.rvChapter.setOnClickListener {
-            onCLick(lawsData.id)
-        }
-    }
-
-    private fun highlightText(text: String, query: String): SpannableString {
-        val spannableString = SpannableString(text)
-        if (query.isNotEmpty()) {
-            var startIndex = text.lowercase().indexOf(query.lowercase())
-            while (startIndex >= 0) {
-                val endIndex = startIndex + query.length
-                spannableString.setSpan(
-                    ForegroundColorSpan(Color.parseColor("#03A9F4")),
-                    startIndex,
-                    endIndex,
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                )
-                startIndex = text.lowercase().indexOf(query.lowercase(), endIndex)
-            }
-        }
-        return spannableString
-    }
-
-    private fun isAnyItemExpanded(position: Int) {
-        val temp = mList.indexOfFirst {
-            it.isExpandable
-        }
-        if (temp >= 0 && temp != position) {
-            mList[temp].isExpandable = false
-            notifyItemChanged(temp, 0)
-        }
-    }
-
-    override fun onBindViewHolder(
-        holder: LawViewHolder,
-        position: Int,
-        payloads: MutableList<Any>
-    ) {
-        if (payloads.isNotEmpty() && payloads[0] == 0) {
-            holder.collapseExpandedView()
-        } else {
-            super.onBindViewHolder(holder, position, payloads)
-        }
+        holder.bind(mList[position], searchQuery)
     }
 
     override fun getItemCount(): Int = mList.size
+}
+
+class LawViewHolder(
+    private val binding: ItemLawsBinding,
+    onClick: (Int) -> Unit,
+    onChapterClick: (Int) -> Unit,
+) : RecyclerView.ViewHolder(binding.root) {
+
+    private val adapter = LawsChapterAdapter(onChapterClick)
+    private var prevIsExpanded = false
+
+    init {
+        binding.ivSpinner.setOnClickListener {
+            onClick.invoke(bindingAdapterPosition)
+        }
+        binding.rvChapter.adapter = adapter
+        binding.rvChapter.layoutManager = LinearLayoutManager(itemView.context)
+    }
+
+    fun bind(lawsData: Law, searchQuery: String) {
+        if (prevIsExpanded != lawsData.isExpandable) {
+            binding.ivSpinner.rotate(lawsData.isExpandable)
+        }
+        prevIsExpanded = lawsData.isExpandable
+        binding.tvLaws.highlightText(
+            Html.fromHtml(lawsData.section, Html.FROM_HTML_MODE_LEGACY).toString(),
+            searchQuery
+        )
+        lawsData.charter?.let(adapter::setChapters)
+
+        binding.rvChapter.isVisible = lawsData.isExpandable
+    }
 }
