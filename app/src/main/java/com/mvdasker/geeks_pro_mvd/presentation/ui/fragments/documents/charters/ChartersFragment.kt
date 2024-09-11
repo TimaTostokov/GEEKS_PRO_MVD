@@ -5,16 +5,19 @@ import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentChartersBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.charters.adapter.CharterAdapter
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications.NotificationsFragment.Companion.NOTIF_ID
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
@@ -51,9 +54,6 @@ class ChartersFragment : Fragment(R.layout.fragment_charters) {
         }
     }
 
-
-
-
     private fun setupRecyclerView() {
         binding.fcListCharters.layoutManager = LinearLayoutManager(requireContext())
         binding.fcListCharters.adapter = adapter
@@ -80,6 +80,11 @@ class ChartersFragment : Fragment(R.layout.fragment_charters) {
                 is UiState.Success -> {
                     adapter.addCharters(uiState.data)
                     binding.fchartProgressBar.gone()
+                    val notifId = arguments?.getInt(NOTIF_ID) ?: 0
+                    if (notifId > 0) {
+                        arguments?.remove(NOTIF_ID)
+                        scrollToItemWithId(binding.fcListCharters, adapter, notifId)
+                    }
                 }
 
                 is UiState.Error -> binding.fchartProgressBar.gone()
@@ -87,5 +92,23 @@ class ChartersFragment : Fragment(R.layout.fragment_charters) {
         }
     }
 
+    private fun scrollToItemWithId(
+        recyclerView: RecyclerView,
+        adapter: CharterAdapter,
+        itemId: Int
+    ) {
+        val position = adapter.getPositionForId(itemId)
+        if (position != -1) {
+            recyclerView.smoothScrollToPosition(position+3)
+            recyclerView.postDelayed({
+                val viewHolder = recyclerView.findViewHolderForAdapterPosition(position)
+                if (viewHolder is CharterAdapter.CharterViewHolder) {
+                    viewHolder.highlightItemCharter()
+                }
+            }, 300)
+        } else {
+            Log.e("Scroll", "Элемент с ID $itemId не найден.")
+        }
+    }
 
 }

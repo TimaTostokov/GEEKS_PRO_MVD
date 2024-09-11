@@ -8,10 +8,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentLibraryBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.adapter.NotesAdapterLibrary
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications.NotificationsFragment.Companion.NOTIF_ID
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
@@ -61,6 +63,11 @@ class LibraryFragment : Fragment(R.layout.fragment_library) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.libraries.collect { libraries ->
                 adapter.submitList(libraries)
+                val notifId = arguments?.getInt(NOTIF_ID) ?: 0
+                if (notifId > 0) {
+                    arguments?.remove(NOTIF_ID)
+                    scrollToItemWithId(binding.recyclerView, adapter, notifId)
+                }
                 Log.e("libraries", "$libraries")
             }
         }
@@ -86,7 +93,9 @@ class LibraryFragment : Fragment(R.layout.fragment_library) {
     }
 
     private fun onClick(id: Int) {
-        findNavController().navigate(LibraryFragmentDirections.actionLibraryFragmentToDetailFragment(id
+        findNavController().navigate(
+            LibraryFragmentDirections.actionLibraryFragmentToDetailFragment(
+                id
             )
         )
     }
@@ -101,6 +110,25 @@ class LibraryFragment : Fragment(R.layout.fragment_library) {
             } else {
                 binding.ivBell.setImageResource(R.drawable.bell)
             }
+        }
+    }
+
+    private fun scrollToItemWithId(
+        recyclerView: RecyclerView,
+        adapter: NotesAdapterLibrary,
+        itemId: Int
+    ) {
+        val position = adapter.getPositionForId(itemId)
+        if (position != -1) {
+            recyclerView.smoothScrollToPosition(position + 3)
+            recyclerView.postDelayed({
+                val viewHolder = recyclerView.findViewHolderForAdapterPosition(position)
+                if (viewHolder is NotesAdapterLibrary.ViewHolder) {
+                    viewHolder.highlightItemLibrary()
+                }
+            }, 300)
+        } else {
+            Log.e("Scroll", "Элемент с ID $itemId не найден.")
         }
     }
 

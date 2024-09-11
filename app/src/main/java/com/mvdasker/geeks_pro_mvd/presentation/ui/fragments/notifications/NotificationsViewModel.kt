@@ -80,7 +80,7 @@ class NotificationsViewModel @Inject constructor(
                                 section = notification.section,
                                 title = notification.title,
                                 createAt = notification.createAt,
-                                isRead = notification.isRead,
+                                readed = notification.readed,
                                 notificationId = notification.notificationId,
                                 notificationType = notification.notificationType
                             )
@@ -116,7 +116,7 @@ class NotificationsViewModel @Inject constructor(
                     val notifications = state.notifications.toMutableList()
                     notifications[notifIdx] =
                         (notifications[notifIdx] as NotificationItem.Notification).copy(
-                            isRead = true,
+                            readed = true,
                         )
                     state.copy(
                         notifications = notifications

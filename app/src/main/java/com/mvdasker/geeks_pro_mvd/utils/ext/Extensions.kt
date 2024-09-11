@@ -7,6 +7,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
+import android.content.res.Resources
 import android.os.Build
 import android.text.Spannable
 import android.text.SpannableString
@@ -20,6 +21,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -175,6 +177,38 @@ object Extensions {
 
         Log.d("convertToUrlArray", "Final urlArray: $urlArray")
         return urlArray
+    }
+
+    fun CardView.highlightItemCard() {
+        val resources: Resources = context.resources
+        val backgroundColor = ContextCompat.getColor(
+            context,
+            R.color.background_item
+        )
+        val whiteColor = ContextCompat.getColor(
+            context,
+            R.color.white
+        )
+        setCardBackgroundColor(backgroundColor)
+        postDelayed({
+            setCardBackgroundColor(whiteColor)
+        }, 1000)
+    }
+
+    fun View.highlightItem() {
+        val resources: Resources = context.resources
+        val backgroundColor = ContextCompat.getColor(
+            context,
+            R.color.background_item
+        )
+        val whiteColor = ContextCompat.getColor(
+            context,
+            R.color.white
+        )
+        setBackgroundColor(backgroundColor)
+        postDelayed({
+            setBackgroundColor(whiteColor)
+        }, 1000)
     }
 
     fun Activity.changeLanguage() {

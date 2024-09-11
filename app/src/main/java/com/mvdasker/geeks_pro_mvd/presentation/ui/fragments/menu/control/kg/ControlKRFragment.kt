@@ -3,14 +3,17 @@ package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.kg
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentControlKRBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.kg.adapter.ControlKgAdapter
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications.NotificationsFragment.Companion.NOTIF_ID
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
@@ -55,6 +58,11 @@ class ControlKRFragment : Fragment(R.layout.fragment_control_k_r) {
                 is UiState.Success -> {
                     managementAdapter.submitList(state.data)
                     binding.fcRukKrProgressBar.gone()
+                    val notifId = arguments?.getInt(NOTIF_ID) ?: 0
+                    if (notifId > 0) {
+                        arguments?.remove(NOTIF_ID)
+                        scrollToItemWithId(binding.rvControll, managementAdapter, notifId)
+                    }
                 }
             }
         }
@@ -79,6 +87,25 @@ class ControlKRFragment : Fragment(R.layout.fragment_control_k_r) {
     private fun goBack() {
         binding.vvKRBackBtn.setOnClickListener {
             findNavController().navigateUp()
+        }
+    }
+
+    private fun scrollToItemWithId(
+        recyclerView: RecyclerView,
+        adapter: ControlKgAdapter,
+        itemId: Int
+    ) {
+        val position = adapter.getPositionForId(itemId)
+        if (position != -1) {
+            recyclerView.smoothScrollToPosition(position + 2)
+            recyclerView.postDelayed({
+                val viewHolder = recyclerView.findViewHolderForAdapterPosition(position)
+                if (viewHolder is ControlKgAdapter.ManagementsKgViewHolder) {
+                    viewHolder.highlightItemControl()
+                }
+            }, 300)
+        } else {
+            Log.e("Scroll", "Элемент с ID $itemId не найден.")
         }
     }
 

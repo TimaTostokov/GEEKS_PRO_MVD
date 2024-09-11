@@ -3,10 +3,12 @@ package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.adapters
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
+import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.data.remote.model.news.News
 import com.mvdasker.geeks_pro_mvd.databinding.ItemNewsBinding
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.formatDate
@@ -58,5 +60,4 @@ class NewsAdapter(val onClick: (id: Int) -> Unit) :
             }
         }
     }
-
 }

@@ -9,7 +9,7 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
         android:orientation="vertical"
         app:elevation="0dp">
@@ -43,25 +43,25 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
         </FrameLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp">
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/tv_article"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/name"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-            </ScrollView>
-
-        </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <TextView
+            android:id="@+id/tv_article"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
+            tools:text="@string/name" />
+
+    </androidx.core.widget.NestedScrollView>
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.data.remote.model.law.Law
 import com.mvdasker.geeks_pro_mvd.databinding.ItemLawsBinding
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.highlightItemCard
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.highlightText
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.rotate
 
@@ -47,6 +48,9 @@ class LawAdapter(
     }
 
     override fun getItemCount(): Int = mList.size
+
+    fun getPositionForId(id: Int): Int = mList.indexOfFirst { it.id == id }
+
 }
 
 class LawViewHolder(
@@ -80,4 +84,7 @@ class LawViewHolder(
         binding.rvChapter.isVisible = lawsData.isExpandable
     }
 
+    fun highlightItemLaw() {
+        binding.lawCardView.highlightItemCard()
+    }
 }

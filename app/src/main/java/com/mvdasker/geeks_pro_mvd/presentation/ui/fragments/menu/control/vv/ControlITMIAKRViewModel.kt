@@ -9,7 +9,6 @@ import com.mvdasker.geeks_pro_mvd.data.repositories.ManagementsKrRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,7 +18,7 @@ class ControlITMIAKRViewModel @Inject constructor(private val repository: Manage
     ViewModel() {
 
     private val _managementStateVv = MutableStateFlow<List<Governance>?>(null)
-    val managementVv: StateFlow<List<Governance>?> = _managementStateVv
+    val managementVv: Flow<List<Governance>?> = _managementStateVv.filterNotNull()
 
     private val _messageFlow = MutableStateFlow<Messages?>(null)
     val messageFlow: Flow<Messages> = _messageFlow.filterNotNull()

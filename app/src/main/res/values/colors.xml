@@ -23,5 +23,6 @@
     <color name="color_date_notif">#414141</color>
     <color name="design_default_color_error">#FF0E00</color>
     <color name="dark_brown">#414141</color>
+    <color name="background_item">#E3E3E3</color>
 
 </resources>

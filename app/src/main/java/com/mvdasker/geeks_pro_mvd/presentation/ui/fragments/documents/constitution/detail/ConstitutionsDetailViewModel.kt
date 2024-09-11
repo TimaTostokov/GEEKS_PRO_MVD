@@ -1,5 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.detail
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,12 +9,14 @@ import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.data.remote.model.constitution.ConstitutionsChapter
 import com.mvdasker.geeks_pro_mvd.data.repositories.ConstitutionsRepository
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.detail.DetailLawViewModel.Companion.LAW_LAY
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.detail.DetailViewModel.Companion.LIBRARY_ID_KEY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.fold
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,30 +37,29 @@ class ConstitutionsDetailViewModel @Inject constructor(
     fun clearMessage() {
         _messageFlow.value = null
     }
-
-    init {
-        getConstitutionsDetailDetail(id!!)
+    fun setId(id: Int) {
+        savedStateHandle[LAW_LAY] = id
     }
 
-    fun getConstitutionsDetailDetail(id: Int) {
 
+    init {
+        getConstitutionsDetail()
+    }
+
+    private fun getConstitutionsDetail() {
         viewModelScope.launch {
-            _messageFlow.value = Messages.ShowProgressBar
-            repository.getConstitutionById(id).collect {
-                when (it) {
-                    is Either.Left -> {
-                        it.left?.let { t ->
-                            val message = t.message ?: "Unknown error!"
-                            UiState.Error(t, message)
-                        }
-                    }
+            id?.let { constitutionId ->
+                repository.getConstitutionById(constitutionId).fold(
+                    onSuccess = { constitutionDetail ->
+                        _constitutionsDetail.value = UiState.Success(constitutionDetail)
+                    },
+                    onFailure = { error ->
+                        _constitutionsDetail.value = UiState.Error(error, error.message ?: "unknown error!")
+                        _messageFlow.value = Messages.NetworkIsDisconnected
+                        Log.e("toli", "во viewModel не пришли данные")
 
-                    is Either.Right -> {
-                        it.right?.let { data ->
-                            UiState.Success(data)
-                        }
                     }
-                }
+                )
             }
         }
     }

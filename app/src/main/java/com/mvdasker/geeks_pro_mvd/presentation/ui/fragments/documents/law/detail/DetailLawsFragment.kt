@@ -1,6 +1,7 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.detail
 
 import android.os.Bundle
+import android.text.Html
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -43,7 +44,7 @@ class DetailLawsFragment : Fragment(R.layout.fragment_detail_laws) {
                 }
 
                 is UiState.Success -> {
-                    binding.tvArticle.text = data.data?.article
+                    binding.tvArticle.text = Html.fromHtml(  data.data?.article, Html.FROM_HTML_MODE_LEGACY)
                     Log.e("error", "succses")
                 }
             }

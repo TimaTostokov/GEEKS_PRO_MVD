@@ -31,9 +31,12 @@ class HomeViewModel @Inject constructor(
     private val _notReadNotifCount = MutableStateFlow(0)
     val notReadNotifCount: StateFlow<Int> get() = _notReadNotifCount
 
+    private var currentPage = 1
+
     fun clearMessage() {
         _messageFlow.value = null
     }
+
 
     val newsPager =
         Pager(config = PagingConfig(pageSize = 10, enablePlaceholders = true)) {

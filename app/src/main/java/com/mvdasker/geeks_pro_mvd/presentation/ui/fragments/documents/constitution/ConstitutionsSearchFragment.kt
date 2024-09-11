@@ -15,6 +15,7 @@ import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.data.remote.model.constitution.Constitutions
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentConstitutionsSearchBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.adapter.ConstitutionsAdapter
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.search.SearchLawsFragmentDirections
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
@@ -29,33 +30,31 @@ class ConstitutionsSearchFragment : Fragment(R.layout.fragment_constitutions_sea
 
     private val viewModel by viewModels<ConstitutionsViewModel>()
 
-    private val adapter by lazy {
-        ConstitutionsAdapter(mList,::onCLick)
-    }
-
-    private var mList = ArrayList<Constitutions>()
-
-    private var controlList: List<Constitutions> = listOf()
+    private val adapter = ConstitutionsAdapter(::onClick)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initialize()
-        searchCharacterListener()
-        crossToLibraryFragment()
-        showData()
-        showShak()
+        observeViewModel()
+        searchInfo()
+        goBack()
         deleteClearBtn()
-        binding.etSearch.isSelected = true
+    }
+    private fun initialize() {
+        binding.rvSearchConstitution.adapter = adapter
     }
 
-    private fun showData() {
+    private fun observeViewModel() {
         observeData(viewModel.constitution) { uiState ->
             when (uiState) {
                 is UiState.Loading -> binding.progressBar.visible()
                 is UiState.Success -> {
                     binding.progressBar.gone()
-                    adapter.setFilteredList(uiState.data)
-                    controlList = uiState.data
+                    adapter.setFilteredList(
+                        mList = uiState.data,
+                        query = binding.etSearch.text?.toString().orEmpty(),
+                    )
                 }
 
                 is UiState.Error -> {
@@ -66,56 +65,36 @@ class ConstitutionsSearchFragment : Fragment(R.layout.fragment_constitutions_sea
         }
     }
 
-    private fun showShak() {
-        observeData(viewModel.messageFlow) { message ->
-            when (message) {
-                is Messages.NetworkIsDisconnected ->
-                    noInternetSnackbar()
-
-                is Messages.HideProgressBar ->
-                    binding.progressBar.gone()
-
-                is Messages.ShowProgressBar ->
-                    binding.progressBar.visible()
-            }
-            viewModel.clearMessage()
-        }
-    }
-
-    private fun crossToLibraryFragment() {
-        binding.btnCross.setOnClickListener {
-            findNavController().navigateUp()
-        }
-    }
-
-    private fun searchCharacterListener() {
+    private fun searchInfo() {
         binding.etSearch.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                s?.toString()?.let {
-                    searchCharacter(s.toString())
-                }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
-            override fun afterTextChanged(s: Editable?) {}
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                viewModel.onSearchQueryChanged(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+            }
+
         })
     }
 
-    private fun searchCharacter(query: String) {
-        adapter.updateSearchQuery(query)
-        val filteredList = controlList.filter {
-            it.section?.contains(query, ignoreCase = true) ?: false ||
-                    it.section?.contains(query, ignoreCase = true) ?: false
-        }
-        adapter.setFilteredList(filteredList)
+
+    private fun onClick(id: Int) {
+        findNavController().navigate(
+            ConstitutionsSearchFragmentDirections.actionConstitutionsSearchFragmentToConstitutionsDetailFragment(
+            id)
+        )
     }
 
 
-    private fun initialize() {
-        binding.rvSearchConstitution.apply {
-            layoutManager = LinearLayoutManager(requireContext())
-            adapter = this@ConstitutionsSearchFragment.adapter
+    private fun goBack() {
+        binding.fconstBackBtn.setOnClickListener {
+            findNavController().navigateUp()
+        }
+        binding.btnCross.setOnClickListener {
+            findNavController().navigateUp()
         }
     }
 
@@ -127,12 +106,5 @@ class ConstitutionsSearchFragment : Fragment(R.layout.fragment_constitutions_sea
             }
         }
     }
-
-
-    private fun onCLick(id: Int) {
-        findNavController().navigate(
-            ConstitutionsSearchFragmentDirections.actionConstitutionsSearchFragmentToConstitutionsDetailFragment()
-        )
-    }
-
 }
+

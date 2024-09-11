@@ -16,8 +16,8 @@ data class Notification(
     val title: String? = null,
     @SerializedName("created_at")
     val createAt: String? = null,
-    @SerializedName("is_read")
-    val isRead: Boolean = false,
+    @SerializedName("readed")
+    val readed: Boolean = false,
     @SerializedName("notification_id")
     val notificationId: Int? = null,
     @SerializedName("notification_type")

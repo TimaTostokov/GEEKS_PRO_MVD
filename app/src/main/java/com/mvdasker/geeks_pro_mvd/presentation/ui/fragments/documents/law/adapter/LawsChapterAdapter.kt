@@ -20,6 +20,7 @@ class LawsChapterAdapter(
     fun setChapters(chapter: List<LawsChapter>) {
         lawsChapterList.clear()
         lawsChapterList.addAll(chapter)
+        notifyDataSetChanged()
     }
 
     override fun getItemCount(): Int = lawsChapterList.size
