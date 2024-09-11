@@ -116,10 +116,12 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
         buttonKg.setOnClickListener {
             builder.dismiss()
             isShowDialog = false
+            updateLocale("ky")
         }
         buttonRu.setOnClickListener {
             builder.dismiss()
             isShowDialog = false
+            updateLocale("ru")
         }
         builder.setCanceledOnTouchOutside(false)
         builder.show()

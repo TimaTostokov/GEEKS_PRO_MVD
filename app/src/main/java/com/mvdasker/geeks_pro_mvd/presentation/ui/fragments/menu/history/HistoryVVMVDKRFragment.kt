@@ -153,7 +153,7 @@ class HistoryVVMVDKRFragment : Fragment(R.layout.fragment_history_v_v_m_v_d_k_r)
     }
 
     companion object {
-        const val SLUG = "vvmvdkr"
+        const val SLUG = "history-vvmvdkr"
     }
 
 }

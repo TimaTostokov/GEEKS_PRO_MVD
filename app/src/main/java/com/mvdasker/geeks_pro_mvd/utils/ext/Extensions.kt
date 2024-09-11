@@ -168,14 +168,12 @@ object Extensions {
 
         inputList?.forEach { item ->
             val urlString = extractUrl(item)
-            Log.d("convertToUrlArray", "Processing item: $urlString")
 
             if (urlString != null && Patterns.WEB_URL.matcher(urlString).matches()) {
                 urlArray.add(urlString)
             }
         }
 
-        Log.d("convertToUrlArray", "Final urlArray: $urlArray")
         return urlArray
     }
 
@@ -237,7 +235,7 @@ object Extensions {
         val locale = Locale(s)
         Locale.setDefault(locale)
         val config = Configuration()
-        config.locale = locale
+        config.setLocale(locale)
         context.resources.updateConfiguration(
             config,
             context.resources.displayMetrics

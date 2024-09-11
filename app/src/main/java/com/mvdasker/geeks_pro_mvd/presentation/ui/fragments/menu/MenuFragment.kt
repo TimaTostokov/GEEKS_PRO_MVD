@@ -208,7 +208,6 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
             recreate()
         }
 
-        Log.d("ololo", "Перезапуск с локалью: $languageCode")
     }
 
 }

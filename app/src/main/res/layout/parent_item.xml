@@ -16,6 +16,6 @@
         android:textSize="16sp"
         android:textStyle="bold"
         tools:ignore="MissingConstraints"
-        android:text="@string/onas" />
+        android:text="@string/aboutUs" />
 
 </FrameLayout>
