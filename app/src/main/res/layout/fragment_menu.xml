@@ -166,6 +166,7 @@
                     tools:ignore="UnusedAttribute">
 
                     <TextView
+                        android:id="@+id/tv_kr"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -187,6 +188,7 @@
                     tools:ignore="UnusedAttribute">
 
                     <TextView
+                        android:id="@+id/tv_mvd_kr"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -208,6 +210,7 @@
                     tools:ignore="UnusedAttribute">
 
                     <TextView
+                        android:id="@+id/tv_vv_mvd_kr"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -229,6 +232,7 @@
                     tools:ignore="UnusedAttribute">
 
                     <TextView
+                        android:id="@+id/tv_dictionary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -258,6 +262,7 @@
                     tools:ignore="UnusedAttribute">
 
                     <TextView
+                        android:id="@+id/tv_pdd"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -287,6 +292,7 @@
                     tools:ignore="UnusedAttribute">
 
                     <TextView
+                        android:id="@+id/tv_map"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"

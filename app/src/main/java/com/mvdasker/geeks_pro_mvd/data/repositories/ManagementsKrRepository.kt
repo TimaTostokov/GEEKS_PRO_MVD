@@ -19,7 +19,7 @@ class ManagementsKrRepository @Inject constructor(
     }
 
     suspend fun fetchConstitutionsMIAKr(jobTittle: String? = null): List<Governance> {
-        return sanaripAskerApi.fetchConstitutionsMVDKr(userProvider.accessToken, jobTittle)
+        return sanaripAskerApi.fetchConstitutionsMVDKr(userProvider.accessToken, jobTittle).reversed()
     }
 
 }

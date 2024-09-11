@@ -20,6 +20,7 @@ import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 @AndroidEntryPoint
 class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
@@ -50,12 +51,13 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
         alertDialog()
         onContinueButtonClick()
         setupClickListeners()
+        loadSavedLanguage()
 
-        lifecycleScope.launch {
-            viewModel.selectedButtonId.collect { selectedId ->
-                selectedId?.let { updateButtonState(it) }
-            }
-        }
+//        lifecycleScope.launch {
+//            viewModel.selectedButtonId.collect { selectedId ->
+//                selectedId?.let { updateButtonState(it) }
+//            }
+//        }
 
         binding.etUserLogin.addTextChangedListener { viewModelAuth.onLoginChanged() }
         binding.etUserPasswords.addTextChangedListener { viewModelAuth.onPasswordChanged() }
@@ -78,26 +80,34 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
         }
     }
 
-    private fun updateButtonState(checkedId: Int) {
-        setButtonState(binding.kgBtn, checkedId == R.id.kg_btn)
-        setButtonState(binding.ruBtn, checkedId == R.id.ru_btn)
+    private fun updateButtonState(languageCode: String) {
+        val kgBtnSelected = languageCode == "ky"
+        binding.kgBtn.updateState(kgBtnSelected)
+        binding.ruBtn.updateState(!kgBtnSelected)
     }
 
-    private fun setButtonState(button: MaterialButton, isSelected: Boolean) {
-        if (isSelected) {
-            button.backgroundTintList =
-                ContextCompat.getColorStateList(requireContext(), R.color.dark_blue)
-            button.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
-        } else {
-            button.backgroundTintList =
-                ContextCompat.getColorStateList(requireContext(), R.color.white)
-            button.setTextColor(ContextCompat.getColor(requireContext(), R.color.dark_blue))
-        }
+    private fun MaterialButton.updateState(isSelected: Boolean) {
+        backgroundTintList = ContextCompat.getColorStateList(
+            requireContext(),
+            if (isSelected) R.color.dark_blue else R.color.white
+        )
+        setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                if (isSelected) R.color.white else R.color.dark_blue
+            )
+        )
     }
 
     private fun setupClickListeners() {
-        binding.buttonToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
-            viewModel.onButtonToggleGroupCheckedChange(checkedId, isChecked)
+        binding.apply {
+            kgBtn.setOnClickListener {
+                updateLocale("ky")
+            }
+
+            ruBtn.setOnClickListener {
+                updateLocale("ru")
+            }
         }
     }
 
@@ -137,6 +147,31 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
     private fun TextInputLayout.setErrorState(message: String) {
         boxStrokeColor = ContextCompat.getColor(context, R.color.design_default_color_error)
         error = message
+    }
+
+    private fun loadSavedLanguage() {
+        val savedLanguage = viewModel.getSavedLanguage()
+        updateButtonState(savedLanguage)
+        if (resources.configuration.locales[0].language != savedLanguage) {
+            updateLocale(savedLanguage)
+        }
+    }
+
+    private fun updateLocale(languageCode: String) {
+        val locale = Locale(languageCode.lowercase(Locale.ROOT))
+
+        val config = resources.configuration.apply {
+            setLocale(locale)
+        }
+
+        val intent = requireActivity().intent
+        requireActivity().apply {
+            viewModel.saveSelectedLanguage(languageCode)
+
+            recreate()
+        }
+
+        Log.d("ololo", "Перезапуск с локалью: $languageCode")
     }
 
     companion object {

@@ -1,10 +1,11 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import com.mvdasker.geeks_pro_mvd.common.Messages
+import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.User
 import com.mvdasker.geeks_pro_mvd.data.remote.model.parent.ParentModel
@@ -28,10 +29,10 @@ class MenuViewModel @Inject constructor(
     private val navController get() = _navController!!
 
     private val _selectedButtonId = MutableStateFlow<Int?>(null)
-    val selectedButtonId: StateFlow<Int?> get() = _selectedButtonId.asStateFlow()
+    val selectedButtonId: StateFlow<Int?> = _selectedButtonId.asStateFlow()
 
     private val _isRecyclerViewVisible = MutableStateFlow(false)
-    val isRecyclerViewVisible: StateFlow<Boolean> get() = _isRecyclerViewVisible
+    val isRecyclerViewVisible: StateFlow<Boolean> = _isRecyclerViewVisible
 
     private val _isSpinnerIconRotated = MutableStateFlow(false)
     val isSpinnerIconRotated: StateFlow<Boolean> get() = _isSpinnerIconRotated
@@ -39,19 +40,12 @@ class MenuViewModel @Inject constructor(
     private val _getUserId = MutableStateFlow<UiState<User?>>(UiState.Loading)
     val getUserId: Flow<UiState<User?>> = _getUserId.filterNotNull()
 
-    private val _messageFlow = MutableStateFlow<Messages?>(null)
-    val messageFlow: Flow<Messages> = _messageFlow.filterNotNull()
-
-    fun setNavController(navController: NavController) {
-        _navController = navController
-    }
-
     init {
         getUserId()
     }
 
-    fun clearMessage() {
-        _messageFlow.value = null
+    fun setNavController(navController: NavController) {
+        _navController = navController
     }
 
     private fun getUserId() {
@@ -61,18 +55,15 @@ class MenuViewModel @Inject constructor(
                 _getUserId.value = UiState.Success(result)
             } catch (e: Exception) {
                 _getUserId.value = UiState.Error(throwable = e, message = "Error getting user")
-                _messageFlow.value = Messages.NetworkIsDisconnected
-                Log.d("ololo", "Error getting user: ${e.message}", e)
             }
         }
     }
 
-    fun getSampleData(): List<ParentModel> = listOf(
-        ParentModel("История Кыргызстана"),
-        ParentModel("История ВВ МВД КР"),
-        ParentModel("История МВД КР")
+    fun getSampleData(context: Context): List<ParentModel> = listOf(
+        ParentModel(context.getString(R.string.historyKyrgyzstan)),
+        ParentModel(context.getString(R.string.historyVV_MVD_KR)),
+        ParentModel(context.getString(R.string.history_mvd_kr))
     )
-
     fun onItemClick(position: Int) {
         val direction = when (position) {
             0 -> MenuFragmentDirections.actionMenuFragmentToHistoryOfKyrgyzstanFragment()
@@ -84,10 +75,14 @@ class MenuViewModel @Inject constructor(
         navController.navigate(direction)
     }
 
-    fun toggleRecyclerViewVisibility() {
-        _isRecyclerViewVisible.value = !_isRecyclerViewVisible.value
-        _isSpinnerIconRotated.value = !_isSpinnerIconRotated.value
-    }
+    fun onClickControlKRButton() =
+        navController.navigate(MenuFragmentDirections.actionMenuFragmentToControlKRFragment())
+
+    fun onClickControlMIAKRButton() =
+        navController.navigate(MenuFragmentDirections.actionMenuFragmentToControlMIAKRFragment())
+
+    fun onClickControlITMIAKRButton() =
+        navController.navigate(MenuFragmentDirections.actionMenuFragmentToControlITMIAKRFragment())
 
     fun onOpenDictionaryClick() = openWebView("https://el-sozduk.kg/")
     fun onMapClick() = openWebView("https://www.google.com/maps")
@@ -99,16 +94,17 @@ class MenuViewModel @Inject constructor(
         navController.navigate(action)
     }
 
-    fun onButtonToggleGroupCheckedChange(checkedId: Int, isChecked: Boolean) {
-        if (isChecked) _selectedButtonId.value = checkedId
+    fun toggleRecyclerViewVisibility() {
+        _isRecyclerViewVisible.value = !_isRecyclerViewVisible.value
+        _isSpinnerIconRotated.value = !_isSpinnerIconRotated.value
     }
 
-    fun onClickControlKRButton() =
-        navController.navigate(MenuFragmentDirections.actionMenuFragmentToControlKRFragment())
+    fun saveSelectedLanguage(languageCode: String) {
+        menuRepository.saveSelectedLanguage(languageCode)
+    }
 
-    fun onClickControlMIAKRButton() =
-        navController.navigate(MenuFragmentDirections.actionMenuFragmentToControlMIAKRFragment())
+    fun getSavedLanguage(): String {
+        return menuRepository.getSavedLanguage()
+    }
 
-    fun onClickControlITMIAKRButton() =
-        navController.navigate(MenuFragmentDirections.actionMenuFragmentToControlITMIAKRFragment())
 }

@@ -1,21 +1,29 @@
 package com.mvdasker.geeks_pro_mvd.di
 
-import com.mvdasker.geeks_pro_mvd.common.UserProvider
+import android.util.Log
+import com.mvdasker.geeks_pro_mvd.common.LanguagePreference
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
 
-class RefreshTokenInterceptor @Inject constructor(
-    private val userProvider: UserProvider,
+class LanguageInterceptor @Inject constructor(
+    private val languagePreference: LanguagePreference
 ) : Interceptor {
+
     override fun intercept(chain: Interceptor.Chain): Response {
-        val builder = chain.request()
-            .newBuilder()
-            .addHeader("Authorization", "JWT ${userProvider.accessToken}")
+        val originalRequest = chain.request()
 
-        val response = chain.proceed(builder.build())
+        val languageCode = languagePreference.getLanguage ?: "ru"
 
-        return response
+        Log.d("ololo", "Language code: $languageCode")
+
+        val newRequest = originalRequest.newBuilder()
+            .addHeader("Accept-Language", languageCode)
+            .build()
+
+        Log.d("ololo", "Request headers: ${newRequest.headers}")
+
+        return chain.proceed(newRequest)
     }
 
 }
