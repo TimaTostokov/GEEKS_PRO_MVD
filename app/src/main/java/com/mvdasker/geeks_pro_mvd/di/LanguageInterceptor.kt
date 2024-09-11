@@ -21,7 +21,7 @@ class LanguageInterceptor @Inject constructor(
             .addHeader("Accept-Language", languageCode)
             .build()
 
-        Log.d("ololo", "Request headers: ${newRequest.headers}")
+        Log.d("ololo", "Request headers: $newRequest")
 
         return chain.proceed(newRequest)
     }
