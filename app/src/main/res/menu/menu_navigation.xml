@@ -4,12 +4,12 @@
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/home_selector_vectors"
-        android:title="@string/MainHome" />
+        android:title="@string/news_home" />
 
     <item
         android:id="@+id/libraryFragment"
         android:icon="@drawable/library_vectors"
-        android:title="@string/Library" />
+        android:title="@string/library" />
 
     <item
         android:id="@+id/documentsFragment"
@@ -19,6 +19,6 @@
     <item
         android:id="@+id/menuFragment"
         android:icon="@drawable/menu_fill"
-        android:title="@string/MenuOthers" />
+        android:title="@string/menu" />
 
 </menu>

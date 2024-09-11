@@ -160,7 +160,7 @@ class HistoryOfKyrgyzstanFragment : Fragment(R.layout.fragment_history_of_kyrgyz
     }
 
     companion object {
-        const val SLUG = "kr"
+        const val SLUG = "history-kr"
     }
 
 }

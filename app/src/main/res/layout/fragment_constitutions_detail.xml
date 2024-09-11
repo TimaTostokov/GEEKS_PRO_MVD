@@ -38,7 +38,7 @@
         android:id="@+id/tv_const_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/text_constitution"
+        tools:text="@string/text_constitution"
         android:textColor="@color/black"
         android:layout_marginTop="24dp"/>
 

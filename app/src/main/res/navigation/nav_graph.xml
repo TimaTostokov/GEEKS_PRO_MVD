@@ -36,7 +36,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.HomeFragment"
-        android:label="@string/MainHome"
+        android:label="@string/news_home"
         tools:layout="@layout/fragment_home">
 
         <action
@@ -67,7 +67,7 @@
     <fragment
         android:id="@+id/libraryFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.library.LibraryFragment"
-        android:label="@string/Library"
+        android:label="@string/library"
         tools:layout="@layout/fragment_library">
 
         <action
@@ -141,7 +141,7 @@
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.MenuFragment"
-        android:label="@string/MenuOthers"
+        android:label="@string/menu"
         tools:layout="@layout/fragment_menu">
 
         <action

@@ -166,44 +166,20 @@ object Extensions {
 
         inputList?.forEach { item ->
             val urlString = extractUrl(item)
-            Log.d("convertToUrlArray", "Processing item: $urlString")
 
             if (urlString != null && Patterns.WEB_URL.matcher(urlString).matches()) {
                 urlArray.add(urlString)
             }
         }
 
-        Log.d("convertToUrlArray", "Final urlArray: $urlArray")
         return urlArray
-    }
-
-    fun Activity.changeLanguage() {
-        val listItems = arrayOf("Кыргызский", "Русский")
-        val mBuilder = AlertDialog.Builder(this)
-        mBuilder.setTitle("Выберите язык")
-        mBuilder.setSingleChoiceItems(listItems, -1) { dialog, which ->
-            when (which) {
-
-                0 -> {
-                    setLocale("ky", this)
-                }
-
-                1 -> {
-                    setLocale("ru", this)
-                }
-            }
-            this.recreate()
-            dialog.dismiss()
-        }
-        val mDialog = mBuilder.create()
-        mDialog.show()
     }
 
     private fun setLocale(s: String, context: Context) {
         val locale = Locale(s)
         Locale.setDefault(locale)
         val config = Configuration()
-        config.locale = locale
+        config.setLocale(locale)
         context.resources.updateConfiguration(
             config,
             context.resources.displayMetrics

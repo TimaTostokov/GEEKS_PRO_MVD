@@ -1,22 +1,12 @@
 package com.mvdasker.geeks_pro_mvd.data.repositories
 
-import android.content.ContentValues.TAG
-import android.content.Context
-import android.content.Intent
-import android.content.res.Configuration
 import android.util.Base64
 import android.util.Log
-import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.LanguagePreference
 import com.mvdasker.geeks_pro_mvd.common.UserProvider
 import com.mvdasker.geeks_pro_mvd.data.remote.apiservice.SanaripAskerApi
 import com.mvdasker.geeks_pro_mvd.data.remote.model.authorization.User
-import com.mvdasker.geeks_pro_mvd.presentation.ui.activity.MainActivity
-import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import org.json.JSONObject
-import java.util.Locale
 import javax.inject.Inject
 
 class MenuRepository @Inject constructor(
@@ -51,7 +41,7 @@ class MenuRepository @Inject constructor(
     }
 
     fun getSavedLanguage(): String {
-        return languagePreference.getLanguage ?: "ru" // "ru" по умолчанию
+        return languagePreference.getLanguage ?: "ru"
     }
 
 }
