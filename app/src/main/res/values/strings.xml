@@ -2,14 +2,14 @@
     <string name="app_name">GEEKS_PRO_MVD</string>
     <string name="ok">OK</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="authorization">Авторизация</string>
-    <string name="notice">Если вы забыли логин или пароль, обратитесь к своему руководителю</string>
+    <string name="authorization" translatable="false">Авторизация</string>
+    <string name="notice" translatable="false">Если вы забыли логин или пароль, обратитесь к своему руководителю</string>
     <string name="Login">Логин</string>
     <string name="Password">Пароль</string>
     <string name="login_error">Неверный логин</string>
     <string name="password_error">Неверный пароль</string>
     <string name="goInto">Войти</string>
-    <string name="MainHome">Новости</string>
+    <string name="MainHome" translatable="false">Новости</string>
     <string name="Library">Библиотека</string>
     <string name="Documents">Документы</string>
     <string name="cross">Отмена</string>

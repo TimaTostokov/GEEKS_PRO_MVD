@@ -2,6 +2,7 @@ package com.mvdasker.geeks_pro_mvd.di
 
 import com.mvdasker.geeks_pro_mvd.common.Constants.BASE_URL
 import com.mvdasker.geeks_pro_mvd.common.Constants.NETWORK_TIMEOUT
+import com.mvdasker.geeks_pro_mvd.common.LanguagePreference
 import com.mvdasker.geeks_pro_mvd.common.UserProvider
 import com.mvdasker.geeks_pro_mvd.data.remote.apiservice.SanaripAskerApi
 import dagger.Module
@@ -21,15 +22,16 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRefreshTokenInterceptor(
-        userProvider: UserProvider,
-    ): RefreshTokenInterceptor =
-        RefreshTokenInterceptor(userProvider)
+    fun provideLanguageInterceptor(
+        languagePreference: LanguagePreference
+    ): LanguageInterceptor = LanguageInterceptor(languagePreference)
 
     @Provides
     @Singleton
     fun provideOkHttpClient(
+        languageInterceptor: LanguageInterceptor
     ): OkHttpClient = OkHttpClient().newBuilder()
+        .addInterceptor(languageInterceptor)
         .addInterceptor(
             HttpLoggingInterceptor().setLevel(
                 HttpLoggingInterceptor.Level.BODY

@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -23,18 +24,17 @@ import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.loadImage
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.rotate
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 @AndroidEntryPoint
 class MenuFragment : Fragment(R.layout.fragment_menu) {
 
     private val binding by viewBinding(FragmentMenuBinding::bind)
-
     private val viewModel by viewModels<MenuViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,7 +46,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
         setupListeners()
         observeViewModel()
         snackBar()
-
+        loadSavedLanguage()
     }
 
     private fun observeViewModel() {
@@ -54,12 +54,6 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
             viewModel.isRecyclerViewVisible.collectLatest { isVisible ->
                 binding.recyclerView.isVisible = isVisible
                 binding.line.isVisible = isVisible
-            }
-        }
-
-        lifecycleScope.launch {
-            viewModel.selectedButtonId.collect { selectedId ->
-                selectedId?.let { updateButtonState(it) }
             }
         }
 
@@ -72,23 +66,13 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
         lifecycleScope.launch {
             viewModel.getUserId.collectLatest { result ->
                 when (result) {
-                    is UiState.Loading -> {
-                        binding.fMenuProgressBar.visible()
-                    }
-
+                    is UiState.Loading -> binding.fMenuProgressBar.visible()
                     is UiState.Success -> {
                         binding.userName.text = result.data?.username
-
-                        if (result.data?.img != null) {
-                            binding.avatarImageView.loadImage(result.data.img.toString())
-                        }
-
+                        result.data?.img?.let { binding.avatarImageView.loadImage(it) }
                         binding.fMenuProgressBar.gone()
                     }
-
-                    is UiState.Error -> {
-                        binding.fMenuProgressBar.gone()
-                    }
+                    is UiState.Error -> binding.fMenuProgressBar.gone()
                 }
             }
         }
@@ -112,40 +96,22 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
     private fun setupRecyclerView() {
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = HistoryAdapter(viewModel.getSampleData(), this@MenuFragment::onClicker)
+            adapter = HistoryAdapter(viewModel.getSampleData(requireContext()), this@MenuFragment::onClicker)
         }
-    }
-
-    private fun onClicker(position: Int) {
-        viewModel.onItemClick(position)
-    }
-
-    private fun updateButtonState(checkedId: Int) {
-        binding.kgBtn.updateState(checkedId == R.id.kg_btn)
-        binding.ruBtn.updateState(checkedId == R.id.ru_btn)
-    }
-
-    private fun MaterialButton.updateState(isSelected: Boolean) {
-        backgroundTintList = ContextCompat.getColorStateList(
-            requireContext(),
-            if (isSelected) R.color.dark_blue else R.color.white
-        )
-        setTextColor(
-            ContextCompat.getColor(
-                requireContext(),
-                if (isSelected) R.color.white else R.color.dark_blue
-            )
-        )
-    }
-
-    private fun updateSpinnerIcon(isRotated: Boolean) {
-        binding.spinner.rotate(isRotated)
     }
 
     private fun setupListeners() = with(binding) {
         spinner.setOnClickListener {
             viewModel.toggleRecyclerViewVisibility()
             expandRecyclerView(viewModel.isRecyclerViewVisible.value)
+        }
+
+        kgBtn.setOnClickListener {
+            updateLocale("ky")
+        }
+
+        ruBtn.setOnClickListener {
+            updateLocale("ru")
         }
 
         aboutUsButton.setOnClickListener {
@@ -167,11 +133,18 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
         hideRecyclerViewActions.forEach { (button, action) ->
             button.setOnClickListener { action() }
         }
+    }
 
-        buttonToggleGroup.addOnButtonCheckedListener { _, checkedId, isChecked ->
-            if (isChecked) {
-                viewModel.onButtonToggleGroupCheckedChange(checkedId, isChecked)
-            }
+    private fun updateSpinnerIcon(isRotated: Boolean) {
+        val targetRotation = if (isRotated) 180f else 0f
+        val currentRotation = binding.spinner.rotation
+
+        if (currentRotation != targetRotation) {
+            ObjectAnimator.ofFloat(binding.spinner, "rotation", currentRotation, targetRotation)
+                .apply {
+                    duration = 300L
+                    start()
+                }
         }
     }
 
@@ -187,6 +160,54 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
                 }
             })
         }.start()
+    }
+
+    private fun onClicker(position: Int) {
+        viewModel.onItemClick(position)
+    }
+
+    private fun loadSavedLanguage() {
+        val savedLanguage = viewModel.getSavedLanguage()
+        updateButtonState(savedLanguage)
+        if (resources.configuration.locales[0].language != savedLanguage) {
+            updateLocale(savedLanguage)
+        }
+    }
+
+    private fun updateButtonState(languageCode: String) {
+        val kgBtnSelected = languageCode == "ky"
+        binding.kgBtn.updateState(kgBtnSelected)
+        binding.ruBtn.updateState(!kgBtnSelected)
+    }
+
+    private fun MaterialButton.updateState(isSelected: Boolean) {
+        backgroundTintList = ContextCompat.getColorStateList(
+            requireContext(),
+            if (isSelected) R.color.dark_blue else R.color.white
+        )
+        setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                if (isSelected) R.color.white else R.color.dark_blue
+            )
+        )
+    }
+
+    private fun updateLocale(languageCode: String) {
+        val locale = Locale(languageCode.lowercase(Locale.ROOT))
+
+        val config = resources.configuration.apply {
+            setLocale(locale)
+        }
+
+        val intent = requireActivity().intent
+        requireActivity().apply {
+            viewModel.saveSelectedLanguage(languageCode)
+
+            recreate()
+        }
+
+        Log.d("ololo", "Перезапуск с локалью: $languageCode")
     }
 
 }

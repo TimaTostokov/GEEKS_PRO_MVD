@@ -1,6 +1,8 @@
 package com.mvdasker.geeks_pro_mvd.di
 
+import android.content.Context
 import com.mvdasker.geeks_pro_mvd.common.AppDispatchers
+import com.mvdasker.geeks_pro_mvd.common.LanguagePreference
 import com.mvdasker.geeks_pro_mvd.common.UserProvider
 import com.mvdasker.geeks_pro_mvd.data.remote.apiservice.SanaripAskerApi
 import com.mvdasker.geeks_pro_mvd.data.repositories.AuthorizationRepository
@@ -15,6 +17,7 @@ import com.mvdasker.geeks_pro_mvd.data.repositories.NotificationRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -76,10 +79,17 @@ object RepositoryModule {
 
     @Provides
     @Singleton
+    fun provideLanguagePreference(@ApplicationContext context: Context): LanguagePreference {
+        return LanguagePreference(context)
+    }
+
+    @Provides
+    @Singleton
     fun provideMenuRepository(
         sanaripAskerApi: SanaripAskerApi,
         userProvider: UserProvider,
-    ): MenuRepository = MenuRepository(sanaripAskerApi, userProvider)
+        languagePreference: LanguagePreference
+    ): MenuRepository = MenuRepository(sanaripAskerApi, userProvider, languagePreference)
 
     @Provides
     @Singleton
