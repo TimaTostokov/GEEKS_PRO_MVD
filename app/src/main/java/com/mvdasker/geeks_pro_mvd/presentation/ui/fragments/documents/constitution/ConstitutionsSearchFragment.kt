@@ -134,5 +134,5 @@ class ConstitutionsSearchFragment : Fragment(R.layout.fragment_constitutions_sea
             ConstitutionsSearchFragmentDirections.actionConstitutionsSearchFragmentToConstitutionsDetailFragment()
         )
     }
-}
 
+}

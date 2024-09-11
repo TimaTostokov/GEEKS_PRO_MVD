@@ -23,6 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
+
     private val binding by viewBinding(FragmentConstitutionBinding::bind)
     private val viewModel by viewModels<ConstitutionsViewModel>()
     private var mList = ArrayList<Constitutions>()
@@ -85,4 +86,5 @@ class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
     private fun onClick(id: Int) {
         findNavController().navigate(ConstitutionFragmentDirections.actionConstitutionFragmentToConstitutionsDetailFragment())
     }
+
 }

@@ -1,5 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.adapter
 
+import android.annotation.SuppressLint
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,6 +19,7 @@ class LawAdapter(
     private var searchQuery: String = ""
     private var mList = mutableListOf<Law>()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setFilteredList(mList: List<Law>, query: String) {
         this.searchQuery = query
         this.mList.clear()
@@ -77,4 +79,5 @@ class LawViewHolder(
 
         binding.rvChapter.isVisible = lawsData.isExpandable
     }
+
 }
