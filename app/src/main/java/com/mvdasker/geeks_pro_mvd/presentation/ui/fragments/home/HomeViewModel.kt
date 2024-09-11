@@ -6,9 +6,9 @@ import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
 import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
-import com.mvdasker.geeks_pro_mvd.data.NewsPagingSource
 import com.mvdasker.geeks_pro_mvd.data.remote.model.news.NewsResponse
 import com.mvdasker.geeks_pro_mvd.data.repositories.NewsRepository
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.paging.NewsPagingSource
 import com.mvdasker.geeks_pro_mvd.utils.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
@@ -31,9 +31,12 @@ class HomeViewModel @Inject constructor(
     private val _notReadNotifCount = MutableStateFlow(0)
     val notReadNotifCount: StateFlow<Int> get() = _notReadNotifCount
 
+    private var currentPage = 1
+
     fun clearMessage() {
         _messageFlow.value = null
     }
+
 
     val newsPager =
         Pager(config = PagingConfig(pageSize = 10, enablePlaceholders = true)) {

@@ -12,18 +12,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SimpleItemAnimator
-import androidx.paging.CombinedLoadStates
-import androidx.paging.LoadState
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentHomeBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.adapters.NewsAdapter
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.adapters.NewsLoadingStateAdapter
-import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.paging.NewsLoadingStateAdapter
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
@@ -66,7 +60,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         binding.fDocUpBtn.setOnClickListener {
-            binding.rvMain.smoothScrollToPosition(0)
+            binding.rvMain.smoothScrollToPosition( 0)
         }
 
         binding.fhNotif.setOnClickListener {
