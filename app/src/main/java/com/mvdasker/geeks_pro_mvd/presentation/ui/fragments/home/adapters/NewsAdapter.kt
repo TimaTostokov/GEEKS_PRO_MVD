@@ -3,9 +3,8 @@ package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.adapters
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.isVisible
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.mvdasker.geeks_pro_mvd.data.remote.model.news.News
@@ -13,14 +12,14 @@ import com.mvdasker.geeks_pro_mvd.databinding.ItemNewsBinding
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.formatDate
 
 class NewsAdapter(val onClick: (id: Int) -> Unit) :
-    ListAdapter<News, NewsAdapter.NewsViewHolder>(DiffUtilCallback()) {
+    PagingDataAdapter<News, NewsAdapter.NewsViewHolder>(DiffUtilCallback()) {
 
     inner class NewsViewHolder(private val binding: ItemNewsBinding) : ViewHolder(binding.root) {
 
         init {
             binding.root.setOnClickListener {
                 getItem(absoluteAdapterPosition)?.let {
-                    it.id?.let { it1 -> onClick(it1) }
+                    it.id?.let { id -> onClick(id) }
                 }
             }
         }
@@ -32,37 +31,30 @@ class NewsAdapter(val onClick: (id: Int) -> Unit) :
                 tvDescription.text = Html.fromHtml(data.description, Html.FROM_HTML_MODE_LEGACY)
 
                 val imageUrl = data.images?.firstOrNull()?.image
-                Glide.with(itemView.context).load(imageUrl ?: itemView.isVisible).into(ivItem)
+                Glide.with(itemView.context).load(imageUrl).into(ivItem)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        return NewsViewHolder(
-            ItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        )
+        val binding = ItemNewsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return NewsViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        getItem(position)?.let {
-            holder.bind(it)
-        }
+        getItem(position)?.let { holder.bind(it) }
     }
 
     companion object {
         class DiffUtilCallback : DiffUtil.ItemCallback<News>() {
-            override fun areItemsTheSame(
-                oldItem: News,
-                newItem: News
-            ): Boolean {
-                return oldItem == newItem
+            override fun areItemsTheSame(oldItem: News, newItem: News): Boolean {
+                return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(
-                oldItem: News,
-                newItem: News
-            ): Boolean {
-                return oldItem == newItem
+            override fun areContentsTheSame(oldItem: News, newItem: News): Boolean {
+                return oldItem.date == newItem.date &&
+                        oldItem.title == newItem.title &&
+                        oldItem.description == newItem.description
             }
         }
     }

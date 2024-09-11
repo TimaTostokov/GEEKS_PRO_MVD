@@ -1,6 +1,7 @@
 package com.mvdasker.geeks_pro_mvd.di
 
 import com.mvdasker.geeks_pro_mvd.common.Constants.BASE_URL
+import com.mvdasker.geeks_pro_mvd.common.Constants.NETWORK_TIMEOUT
 import com.mvdasker.geeks_pro_mvd.common.UserProvider
 import com.mvdasker.geeks_pro_mvd.data.remote.apiservice.SanaripAskerApi
 import dagger.Module
@@ -34,10 +35,10 @@ object NetworkModule {
                 HttpLoggingInterceptor.Level.BODY
             )
         )
-        .connectTimeout(60L, TimeUnit.SECONDS)
-        .readTimeout(60L, TimeUnit.SECONDS)
-        .writeTimeout(60L, TimeUnit.SECONDS)
-        .callTimeout(60L, TimeUnit.SECONDS)
+        .connectTimeout(NETWORK_TIMEOUT, TimeUnit.SECONDS)
+        .readTimeout(NETWORK_TIMEOUT, TimeUnit.SECONDS)
+        .writeTimeout(NETWORK_TIMEOUT, TimeUnit.SECONDS)
+        .callTimeout(NETWORK_TIMEOUT, TimeUnit.SECONDS)
         .build()
 
     @Provides

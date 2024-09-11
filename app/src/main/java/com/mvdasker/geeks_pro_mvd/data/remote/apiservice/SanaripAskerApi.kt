@@ -119,6 +119,7 @@ interface SanaripAskerApi {
     suspend fun getNews(
         @Header("Authorization") accessToken: String,
         @Query("page") page: Int,
+        @Query("page_size") pageSize: Int = 10,
     ): NewsResponse
 
     @GET(NEWS_DETAIL_ENDPOINT)

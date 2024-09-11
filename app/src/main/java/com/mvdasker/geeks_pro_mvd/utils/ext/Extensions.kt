@@ -2,7 +2,10 @@ package com.mvdasker.geeks_pro_mvd.utils.ext
 
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
 import android.text.Spannable
@@ -27,6 +30,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.common.LanguagePreference
 import com.mvdasker.geeks_pro_mvd.common.PlayerItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -147,7 +151,7 @@ object Extensions {
         items1: List<T>,
         items2: List<R>,
         mapper1: (T) -> PlayerItem?,
-        mapper2: (R) -> PlayerItem?
+        mapper2: (R) -> PlayerItem?,
     ): List<PlayerItem> {
         val list1 = items1.mapNotNull { mapper1(it) }
         val list2 = items2.mapNotNull { mapper2(it) }
@@ -156,7 +160,7 @@ object Extensions {
 
     fun <T> convertToUrlArray(
         inputList: List<T>?,
-        extractUrl: (T) -> String?
+        extractUrl: (T) -> String?,
     ): List<String> {
         val urlArray = mutableListOf<String>()
 
@@ -171,6 +175,78 @@ object Extensions {
 
         Log.d("convertToUrlArray", "Final urlArray: $urlArray")
         return urlArray
+    }
+
+    fun Activity.changeLanguage() {
+        val listItems = arrayOf("Кыргызский", "Русский")
+        val mBuilder = AlertDialog.Builder(this)
+        mBuilder.setTitle("Выберите язык")
+        mBuilder.setSingleChoiceItems(listItems, -1) { dialog, which ->
+            when (which) {
+
+                0 -> {
+                    setLocale("ky", this)
+                }
+
+                1 -> {
+                    setLocale("ru", this)
+                }
+            }
+            this.recreate()
+            dialog.dismiss()
+        }
+        val mDialog = mBuilder.create()
+        mDialog.show()
+    }
+
+    private fun setLocale(s: String, context: Context) {
+        val locale = Locale(s)
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.locale = locale
+        context.resources.updateConfiguration(
+            config,
+            context.resources.displayMetrics
+        )
+        LanguagePreference.getInstance(context)?.saveLanguage(s)
+
+    }
+
+    fun loadLocale(context: Context) {
+        var language: String? = LanguagePreference.getInstance(context)?.getLanguage
+        if (language != null) {
+            setLocale(language, context)
+        }
+
+        fun View.rotate(isRotated: Boolean) {
+            val targetRotation = if (isRotated) 180f else 0f
+
+            if (rotation != targetRotation) {
+                ObjectAnimator.ofFloat(this, "rotation", rotation, targetRotation)
+                    .apply {
+                        duration = 300L
+                        start()
+                    }
+            }
+
+            fun TextView.highlightText(text: String, query: String) {
+                val spannableString = SpannableString(text)
+                if (query.isNotEmpty()) {
+                    var startIndex = text.lowercase().indexOf(query.lowercase())
+                    while (startIndex >= 0) {
+                        val endIndex = startIndex + query.length
+                        spannableString.setSpan(
+                            ForegroundColorSpan(Color.parseColor("#03A9F4")),
+                            startIndex,
+                            endIndex,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                        )
+                        startIndex = text.lowercase().indexOf(query.lowercase(), endIndex)
+                    }
+                }
+                this.text = spannableString
+            }
+        }
     }
 
 }
