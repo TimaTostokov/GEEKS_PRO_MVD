@@ -14,7 +14,7 @@ class NewsPagingSource(
             val page = params.key ?: 1
             val pageSize = 20
             val data = repository.getPagingNews(page = page, pageSize = pageSize)
-            val nextKey = if (data.results.isNullOrEmpty() || data.results.size < pageSize) {
+            val nextKey = if (data.results.isEmpty() || data.results.size < pageSize) {
                 null
             } else {
                 page + 1
@@ -38,4 +38,5 @@ class NewsPagingSource(
             )?.nextKey?.minus(1)
         }
     }
+
 }

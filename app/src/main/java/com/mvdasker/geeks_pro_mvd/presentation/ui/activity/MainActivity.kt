@@ -71,15 +71,15 @@ class MainActivity : AppCompatActivity() {
         }
         navView.setupWithNavController(navController)
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//            val controller = window.insetsController
-//            controller?.setSystemBarsAppearance(
-//                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
-//                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-//            )
-//        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-//        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val controller = window.insetsController
+            controller?.setSystemBarsAppearance(
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+            )
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+        }
 //        serverStatusViewModel.serverStatus.observe(this) { status ->
 //            if (status == ServerStatus.UNAVAILABLE) {
 //                if (navController.currentDestination?.id != R.id.malfunctionsFragment &&

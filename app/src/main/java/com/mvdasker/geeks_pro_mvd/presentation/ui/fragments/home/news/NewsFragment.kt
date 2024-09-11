@@ -42,7 +42,6 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
         subscribe()
         setupClickListeners()
         showSnack()
-
     }
 
     @SuppressLint("SetTextI18n")

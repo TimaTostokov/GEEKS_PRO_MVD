@@ -1,5 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -20,17 +21,18 @@ class ConstitutionChapterAdapter(
         return ConstitutionChapterViewHolder(binding, onChapterClick)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setChapters(chapter: List<ConstitutionsChapter>) {
         constitutionChapterList.clear()
         constitutionChapterList.addAll(chapter)
         notifyDataSetChanged()
     }
 
-    override fun getItemCount(): Int = constitutionChapterList.size
-
     override fun onBindViewHolder(holder: ConstitutionChapterViewHolder, position: Int) {
         holder.bind(constitutionChapterList[position])
     }
+
+    override fun getItemCount(): Int = constitutionChapterList.size
 }
 
 class ConstitutionChapterViewHolder(

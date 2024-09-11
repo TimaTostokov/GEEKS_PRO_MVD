@@ -41,6 +41,7 @@ class ConstitutionsSearchFragment : Fragment(R.layout.fragment_constitutions_sea
         goBack()
         deleteClearBtn()
     }
+
     private fun initialize() {
         binding.rvSearchConstitution.adapter = adapter
     }
@@ -67,19 +68,14 @@ class ConstitutionsSearchFragment : Fragment(R.layout.fragment_constitutions_sea
 
     private fun searchInfo() {
         binding.etSearch.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                viewModel.onSearchQueryChanged(s.toString())
-            }
+                viewModel.onSearchQueryChanged(s.toString()) }
 
-            override fun afterTextChanged(s: Editable?) {
-            }
-
+            override fun afterTextChanged(s: Editable?) {}
         })
     }
-
 
     private fun onClick(id: Int) {
         findNavController().navigate(
@@ -87,7 +83,6 @@ class ConstitutionsSearchFragment : Fragment(R.layout.fragment_constitutions_sea
             id)
         )
     }
-
 
     private fun goBack() {
         binding.fconstBackBtn.setOnClickListener {
@@ -106,5 +101,5 @@ class ConstitutionsSearchFragment : Fragment(R.layout.fragment_constitutions_sea
             }
         }
     }
-}
 
+}

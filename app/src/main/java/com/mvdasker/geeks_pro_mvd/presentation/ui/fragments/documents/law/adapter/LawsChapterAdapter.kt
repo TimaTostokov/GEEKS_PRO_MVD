@@ -1,5 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,7 @@ class LawsChapterAdapter(
         return LawsChapterViewHolder(binding, onChapterClick)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setChapters(chapter: List<LawsChapter>) {
         lawsChapterList.clear()
         lawsChapterList.addAll(chapter)

@@ -49,7 +49,7 @@ interface SanaripAskerApi {
     @GET(LAW_END_ID_POINT)
     suspend fun getLawById(
         @Header("Authorization") accessToken: String,
-        @Path("id") id: Int
+        @Path("id") id: Int,
     ): LawsChapter
 
     @GET(CHARTERS_END_POINT)

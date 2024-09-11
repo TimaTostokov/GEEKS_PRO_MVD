@@ -23,10 +23,11 @@ import javax.inject.Inject
 @HiltViewModel
 class ConstitutionsDetailViewModel @Inject constructor(
     private val repository: ConstitutionsRepository,
-    private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
-    private val _constitutionsDetail = MutableStateFlow<UiState<ConstitutionsChapter?>>(UiState.Loading)
+    private val _constitutionsDetail =
+        MutableStateFlow<UiState<ConstitutionsChapter?>>(UiState.Loading)
     val constitutionsDetail: StateFlow<UiState<ConstitutionsChapter?>> = _constitutionsDetail
 
     private val _messageFlow = MutableStateFlow<Messages?>(null)
@@ -37,10 +38,10 @@ class ConstitutionsDetailViewModel @Inject constructor(
     fun clearMessage() {
         _messageFlow.value = null
     }
+
     fun setId(id: Int) {
         savedStateHandle[LAW_LAY] = id
     }
-
 
     init {
         getConstitutionsDetail()
@@ -54,7 +55,8 @@ class ConstitutionsDetailViewModel @Inject constructor(
                         _constitutionsDetail.value = UiState.Success(constitutionDetail)
                     },
                     onFailure = { error ->
-                        _constitutionsDetail.value = UiState.Error(error, error.message ?: "unknown error!")
+                        _constitutionsDetail.value =
+                            UiState.Error(error, error.message ?: "unknown error!")
                         _messageFlow.value = Messages.NetworkIsDisconnected
                         Log.e("toli", "во viewModel не пришли данные")
 
@@ -63,4 +65,5 @@ class ConstitutionsDetailViewModel @Inject constructor(
             }
         }
     }
+
 }

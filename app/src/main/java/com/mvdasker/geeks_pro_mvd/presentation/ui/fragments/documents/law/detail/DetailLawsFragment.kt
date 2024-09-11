@@ -19,11 +19,14 @@ import dagger.hilt.android.AndroidEntryPoint
 class DetailLawsFragment : Fragment(R.layout.fragment_detail_laws) {
 
     private val binding by viewBinding(FragmentDetailLawsBinding::bind)
+
     private val viewModel: DetailLawViewModel by viewModels()
+
     private val args: DetailLawsFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         args.id.let {
             viewModel.setId(it)
         }
@@ -56,4 +59,5 @@ class DetailLawsFragment : Fragment(R.layout.fragment_detail_laws) {
             findNavController().navigateUp()
         }
     }
+
 }

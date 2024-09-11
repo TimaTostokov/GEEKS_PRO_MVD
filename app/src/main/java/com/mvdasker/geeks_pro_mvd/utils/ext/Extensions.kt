@@ -6,8 +6,8 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.res.Configuration
-import android.graphics.Color
 import android.content.res.Resources
+import android.graphics.Color
 import android.os.Build
 import android.text.Spannable
 import android.text.SpannableString
@@ -250,36 +250,6 @@ object Extensions {
         var language: String? = LanguagePreference.getInstance(context)?.getLanguage
         if (language != null) {
             setLocale(language, context)
-        }
-
-        fun View.rotate(isRotated: Boolean) {
-            val targetRotation = if (isRotated) 180f else 0f
-
-            if (rotation != targetRotation) {
-                ObjectAnimator.ofFloat(this, "rotation", rotation, targetRotation)
-                    .apply {
-                        duration = 300L
-                        start()
-                    }
-            }
-
-            fun TextView.highlightText(text: String, query: String) {
-                val spannableString = SpannableString(text)
-                if (query.isNotEmpty()) {
-                    var startIndex = text.lowercase().indexOf(query.lowercase())
-                    while (startIndex >= 0) {
-                        val endIndex = startIndex + query.length
-                        spannableString.setSpan(
-                            ForegroundColorSpan(Color.parseColor("#03A9F4")),
-                            startIndex,
-                            endIndex,
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-                        )
-                        startIndex = text.lowercase().indexOf(query.lowercase(), endIndex)
-                    }
-                }
-                this.text = spannableString
-            }
         }
     }
 

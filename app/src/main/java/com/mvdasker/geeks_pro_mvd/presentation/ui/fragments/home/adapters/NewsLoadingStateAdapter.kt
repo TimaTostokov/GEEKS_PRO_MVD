@@ -42,4 +42,5 @@ class NewsLoadingStateAdapter(
             errorMsg.text = (loadState as? LoadState.Error)?.error?.message
         }
     }
+
 }

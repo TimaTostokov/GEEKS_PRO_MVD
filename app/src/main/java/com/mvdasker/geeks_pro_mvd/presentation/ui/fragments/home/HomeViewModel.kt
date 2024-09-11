@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,18 +32,14 @@ class HomeViewModel @Inject constructor(
     private val _notReadNotifCount = MutableStateFlow(0)
     val notReadNotifCount: StateFlow<Int> get() = _notReadNotifCount
 
-    private var currentPage = 1
-
     fun clearMessage() {
         _messageFlow.value = null
     }
-
 
     val newsPager =
         Pager(config = PagingConfig(pageSize = 10, enablePlaceholders = true)) {
             NewsPagingSource(repository)
         }.flow.cachedIn(viewModelScope)
-
 
 //    init {
 //        fetchNews(currentPage)
@@ -58,14 +55,6 @@ class HomeViewModel @Inject constructor(
 //                _messageFlow.value = Messages.NetworkIsDisconnected
 //            }
 //        }
-//    }
-//
-//    fun loadNextPage() {
-//        fetchNews(currentPage + 1)
-//    }
-//
-//    fun loadNext() {
-//        fetchNews(currentPage - 1)
 //    }
 //
 //    private fun updateNotReadNotifCount() {

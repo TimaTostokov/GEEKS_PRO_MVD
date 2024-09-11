@@ -87,4 +87,5 @@ class LawViewHolder(
     fun highlightItemLaw() {
         binding.lawCardView.highlightItemCard()
     }
+
 }

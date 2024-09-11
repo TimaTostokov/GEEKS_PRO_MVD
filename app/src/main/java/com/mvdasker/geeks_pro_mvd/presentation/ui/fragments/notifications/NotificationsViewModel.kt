@@ -126,4 +126,5 @@ class NotificationsViewModel @Inject constructor(
             notificationRepository.getNotificationById(notifId)
         }
     }
+
 }

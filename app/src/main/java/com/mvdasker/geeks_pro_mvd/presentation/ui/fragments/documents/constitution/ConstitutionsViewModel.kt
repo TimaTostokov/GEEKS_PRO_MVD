@@ -57,4 +57,5 @@ class ConstitutionsViewModel @Inject constructor(private val constitutionReposit
         _constitution.update { UiState.Success(mutableListOf()) }
         _constitution.update { UiState.Success(filteredLaws.toMutableList()) }
     }
+
 }

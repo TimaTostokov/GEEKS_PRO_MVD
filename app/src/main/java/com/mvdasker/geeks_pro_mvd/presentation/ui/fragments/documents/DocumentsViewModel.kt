@@ -27,4 +27,5 @@ class DocumentsViewModel @Inject constructor(private val repository: DocumentsRe
             _notReadNotifCount.value = notReadList.size
         }
     }
+
 }
