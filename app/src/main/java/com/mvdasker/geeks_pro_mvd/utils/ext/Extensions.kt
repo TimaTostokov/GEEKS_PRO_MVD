@@ -1,12 +1,16 @@
 package com.mvdasker.geeks_pro_mvd.utils.ext
 
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Build
-import android.text.Html
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.util.Patterns
 import android.util.TypedValue
@@ -28,8 +32,6 @@ import com.google.android.material.snackbar.Snackbar
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.LanguagePreference
 import com.mvdasker.geeks_pro_mvd.common.PlayerItem
-import com.mvdasker.geeks_pro_mvd.data.remote.model.news.NewsImage
-import com.mvdasker.geeks_pro_mvd.data.remote.model.news.NewsVideo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -91,6 +93,36 @@ object Extensions {
 
     fun View.gone() {
         this.visibility = View.GONE
+    }
+
+    fun View.rotate(isRotated: Boolean) {
+        val targetRotation = if (isRotated) 180f else 0f
+
+        if (rotation != targetRotation) {
+            ObjectAnimator.ofFloat(this, "rotation", rotation, targetRotation)
+                .apply {
+                    duration = 300L
+                    start()
+                }
+        }
+    }
+
+    fun TextView.highlightText(text: String, query: String) {
+        val spannableString = SpannableString(text)
+        if (query.isNotEmpty()) {
+            var startIndex = text.lowercase().indexOf(query.lowercase())
+            while (startIndex >= 0) {
+                val endIndex = startIndex + query.length
+                spannableString.setSpan(
+                    ForegroundColorSpan(Color.parseColor("#03A9F4")),
+                    startIndex,
+                    endIndex,
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+                startIndex = text.lowercase().indexOf(query.lowercase(), endIndex)
+            }
+        }
+        this.text = spannableString
     }
 
     inline fun <T> Fragment.observeData(

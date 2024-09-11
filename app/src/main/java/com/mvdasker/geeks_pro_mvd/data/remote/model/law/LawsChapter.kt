@@ -5,7 +5,9 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class LawsCharter(
+data class LawsChapter(
+    @SerializedName("id")
+    val id: Int? = null,
     @SerializedName("chapter")
     val chapter: String? = null,
     @SerializedName("article")

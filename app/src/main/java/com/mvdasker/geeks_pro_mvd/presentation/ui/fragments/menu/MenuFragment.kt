@@ -20,6 +20,9 @@ import com.mvdasker.geeks_pro_mvd.databinding.FragmentMenuBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history.adapter.HistoryAdapter
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.loadImage
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.rotate
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,7 +44,8 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
         setupRecyclerView()
         setupListeners()
         observeViewModel()
-        loadSavedLanguage()
+        snackBar()
+
     }
 
     private fun observeViewModel() {
@@ -76,6 +80,21 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
                     is UiState.Error -> binding.fMenuProgressBar.gone()
                 }
             }
+        }
+    }
+
+    private fun snackBar() {
+        observeData(viewModel.messageFlow) { messages ->
+            when (messages) {
+                is Messages.NetworkIsDisconnected -> {
+                    noInternetSnackbar()
+                }
+
+                else -> {
+                    Extensions.showToast(requireContext(), "Network is disconnected")
+                }
+            }
+            viewModel.clearMessage()
         }
     }
 

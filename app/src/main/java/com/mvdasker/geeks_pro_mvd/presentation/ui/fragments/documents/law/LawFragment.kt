@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
-import com.mvdasker.geeks_pro_mvd.data.remote.model.law.Law
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentLawBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.adapter.LawAdapter
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
@@ -25,8 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class LawFragment : Fragment(R.layout.fragment_law) {
     private val binding by viewBinding(FragmentLawBinding::bind)
     private val viewModel by viewModels<LawViewModel>()
-    private var mList = ArrayList<Law>()
-    private val adapter = LawAdapter(mList, ::onClick)
+    private val adapter = LawAdapter(::onClick)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -55,7 +53,10 @@ class LawFragment : Fragment(R.layout.fragment_law) {
                 is UiState.Loading -> binding.fcLawProgressBar.visible()
                 is UiState.Success -> {
                     binding.fcLawProgressBar.gone()
-                    adapter.setFilteredList(uiState.data)
+                    adapter.setFilteredList(
+                        mList = uiState.data,
+                        query = "",
+                    )
                 }
 
                 is UiState.Error -> {
@@ -72,7 +73,6 @@ class LawFragment : Fragment(R.layout.fragment_law) {
                     Extensions.showToast(requireContext(), "Network is disconnected")
                 }
             }
-            viewModel.clearMessage()
         }
     }
 

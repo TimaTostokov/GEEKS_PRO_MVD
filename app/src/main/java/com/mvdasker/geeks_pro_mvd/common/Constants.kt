@@ -4,7 +4,7 @@ object Constants {
     const val BASE_URL = "http://209.38.228.54:83/api/v1/"
     const val MANAGEMENT_END_POINT = "docs/governance/kr/"
     const val LAW_END_POINT = "laws/"
-    const val LAW_END_ID_POINT = "laws/{id}/"
+    const val LAW_END_ID_POINT = "laws/{id}"
     const val CHARTERS_END_POINT = "docs/charter/"
     const val NOTIFICATION_END_POINT = "docs/notification/"
     const val NOTIFICATION_DETAIL_END_POINT = "docs/notification/{id}"

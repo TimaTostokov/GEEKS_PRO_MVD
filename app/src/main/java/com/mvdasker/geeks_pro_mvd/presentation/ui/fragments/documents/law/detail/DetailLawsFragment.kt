@@ -1,8 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.detail
 
 import android.os.Bundle
-import android.service.controls.ControlsProviderService.TAG
-import android.text.Html
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -25,7 +23,10 @@ class DetailLawsFragment : Fragment(R.layout.fragment_detail_laws) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getLawsDetail(args.id)
+        args.id.let {
+            viewModel.setId(it)
+        }
+
         observe()
         goBack()
     }
@@ -34,16 +35,16 @@ class DetailLawsFragment : Fragment(R.layout.fragment_detail_laws) {
         observeData(viewModel.lawsDetail) { data ->
             when (data) {
                 is UiState.Error -> {
-                    Log.e("error", data.message )
+                    Log.e("error", "данные не пришли")
                 }
 
                 UiState.Loading -> {
-                    Log.e("error", "loading" )
+                    Log.e("error", "loading")
                 }
 
                 is UiState.Success -> {
-                    binding.tvArticle.text = Html.fromHtml(data.data?.article, Html.FROM_HTML_MODE_LEGACY)
-                    Log.e("error", "succses" )
+                    binding.tvArticle.text = data.data?.article
+                    Log.e("error", "succses")
                 }
             }
         }
