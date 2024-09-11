@@ -22,14 +22,12 @@ class DocumentsFragment : Fragment(R.layout.fragment_documents) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        notificationsAvailability()
+
         binding.layoutConstitution.setOnClickListener { navigateToScreen(Screen.Constitution) }
         binding.layoutLaw.setOnClickListener { navigateToScreen(Screen.Law) }
         binding.layoutStatutes.setOnClickListener { navigateToScreen(Screen.Statutes) }
         binding.fDocNotification.setOnClickListener { navigateToScreen(Screen.Notifications) }
-
-        binding.fDocUpBtn.setOnClickListener {
-            binding.nestedSvDocument.smoothScrollTo(0, 0)
-        }
     }
 
     private fun navigateToScreen(screen: Screen) {
@@ -41,10 +39,6 @@ class DocumentsFragment : Fragment(R.layout.fragment_documents) {
         }
     }
 
-
-    /**
-     * не удалять
-     */
     private fun notificationsAvailability() {
         observeData(viewModel.notReadNotifCount) {
             if (it != 0) {

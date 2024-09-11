@@ -30,6 +30,7 @@ class SearchLawsFragment : Fragment(R.layout.fragment_search_laws) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initialize()
         observeViewModel()
         searchInfo()
@@ -55,7 +56,6 @@ class SearchLawsFragment : Fragment(R.layout.fragment_search_laws) {
 
                 is UiState.Error -> {
                     binding.fcLawProgressBar.gone()
-                    Log.e("LawFragment", "Ошибка получения данных")
                 }
             }
         }
@@ -84,7 +84,6 @@ class SearchLawsFragment : Fragment(R.layout.fragment_search_laws) {
         )
     }
 
-
     private fun goBack() {
         binding.ivBack.setOnClickListener {
             findNavController().navigateUp()
@@ -102,4 +101,5 @@ class SearchLawsFragment : Fragment(R.layout.fragment_search_laws) {
             }
         }
     }
+
 }

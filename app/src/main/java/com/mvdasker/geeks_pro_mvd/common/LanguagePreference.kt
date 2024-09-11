@@ -9,6 +9,11 @@ class LanguagePreference(context: Context) {
     val getLanguage: String?
         get() = preferences.getString("language_", "0")
 
+    init {
+        instance = this
+        preferences = context.getSharedPreferences("my_language", Context.MODE_PRIVATE)
+    }
+
     fun saveLanguage(s: String) {
         preferences.edit().putString("language_", s).apply()
     }
@@ -20,11 +25,6 @@ class LanguagePreference(context: Context) {
             if (instance == null) LanguagePreference(context)
             return instance
         }
-    }
-
-    init {
-        instance = this
-        preferences = context.getSharedPreferences("my_language", Context.MODE_PRIVATE)
     }
 
 }

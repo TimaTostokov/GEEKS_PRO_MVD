@@ -48,7 +48,6 @@ class SearchControlVVFragment : Fragment(R.layout.fragment_search_control_v_v) {
         searchCharacterListener()
         showData()
         showSnack()
-
     }
 
     private fun showSnack() {

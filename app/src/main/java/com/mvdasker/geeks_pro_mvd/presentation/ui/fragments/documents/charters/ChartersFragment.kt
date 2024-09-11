@@ -42,7 +42,6 @@ class ChartersFragment : Fragment(R.layout.fragment_charters) {
         setupRecyclerView()
         setupClickListeners()
         observeViewModel()
-
     }
 
     @SuppressLint("ObsoleteSdkInt")
@@ -86,7 +85,6 @@ class ChartersFragment : Fragment(R.layout.fragment_charters) {
                         scrollToItemWithId(binding.fcListCharters, adapter, notifId)
                     }
                 }
-
                 is UiState.Error -> binding.fchartProgressBar.gone()
             }
         }

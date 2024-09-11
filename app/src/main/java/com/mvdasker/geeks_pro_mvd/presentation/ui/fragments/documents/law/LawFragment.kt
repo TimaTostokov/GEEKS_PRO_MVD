@@ -24,12 +24,16 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LawFragment : Fragment(R.layout.fragment_law) {
+
     private val binding by viewBinding(FragmentLawBinding::bind)
+
     private val viewModel by viewModels<LawViewModel>()
+
     private val adapter = LawAdapter(::onClick)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initialize()
         setupUI()
         observeViewModel()
@@ -68,7 +72,6 @@ class LawFragment : Fragment(R.layout.fragment_law) {
 
                 is UiState.Error -> {
                     binding.fcLawProgressBar.gone()
-                    Log.e("LawFragment", "Ошибка получения данных")
                 }
             }
         }
@@ -111,4 +114,5 @@ class LawFragment : Fragment(R.layout.fragment_law) {
             Log.e("Scroll", "Элемент с ID $itemId не найден.")
         }
     }
+
 }

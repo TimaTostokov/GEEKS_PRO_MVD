@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class ManagementsKrRepository @Inject constructor(
     private val sanaripAskerApi: SanaripAskerApi,
-    private val userProvider: UserProvider
+    private val userProvider: UserProvider,
 ) {
 
     suspend fun fetchConstitutionsKr(): List<Governance> {
@@ -19,7 +19,8 @@ class ManagementsKrRepository @Inject constructor(
     }
 
     suspend fun fetchConstitutionsMIAKr(jobTittle: String? = null): List<Governance> {
-        return sanaripAskerApi.fetchConstitutionsMVDKr(userProvider.accessToken, jobTittle).reversed()
+        return sanaripAskerApi.fetchConstitutionsMVDKr(userProvider.accessToken, jobTittle)
+            .reversed()
     }
 
 }

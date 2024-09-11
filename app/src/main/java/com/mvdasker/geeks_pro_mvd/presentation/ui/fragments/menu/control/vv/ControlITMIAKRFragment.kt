@@ -66,7 +66,6 @@ class ControlITMIAKRFragment : Fragment(R.layout.fragment_control_i_t_m_i_a_k_r)
                     arguments?.remove(NOTIF_ID)
                     scrollToItemWithId(binding.rvControllVv, managementAdapter, notifId)
                 }
-                Log.e("controls", "$controls")
             }
         }
     }

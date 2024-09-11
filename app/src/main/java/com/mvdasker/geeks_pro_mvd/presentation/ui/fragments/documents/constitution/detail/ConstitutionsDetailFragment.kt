@@ -25,14 +25,18 @@ import dagger.hilt.android.AndroidEntryPoint
 class ConstitutionsDetailFragment : Fragment(R.layout.fragment_constitutions_detail) {
 
     private val binding by viewBinding(FragmentConstitutionsDetailBinding::bind)
+
     private val viewModel: ConstitutionsDetailViewModel by viewModels()
+
     private val args: ConstitutionsDetailFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         args.id.let {
             viewModel.setId(it)
         }
+
         observe()
         goBack()
     }
@@ -61,4 +65,5 @@ class ConstitutionsDetailFragment : Fragment(R.layout.fragment_constitutions_det
             findNavController().navigateUp()
         }
     }
+
 }

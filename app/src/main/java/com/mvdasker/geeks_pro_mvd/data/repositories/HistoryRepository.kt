@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class HistoryRepository @Inject constructor(
     private val sanaripAskerApi: SanaripAskerApi,
-    private val userProvider: UserProvider
+    private val userProvider: UserProvider,
 ) {
 
     suspend fun getHistory(slug: String): HistoryModel? {
@@ -20,4 +20,5 @@ class HistoryRepository @Inject constructor(
             null
         }
     }
+
 }

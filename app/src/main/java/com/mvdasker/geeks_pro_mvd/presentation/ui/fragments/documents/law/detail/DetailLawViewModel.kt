@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailLawViewModel @Inject constructor(
     private val repository: LawRepository,
-    private val savedStateHandle: SavedStateHandle
+    private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     private val _lawsDetail = MutableStateFlow<UiState<LawsChapter?>>(UiState.Loading)
@@ -54,7 +54,6 @@ class DetailLawViewModel @Inject constructor(
                         _lawsDetail.value = UiState.Error(error, error.message ?: "unknown error!")
                         _messageFlow.value = Messages.NetworkIsDisconnected
                         Log.e("toli", "во viewModel не пришли данные")
-
                     }
                 )
             }
@@ -64,4 +63,5 @@ class DetailLawViewModel @Inject constructor(
     companion object {
         const val LAW_LAY = "id"
     }
+
 }

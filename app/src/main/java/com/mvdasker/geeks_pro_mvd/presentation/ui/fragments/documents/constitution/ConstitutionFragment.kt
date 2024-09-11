@@ -26,11 +26,14 @@ import dagger.hilt.android.AndroidEntryPoint
 class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
 
     private val binding by viewBinding(FragmentConstitutionBinding::bind)
+
     private val viewModel by viewModels<ConstitutionsViewModel>()
+
     private val adapter = ConstitutionsAdapter(::onClick)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initialize()
         setupUI()
         observeViewModel()

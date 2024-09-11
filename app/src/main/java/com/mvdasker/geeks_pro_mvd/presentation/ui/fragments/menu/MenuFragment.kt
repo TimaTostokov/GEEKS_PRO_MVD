@@ -35,6 +35,7 @@ import java.util.Locale
 class MenuFragment : Fragment(R.layout.fragment_menu) {
 
     private val binding by viewBinding(FragmentMenuBinding::bind)
+
     private val viewModel by viewModels<MenuViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

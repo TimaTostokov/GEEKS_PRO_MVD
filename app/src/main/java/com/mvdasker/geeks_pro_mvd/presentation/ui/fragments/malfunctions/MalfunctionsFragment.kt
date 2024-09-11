@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.snackbar.Snackbar
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.common.ServerStatus
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentMalfunctionsBinding
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 

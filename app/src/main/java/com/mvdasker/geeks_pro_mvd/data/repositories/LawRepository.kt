@@ -24,4 +24,5 @@ class LawRepository @Inject constructor(
             sanaripAskerApi.getLawById(userProvider.accessToken, id)
         }
     }
+
 }

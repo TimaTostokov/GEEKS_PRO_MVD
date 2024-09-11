@@ -17,12 +17,15 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
 
     private val binding by viewBinding(FragmentSplashBinding::bind)
 
+    private val handler = Handler(Looper.getMainLooper())
+    private val navigateRunnable = Runnable {
+        findNavController().navigate(R.id.action_splashFragment_to_authorizationFragment)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            findNavController().navigate(R.id.action_splashFragment_to_authorizationFragment)
-        }, 1400)
+        handler.postDelayed(navigateRunnable, 1400)
 
         activity?.window?.let { window ->
             window.navigationBarColor = ContextCompat.getColor(requireContext(), R.color.white)
@@ -31,6 +34,8 @@ class SplashFragment : Fragment(R.layout.fragment_splash) {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        handler.removeCallbacks(navigateRunnable)
+
         activity?.window?.let { window ->
             window.navigationBarColor = ContextCompat.getColor(requireContext(), R.color.dark_blue)
         }

@@ -72,7 +72,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             viewModel.libraries.collect { libraries ->
                 adapter.submitList(libraries)
                 Log.e("libraries", "$libraries")
-                noteList = libraries ?: emptyList()
+                noteList = libraries
                 updateItemCount()
             }
         }

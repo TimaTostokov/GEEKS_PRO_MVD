@@ -11,8 +11,8 @@ class NotificationRepository @Inject constructor(
 ) {
 
     suspend fun getListNotifications(): List<Notification> =
-        sanaripAskerApi.getNotification( userProvider.accessToken).sortedByDescending { it.createAt }
+        sanaripAskerApi.getNotification(userProvider.accessToken).sortedByDescending { it.createAt }
 
-    suspend fun getNotificationById(id:Int):Notification =
+    suspend fun getNotificationById(id: Int): Notification =
         sanaripAskerApi.getNotification(id, userProvider.accessToken)
 }

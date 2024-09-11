@@ -39,7 +39,7 @@ class LibraryFragment : Fragment(R.layout.fragment_library) {
         goToNotification()
         observerData()
         showBar()
-
+        notificationsAvailability()
     }
 
     private fun showBar() {
@@ -99,10 +99,7 @@ class LibraryFragment : Fragment(R.layout.fragment_library) {
             )
         )
     }
-
-    /**
-     * не удалять
-     */
+    
     private fun notificationsAvailability() {
         observeData(viewModel.notReadNotifCount) {
             if (it != 0) {

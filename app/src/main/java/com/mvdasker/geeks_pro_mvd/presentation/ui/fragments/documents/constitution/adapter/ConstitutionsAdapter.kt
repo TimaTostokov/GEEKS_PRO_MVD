@@ -1,5 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.adapter
 
+import android.annotation.SuppressLint
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ class ConstitutionsAdapter(
     private var searchQuery: String = ""
     private var mList = mutableListOf<Constitutions>()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setFilteredList(mList: List<Constitutions>, query: String) {
         this.searchQuery = query
         this.mList.clear()
@@ -86,4 +88,5 @@ class ConstitutionsViewHolder(
     fun highlightItemConstitution() {
         binding.constitutionCardView.highlightItemCard()
     }
+
 }

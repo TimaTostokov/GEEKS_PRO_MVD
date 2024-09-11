@@ -57,4 +57,5 @@ class LawViewModel @Inject constructor(private val lawRepository: LawRepository)
         _law.update { UiState.Success(mutableListOf()) }
         _law.update { UiState.Success(filteredLaws.toMutableList()) }
     }
+
 }

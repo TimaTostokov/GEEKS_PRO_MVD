@@ -60,4 +60,5 @@ class NewsAdapter(val onClick: (id: Int) -> Unit) :
             }
         }
     }
+
 }
