@@ -16,8 +16,11 @@ class NewsRepository @Inject constructor(
     private val userProvider: UserProvider,
 ) : BaseRepository() {
 
-    suspend fun getPagingNews(page: Int, pageSize: Int): NewsResponse =
-        sanaripAskerApi.getNews(accessToken = userProvider.accessToken, page, pageSize)
+    suspend fun getPagingNews(page: Int, pageSize: Int): NewsResponse {
+        val response =
+            sanaripAskerApi.getNews(accessToken = userProvider.accessToken, page, pageSize)
+        return response.copy(results = response.results.reversed())
+    }
 
     suspend fun getNewsId(id: Int): Result<NewsDetail> = runCatching {
         withContext(dispatchers.io) {
