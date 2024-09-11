@@ -112,4 +112,5 @@ class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
             Log.e("Scroll", "Элемент с ID $itemId не найден.")
         }
     }
+
 }

@@ -153,7 +153,7 @@ object Extensions {
         items1: List<T>,
         items2: List<R>,
         mapper1: (T) -> PlayerItem?,
-        mapper2: (R) -> PlayerItem?
+        mapper2: (R) -> PlayerItem?,
     ): List<PlayerItem> {
         val list1 = items1.mapNotNull { mapper1(it) }
         val list2 = items2.mapNotNull { mapper2(it) }
@@ -162,7 +162,7 @@ object Extensions {
 
     fun <T> convertToUrlArray(
         inputList: List<T>?,
-        extractUrl: (T) -> String?
+        extractUrl: (T) -> String?,
     ): List<String> {
         val urlArray = mutableListOf<String>()
 
@@ -250,7 +250,36 @@ object Extensions {
         var language: String? = LanguagePreference.getInstance(context)?.getLanguage
         if (language != null) {
             setLocale(language, context)
-            Log.d("ololo", "Перевод: $language")
+        }
+
+        fun View.rotate(isRotated: Boolean) {
+            val targetRotation = if (isRotated) 180f else 0f
+
+            if (rotation != targetRotation) {
+                ObjectAnimator.ofFloat(this, "rotation", rotation, targetRotation)
+                    .apply {
+                        duration = 300L
+                        start()
+                    }
+            }
+
+            fun TextView.highlightText(text: String, query: String) {
+                val spannableString = SpannableString(text)
+                if (query.isNotEmpty()) {
+                    var startIndex = text.lowercase().indexOf(query.lowercase())
+                    while (startIndex >= 0) {
+                        val endIndex = startIndex + query.length
+                        spannableString.setSpan(
+                            ForegroundColorSpan(Color.parseColor("#03A9F4")),
+                            startIndex,
+                            endIndex,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                        )
+                        startIndex = text.lowercase().indexOf(query.lowercase(), endIndex)
+                    }
+                }
+                this.text = spannableString
+            }
         }
     }
 

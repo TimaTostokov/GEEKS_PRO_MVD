@@ -2,7 +2,7 @@ package com.mvdasker.geeks_pro_mvd.data.remote.model.news
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class NewsResponse(
@@ -13,5 +13,5 @@ data class NewsResponse(
     @SerializedName("total_pages")
     val totalPages: Int,
     @SerializedName("total_results")
-    val totalResults: Int
+    val totalResults: Int,
 ) : Parcelable
