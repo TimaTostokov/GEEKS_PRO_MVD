@@ -3,17 +3,24 @@ package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.paging.CombinedLoadStates
+import androidx.paging.LoadState
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentHomeBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.adapters.NewsAdapter
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.adapters.NewsLoadingStateAdapter
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
@@ -21,6 +28,7 @@ import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -36,21 +44,26 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
 
         initialize()
-        observe()
+//        observe()
         showSnack()
 
-        binding.nextButton.setOnClickListener {
-            viewModel.loadNextPage()
-            binding.nestedSv.smoothScrollTo(0, 0)
+        binding.rvMain.adapter = adapter.withLoadStateHeaderAndFooter(
+            header = NewsLoadingStateAdapter(adapter),
+            footer = NewsLoadingStateAdapter(adapter)
+        )
+        adapter.addLoadStateListener { state: CombinedLoadStates ->
+            binding.rvMain.isVisible = state.refresh != LoadState.Loading
+            binding.fHomeProgressBar.isVisible = state.refresh == LoadState.Loading
         }
 
-        binding.backButton.setOnClickListener {
-            viewModel.loadNext()
-            binding.nestedSv.smoothScrollTo(0, 0)
+        lifecycleScope.launchWhenStarted {
+            viewModel.newsPager.collectLatest { pagingData ->
+                adapter.submitData(pagingData)
+            }
         }
 
         binding.fDocUpBtn.setOnClickListener {
-            binding.nestedSv.smoothScrollTo(0, 0)
+            binding.rvMain.smoothScrollToPosition( 0)
         }
 
         binding.fhNotif.setOnClickListener {
@@ -68,7 +81,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 viewModel.newsState.collect { result ->
                     when (result) {
                         is UiState.Success -> {
-                            adapter.submitList(result.data.results)
+//                            adapter.submitList(result.data.results)
                             binding.fHomeProgressBar.gone()
                         }
 

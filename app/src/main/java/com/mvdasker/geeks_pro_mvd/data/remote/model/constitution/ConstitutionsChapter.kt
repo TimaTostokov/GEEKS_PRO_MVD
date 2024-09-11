@@ -6,8 +6,10 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ConstitutionsChapter(
+    @SerializedName("id")
+    val id: Int? = null,
     @SerializedName("chapter")
     val chapter: String? = null,
     @SerializedName("article")
     val article: String? = null
-): Parcelable
+) : Parcelable

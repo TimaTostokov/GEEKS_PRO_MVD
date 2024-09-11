@@ -380,7 +380,12 @@
         android:id="@+id/constitutionsDetailFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.detail.ConstitutionsDetailFragment"
         android:label="fragment_constitutions_detail"
-        tools:layout="@layout/fragment_constitutions_detail" />
+        tools:layout="@layout/fragment_constitutions_detail" >
+
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/constitutionsSearchFragment"

@@ -81,6 +81,7 @@ class LawViewHolder(
 
         binding.rvChapter.isVisible = lawsData.isExpandable
     }
+
     fun highlightItemLaw() {
         binding.lawCardView.highlightItemCard()
     }

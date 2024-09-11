@@ -6,11 +6,11 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
-import com.mvdasker.geeks_pro_mvd.data.remote.model.constitution.Constitutions
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentConstitutionBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.adapter.ConstitutionsAdapter
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications.NotificationsFragment.Companion.NOTIF_ID
@@ -27,8 +27,7 @@ class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
 
     private val binding by viewBinding(FragmentConstitutionBinding::bind)
     private val viewModel by viewModels<ConstitutionsViewModel>()
-    private var mList = ArrayList<Constitutions>()
-    private val adapter = ConstitutionsAdapter(mList, ::onClick)
+    private val adapter = ConstitutionsAdapter(::onClick)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,7 +41,6 @@ class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
         binding.rvConstitution.adapter = adapter
         binding.rvConstitution.setHasFixedSize(true)
         binding.rvConstitution.layoutManager = LinearLayoutManager(requireContext())
-
     }
 
     private fun setupUI() {
@@ -57,7 +55,10 @@ class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
                 is UiState.Loading -> binding.fcLawProgressBar.visible()
                 is UiState.Success -> {
                     binding.fcLawProgressBar.gone()
-                    adapter.setFilteredList(uiState.data)
+                    adapter.setFilteredList(
+                        mList = uiState.data,
+                        query = ""
+                    )
                     val notifId = arguments?.getInt(NOTIF_ID) ?: 0
                     if (notifId > 0) {
                         arguments?.remove(NOTIF_ID)
@@ -79,7 +80,6 @@ class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
                     Extensions.showToast(requireContext(), "Network is disconnected")
                 }
             }
-            viewModel.clearMessage()
         }
     }
 
@@ -90,7 +90,7 @@ class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
     }
 
     private fun onClick(id: Int) {
-        findNavController().navigate(ConstitutionFragmentDirections.actionConstitutionFragmentToConstitutionsDetailFragment())
+        findNavController().navigate(ConstitutionFragmentDirections.actionConstitutionFragmentToConstitutionsDetailFragment(id))
     }
 
     private fun scrollToItemWithId(
@@ -104,9 +104,9 @@ class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
             recyclerView.nestedScrollBy(0, position)
             recyclerView.postDelayed({
                 val viewHolder = recyclerView.findViewHolderForAdapterPosition(position)
-                if (viewHolder is ConstitutionsAdapter.ConstitutionViewHolder) {
-                    viewHolder.highlightItemConstitution()
-                }
+//                if (viewHolder is ConstitutionsAdapter.ConstitutionViewHolder) {
+//                    viewHolder.highlightItemConstitution()
+//                }
             }, 300)
         } else {
             Log.e("Scroll", "Элемент с ID $itemId не найден.")

@@ -80,15 +80,6 @@ class MenuViewModel @Inject constructor(
         navController.navigate(direction)
     }
 
-    fun onClickControlKRButton() =
-        navController.navigate(MenuFragmentDirections.actionMenuFragmentToControlKRFragment())
-
-    fun onClickControlMIAKRButton() =
-        navController.navigate(MenuFragmentDirections.actionMenuFragmentToControlMIAKRFragment())
-
-    fun onClickControlITMIAKRButton() =
-        navController.navigate(MenuFragmentDirections.actionMenuFragmentToControlITMIAKRFragment())
-
     fun onOpenDictionaryClick() = openWebView("https://el-sozduk.kg/")
     fun onMapClick() = openWebView("https://www.google.com/maps")
     fun onTrafficRulesClick() = openWebView("https://joldo.kg/ru")

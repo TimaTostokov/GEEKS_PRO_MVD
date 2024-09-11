@@ -20,6 +20,10 @@ class NewsRepository @Inject constructor(
         return sanaripAskerApi.getNews(userProvider.accessToken, page)
     }
 
+     suspend fun getPagingNews(page: Int, pageSize: Int): NewsResponse =
+        sanaripAskerApi.getNews(accessToken = userProvider.accessToken, page, pageSize)
+
+
     suspend fun getNewsId(id: Int): Result<NewsDetail> = runCatching {
         withContext(dispatchers.io) {
             sanaripAskerApi.getNewsId(userProvider.accessToken, id)

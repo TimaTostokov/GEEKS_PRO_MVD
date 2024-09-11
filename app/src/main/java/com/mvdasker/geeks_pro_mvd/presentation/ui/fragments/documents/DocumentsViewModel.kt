@@ -23,7 +23,7 @@ class DocumentsViewModel @Inject constructor(private val repository: DocumentsRe
     private fun updateNotReadNotifCount() {
         viewModelScope.launch {
             val result = repository.getIsNotReadNotif()
-            val notReadList = result.filter { !it.isRead }
+            val notReadList = result.filter { !it.readed }
             _notReadNotifCount.value = notReadList.size
         }
     }
