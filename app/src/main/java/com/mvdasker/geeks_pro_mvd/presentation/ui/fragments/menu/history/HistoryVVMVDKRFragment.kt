@@ -20,7 +20,6 @@ import com.mvdasker.geeks_pro_mvd.databinding.FragmentHistoryVVMVDKRBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history.viewmodel.HistoryViewModel
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.loadImage
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.mapToMediaItems
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
@@ -53,7 +52,7 @@ class HistoryVVMVDKRFragment : Fragment(R.layout.fragment_history_v_v_m_v_d_k_r)
 
     @SuppressLint("SetTextI18n")
     private fun getLists(image: List<HistoryImage>?, video: List<String>) {
-        val mediaItems = image?.let { image->
+        val mediaItems = image?.let { _ ->
             mapToMediaItems(
                 video,
                 image,
@@ -68,14 +67,17 @@ class HistoryVVMVDKRFragment : Fragment(R.layout.fragment_history_v_v_m_v_d_k_r)
             viewPager.adapter = adapter
 
             pageIndicator.visibility = if (itemCount > 1) View.VISIBLE else View.GONE
-            prevButton.visibility = if (itemCount <= 1 || viewPager.currentItem == 0) View.GONE else View.VISIBLE
-            nextButton.visibility = if (itemCount <= 1 || viewPager.currentItem == itemCount - 1) View.GONE else View.VISIBLE
+            prevButton.visibility =
+                if (itemCount <= 1 || viewPager.currentItem == 0) View.GONE else View.VISIBLE
+            nextButton.visibility =
+                if (itemCount <= 1 || viewPager.currentItem == itemCount - 1) View.GONE else View.VISIBLE
 
             viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     pageIndicator.text = "${position + 1}/$itemCount"
                     prevButton.visibility = if (position == 0) View.GONE else View.VISIBLE
-                    nextButton.visibility = if (position == itemCount - 1) View.GONE else View.VISIBLE
+                    nextButton.visibility =
+                        if (position == itemCount - 1) View.GONE else View.VISIBLE
                 }
             })
         }
@@ -96,16 +98,22 @@ class HistoryVVMVDKRFragment : Fragment(R.layout.fragment_history_v_v_m_v_d_k_r)
                         }
 
                         is UiState.Success -> {
-                            val video = Extensions.convertToUrlArray(uiState.data?.videos) { newsVideo ->
-                                val htmlString = newsVideo.video
-                                val regex = """src="([^"]+)"""".toRegex()
-                                val matchResult = regex.find(htmlString.toString())
-                                matchResult?.groups?.get(1)?.value
+                            if (uiState.data?.videos == null && uiState.data?.images == null) {
+                                binding.cardView.gone()
+                            } else {
+                                val video =
+                                    Extensions.convertToUrlArray(uiState.data.videos) { newsVideo ->
+                                        val htmlString = newsVideo.video
+                                        val regex = """src="([^"]+)"""".toRegex()
+                                        val matchResult = regex.find(htmlString.toString())
+                                        matchResult?.groups?.get(1)?.value
+                                    }
+                                getLists(uiState.data.images, video)
                             }
-                            getLists(uiState.data?.images, video)
                             val firstItem = uiState.data?.text
                             if (firstItem != null) {
-                                binding.tvInfo.text = Html.fromHtml(firstItem, Html.FROM_HTML_MODE_LEGACY)
+                                binding.tvInfo.text =
+                                    Html.fromHtml(firstItem, Html.FROM_HTML_MODE_LEGACY)
                             } else binding.tvInfo.text = getString(R.string.no_data)
                             binding.fAboutVVMVDProgressBar.gone()
                         }
@@ -120,8 +128,8 @@ class HistoryVVMVDKRFragment : Fragment(R.layout.fragment_history_v_v_m_v_d_k_r)
                 is Messages.NetworkIsDisconnected -> {
                     noInternetSnackbar()
                     binding.fAboutVVMVDProgressBar.visible()
+                    binding.cardView.gone()
                 }
-
                 else -> {
                     Extensions.showToast(requireContext(), "Network is disconnected")
                 }

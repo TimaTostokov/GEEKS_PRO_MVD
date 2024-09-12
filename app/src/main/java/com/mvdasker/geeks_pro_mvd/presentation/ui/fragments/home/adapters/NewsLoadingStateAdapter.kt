@@ -10,7 +10,7 @@ import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.databinding.ItemLoadingStateBinding
 
 class NewsLoadingStateAdapter(
-    private val adapter: NewsAdapter
+    private val adapter: NewsAdapter,
 ) : LoadStateAdapter<NewsLoadingStateAdapter.NetworkStateItemViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState) =
@@ -27,7 +27,7 @@ class NewsLoadingStateAdapter(
 
     class NetworkStateItemViewHolder(
         private val binding: ItemLoadingStateBinding,
-        private val retryCallback: () -> Unit
+        private val retryCallback: () -> Unit,
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {

@@ -73,6 +73,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
                         result.data?.img?.let { binding.avatarImageView.loadImage(it) }
                         binding.fMenuProgressBar.gone()
                     }
+
                     is UiState.Error -> binding.fMenuProgressBar.gone()
                 }
             }
@@ -97,7 +98,10 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
     private fun setupRecyclerView() {
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = HistoryAdapter(viewModel.getSampleData(requireContext()), this@MenuFragment::onClicker)
+            adapter = HistoryAdapter(
+                viewModel.getSampleData(requireContext()),
+                this@MenuFragment::onClicker
+            )
         }
     }
 
@@ -204,10 +208,8 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
         val intent = requireActivity().intent
         requireActivity().apply {
             viewModel.saveSelectedLanguage(languageCode)
-
             recreate()
         }
-
     }
 
 }

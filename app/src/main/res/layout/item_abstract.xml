@@ -36,7 +36,7 @@
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold"
-            tools:text="@string/rucovodstvo" />
+            tools:text="direction" />
 
         <TextView
             android:id="@+id/tv_description"
@@ -50,7 +50,7 @@
             android:maxLines="1"
             android:textColor="@color/black"
             android:textSize="12sp"
-            tools:text="@string/search_lorem" />
+            tools:text="search_lorem" />
 
     </LinearLayout>
 

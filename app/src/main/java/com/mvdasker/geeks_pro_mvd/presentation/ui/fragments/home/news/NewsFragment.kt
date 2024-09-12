@@ -46,7 +46,7 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
 
     @SuppressLint("SetTextI18n")
     private fun getLists(image: List<NewsImage>?, video: List<String>) {
-        val mediaItems = image?.let { image ->
+        val mediaItems = image?.let { _ ->
             mapToMediaItems(
                 video,
                 image,
@@ -112,13 +112,18 @@ class NewsFragment : Fragment(R.layout.fragment_news) {
                     UiState.Loading -> binding.fNewsProgressBar.visible()
 
                     is UiState.Success -> {
-                        val video = Extensions.convertToUrlArray(uiState.data.video) { newsVideo ->
-                            val htmlString = newsVideo.video
-                            val regex = """src="([^"]+)"""".toRegex()
-                            val matchResult = regex.find(htmlString.toString())
-                            matchResult?.groups?.get(1)?.value
+                        if (uiState.data.video?.isEmpty() == true && uiState.data.image?.isEmpty() == true) {
+                            binding.cardView.gone()
+                        } else {
+                            val video =
+                                Extensions.convertToUrlArray(uiState.data.video) { newsVideo ->
+                                    val htmlString = newsVideo.video
+                                    val regex = """src="([^"]+)"""".toRegex()
+                                    val matchResult = regex.find(htmlString.toString())
+                                    matchResult?.groups?.get(1)?.value
+                                }
+                            getLists(uiState.data.image, video)
                         }
-                        getLists(uiState.data.image, video)
                         with(binding) {
                             tvNewsTitle.text = uiState.data.title
                             tvData.text =

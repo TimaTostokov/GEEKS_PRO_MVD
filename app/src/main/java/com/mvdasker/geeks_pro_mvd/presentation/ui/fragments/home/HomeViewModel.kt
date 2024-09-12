@@ -41,28 +41,20 @@ class HomeViewModel @Inject constructor(
             NewsPagingSource(repository)
         }.flow.cachedIn(viewModelScope)
 
-//    init {
-//        fetchNews(currentPage)
-//    }
+    init {
+        updateNotReadNotifCount()
+    }
 
-//    private fun fetchNews(page: Int) {
-//        viewModelScope.launch {
-//            try {
-//                val response = repository.getNews(page)
-//                _newsState.value = UiState.Success(response)
-//            } catch (e: Exception) {
-//                _newsState.value = UiState.Error(throwable = e, message = "Error")
-//                _messageFlow.value = Messages.NetworkIsDisconnected
-//            }
-//        }
-//    }
-//
-//    private fun updateNotReadNotifCount() {
-//        viewModelScope.launch {
-//            val result = repository.getIsNotReadNotif()
-//            val notReadList = result.filter { !it.isRead }
-//            _notReadNotifCount.value = notReadList.size
-//        }
-//    }
+    private fun updateNotReadNotifCount() {
+        viewModelScope.launch {
+            try {
+                val result = repository.getIsNotReadNotif()
+                val notReadList = result.filter { !it.readed }
+                _notReadNotifCount.value = notReadList.size
+            } catch (e: Exception) {
+                _notReadNotifCount.value = 0
+            }
+        }
+    }
 
 }

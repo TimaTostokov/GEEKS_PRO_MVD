@@ -9,7 +9,7 @@ import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
 open class ViewBindingDelegate<T : ViewBinding>(
-    val bindingFactory: (View) -> T
+    val bindingFactory: (View) -> T,
 ) : ReadOnlyProperty<Fragment, T> {
     private var binding: T? = null
     private val cb: FragmentManager.FragmentLifecycleCallbacks =

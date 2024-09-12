@@ -25,7 +25,7 @@ class MenuRepository @Inject constructor(
         return id.run {
             try {
                 Log.d("ololo", "Использовал id: $this")
-                sanaripAskerApi.getUserById(userProvider.accessToken, this).also { user ->
+                sanaripAskerApi.getUserById(this).also { user ->
                     user?.username?.let { userProvider.saveUserName(it) }
                     user?.img?.let { userProvider.saveUserPhoto(it) }
                 }

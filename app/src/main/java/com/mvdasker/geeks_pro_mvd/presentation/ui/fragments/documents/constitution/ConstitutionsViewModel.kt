@@ -17,9 +17,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ConstitutionsViewModel @Inject constructor(private val constitutionRepository: ConstitutionsRepository) : BaseViewModel() {
+class ConstitutionsViewModel @Inject constructor(private val constitutionRepository: ConstitutionsRepository) :
+    BaseViewModel() {
 
-    private val _allConstitutionFlow = MutableStateFlow<UiState<List<Constitutions>>>(UiState.Loading)
+    private val _allConstitutionFlow =
+        MutableStateFlow<UiState<List<Constitutions>>>(UiState.Loading)
     private val allConstitution = mutableListOf<Constitutions>()
     private val _constitution = MutableStateFlow<UiState<List<Constitutions>>>(UiState.Loading)
     val constitution: Flow<UiState<List<Constitutions>>> = _constitution.asStateFlow()
@@ -43,6 +45,10 @@ class ConstitutionsViewModel @Inject constructor(private val constitutionReposit
                 _constitution.update { state }
             }
         }
+    }
+
+    fun clearMessage() {
+        _messageFlow.value = null
     }
 
     private fun loadConstitution() {

@@ -2,7 +2,6 @@ package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.notifications
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -87,7 +86,7 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
                 }
 
                 else -> {
-                    Extensions.showToast(requireContext(),"Элемент не найден")
+                    Extensions.showToast(requireContext(), "Элемент не найден")
                 }
             }
         }

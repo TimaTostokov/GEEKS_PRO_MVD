@@ -65,11 +65,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
-                android:longClickable="true"
-                android:textIsSelectable="true"
                 android:fontFamily="@font/roboto"
+                android:longClickable="true"
                 android:text="@string/konspekt"
                 android:textColor="@color/black"
+                android:textIsSelectable="true"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -95,13 +95,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top|end"
-                    android:layout_marginEnd="16dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/indicator_background"
                     android:padding="4dp"
-                    android:text="1/5"
                     android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:text="1/5" />
 
                 <ImageButton
                     android:id="@+id/prevButton"
@@ -109,16 +109,18 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|start"
                     android:layout_marginStart="8dp"
-                    android:background="@drawable/next_ic"/>
+                    android:background="@drawable/next_ic"
+                    android:importantForAccessibility="no" />
 
                 <ImageButton
                     android:id="@+id/nextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|end"
-                    android:rotation="180"
                     android:layout_marginEnd="8dp"
-                    android:background="@drawable/next_ic" />
+                    android:background="@drawable/next_ic"
+                    android:importantForAccessibility="no"
+                    android:rotation="180" />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -128,11 +130,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
-                android:longClickable="true"
-                android:textIsSelectable="true"
                 android:fontFamily="@font/roboto"
                 android:lineSpacingExtra="4dp"
+                android:longClickable="true"
                 android:textColor="@color/black"
+                android:textIsSelectable="true"
                 android:textSize="16sp"
                 tools:text="@string/text_asker" />
 

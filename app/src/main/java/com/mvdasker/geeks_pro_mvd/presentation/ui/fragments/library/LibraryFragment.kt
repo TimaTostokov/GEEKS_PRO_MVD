@@ -99,7 +99,7 @@ class LibraryFragment : Fragment(R.layout.fragment_library) {
             )
         )
     }
-    
+
     private fun notificationsAvailability() {
         observeData(viewModel.notReadNotifCount) {
             if (it != 0) {
@@ -113,7 +113,7 @@ class LibraryFragment : Fragment(R.layout.fragment_library) {
     private fun scrollToItemWithId(
         recyclerView: RecyclerView,
         adapter: NotesAdapterLibrary,
-        itemId: Int
+        itemId: Int,
     ) {
         val position = adapter.getPositionForId(itemId)
         if (position != -1) {

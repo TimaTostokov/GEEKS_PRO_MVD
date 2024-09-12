@@ -1,7 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -14,15 +13,12 @@ import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
-import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentHomeBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.adapters.NewsAdapter
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.home.adapters.NewsLoadingStateAdapter
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -41,7 +37,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
 
         initialize()
-//        observe()
         showSnack()
         notificationsAvailability()
 
@@ -49,9 +44,14 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             header = NewsLoadingStateAdapter(adapter),
             footer = NewsLoadingStateAdapter(adapter)
         )
+
         adapter.addLoadStateListener { state: CombinedLoadStates ->
             binding.rvMain.isVisible = state.refresh != LoadState.Loading
             binding.fHomeProgressBar.isVisible = state.refresh == LoadState.Loading
+
+            if (state.refresh is LoadState.Error) {
+                noInternetSnackbar()
+            }
         }
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -63,7 +63,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         binding.fDocUpBtn.setOnClickListener {
-            binding.rvMain.smoothScrollToPosition( 0)
+            binding.rvMain.smoothScrollToPosition(0)
         }
 
         binding.fhNotif.setOnClickListener {
@@ -73,29 +73,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun initialize() {
         binding.rvMain.adapter = adapter
-    }
-
-    private fun observe() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.newsState.collect { result ->
-                    when (result) {
-                        is UiState.Success -> {
-//                            adapter.submitList(result.data.results)
-                            binding.fHomeProgressBar.gone()
-                        }
-
-                        is UiState.Error -> {
-                            Log.e("toli", "Ошибка: ${result.throwable}")
-                        }
-
-                        else -> {
-                            binding.fHomeProgressBar.visible()
-                        }
-                    }
-                }
-            }
-        }
     }
 
     private fun showSnack() {
