@@ -1,9 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    alias(libs.plugins.kapt)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.hiltCompiler)
-    id("androidx.navigation.safeargs")
+    alias(libs.plugins.navsafeargs)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -12,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.mvdasker.geeks_pro_mvd"
-        minSdk = 21
+        minSdk = 24
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -43,7 +44,7 @@ android {
 
 dependencies {
 
-    kapt(libs.hilt.android.compiler)
+    ksp(libs.hilt.android.compiler)
     implementation(libs.hilt.android)
     implementation(libs.hilt.navigation)
 
@@ -63,10 +64,27 @@ dependencies {
 
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.recyclerview)
-    implementation(libs.volley)
-    
+
     implementation(libs.okHttpClient)
     implementation(libs.logging.interceptor)
+
+    implementation(libs.circleimageview)
+
+    implementation(libs.advrecyclerview)
+
+    implementation(libs.glide)
+
+    implementation(libs.androidx.viewpager2)
+
+    implementation(libs.dotsindicator)
+
+    implementation(libs.androidyoutubeplayer.core)
+
+    implementation(libs.zoomage)
+    implementation(libs.github.zoomhelper)
+
+    implementation(libs.androidx.paging.common.ktx)
+    implementation(libs.androidx.paging.runtime.ktx)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

@@ -1,0 +1,68 @@
+package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.malfunctions
+
+import android.os.Bundle
+import android.view.View
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.material.snackbar.Snackbar
+import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.common.ServerStatus
+import com.mvdasker.geeks_pro_mvd.databinding.FragmentMalfunctionsBinding
+import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
+import kotlinx.coroutines.launch
+
+class MalfunctionsFragment : Fragment() {
+
+    private val binding by viewBinding(FragmentMalfunctionsBinding::bind)
+
+    private val viewModel: ServerStatusViewModel by activityViewModels()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.serverStatus.collect { status ->
+                    handleServerStatus(status)
+                }
+            }
+        }
+
+        binding.btnUpdate.setOnClickListener {
+            viewModel.startCheckingServerStatus()
+            showSnackbar(getString(R.string.checking_server))
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.startCheckingServerStatus()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        viewModel.stopCheckingServerStatus()
+    }
+
+    private fun handleServerStatus(status: ServerStatus) {
+        val message = when (status) {
+            ServerStatus.AVAILABLE -> getString(R.string.server_ok)
+            ServerStatus.UNAVAILABLE -> getString(R.string.server_error)
+            ServerStatus.NO_INTERNET -> getString(R.string.no_internet_message)
+        }
+        if (message.isNotEmpty()) showSnackbar(message)
+
+        val isUnavailable = status == ServerStatus.UNAVAILABLE
+        binding.tvErrorMessage.isVisible = isUnavailable
+        binding.btnUpdate.isVisible = isUnavailable
+    }
+
+    private fun showSnackbar(message: String) {
+        Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT).show()
+    }
+
+}

@@ -1,4 +1,74 @@
 <resources>
     <string name="app_name">GEEKS_PRO_MVD</string>
     <string name="ok">OK</string>
+    <string name="Documents">Документы</string>
+    <string name="news_home">Новости</string>
+    <string name="library">Библиотека</string>
+    <string name="menu">Меню</string>
+    <string name="authorization">Авторизация</string>
+    <string name="notice">Если вы забыли логин или пароль, обратитесь к своему руководителю</string>
+    <string name="Login">Логин</string>
+    <string name="Password">Пароль</string>
+    <string name="login_error">Неверный логин</string>
+    <string name="password_error">Неверный пароль</string>
+    <string name="cross">Отмена</string>
+    <string name="statutes">Постановления</string>
+    <string name="goInto">Войти</string>
+    <string name="documents_laws">Законы</string>
+    <string name="constitution">Конституция</string>
+    <string name="kyrgyz">Кыргызча</string>
+    <string name="russian">Русский</string>
+    <string name="ru">RU</string>
+    <string name="kg">KG</string>
+    <string name="trafficRules">ПДД</string>
+    <string name="controlITMIAKR">Руководство ВВ МВД КР</string>
+    <string name="controlMIAKR">Руководство МВД КР</string>
+    <string name="controlKR">Руководство КР</string>
+    <string name="aboutUs">О нас</string>
+    <string name="dictionary">Кыргызcко-русский словарь</string>
+    <string name="maps">Карта</string>
+    <string name="historyKyrgyzstan">История Кыргызстана</string>
+    <string name="history_mvd_kr">История МВД КР</string>
+    <string name="historyVV_MVD_KR">История ВВ МВД КР</string>
+    <string name="no_data">Нет данных</string>
+    <string name="goread">Читать далее…</string>
+    <string name="no_user_name">No User Name</string>
+    <string name="made_by_geeks_pro">Made by Geeks Pro</string>
+    <string name="fastnews">Срочные новости</string>
+    <string name="find">Найти</string>
+    <string name="section">Раздел</string>
+    <string name="chapter">Глава</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="_12">результатов найдено</string>
+    <string name="fragment_notification_title">Уведомления</string>
+    <string name="laws">Закон</string>
+    <string name="n_n">Выберите язык для \n продолжения, в дальнейшем вы \n всегда можете изменить его.</string>
+    <string name="n_n_n">Улантуу үчүн тилиңизди \n тандаңыз. Аны төмөндө өзгөртө \n аласыз.</string>
+    <string name="konspekt">Конспект</string>
+    <string name="tech_error">Технические неполадки</string>
+    <string name="update">Обновить</string>
+    <string name="tech_text">Извините за неудобства, возникли технические неполадки в нашем приложении. Мы работаем над исправлением проблемы. Пожалуйста, попробуйте обновить приложение. Спасибо за ваше понимание!</string>
+    <string name="no_internet_text">Сеть недоступна. Убедитесь, что Wi-Fi включен или мобильные данные активны.</string>
+    <string name="server_error">Ошибка сервера. Попробуйте позже.</string>
+    <string name="server_ok">Сервер работает нормально</string>
+    <string name="no_internet_message">Нет подключения к интернету. Пожалуйста, проверьте соединение.</string>
+    <string name="checking_server">Проверка сервера…</string>
+    <string name="retryagain">Попробовать снова</string>
+    <string name="text_constitution">Глава</string>
+    <string-array name="months">
+        <item>Январь</item>
+        <item>Февраль</item>
+        <item>Март</item>
+        <item>Апрель</item>
+        <item>Май</item>
+        <item>Июнь</item>
+        <item>Июль</item>
+        <item>Август</item>
+        <item>Сентябрь</item>
+        <item>Октябрь</item>
+        <item>Ноябрь</item>
+        <item>Декабрь</item>
+    </string-array>
 </resources>

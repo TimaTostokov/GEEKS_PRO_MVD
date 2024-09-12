@@ -1,6 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.utils.base
 
-import com.mvdasker.geeks_pro_mvd.utils.ext.Either
+import com.mvdasker.geeks_pro_mvd.common.Either
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
@@ -17,4 +17,5 @@ abstract class BaseRepository {
     }.flowOn(Dispatchers.IO).catch {
         emit(Either.Left(it))
     }
+
 }
