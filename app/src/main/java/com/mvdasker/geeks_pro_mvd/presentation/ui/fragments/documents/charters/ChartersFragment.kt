@@ -42,6 +42,7 @@ class ChartersFragment : Fragment(R.layout.fragment_charters) {
         setupRecyclerView()
         setupClickListeners()
         observeViewModel()
+        snackBar()
     }
 
     @SuppressLint("ObsoleteSdkInt")
@@ -65,14 +66,6 @@ class ChartersFragment : Fragment(R.layout.fragment_charters) {
     }
 
     private fun observeViewModel() {
-        observeData(viewModel.messageFlow) { message ->
-            when (message) {
-                is Messages.NetworkIsDisconnected -> noInternetSnackbar()
-                else -> Extensions.showToast(requireContext(), "Network is disconnected")
-            }
-            viewModel.clearMessage()
-        }
-
         observeData(viewModel.charters) { uiState ->
             when (uiState) {
                 is UiState.Loading -> binding.fchartProgressBar.visible()
@@ -85,6 +78,7 @@ class ChartersFragment : Fragment(R.layout.fragment_charters) {
                         scrollToItemWithId(binding.fcListCharters, adapter, notifId)
                     }
                 }
+
                 is UiState.Error -> binding.fchartProgressBar.gone()
             }
         }
@@ -93,11 +87,11 @@ class ChartersFragment : Fragment(R.layout.fragment_charters) {
     private fun scrollToItemWithId(
         recyclerView: RecyclerView,
         adapter: CharterAdapter,
-        itemId: Int
+        itemId: Int,
     ) {
         val position = adapter.getPositionForId(itemId)
         if (position != -1) {
-            recyclerView.smoothScrollToPosition(position+3)
+            recyclerView.smoothScrollToPosition(position + 3)
             recyclerView.postDelayed({
                 val viewHolder = recyclerView.findViewHolderForAdapterPosition(position)
                 if (viewHolder is CharterAdapter.CharterViewHolder) {
@@ -106,6 +100,22 @@ class ChartersFragment : Fragment(R.layout.fragment_charters) {
             }, 300)
         } else {
             Log.e("Scroll", "Элемент с ID $itemId не найден.")
+        }
+    }
+
+    private fun snackBar() {
+        observeData(viewModel.messageFlow) { messages ->
+            when (messages) {
+                is Messages.NetworkIsDisconnected -> {
+                    binding.fchartProgressBar.visible()
+                    noInternetSnackbar()
+                }
+
+                else -> {
+                    Extensions.showToast(requireContext(), "Network is disconnected")
+                }
+            }
+            viewModel.clearMessage()
         }
     }
 

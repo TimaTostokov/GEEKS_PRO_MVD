@@ -58,8 +58,6 @@ class ConstitutionsDetailViewModel @Inject constructor(
                         _constitutionsDetail.value =
                             UiState.Error(error, error.message ?: "unknown error!")
                         _messageFlow.value = Messages.NetworkIsDisconnected
-                        Log.e("toli", "во viewModel не пришли данные")
-
                     }
                 )
             }

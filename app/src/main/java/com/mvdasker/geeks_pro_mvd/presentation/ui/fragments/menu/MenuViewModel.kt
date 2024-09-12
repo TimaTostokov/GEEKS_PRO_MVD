@@ -15,14 +15,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MenuViewModel @Inject constructor(
-    private val menuRepository: MenuRepository
+    private val menuRepository: MenuRepository,
 ) : ViewModel() {
 
     private var _navController: NavController? = null
@@ -69,6 +68,7 @@ class MenuViewModel @Inject constructor(
         ParentModel(context.getString(R.string.historyVV_MVD_KR)),
         ParentModel(context.getString(R.string.history_mvd_kr))
     )
+
     fun onItemClick(position: Int) {
         val direction = when (position) {
             0 -> MenuFragmentDirections.actionMenuFragmentToHistoryOfKyrgyzstanFragment()
@@ -98,12 +98,14 @@ class MenuViewModel @Inject constructor(
     fun saveSelectedLanguage(languageCode: String) {
         menuRepository.saveSelectedLanguage(languageCode)
     }
+
     fun onClickControlKRButton() =
         navController.navigate(MenuFragmentDirections.actionMenuFragmentToControlKRFragment(0))
 
     fun getSavedLanguage(): String {
         return menuRepository.getSavedLanguage()
     }
+
     fun onClickControlMIAKRButton() =
         navController.navigate(MenuFragmentDirections.actionMenuFragmentToControlMIAKRFragment(0))
 

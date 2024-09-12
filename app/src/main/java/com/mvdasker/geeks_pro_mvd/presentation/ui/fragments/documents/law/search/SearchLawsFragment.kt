@@ -9,11 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentSearchLawsBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.LawViewModel
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.adapter.LawAdapter
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
@@ -33,6 +36,7 @@ class SearchLawsFragment : Fragment(R.layout.fragment_search_laws) {
 
         initialize()
         observeViewModel()
+        snackBar()
         searchInfo()
         goBack()
         deleteClearBtn()
@@ -63,16 +67,13 @@ class SearchLawsFragment : Fragment(R.layout.fragment_search_laws) {
 
     private fun searchInfo() {
         binding.etSearch.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
                 viewModel.onSearchQueryChanged(s.toString())
             }
 
-            override fun afterTextChanged(s: Editable?) {
-            }
-
+            override fun afterTextChanged(s: Editable?) {}
         })
     }
 
@@ -99,6 +100,22 @@ class SearchLawsFragment : Fragment(R.layout.fragment_search_laws) {
                 binding.etSearch.text = null
                 binding.etSearch.clearFocus()
             }
+        }
+    }
+
+    private fun snackBar() {
+        observeData(viewModel.messageFlow) { messages ->
+            when (messages) {
+                is Messages.NetworkIsDisconnected -> {
+                    noInternetSnackbar()
+                    binding.fcLawProgressBar.visible()
+                }
+
+                else -> {
+                    Extensions.showToast(requireContext(), "Network is disconnected")
+                }
+            }
+            viewModel.clearMessage()
         }
     }
 

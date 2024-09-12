@@ -44,7 +44,6 @@ class LawFragment : Fragment(R.layout.fragment_law) {
         binding.rvLaws.adapter = adapter
         binding.rvLaws.setHasFixedSize(true)
         binding.rvLaws.layoutManager = LinearLayoutManager(requireContext())
-
     }
 
     private fun setupUI() {
@@ -105,10 +104,7 @@ class LawFragment : Fragment(R.layout.fragment_law) {
         if (position != -1) {
             recyclerView.smoothScrollToPosition(position + 3)
             recyclerView.postDelayed({
-                val viewHolder = recyclerView.findViewHolderForAdapterPosition(position)
-//                if (viewHolder is LawAdapter.LawViewHolder) {
-//                    viewHolder.highlightItemLaw()
-//                }
+                adapter.highlightItemLawAtPosition(position)
             }, 300)
         } else {
             Log.e("Scroll", "Элемент с ID $itemId не найден.")

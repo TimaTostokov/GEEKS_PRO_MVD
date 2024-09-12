@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mvdasker.geeks_pro_mvd.data.remote.model.constitution.Constitutions
 import com.mvdasker.geeks_pro_mvd.databinding.ItemConstitutionBinding
-import com.mvdasker.geeks_pro_mvd.databinding.ItemLawsBinding
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.highlightItemCard
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.highlightText
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.rotate
@@ -21,6 +20,8 @@ class ConstitutionsAdapter(
     private var searchQuery: String = ""
     private var mList = mutableListOf<Constitutions>()
 
+    private val highlightedPositions = mutableSetOf<Int>()
+
     @SuppressLint("NotifyDataSetChanged")
     fun setFilteredList(mList: List<Constitutions>, query: String) {
         this.searchQuery = query
@@ -30,7 +31,8 @@ class ConstitutionsAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConstitutionsViewHolder {
-        val binding = ItemConstitutionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemConstitutionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ConstitutionsViewHolder(
             binding = binding,
             onClick = ::onClick,
@@ -39,6 +41,7 @@ class ConstitutionsAdapter(
     }
 
     private fun onClick(adapterPosition: Int) {
+        highlightedPositions.clear()
         val constitution = mList[adapterPosition]
         mList[adapterPosition] = constitution.copy(isExpandable = !constitution.isExpandable)
         notifyItemChanged(adapterPosition)
@@ -46,12 +49,19 @@ class ConstitutionsAdapter(
 
     override fun onBindViewHolder(holder: ConstitutionsViewHolder, position: Int) {
         holder.bind(mList[position], searchQuery)
+        if (highlightedPositions.contains(position)) {
+            holder.highlightItemConstitution()
+        }
     }
 
     override fun getItemCount(): Int = mList.size
 
     fun getPositionForId(id: Int): Int = mList.indexOfFirst { it.id == id }
 
+    fun highlightItemConstitutionAtPosition(position: Int) {
+        highlightedPositions.add(position)
+        notifyItemChanged(position)
+    }
 }
 
 class ConstitutionsViewHolder(
@@ -66,6 +76,7 @@ class ConstitutionsViewHolder(
     init {
         binding.ivSpinner.setOnClickListener {
             onClick.invoke(bindingAdapterPosition)
+            binding.tvSpinner.isVisible = prevIsExpanded
         }
         binding.rvChapter.adapter = adapter
         binding.rvChapter.layoutManager = LinearLayoutManager(itemView.context)

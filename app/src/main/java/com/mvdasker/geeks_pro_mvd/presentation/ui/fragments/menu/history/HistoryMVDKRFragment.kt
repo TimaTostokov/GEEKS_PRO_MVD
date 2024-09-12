@@ -20,7 +20,6 @@ import com.mvdasker.geeks_pro_mvd.databinding.FragmentHistoryMVDKRBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history.viewmodel.HistoryViewModel
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.loadImage
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.mapToMediaItems
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
@@ -54,7 +53,7 @@ class HistoryMVDKRFragment : Fragment(R.layout.fragment_history_m_v_d_k_r) {
 
     @SuppressLint("SetTextI18n")
     private fun getLists(image: List<HistoryImage>?, video: List<String>) {
-        val mediaItems = image?.let { image->
+        val mediaItems = image?.let { _->
             mapToMediaItems(
                 video,
                 image,
@@ -62,9 +61,6 @@ class HistoryMVDKRFragment : Fragment(R.layout.fragment_history_m_v_d_k_r) {
                 { imageSlider -> imageSlider.image?.let { PlayerItem.Image(it) } }
             )
         }
-
-        Log.d("getLists", "Not video $mediaItems")
-
         val itemCount = mediaItems?.size ?: 0
         val adapter = mediaItems?.let { MediaAdapter(it) }
 
@@ -98,13 +94,17 @@ class HistoryMVDKRFragment : Fragment(R.layout.fragment_history_m_v_d_k_r) {
                             binding.fAboutUsProgressBar.gone()
                         }
                         is UiState.Success -> {
-                            val video = Extensions.convertToUrlArray(uiState.data?.videos) { newsVideo ->
-                                val htmlString = newsVideo.video
-                                val regex = """src="([^"]+)"""".toRegex()
-                                val matchResult = regex.find(htmlString.toString())
-                                matchResult?.groups?.get(1)?.value
+                            if (uiState.data?.videos == null && uiState.data?.images == null){
+                                binding.cardView.gone()
+                            }else{
+                                val video = Extensions.convertToUrlArray(uiState.data.videos) { newsVideo ->
+                                    val htmlString = newsVideo.video
+                                    val regex = """src="([^"]+)"""".toRegex()
+                                    val matchResult = regex.find(htmlString.toString())
+                                    matchResult?.groups?.get(1)?.value
+                                }
+                                getLists(uiState.data.images, video)
                             }
-                            getLists(uiState.data?.images, video)
                             val firstItem = uiState.data?.text
                             if (firstItem != null) {
                                 binding.tvInfo.text =
@@ -117,15 +117,14 @@ class HistoryMVDKRFragment : Fragment(R.layout.fragment_history_m_v_d_k_r) {
         }
     }
 
-
     private fun snackBar() {
         observeData(viewModel.messageFlow) { messages ->
             when (messages) {
                 is Messages.NetworkIsDisconnected -> {
                     noInternetSnackbar()
                     binding.fAboutUsProgressBar.visible()
+                    binding.cardView.gone()
                 }
-
                 else -> {
                     Extensions.showToast(requireContext(), "Network is disconnected")
                 }

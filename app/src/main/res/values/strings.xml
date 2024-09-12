@@ -48,7 +48,6 @@
     <string name="n_n_n">Улантуу үчүн тилиңизди \n тандаңыз. Аны төмөндө өзгөртө \n аласыз.</string>
     <string name="konspekt">Конспект</string>
     <string name="tech_error">Технические неполадки</string>
-    <string name="retryagain">Кайра аракет кыл</string>
     <string name="update">Обновить</string>
     <string name="tech_text">Извините за неудобства, возникли технические неполадки в нашем приложении. Мы работаем над исправлением проблемы. Пожалуйста, попробуйте обновить приложение. Спасибо за ваше понимание!</string>
     <string name="no_internet_text">Сеть недоступна. Убедитесь, что Wi-Fi включен или мобильные данные активны.</string>
@@ -56,6 +55,7 @@
     <string name="server_ok">Сервер работает нормально</string>
     <string name="no_internet_message">Нет подключения к интернету. Пожалуйста, проверьте соединение.</string>
     <string name="checking_server">Проверка сервера…</string>
+    <string name="retryagain">Попробовать снова</string>
     <string name="text_constitution">Глава</string>
     <string-array name="months">
         <item>Январь</item>

@@ -40,7 +40,7 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     @SuppressLint("SetTextI18n")
     private fun getLists(image: List<LibraryImage>?, video: List<String>) {
-        val mediaItems = image?.let { image ->
+        val mediaItems = image?.let { _ ->
             mapToMediaItems(
                 video,
                 image,
@@ -115,13 +115,17 @@ class DetailFragment : Fragment(R.layout.fragment_detail) {
 
     private fun observe() {
         observeData(viewModel.noteDetail) { note ->
-            val video = Extensions.convertToUrlArray(note?.videos) { newsVideo ->
-                val htmlString = newsVideo.video
-                val regex = """src="([^"]+)"""".toRegex()
-                val matchResult = regex.find(htmlString.toString())
-                matchResult?.groups?.get(1)?.value
+            if (note?.videos == null && note?.images == null) {
+                binding.cardView.gone()
+            } else {
+                val video = Extensions.convertToUrlArray(note.videos) { newsVideo ->
+                    val htmlString = newsVideo.video
+                    val regex = """src="([^"]+)"""".toRegex()
+                    val matchResult = regex.find(htmlString.toString())
+                    matchResult?.groups?.get(1)?.value
+                }
+                getLists(note.images, video)
             }
-            getLists(note?.images, video)
             binding.tvTextAsker.text =
                 Html.fromHtml(note?.conspect ?: "", Html.FROM_HTML_MODE_LEGACY)
             binding.tvKonstpekt.text = note?.title

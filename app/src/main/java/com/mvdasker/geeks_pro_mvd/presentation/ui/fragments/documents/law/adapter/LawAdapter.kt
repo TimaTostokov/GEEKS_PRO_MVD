@@ -20,6 +20,8 @@ class LawAdapter(
     private var searchQuery: String = ""
     private var mList = mutableListOf<Law>()
 
+    private val highlightedPositions = mutableSetOf<Int>()
+
     @SuppressLint("NotifyDataSetChanged")
     fun setFilteredList(mList: List<Law>, query: String) {
         this.searchQuery = query
@@ -38,6 +40,7 @@ class LawAdapter(
     }
 
     private fun onClick(adapterPosition: Int) {
+        highlightedPositions.clear()
         val law = mList[adapterPosition]
         mList[adapterPosition] = law.copy(isExpandable = !law.isExpandable)
         notifyItemChanged(adapterPosition)
@@ -45,11 +48,19 @@ class LawAdapter(
 
     override fun onBindViewHolder(holder: LawViewHolder, position: Int) {
         holder.bind(mList[position], searchQuery)
+        if (highlightedPositions.contains(position)) {
+            holder.highlightItemLaw()
+        }
     }
 
     override fun getItemCount(): Int = mList.size
 
     fun getPositionForId(id: Int): Int = mList.indexOfFirst { it.id == id }
+
+    fun highlightItemLawAtPosition(position: Int) {
+        highlightedPositions.add(position)
+        notifyItemChanged(position)
+    }
 
 }
 

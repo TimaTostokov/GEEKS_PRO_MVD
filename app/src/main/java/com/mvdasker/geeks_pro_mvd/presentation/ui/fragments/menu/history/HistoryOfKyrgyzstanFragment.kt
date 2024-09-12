@@ -16,12 +16,10 @@ import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.PlayerItem
 import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.data.remote.model.history.HistoryImage
-import com.mvdasker.geeks_pro_mvd.data.remote.model.news.NewsImage
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentHistoryOfKyrgyzstanBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.history.viewmodel.HistoryViewModel
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.loadImage
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.mapToMediaItems
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
@@ -50,12 +48,11 @@ class HistoryOfKyrgyzstanFragment : Fragment(R.layout.fragment_history_of_kyrgyz
         binding.upBtn.setOnClickListener {
             binding.nestedSv.smoothScrollTo(0, 0)
         }
-
     }
 
     @SuppressLint("SetTextI18n")
     private fun getLists(image: List<HistoryImage>?, video: List<String>) {
-        val mediaItems = image?.let { image->
+        val mediaItems = image?.let { _ ->
             mapToMediaItems(
                 video,
                 image,
@@ -102,13 +99,17 @@ class HistoryOfKyrgyzstanFragment : Fragment(R.layout.fragment_history_of_kyrgyz
                         }
 
                         is UiState.Success -> {
-                            val video = Extensions.convertToUrlArray(uiState.data?.videos) { newsVideo ->
-                                val htmlString = newsVideo.video
-                                val regex = """src="([^"]+)"""".toRegex()
-                                val matchResult = regex.find(htmlString.toString())
-                                matchResult?.groups?.get(1)?.value
+                            if (uiState.data?.videos == null && uiState.data?.images == null){
+                                binding.cardView.gone()
+                            }else{
+                                val video = Extensions.convertToUrlArray(uiState.data.videos) { newsVideo ->
+                                    val htmlString = newsVideo.video
+                                    val regex = """src="([^"]+)"""".toRegex()
+                                    val matchResult = regex.find(htmlString.toString())
+                                    matchResult?.groups?.get(1)?.value
+                                }
+                                getLists(uiState.data.images, video)
                             }
-                            getLists(uiState.data?.images, video)
                             val firstItem = uiState.data?.text
                             if (firstItem != null) {
                                 binding.tvInfo.text =
@@ -127,8 +128,8 @@ class HistoryOfKyrgyzstanFragment : Fragment(R.layout.fragment_history_of_kyrgyz
                 is Messages.NetworkIsDisconnected -> {
                     noInternetSnackbar()
                     binding.fAboutKyrgyzProgressBar.visible()
+                    binding.cardView.gone()
                 }
-
                 else -> {
                     Extensions.showToast(requireContext(), "Network is disconnected")
                 }

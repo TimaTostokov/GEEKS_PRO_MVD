@@ -23,8 +23,9 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideLanguageInterceptor(
-        languagePreference: LanguagePreference
-    ): LanguageInterceptor = LanguageInterceptor(languagePreference)
+        languagePreference: LanguagePreference,
+        userProvider: UserProvider,
+    ): LanguageInterceptor = LanguageInterceptor(languagePreference, userProvider)
 
     @Provides
     @Singleton
