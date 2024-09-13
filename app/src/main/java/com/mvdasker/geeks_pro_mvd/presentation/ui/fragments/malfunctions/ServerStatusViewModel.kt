@@ -26,12 +26,11 @@ class ServerStatusViewModel(application: Application) : AndroidViewModel(applica
     private val _serverStatus = MutableStateFlow<ServerStatus>(ServerStatus.UNAVAILABLE)
     val serverStatus: StateFlow<ServerStatus> = _serverStatus
 
-    private val _navigateToMalfunctions = MutableStateFlow(false)
-    val navigateToMalfunctions: StateFlow<Boolean> = _navigateToMalfunctions
-
     private var serverStatusCheckJob: Job? = null
     private val checkIntervalMillis = 3000L
     private var isCheckingEnabled = true
+
+    var wasServerUnavailable = false
 
     fun startCheckingServerStatus() {
         stopCheckingServerStatus()
@@ -73,18 +72,14 @@ class ServerStatusViewModel(application: Application) : AndroidViewModel(applica
                 if (connection.responseCode == HttpURLConnection.HTTP_OK) {
                     ServerStatus.AVAILABLE
                 } else {
-                    postNavigateToMalfunctions()
+                    wasServerUnavailable = true
                     ServerStatus.UNAVAILABLE
                 }
             } catch (e: IOException) {
-                postNavigateToMalfunctions()
+                wasServerUnavailable = true
                 ServerStatus.UNAVAILABLE
             }
         }
-    }
-
-    private fun postNavigateToMalfunctions() {
-        _navigateToMalfunctions.value = true
     }
 
     @SuppressLint("NewApi")
@@ -101,8 +96,8 @@ class ServerStatusViewModel(application: Application) : AndroidViewModel(applica
         } ?: false
     }
 
-    fun resetNavigationFlag() {
-        _navigateToMalfunctions.value = false
+    fun resetServerUnavailableFlag() {
+        wasServerUnavailable = false
     }
 
 }

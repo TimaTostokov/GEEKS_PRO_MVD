@@ -54,6 +54,8 @@
     <string name="no_internet_text">Сеть недоступна. Убедитесь, что Wi-Fi включен или мобильные данные активны.</string>
     <string name="server_error">Ошибка сервера. Попробуйте позже.</string>
     <string name="server_ok">Сервер работает нормально</string>
+    <string name="permission_false">Разрешение отклонено</string>
+    <string name="permission_true">Разрешение предоставлено</string>
     <string name="no_internet_message">Нет подключения к интернету. Пожалуйста, проверьте соединение.</string>
     <string name="checking_server">Проверка сервера…</string>
     <string name="retryagain">Попробовать снова</string>

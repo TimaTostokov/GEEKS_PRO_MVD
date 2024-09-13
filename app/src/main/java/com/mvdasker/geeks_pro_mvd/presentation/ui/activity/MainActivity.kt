@@ -29,10 +29,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         Extensions.loadLocale(this)
         super.onCreate(savedInstanceState)
-//        window?.setFlags(
-//            WindowManager.LayoutParams.FLAG_SECURE,
-//            WindowManager.LayoutParams.FLAG_SECURE
-//        )
+        window?.setFlags(
+            WindowManager.LayoutParams.FLAG_SECURE,
+            WindowManager.LayoutParams.FLAG_SECURE
+        )
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -84,27 +84,20 @@ class MainActivity : AppCompatActivity() {
 //        lifecycleScope.launch {
 //            repeatOnLifecycle(Lifecycle.State.STARTED) {
 //                serverStatusViewModel.serverStatus.collect { status ->
-//                    when (status) {
-//                        ServerStatus.UNAVAILABLE -> {
-//                            if (navController.currentDestination?.id != R.id.malfunctionsFragment &&
-//                                navController.currentDestination?.id != R.id.authorizationFragment &&
-//                                navController.currentDestination?.id != R.id.splashFragment
-//                            ) {
-//                                navController.navigate(R.id.malfunctionsFragment)
-//                            }
-//                        }
-//
-//                        ServerStatus.AVAILABLE, ServerStatus.NO_INTERNET -> {
-//                            if (navController.currentDestination?.id == R.id.malfunctionsFragment) {
-//                                navController.popBackStack()
-//                            }
+//                    if (status == ServerStatus.UNAVAILABLE && serverStatusViewModel.wasServerUnavailable) {
+//                        if (navController.currentDestination?.id != R.id.malfunctionsFragment &&
+//                            navController.currentDestination?.id != R.id.authorizationFragment &&
+//                            navController.currentDestination?.id != R.id.splashFragment
+//                        ) {
+//                            navController.navigate(R.id.malfunctionsFragment)
+//                            serverStatusViewModel.resetServerUnavailableFlag()
 //                        }
 //                    }
 //                }
-//            }
-//        }
+//            }}
 //
 //        serverStatusViewModel.startCheckingServerStatus()
+
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -138,7 +131,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-//        window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+        window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
     }
 
 }
