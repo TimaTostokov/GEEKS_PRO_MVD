@@ -29,33 +29,29 @@ object RepositoryModule {
     @Singleton
     fun provideLawRepository(
         sanaripAskerApi: SanaripAskerApi,
-        userProvider: UserProvider,
     ): LawRepository =
-        LawRepository(sanaripAskerApi, userProvider, provideAppDispatchers())
+        LawRepository(sanaripAskerApi, provideAppDispatchers())
 
     @Provides
     @Singleton
     fun provideCharterRepository(
         sanaripAskerApi: SanaripAskerApi,
-        userProvider: UserProvider,
     ): CharterRepository =
-        CharterRepository(sanaripAskerApi, userProvider)
+        CharterRepository(sanaripAskerApi)
 
     @Provides
     @Singleton
     fun provideNotificationRepository(
         sanaripAskerApi: SanaripAskerApi,
-        userProvider: UserProvider,
     ): NotificationRepository =
-        NotificationRepository(sanaripAskerApi, userProvider)
+        NotificationRepository(sanaripAskerApi)
 
     @Provides
     @Singleton
     fun provideManagementRepository(
         sanaripAskerApi: SanaripAskerApi,
-        userProvider: UserProvider,
     ): ManagementsKrRepository =
-        ManagementsKrRepository(sanaripAskerApi, userProvider)
+        ManagementsKrRepository(sanaripAskerApi)
 
     @Provides
     @Singleton
@@ -65,9 +61,8 @@ object RepositoryModule {
     @Singleton
     fun provideLibraryRepository(
         sanaripAskerApi: SanaripAskerApi,
-        userProvider: UserProvider,
     ): LibraryRepository =
-        LibraryRepository(sanaripAskerApi, userProvider)
+        LibraryRepository(sanaripAskerApi)
 
     @Provides
     @Singleton
@@ -88,22 +83,20 @@ object RepositoryModule {
     fun provideMenuRepository(
         sanaripAskerApi: SanaripAskerApi,
         userProvider: UserProvider,
-        languagePreference: LanguagePreference
+        languagePreference: LanguagePreference,
     ): MenuRepository = MenuRepository(sanaripAskerApi, userProvider, languagePreference)
 
     @Provides
     @Singleton
     fun provideHistoryRepository(
         sanaripAskerApi: SanaripAskerApi,
-        userProvider: UserProvider
     ): HistoryRepository =
-        HistoryRepository(sanaripAskerApi, userProvider)
+        HistoryRepository(sanaripAskerApi)
 
     @Provides
     @Singleton
     fun provideNewsRepository(
         sanaripAskerApi: SanaripAskerApi,
-        userProvider: UserProvider
     ): NewsRepository =
-        NewsRepository(sanaripAskerApi, provideAppDispatchers(), userProvider)
+        NewsRepository(sanaripAskerApi, provideAppDispatchers())
 }

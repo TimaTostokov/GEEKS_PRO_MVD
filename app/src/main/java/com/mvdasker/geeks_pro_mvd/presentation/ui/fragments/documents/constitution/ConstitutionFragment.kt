@@ -37,6 +37,7 @@ class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
         initialize()
         setupUI()
         observeViewModel()
+        snackBar()
         toGoSearch()
     }
 
@@ -93,26 +94,42 @@ class ConstitutionFragment : Fragment(R.layout.fragment_constitution) {
     }
 
     private fun onClick(id: Int) {
-        findNavController().navigate(ConstitutionFragmentDirections.actionConstitutionFragmentToConstitutionsDetailFragment(id))
+        findNavController().navigate(
+            ConstitutionFragmentDirections.actionConstitutionFragmentToConstitutionsDetailFragment(
+                id
+            )
+        )
     }
 
     private fun scrollToItemWithId(
         recyclerView: RecyclerView,
         adapter: ConstitutionsAdapter,
-        itemId: Int
+        itemId: Int,
     ) {
         val position = adapter.getPositionForId(itemId)
         if (position != -1) {
             recyclerView.smoothScrollToPosition(position + 3)
             recyclerView.nestedScrollBy(0, position)
             recyclerView.postDelayed({
-                val viewHolder = recyclerView.findViewHolderForAdapterPosition(position)
-//                if (viewHolder is ConstitutionsAdapter.ConstitutionViewHolder) {
-//                    viewHolder.highlightItemConstitution()
-//                }
+                adapter.highlightItemConstitutionAtPosition(position)
             }, 300)
         } else {
             Log.e("Scroll", "Элемент с ID $itemId не найден.")
+        }
+    }
+
+    private fun snackBar() {
+        observeData(viewModel.messageFlow) { messages ->
+            when (messages) {
+                is Messages.NetworkIsDisconnected -> {
+                    noInternetSnackbar()
+                    binding.fcLawProgressBar.visible()
+                }
+                else -> {
+                    Extensions.showToast(requireContext(), "Network is disconnected")
+                }
+            }
+            viewModel.clearMessage()
         }
     }
 

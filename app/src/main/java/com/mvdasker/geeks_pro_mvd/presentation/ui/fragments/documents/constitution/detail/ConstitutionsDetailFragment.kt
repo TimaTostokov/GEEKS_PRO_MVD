@@ -9,13 +9,16 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
 import com.mvdasker.geeks_pro_mvd.data.remote.model.constitution.ConstitutionsChapter
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentConstitutionsDetailBinding
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentDetailLawsBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.detail.DetailLawViewModel
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.detail.DetailLawsFragmentArgs
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.visible
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
@@ -38,6 +41,7 @@ class ConstitutionsDetailFragment : Fragment(R.layout.fragment_constitutions_det
         }
 
         observe()
+        snackBar()
         goBack()
     }
 
@@ -45,18 +49,32 @@ class ConstitutionsDetailFragment : Fragment(R.layout.fragment_constitutions_det
         observeData(viewModel.constitutionsDetail) { data ->
             when (data) {
                 is UiState.Error -> {
-                    Log.e("error", "данные не пришли")
+                    binding.detailsProgressBar.gone()
+                    Log.e("error", "данные не пришли ${data.throwable}")
                 }
 
-                UiState.Loading -> {
-                    Log.e("error", "loading")
-                }
+                UiState.Loading -> binding.detailsProgressBar.visible()
 
                 is UiState.Success -> {
                     binding.tvArticle.text = Html.fromHtml(  data.data?.article, Html.FROM_HTML_MODE_LEGACY)
-                    Log.e("error", "succses")
+                    binding.detailsProgressBar.gone()
                 }
             }
+        }
+    }
+
+    private fun snackBar() {
+        observeData(viewModel.messageFlow) { messages ->
+            when (messages) {
+                is Messages.NetworkIsDisconnected -> {
+                    noInternetSnackbar()
+                    binding.detailsProgressBar.visible()
+                }
+                else -> {
+                    Extensions.showToast(requireContext(), "Network is disconnected")
+                }
+            }
+            viewModel.clearMessage()
         }
     }
 

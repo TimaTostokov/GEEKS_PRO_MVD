@@ -47,12 +47,12 @@ class NotificationsAdapter(private val onNotificationClick: (Int, String?, Int) 
 
             override fun areItemsTheSame(
                 oldItem: NotificationItem,
-                newItem: NotificationItem
+                newItem: NotificationItem,
             ): Boolean = oldItem == newItem
 
             override fun areContentsTheSame(
                 oldItem: NotificationItem,
-                newItem: NotificationItem
+                newItem: NotificationItem,
             ): Boolean {
                 val monthItem = oldItem is NotificationItem.MonthItem
                         && newItem is NotificationItem.MonthItem
@@ -83,7 +83,7 @@ class MonthViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
 class NotificationViewHolder(
     private val onNotificationClick: (Int, String?, Int) -> Unit,
-    itemView: View
+    itemView: View,
 ) :
     RecyclerView.ViewHolder(itemView) {
 

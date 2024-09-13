@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,12 +24,7 @@ class LawViewModel @Inject constructor(private val lawRepository: LawRepository)
     val law: Flow<UiState<List<Law>>> = _law.asStateFlow()
 
     private val _messageFlow = MutableStateFlow<Messages?>(null)
-    val messageFlow: Flow<Messages> = flow {
-        _messageFlow.filterNotNull().collect {
-            emit(it)
-            _messageFlow.update { null }
-        }
-    }
+    val messageFlow: Flow<Messages> = _messageFlow.filterNotNull()
 
     init {
         loadLaw()
@@ -41,8 +35,16 @@ class LawViewModel @Inject constructor(private val lawRepository: LawRepository)
                     allLaws.addAll(state.data)
                 }
                 _law.update { state }
+
+                if (state is UiState.Error) {
+                    _messageFlow.value = Messages.NetworkIsDisconnected
+                }
             }
         }
+    }
+
+    fun clearMessage() {
+        _messageFlow.value = null
     }
 
     private fun loadLaw() {

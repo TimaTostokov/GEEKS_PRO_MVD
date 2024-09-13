@@ -49,19 +49,21 @@ class ConstitutionsDetailViewModel @Inject constructor(
 
     private fun getConstitutionsDetail() {
         viewModelScope.launch {
-            id?.let { constitutionId ->
-                repository.getConstitutionById(constitutionId).fold(
-                    onSuccess = { constitutionDetail ->
-                        _constitutionsDetail.value = UiState.Success(constitutionDetail)
-                    },
-                    onFailure = { error ->
-                        _constitutionsDetail.value =
-                            UiState.Error(error, error.message ?: "unknown error!")
-                        _messageFlow.value = Messages.NetworkIsDisconnected
-                        Log.e("toli", "во viewModel не пришли данные")
-
-                    }
-                )
+            try {
+                id?.let { constitutionId ->
+                    repository.getConstitutionById(constitutionId).fold(
+                        onSuccess = { constitutionDetail ->
+                            _constitutionsDetail.value = UiState.Success(constitutionDetail)
+                        },
+                        onFailure = { error ->
+                            _constitutionsDetail.value =
+                                UiState.Error(error, error.message ?: "unknown error!")
+                            _messageFlow.value = Messages.NetworkIsDisconnected
+                        }
+                    )
+                }
+            }catch (e: Exception) {
+                _messageFlow.value = Messages.NetworkIsDisconnected
             }
         }
     }

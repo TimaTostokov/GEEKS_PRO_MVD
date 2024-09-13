@@ -6,13 +6,14 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.mvdasker.geeks_pro_mvd.common.Constants.BASE_URL
 import com.mvdasker.geeks_pro_mvd.common.ServerStatus
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -22,22 +23,23 @@ import java.net.URL
 
 class ServerStatusViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _serverStatus = MutableLiveData<ServerStatus>()
-    val serverStatus: LiveData<ServerStatus> = _serverStatus
+    private val _serverStatus = MutableStateFlow<ServerStatus>(ServerStatus.UNAVAILABLE)
+    val serverStatus: StateFlow<ServerStatus> = _serverStatus
 
-    private val _navigateToMalfunctions = MutableLiveData<Boolean>()
-    val navigateToMalfunctions: LiveData<Boolean> = _navigateToMalfunctions
+    private val _navigateToMalfunctions = MutableStateFlow(false)
+    val navigateToMalfunctions: StateFlow<Boolean> = _navigateToMalfunctions
 
     private var serverStatusCheckJob: Job? = null
-    private val checkInterval = 3000L
+    private val checkIntervalMillis = 3000L
     private var isCheckingEnabled = true
 
     fun startCheckingServerStatus() {
         stopCheckingServerStatus()
         serverStatusCheckJob = viewModelScope.launch {
             while (isActive && isCheckingEnabled) {
-                _serverStatus.postValue(checkServerStatus())
-                delay(checkInterval)
+                val status = checkServerStatus()
+                _serverStatus.value = status
+                delay(checkIntervalMillis)
             }
         }
     }
@@ -60,29 +62,29 @@ class ServerStatusViewModel(application: Application) : AndroidViewModel(applica
     private suspend fun checkServerStatus(): ServerStatus {
         if (!isInternetAvailable()) return ServerStatus.NO_INTERNET
 
-        return try {
-            withContext(Dispatchers.IO) {
-                val url = URL("http://209.38.228.54:83/api/v1/")
-                with(url.openConnection() as HttpURLConnection) {
+        return withContext(Dispatchers.IO) {
+            try {
+                val url = URL(BASE_URL)
+                val connection = (url.openConnection() as HttpURLConnection).apply {
                     requestMethod = "HEAD"
                     connectTimeout = 3000
                     connect()
-                    if (responseCode == HttpURLConnection.HTTP_OK) {
-                        ServerStatus.AVAILABLE
-                    } else {
-                        withContext(Dispatchers.Main) {
-                            _navigateToMalfunctions.postValue(true)
-                        }
-                        ServerStatus.UNAVAILABLE
-                    }
                 }
+                if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+                    ServerStatus.AVAILABLE
+                } else {
+                    postNavigateToMalfunctions()
+                    ServerStatus.UNAVAILABLE
+                }
+            } catch (e: IOException) {
+                postNavigateToMalfunctions()
+                ServerStatus.UNAVAILABLE
             }
-        } catch (e: IOException) {
-            withContext(Dispatchers.Main) {
-                _navigateToMalfunctions.postValue(true)
-            }
-            ServerStatus.UNAVAILABLE
         }
+    }
+
+    private fun postNavigateToMalfunctions() {
+        _navigateToMalfunctions.value = true
     }
 
     @SuppressLint("NewApi")

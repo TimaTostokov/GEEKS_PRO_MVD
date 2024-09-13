@@ -6,7 +6,7 @@ import com.mvdasker.geeks_pro_mvd.data.remote.model.news.News
 import com.mvdasker.geeks_pro_mvd.data.repositories.NewsRepository
 
 class NewsPagingSource(
-    private val repository: NewsRepository
+    private val repository: NewsRepository,
 ) : PagingSource<Int, News>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, News> {

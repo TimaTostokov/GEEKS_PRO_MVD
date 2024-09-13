@@ -26,7 +26,7 @@ class NotesAdapterLibrary(private val onClick: (Int) -> Unit) :
 
     inner class ViewHolder(
         private val binding: ItemAbstractBinding,
-        val onClick: (Int) -> Unit
+        val onClick: (Int) -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
 

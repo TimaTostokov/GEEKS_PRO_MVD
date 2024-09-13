@@ -5,7 +5,7 @@ import com.mvdasker.geeks_pro_mvd.common.UserProvider
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class App: Application(){
+class App : Application() {
 
     var userProvider: UserProvider? = null
 

@@ -43,64 +43,53 @@ interface SanaripAskerApi {
 
     @GET(LAW_END_POINT)
     suspend fun getLaw(
-        @Header("Authorization") accessToken: String,
     ): List<Law>
 
     @GET(LAW_END_ID_POINT)
     suspend fun getLawById(
-        @Header("Authorization") accessToken: String,
         @Path("id") id: Int,
     ): LawsChapter
 
     @GET(CHARTERS_END_POINT)
     suspend fun getCharters(
-        @Header("Authorization") accessToken: String,
     ): List<Charter>
 
     @GET(NOTIFICATION_END_POINT)
     suspend fun getNotification(
-        @Header("Authorization") accessToken: String,
     ): List<Notification>
 
     @GET(NOTIFICATION_DETAIL_END_POINT)
     suspend fun getNotification(
         @Path("id") id: Int,
-        @Header("Authorization") accessToken: String,
     ): Notification
 
     @GET(HISTORY_END_POINT)
     suspend fun getHistory(
         @Path("slug") slug: String,
-        @Header("Authorization") accessToken: String,
     ): Response<HistoryModel>
 
     @GET(MANAGEMENT_END_POINT)
     suspend fun fetchConstitutionsKr(
-        @Header("Authorization") accessToken: String,
     ): List<Governance>
 
     @GET(MANAGEMENT_VV_END_POINT)
     suspend fun fetchConstitutionsVVKr(
-        @Header("Authorization") accessToken: String,
         @Query("job_tittle") jobTittle: String? = null,
     ): List<Governance>
 
     @GET(MANAGEMENT_MVD_END_POINT)
     suspend fun fetchConstitutionsMVDKr(
-        @Header("Authorization") accessToken: String,
         @Query("job_tittle") jobTittle: String? = null,
     ): List<Governance>
 
     @GET(END_POINT_LIBRARY)
     suspend fun getLibrary(
-        @Header("Authorization") accessToken: String,
         @Query("title") title: String? = null,
         @Query("description") description: String? = null,
     ): List<Library>
 
     @GET(LIBRARY_DETAIL_ENDPOINT)
     suspend fun getLibraryById(
-        @Header("Authorization") accessToken: String,
         @Path("id") id: Int,
     ): Library
 
@@ -111,31 +100,26 @@ interface SanaripAskerApi {
 
     @GET(AUTHORIZATION_GET_END_POINT)
     suspend fun getUserById(
-        @Header("Authorization") accessToken: String,
         @Path("id") userId: Int,
     ): User?
 
     @GET(NEWS_END_POINT)
     suspend fun getNews(
-        @Header("Authorization") accessToken: String,
         @Query("page") page: Int,
         @Query("page_size") pageSize: Int = 10,
     ): NewsResponse
 
     @GET(NEWS_DETAIL_ENDPOINT)
     suspend fun getNewsId(
-        @Header("Authorization") accessToken: String,
         @Path("id") id: Int,
     ): NewsDetail
 
     @GET(CONSTITUTIONS_END_POINT)
     suspend fun getConstitution(
-        @Header("Authorization") accessToken: String,
     ): List<Constitutions>
 
     @GET(CONSTITUTIONS_DETAIL_ENDPOINT)
     suspend fun getConstitutionById(
-        @Header("Authorization") accessToken: String,
         @Path("id") id: Int,
     ): ConstitutionsChapter
 

@@ -1,9 +1,9 @@
+@file:Suppress("DEPRECATION")
+
 package com.mvdasker.geeks_pro_mvd.utils.ext
 
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
@@ -12,7 +12,6 @@ import android.os.Build
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.util.Patterns
 import android.util.TypedValue
 import android.view.Gravity
@@ -209,28 +208,6 @@ object Extensions {
         }, 1000)
     }
 
-    fun Activity.changeLanguage() {
-        val listItems = arrayOf("Кыргызский", "Русский")
-        val mBuilder = AlertDialog.Builder(this)
-        mBuilder.setTitle("Выберите язык")
-        mBuilder.setSingleChoiceItems(listItems, -1) { dialog, which ->
-            when (which) {
-
-                0 -> {
-                    setLocale("ky", this)
-                }
-
-                1 -> {
-                    setLocale("ru", this)
-                }
-            }
-            this.recreate()
-            dialog.dismiss()
-        }
-        val mDialog = mBuilder.create()
-        mDialog.show()
-    }
-
     private fun setLocale(s: String, context: Context) {
         val locale = Locale(s)
         Locale.setDefault(locale)
@@ -245,7 +222,7 @@ object Extensions {
     }
 
     fun loadLocale(context: Context) {
-        var language: String? = LanguagePreference.getInstance(context)?.getLanguage
+        val language: String? = LanguagePreference.getInstance(context)?.getLanguage
         if (language != null) {
             setLocale(language, context)
         }

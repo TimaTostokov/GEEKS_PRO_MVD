@@ -1,4 +1,4 @@
-package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution
+package com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.search
 
 import android.os.Bundle
 import android.text.Editable
@@ -8,14 +8,13 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.Messages
 import com.mvdasker.geeks_pro_mvd.common.UiState
-import com.mvdasker.geeks_pro_mvd.data.remote.model.constitution.Constitutions
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentConstitutionsSearchBinding
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.ConstitutionsViewModel
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.adapter.ConstitutionsAdapter
-import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.search.SearchLawsFragmentDirections
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.gone
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.noInternetSnackbar
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.observeData
@@ -37,6 +36,7 @@ class ConstitutionsSearchFragment : Fragment(R.layout.fragment_constitutions_sea
 
         initialize()
         observeViewModel()
+        snackBar()
         searchInfo()
         goBack()
         deleteClearBtn()
@@ -71,7 +71,8 @@ class ConstitutionsSearchFragment : Fragment(R.layout.fragment_constitutions_sea
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
-                viewModel.onSearchQueryChanged(s.toString()) }
+                viewModel.onSearchQueryChanged(s.toString())
+            }
 
             override fun afterTextChanged(s: Editable?) {}
         })
@@ -80,7 +81,8 @@ class ConstitutionsSearchFragment : Fragment(R.layout.fragment_constitutions_sea
     private fun onClick(id: Int) {
         findNavController().navigate(
             ConstitutionsSearchFragmentDirections.actionConstitutionsSearchFragmentToConstitutionsDetailFragment(
-            id)
+                id
+            )
         )
     }
 
@@ -99,6 +101,21 @@ class ConstitutionsSearchFragment : Fragment(R.layout.fragment_constitutions_sea
                 binding.etSearch.text = null
                 binding.etSearch.clearFocus()
             }
+        }
+    }
+
+    private fun snackBar() {
+        observeData(viewModel.messageFlow) { messages ->
+            when (messages) {
+                is Messages.NetworkIsDisconnected -> {
+                    noInternetSnackbar()
+                    binding.progressBar.visible()
+                }
+                else -> {
+                    Extensions.showToast(requireContext(), "Network is disconnected")
+                }
+            }
+            viewModel.clearMessage()
         }
     }
 

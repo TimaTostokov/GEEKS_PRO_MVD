@@ -45,17 +45,21 @@ class DetailLawViewModel @Inject constructor(
 
     private fun getLawsDetail() {
         viewModelScope.launch {
-            id?.let { lawsId ->
-                repository.getLawById(lawsId).fold(
-                    onSuccess = { lawsDetail ->
-                        _lawsDetail.value = UiState.Success(lawsDetail)
-                    },
-                    onFailure = { error ->
-                        _lawsDetail.value = UiState.Error(error, error.message ?: "unknown error!")
-                        _messageFlow.value = Messages.NetworkIsDisconnected
-                        Log.e("toli", "во viewModel не пришли данные")
-                    }
-                )
+            try {
+                id?.let { lawsId ->
+                    repository.getLawById(lawsId).fold(
+                        onSuccess = { lawsDetail ->
+                            _lawsDetail.value = UiState.Success(lawsDetail)
+                        },
+                        onFailure = { error ->
+                            _lawsDetail.value = UiState.Error(error, error.message ?: "unknown error!")
+                            _messageFlow.value = Messages.NetworkIsDisconnected
+                            Log.e("toli", "во viewModel не пришли данные")
+                        }
+                    )
+                }
+            }catch (e: Exception) {
+                _messageFlow.value = Messages.NetworkIsDisconnected
             }
         }
     }

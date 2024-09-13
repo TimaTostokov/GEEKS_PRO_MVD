@@ -5,11 +5,15 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.google.android.material.snackbar.Snackbar
 import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.ServerStatus
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentMalfunctionsBinding
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
+import kotlinx.coroutines.launch
 
 class MalfunctionsFragment : Fragment() {
 
@@ -20,8 +24,12 @@ class MalfunctionsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.serverStatus.observe(viewLifecycleOwner) { status ->
-            handleServerStatus(status)
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.serverStatus.collect { status ->
+                    handleServerStatus(status)
+                }
+            }
         }
 
         binding.btnUpdate.setOnClickListener {

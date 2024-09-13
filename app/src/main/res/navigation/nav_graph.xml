@@ -84,7 +84,7 @@
 
         <argument
             android:name="notif_id"
-            app:argType="integer"/>
+            app:argType="integer" />
 
     </fragment>
 
@@ -125,17 +125,17 @@
 
         <argument
             android:name="notif_id"
-            app:argType="integer"/>
+            app:argType="integer" />
     </fragment>
 
     <fragment
         android:id="@+id/statutesFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.charters.ChartersFragment"
-        android:label="StatutesFragment" >
+        android:label="StatutesFragment">
 
         <argument
             android:name="notif_id"
-            app:argType="integer"/>
+            app:argType="integer" />
 
     </fragment>
 
@@ -153,7 +153,7 @@
 
         <argument
             android:name="notif_id"
-            app:argType="integer"/>
+            app:argType="integer" />
     </fragment>
 
     <fragment
@@ -220,7 +220,7 @@
 
         <argument
             android:name="notif_id"
-            app:argType="integer"/>
+            app:argType="integer" />
 
     </fragment>
 
@@ -291,18 +291,18 @@
         android:id="@+id/controlKRFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.kg.ControlKRFragment"
         android:label="fragment_control_k_r"
-        tools:layout="@layout/fragment_control_k_r" >
+        tools:layout="@layout/fragment_control_k_r">
 
         <argument
             android:name="notif_id"
-            app:argType="integer"/>
+            app:argType="integer" />
 
     </fragment>
 
     <fragment
         android:id="@+id/controlITMIAKRFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.menu.control.vv.ControlITMIAKRFragment"
-        android:label="ControlITMIAKRFragment" >
+        android:label="ControlITMIAKRFragment">
 
         <action
             android:id="@+id/action_controlITMIAKRFragment_to_searchControlVVFragment"
@@ -310,7 +310,7 @@
 
         <argument
             android:name="notif_id"
-            app:argType="integer"/>
+            app:argType="integer" />
 
     </fragment>
 
@@ -361,6 +361,7 @@
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.detail.DetailLawsFragment"
         android:label="fragment_detail_laws"
         tools:layout="@layout/fragment_detail_laws">
+
         <argument
             android:name="id"
             app:argType="integer" />
@@ -371,30 +372,36 @@
         android:id="@+id/searchLawsFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.law.search.SearchLawsFragment"
         android:label="fragment_search_laws"
-        tools:layout="@layout/fragment_search_laws" >
+        tools:layout="@layout/fragment_search_laws">
+
         <action
             android:id="@+id/action_searchLawsFragment_to_detailLawsFragment"
             app:destination="@id/detailLawsFragment" />
+
     </fragment>
+
     <fragment
         android:id="@+id/constitutionsDetailFragment"
         android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.detail.ConstitutionsDetailFragment"
         android:label="fragment_constitutions_detail"
-        tools:layout="@layout/fragment_constitutions_detail" >
+        tools:layout="@layout/fragment_constitutions_detail">
 
         <argument
             android:name="id"
             app:argType="integer" />
+
     </fragment>
 
     <fragment
         android:id="@+id/constitutionsSearchFragment"
-        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.ConstitutionsSearchFragment"
+        android:name="com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.documents.constitution.search.ConstitutionsSearchFragment"
         android:label="fragment_constitutions_search"
-        tools:layout="@layout/fragment_constitutions_search" >
+        tools:layout="@layout/fragment_constitutions_search">
+
         <action
             android:id="@+id/action_constitutionsSearchFragment_to_constitutionsDetailFragment"
             app:destination="@id/constitutionsDetailFragment" />
+
     </fragment>
 
 </navigation>

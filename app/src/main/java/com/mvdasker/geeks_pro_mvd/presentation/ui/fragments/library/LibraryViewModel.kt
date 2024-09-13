@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LibraryViewModel @Inject constructor(
-    private val repository: LibraryRepository
+    private val repository: LibraryRepository,
 ) : ViewModel() {
 
     private val _libraries = MutableStateFlow<List<Library>?>(null)
@@ -56,9 +56,13 @@ class LibraryViewModel @Inject constructor(
 
     private fun updateNotReadNotifCount() {
         viewModelScope.launch {
-            val result = repository.getIsNotReadNotif()
-            val notReadList = result.filter { !it.readed }
-            _notReadNotifCount.value =notReadList.size
+            try {
+                val result = repository.getIsNotReadNotif()
+                val notReadList = result.filter { !it.readed }
+                _notReadNotifCount.value = notReadList.size
+            } catch (e: Exception) {
+                _notReadNotifCount.value = 0
+            }
         }
     }
 

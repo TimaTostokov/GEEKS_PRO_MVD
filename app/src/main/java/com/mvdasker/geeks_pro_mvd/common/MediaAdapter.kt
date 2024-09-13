@@ -8,6 +8,7 @@ import com.aghajari.zoomhelper.ZoomHelper
 import com.bumptech.glide.Glide
 import com.mvdasker.geeks_pro_mvd.databinding.ItemImageBinding
 import com.mvdasker.geeks_pro_mvd.databinding.ItemVideoBinding
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.loadImage
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 
@@ -82,7 +83,7 @@ class MediaAdapter(private val items: List<PlayerItem>) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(url: String) {
-            Glide.with(binding.root.context).load(url).into(binding.imageView)
+            binding.imageView.loadImage(url)
             ZoomHelper.addZoomableView(binding.imageView)
         }
     }
