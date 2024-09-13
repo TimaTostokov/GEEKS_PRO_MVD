@@ -48,7 +48,6 @@ class HistoryMVDKRFragment : Fragment(R.layout.fragment_history_m_v_d_k_r) {
         binding.upBtn.setOnClickListener {
             binding.nestedSv.smoothScrollTo(0, 0)
         }
-
     }
 
     @SuppressLint("SetTextI18n")

@@ -7,6 +7,8 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -45,12 +47,24 @@ class ChartersFragment : Fragment(R.layout.fragment_charters) {
         snackBar()
     }
 
-    @SuppressLint("ObsoleteSdkInt")
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            Extensions.showToast(requireContext(),getString(R.string.permission_true))
+        } else {
+            Extensions.showToast(requireContext(),getString(R.string.permission_false))
+        }
+    }
+
     private fun permission() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            if (requireContext().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
-            }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q &&
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         }
     }
 
@@ -78,7 +92,6 @@ class ChartersFragment : Fragment(R.layout.fragment_charters) {
                         scrollToItemWithId(binding.fcListCharters, adapter, notifId)
                     }
                 }
-
                 is UiState.Error -> binding.fchartProgressBar.gone()
             }
         }

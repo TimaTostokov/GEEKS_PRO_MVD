@@ -12,8 +12,9 @@
     <string name="Password">Сырсөз</string>
     <string name="login_error">Туура эмес логин</string>
     <string name="password_error">Туура эмес сырсөз</string>
+    <string name="successful_authentication">Ийгиликтүү аутентификация!</string>
     <string name="cross">Отмена</string>
-    <string name="statutes">Кыргыз Республикасынын Куралдуу Күчтөрүнүн уставдары</string>
+    <string name="statutes">Регламент</string>
     <string name="goInto">Кируу</string>
     <string name="documents_laws">Мыйзамдар</string>
     <string name="constitution">Конституция</string>
@@ -33,7 +34,6 @@
     <string name="historyVV_MVD_KR">КР ИИМ ИА тарыхы</string>
     <string name="no_data">Дайындар жок</string>
     <string name="goread">Кененирээк…</string>
-    <string name="no_user_name">No User Name</string>
     <string name="made_by_geeks_pro">Made by Geeks Pro</string>
     <string name="fastnews">Акыркы жаңылыктар</string>
     <string name="find">Табу</string>
@@ -49,15 +49,18 @@
     <string name="n_n">Улантуу үчүн тилиңизди тандаңыз, аны кийинчерээк өзгөртсөңүз болот.</string>
     <string name="konspekt">Конспект</string>
     <string name="tech_error">Техникалык көйгөйлөр</string>
-    <string name="retryagain">Кайра аракет кыл</string>
+    <string name="retryagain">Попробовать снова</string>
     <string name="update">Жаңыртуу</string>
     <string name="tech_text">Ыңгайсыздык үчүн кечиресиз, биздин колдонмодо техникалык көйгөйлөр бар. Биз көйгөйдү чечүү үчүн иштеп жатабыз. - Сураныч, колдонмону жаңыртып көрүңүз. Түшүнгөнүңүз үчүн рахмат!”</string>
     <string name="no_internet_text">Тармак жеткиликсиз. Wi-Fi күйгүзүлгөнүн же мобилдик дайындар активдүү экенин текшериңиз.</string>
     <string name="server_error">Сервер катасы. Сураныч, кийинчерээк кайра аракет кылыңыз.</string>
     <string name="server_ok">Сервер жакшы иштеп жатат</string>
+    <string name="permission_false">Уруксат четке кагылды</string>
+    <string name="permission_true">Уруксат берилди</string>
     <string name="no_internet_message">Нет подключения к интернету. Пожалуйста, проверьте соединение.</string>
-    <string name="checking_server">Проверка сервера…</string>
-    <string name="text_constitution">Глава</string>
+    <string name="checking_server">Серверди текшерүү…</string>
+    <string name="text_constitution">Бөлүм</string>
+    <string name="element_not_found">Элемент табылган жок</string>
     <string-array name="months">
         <item>Январь</item>
         <item>Февраль</item>

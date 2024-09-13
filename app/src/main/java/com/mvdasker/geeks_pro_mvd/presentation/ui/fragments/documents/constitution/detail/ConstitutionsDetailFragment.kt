@@ -43,6 +43,10 @@ class ConstitutionsDetailFragment : Fragment(R.layout.fragment_constitutions_det
         observe()
         snackBar()
         goBack()
+
+        binding.upBtn.setOnClickListener {
+            binding.nestedScrollView.smoothScrollTo(0, 0)
+        }
     }
 
     private fun observe() {

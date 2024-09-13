@@ -19,7 +19,9 @@ import javax.inject.Inject
 class LawViewModel @Inject constructor(private val lawRepository: LawRepository) : BaseViewModel() {
 
     private val _allLawFlow = MutableStateFlow<UiState<List<Law>>>(UiState.Loading)
+
     private val allLaws = mutableListOf<Law>()
+
     private val _law = MutableStateFlow<UiState<List<Law>>>(UiState.Loading)
     val law: Flow<UiState<List<Law>>> = _law.asStateFlow()
 
@@ -35,6 +37,10 @@ class LawViewModel @Inject constructor(private val lawRepository: LawRepository)
                     allLaws.addAll(state.data)
                 }
                 _law.update { state }
+
+                if (state is UiState.Error) {
+                    _messageFlow.value = Messages.NetworkIsDisconnected
+                }
             }
         }
     }

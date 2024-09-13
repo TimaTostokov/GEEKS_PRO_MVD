@@ -76,6 +76,7 @@ class LawViewHolder(
     init {
         binding.ivSpinner.setOnClickListener {
             onClick.invoke(bindingAdapterPosition)
+            binding.tvSpinner.isVisible = prevIsExpanded
         }
         binding.rvChapter.adapter = adapter
         binding.rvChapter.layoutManager = LinearLayoutManager(itemView.context)

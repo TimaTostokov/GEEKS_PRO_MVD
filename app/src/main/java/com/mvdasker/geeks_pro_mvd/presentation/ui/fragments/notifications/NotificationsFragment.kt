@@ -86,7 +86,7 @@ class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
                 }
 
                 else -> {
-                    Extensions.showToast(requireContext(), "Элемент не найден")
+                    Extensions.showToast(requireContext(), getString(R.string.element_not_found))
                 }
             }
         }
