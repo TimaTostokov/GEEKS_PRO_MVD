@@ -33,7 +33,6 @@
     <string name="historyVV_MVD_KR">История ВВ МВД КР</string>
     <string name="no_data">Нет данных</string>
     <string name="goread">Читать далее…</string>
-    <string name="no_user_name">No User Name</string>
     <string name="made_by_geeks_pro">Made by Geeks Pro</string>
     <string name="fastnews">Срочные новости</string>
     <string name="find">Найти</string>
@@ -60,6 +59,7 @@
     <string name="checking_server">Проверка сервера…</string>
     <string name="retryagain">Попробовать снова</string>
     <string name="text_constitution">Глава</string>
+    <string name="element_not_found">Элемент не найден</string>
     <string-array name="months">
         <item>Январь</item>
         <item>Февраль</item>

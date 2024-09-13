@@ -39,6 +39,10 @@ class DetailLawsFragment : Fragment(R.layout.fragment_detail_laws) {
         observe()
         snackBar()
         goBack()
+
+        binding.upBtn.setOnClickListener {
+            binding.nestedScroll.smoothScrollTo(0, 0)
+        }
     }
 
     private fun observe() {

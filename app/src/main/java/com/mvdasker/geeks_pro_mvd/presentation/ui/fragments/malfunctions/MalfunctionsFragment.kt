@@ -13,9 +13,10 @@ import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.ServerStatus
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentMalfunctionsBinding
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class MalfunctionsFragment : Fragment() {
+class MalfunctionsFragment : Fragment(R.layout.fragment_malfunctions) {
 
     private val binding by viewBinding(FragmentMalfunctionsBinding::bind)
 
@@ -35,17 +36,13 @@ class MalfunctionsFragment : Fragment() {
         binding.btnUpdate.setOnClickListener {
             viewModel.startCheckingServerStatus()
             showSnackbar(getString(R.string.checking_server))
+            viewLifecycleOwner.lifecycleScope.launch {
+                delay(3000)
+                if (viewModel.serverStatus.value == ServerStatus.AVAILABLE) {
+                    parentFragmentManager.popBackStack()
+                }
+            }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.startCheckingServerStatus()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        viewModel.stopCheckingServerStatus()
     }
 
     private fun handleServerStatus(status: ServerStatus) {

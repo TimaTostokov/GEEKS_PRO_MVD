@@ -34,7 +34,6 @@
     <string name="historyVV_MVD_KR">КР ИИМ ИА тарыхы</string>
     <string name="no_data">Дайындар жок</string>
     <string name="goread">Кененирээк…</string>
-    <string name="no_user_name">No User Name</string>
     <string name="made_by_geeks_pro">Made by Geeks Pro</string>
     <string name="fastnews">Акыркы жаңылыктар</string>
     <string name="find">Табу</string>
@@ -60,7 +59,8 @@
     <string name="permission_true">Уруксат берилди</string>
     <string name="no_internet_message">Нет подключения к интернету. Пожалуйста, проверьте соединение.</string>
     <string name="checking_server">Серверди текшерүү…</string>
-    <string name="text_constitution">Глава</string>
+    <string name="text_constitution">Бөлүм</string>
+    <string name="element_not_found">Элемент табылган жок</string>
     <string-array name="months">
         <item>Январь</item>
         <item>Февраль</item>
