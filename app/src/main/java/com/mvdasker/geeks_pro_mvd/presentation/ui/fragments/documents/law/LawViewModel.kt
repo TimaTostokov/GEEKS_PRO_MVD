@@ -35,6 +35,10 @@ class LawViewModel @Inject constructor(private val lawRepository: LawRepository)
                     allLaws.addAll(state.data)
                 }
                 _law.update { state }
+
+                if (state is UiState.Error) {
+                    _messageFlow.value = Messages.NetworkIsDisconnected
+                }
             }
         }
     }

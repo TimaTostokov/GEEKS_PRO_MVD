@@ -43,6 +43,10 @@ class ConstitutionsViewModel @Inject constructor(private val constitutionReposit
                     allConstitution.addAll(state.data)
                 }
                 _constitution.update { state }
+
+                if (state is UiState.Error) {
+                    _messageFlow.value = Messages.NetworkIsDisconnected
+                }
             }
         }
     }

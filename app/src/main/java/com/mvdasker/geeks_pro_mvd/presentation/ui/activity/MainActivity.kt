@@ -29,10 +29,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         Extensions.loadLocale(this)
         super.onCreate(savedInstanceState)
-        window?.setFlags(
-            WindowManager.LayoutParams.FLAG_SECURE,
-            WindowManager.LayoutParams.FLAG_SECURE
-        )
+//        window?.setFlags(
+//            WindowManager.LayoutParams.FLAG_SECURE,
+//            WindowManager.LayoutParams.FLAG_SECURE
+//        )
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -47,7 +47,8 @@ class MainActivity : AppCompatActivity() {
 
         val fragmentsWithBottomNav = setOf(
             R.id.homeFragment,
-            R.id.libraryFragment, R.id.documentsFragment,
+            R.id.libraryFragment,
+            R.id.documentsFragment,
             R.id.menuFragment
         )
 
@@ -137,7 +138,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+//        window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
     }
 
 }
