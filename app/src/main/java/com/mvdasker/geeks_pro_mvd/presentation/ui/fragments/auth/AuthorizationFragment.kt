@@ -59,14 +59,14 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModelAuth.state.collect { state ->
                 binding.tILLogin.apply {
-                    if (state.isLoginValid) setDefaultState() else setError("Неверный логин")
+                    if (state.isLoginValid) setDefaultState() else setError(getString(R.string.login_error))
                 }
                 binding.tILPassword.apply {
-                    if (state.isPasswordValid) setDefaultState() else setErrorState("Неверный пароль")
+                    if (state.isPasswordValid) setDefaultState() else setErrorState(getString(R.string.password_error))
                 }
                 if (state.needNavigateToHome) {
                     Log.e("ololo", "Authorization failed: ${state.user}")
-                    Extensions.showToast(requireContext(), "Успешная аутентификация!")
+                    Extensions.showToast(requireContext(), getString(R.string.successful_authentication))
                     viewModelAuth.onNavigatedToHome()
                     findNavController().navigate(R.id.action_authorizationFragment_to_homeFragment)
                 }

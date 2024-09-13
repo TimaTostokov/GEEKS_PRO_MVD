@@ -12,8 +12,9 @@
         <string name="Password">Сырсөз</string>
         <string name="login_error">Туура эмес логин</string>
         <string name="password_error">Туура эмес сырсөз</string>
+        <string name="successful_authentication">Ийгиликтүү аутентификация!</string>
         <string name="cross">Отмена</string>
-        <string name="statutes">Кыргыз Республикасынын Куралдуу Күчтөрүнүн уставдары</string>
+        <string name="statutes">Регламент</string>
         <string name="goInto">Кируу</string>
         <string name="documents_laws">Мыйзамдар</string>
         <string name="constitution">Конституция</string>

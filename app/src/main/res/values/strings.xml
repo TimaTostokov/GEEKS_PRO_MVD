@@ -11,6 +11,7 @@
     <string name="Password">Пароль</string>
     <string name="login_error">Неверный логин</string>
     <string name="password_error">Неверный пароль</string>
+    <string name="successful_authentication">Успешная аутентификация!</string>
     <string name="cross">Отмена</string>
     <string name="statutes">Постановления</string>
     <string name="goInto">Войти</string>
