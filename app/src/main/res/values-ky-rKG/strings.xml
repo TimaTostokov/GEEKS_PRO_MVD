@@ -61,6 +61,7 @@
     <string name="checking_server">Серверди текшерүү…</string>
     <string name="text_constitution">Бөлүм</string>
     <string name="element_not_found">Элемент табылган жок</string>
+    <string name="_1_5">1/5</string>
     <string-array name="months">
         <item>Январь</item>
         <item>Февраль</item>
