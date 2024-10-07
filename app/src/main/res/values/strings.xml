@@ -58,6 +58,7 @@
     <string name="checking_server">Проверка сервера…</string>
     <string name="retryagain">Попробовать снова</string>
     <string name="text_constitution">Глава</string>
+    <string name="_1_5">1/5</string>
     <string-array name="months">
         <item>Январь</item>
         <item>Февраль</item>
