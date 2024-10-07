@@ -3,36 +3,45 @@ package com.mvdasker.geeks_pro_mvd.presentation.ui.activity
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.WindowInsetsController
 import android.view.WindowManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.aghajari.zoomhelper.ZoomHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.common.ServerStatus
 import com.mvdasker.geeks_pro_mvd.databinding.ActivityMainBinding
+import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.malfunctions.ServerStatusViewModel
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-//    private val serverStatusViewModel: ServerStatusViewModel by viewModels()
+    private val serverStatusViewModel: ServerStatusViewModel by viewModels()
 
     @Suppress("DEPRECATION")
     @SuppressLint("ObsoleteSdkInt")
     override fun onCreate(savedInstanceState: Bundle?) {
         Extensions.loadLocale(this)
         super.onCreate(savedInstanceState)
-//        window?.setFlags(
-//            WindowManager.LayoutParams.FLAG_SECURE,
-//            WindowManager.LayoutParams.FLAG_SECURE
-//        )
+        window?.setFlags(
+            WindowManager.LayoutParams.FLAG_SECURE,
+            WindowManager.LayoutParams.FLAG_SECURE
+        )
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -81,30 +90,27 @@ class MainActivity : AppCompatActivity() {
             window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
         }
 
-//        lifecycleScope.launch {
-//            repeatOnLifecycle(Lifecycle.State.STARTED) {
-//                serverStatusViewModel.serverStatus.collect { status ->
-//                    when (status) {
-//                        ServerStatus.UNAVAILABLE -> {
-//                            if (navController.currentDestination?.id != R.id.malfunctionsFragment &&
-//                                navController.currentDestination?.id != R.id.authorizationFragment &&
-//                                navController.currentDestination?.id != R.id.splashFragment
-//                            ) {
-//                                navController.navigate(R.id.malfunctionsFragment)
-//                            }
-//                        }
-//
-//                        ServerStatus.AVAILABLE, ServerStatus.NO_INTERNET -> {
-//                            if (navController.currentDestination?.id == R.id.malfunctionsFragment) {
-//                                navController.popBackStack()
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//
-//        serverStatusViewModel.startCheckingServerStatus()
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                serverStatusViewModel.serverStatus.collect { status ->
+                    if (status == ServerStatus.UNAVAILABLE && serverStatusViewModel.wasServerUnavailable) {
+                        Log.d("Navigation", "Navigating to MalfunctionsFragment")
+                        delay(5000)
+                        if (serverStatusViewModel.serverStatus.value == ServerStatus.UNAVAILABLE) {
+                            if (navController.currentDestination?.id != R.id.malfunctionsFragment &&
+                                navController.currentDestination?.id != R.id.authorizationFragment &&
+                                navController.currentDestination?.id != R.id.splashFragment
+                            ) {
+                                navController.navigate(R.id.malfunctionsFragment)
+                                serverStatusViewModel.resetServerUnavailableFlag()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        serverStatusViewModel.startCheckingServerStatus()
     }
 
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
@@ -138,7 +144,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-//        window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+        window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
     }
 
 }

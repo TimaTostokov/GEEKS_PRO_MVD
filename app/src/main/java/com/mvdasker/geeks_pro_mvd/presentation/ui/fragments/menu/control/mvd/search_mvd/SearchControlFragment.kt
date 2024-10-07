@@ -78,7 +78,7 @@ class SearchControlFragment : Fragment(R.layout.fragment_search_control) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.management.collect { controls ->
                 adapter.submitList(controls)
-                controlList = controls ?: emptyList()
+                controlList = controls
                 Log.e("control", "$controls")
                 updateItemCount()
             }

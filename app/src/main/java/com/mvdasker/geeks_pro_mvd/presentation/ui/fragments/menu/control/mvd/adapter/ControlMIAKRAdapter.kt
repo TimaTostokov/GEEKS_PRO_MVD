@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.mvdasker.geeks_pro_mvd.data.remote.model.mangements.Governance
 import com.mvdasker.geeks_pro_mvd.databinding.ItemManagementKgBinding
 import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.highlightItem
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.loadImage
 
 class ControlMIAKRAdapter :
     ListAdapter<Governance, ControlMIAKRAdapter.ManagmentsKgViewHolder>(DiffUtilCallback()) {
@@ -32,9 +33,7 @@ class ControlMIAKRAdapter :
                         Html.fromHtml(item.jobTittle, Html.FROM_HTML_MODE_LEGACY).toString(),
                         searchQuery
                     )
-                Glide.with(itemView.context)
-                    .load(item.photo)
-                    .into(imView)
+                binding.imView.loadImage(item.photo.toString())
             }
         }
 

@@ -33,7 +33,6 @@
     <string name="historyVV_MVD_KR">История ВВ МВД КР</string>
     <string name="no_data">Нет данных</string>
     <string name="goread">Читать далее…</string>
-    <string name="no_user_name">No User Name</string>
     <string name="made_by_geeks_pro">Made by Geeks Pro</string>
     <string name="fastnews">Срочные новости</string>
     <string name="find">Найти</string>
@@ -54,10 +53,13 @@
     <string name="no_internet_text">Сеть недоступна. Убедитесь, что Wi-Fi включен или мобильные данные активны.</string>
     <string name="server_error">Ошибка сервера. Попробуйте позже.</string>
     <string name="server_ok">Сервер работает нормально</string>
+    <string name="permission_false">Разрешение отклонено</string>
+    <string name="permission_true">Разрешение предоставлено</string>
     <string name="no_internet_message">Нет подключения к интернету. Пожалуйста, проверьте соединение.</string>
     <string name="checking_server">Проверка сервера…</string>
     <string name="retryagain">Попробовать снова</string>
     <string name="text_constitution">Глава</string>
+    <string name="element_not_found">Элемент не найден</string>
     <string name="_1_5">1/5</string>
     <string-array name="months">
         <item>Январь</item>

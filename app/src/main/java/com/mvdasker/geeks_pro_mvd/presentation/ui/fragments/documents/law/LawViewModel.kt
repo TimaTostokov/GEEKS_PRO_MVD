@@ -19,7 +19,9 @@ import javax.inject.Inject
 class LawViewModel @Inject constructor(private val lawRepository: LawRepository) : BaseViewModel() {
 
     private val _allLawFlow = MutableStateFlow<UiState<List<Law>>>(UiState.Loading)
+
     private val allLaws = mutableListOf<Law>()
+
     private val _law = MutableStateFlow<UiState<List<Law>>>(UiState.Loading)
     val law: Flow<UiState<List<Law>>> = _law.asStateFlow()
 
