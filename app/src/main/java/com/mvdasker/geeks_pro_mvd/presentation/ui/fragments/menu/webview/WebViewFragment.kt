@@ -13,7 +13,6 @@ import com.mvdasker.geeks_pro_mvd.databinding.FragmentWebViewBinding
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-
 @AndroidEntryPoint
 class WebViewFragment : Fragment(R.layout.fragment_web_view) {
 

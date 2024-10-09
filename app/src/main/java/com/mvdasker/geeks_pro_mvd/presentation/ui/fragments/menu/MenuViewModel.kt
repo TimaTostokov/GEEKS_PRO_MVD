@@ -83,7 +83,7 @@ class MenuViewModel @Inject constructor(
     fun onOpenDictionaryClick() = openWebView("https://el-sozduk.kg/")
     fun onMapClick() = openWebView("https://www.google.com/maps")
     fun onTrafficRulesClick() = openWebView("https://joldo.kg/ru")
-    fun openInstagram() = openWebView("https://www.instagram.com/geeks_pro/")
+    fun openGeeksKg() = openWebView("https://geeks.kg/")
 
     private fun openWebView(url: String) {
         val action = MenuFragmentDirections.actionMenuFragmentToWebViewFragment(url)

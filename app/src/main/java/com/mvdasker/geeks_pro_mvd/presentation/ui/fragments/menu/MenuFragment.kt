@@ -130,8 +130,8 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
             controlITMIAKRButton to { viewModel.onClickControlITMIAKRButton() },
             openDictionaryBtn to { viewModel.onOpenDictionaryClick() },
             mapBtn to { viewModel.onMapClick() },
-            tvLogoGeeks to { viewModel.openInstagram() },
-            imgLogoGeeks to { viewModel.openInstagram() },
+            tvLogoGeeks to { viewModel.openGeeksKg() },
+            imgLogoGeeks to { viewModel.openGeeksKg() },
             trafficRulesButton to { viewModel.onTrafficRulesClick() }
         )
 
