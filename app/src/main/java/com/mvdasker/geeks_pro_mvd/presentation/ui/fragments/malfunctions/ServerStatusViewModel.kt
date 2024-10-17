@@ -7,6 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.mvdasker.geeks_pro_mvd.common.Constants.BASE_URL
 import com.mvdasker.geeks_pro_mvd.common.ServerStatus
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -19,6 +20,7 @@ import java.io.IOException
 import java.net.HttpURLConnection
 import java.net.URL
 
+@HiltViewModel
 class ServerStatusViewModel(
     application: Application,
     private val savedStateHandle: SavedStateHandle,

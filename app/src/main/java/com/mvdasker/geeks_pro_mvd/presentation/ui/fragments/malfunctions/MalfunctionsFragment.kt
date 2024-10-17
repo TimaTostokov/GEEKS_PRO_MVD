@@ -13,9 +13,11 @@ import com.mvdasker.geeks_pro_mvd.R
 import com.mvdasker.geeks_pro_mvd.common.ServerStatus
 import com.mvdasker.geeks_pro_mvd.databinding.FragmentMalfunctionsBinding
 import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MalfunctionsFragment : Fragment(R.layout.fragment_malfunctions) {
 
     private val binding by viewBinding(FragmentMalfunctionsBinding::bind)
