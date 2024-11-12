@@ -29,9 +29,7 @@ class MalfunctionsFragment : Fragment(R.layout.fragment_malfunctions) {
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.serverStatus.collect { status ->
-                    handleServerStatus(status)
-                }
+                viewModel.serverStatus.collect { status -> handleServerStatus(status) }
             }
         }
 
@@ -39,7 +37,7 @@ class MalfunctionsFragment : Fragment(R.layout.fragment_malfunctions) {
             viewModel.startCheckingServerStatus()
             showSnackbar(getString(R.string.checking_server))
             viewLifecycleOwner.lifecycleScope.launch {
-                delay(3000)
+                delay(2000)
                 if (viewModel.serverStatus.value == ServerStatus.AVAILABLE) {
                     parentFragmentManager.popBackStack()
                 }
