@@ -12,6 +12,7 @@ import android.os.Build
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.util.Patterns
 import android.util.TypedValue
 import android.view.Gravity
@@ -31,7 +32,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.mvdasker.geeks_pro_mvd.R
-import com.mvdasker.geeks_pro_mvd.common.LanguagePreference
 import com.mvdasker.geeks_pro_mvd.common.PlayerItem
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -208,23 +208,21 @@ object Extensions {
         }, 1000)
     }
 
-    private fun setLocale(s: String, context: Context) {
-        val locale = Locale(s)
+    fun Context.updateLocale(language: String): Context {
+        val locale = Locale(language)
         Locale.setDefault(locale)
-        val config = Configuration()
-        config.setLocale(locale)
-        context.resources.updateConfiguration(
-            config,
-            context.resources.displayMetrics
-        )
-        LanguagePreference.getInstance(context)?.saveLanguage(s)
+        Log.d("Extensions", "Updating locale to: $language")
 
-    }
+        val config = Configuration(resources.configuration).apply {
+            setLocale(locale)
+        }
 
-    fun loadLocale(context: Context) {
-        val language: String? = LanguagePreference.getInstance(context)?.getLanguage
-        if (language != null) {
-            setLocale(language, context)
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            createConfigurationContext(config)
+        } else {
+            @Suppress("DEPRECATION")
+            resources.updateConfiguration(config, resources.displayMetrics)
+            this
         }
     }
 

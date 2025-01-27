@@ -96,13 +96,18 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
     private fun setupClickListeners() {
         binding.apply {
             kgBtn.setOnClickListener {
-                updateLocale("ky")
+                onChangeLanguage("ky")
             }
-
             ruBtn.setOnClickListener {
-                updateLocale("ru")
+                onChangeLanguage("ru")
             }
         }
+    }
+
+    private fun onChangeLanguage(languageCode: String) {
+        Log.d("AuthorizationFragment", "Changing language to: $languageCode")
+        viewModel.saveSelectedLanguage(languageCode)
+        requireActivity().recreate()
     }
 
     private fun alertDialog() {
@@ -148,9 +153,6 @@ class AuthorizationFragment : Fragment(R.layout.fragment_authorization) {
     private fun loadSavedLanguage() {
         val savedLanguage = viewModel.getSavedLanguage()
         updateButtonState(savedLanguage)
-        if (resources.configuration.locales[0].language != savedLanguage) {
-            updateLocale(savedLanguage)
-        }
     }
 
     private fun updateLocale(languageCode: String) {

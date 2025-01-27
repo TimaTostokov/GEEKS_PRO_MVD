@@ -1,6 +1,7 @@
 package com.mvdasker.geeks_pro_mvd.presentation.ui.activity
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -18,10 +19,11 @@ import androidx.navigation.ui.setupWithNavController
 import com.aghajari.zoomhelper.ZoomHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.mvdasker.geeks_pro_mvd.R
+import com.mvdasker.geeks_pro_mvd.common.LanguagePreference
 import com.mvdasker.geeks_pro_mvd.common.ServerStatus
 import com.mvdasker.geeks_pro_mvd.databinding.ActivityMainBinding
 import com.mvdasker.geeks_pro_mvd.presentation.ui.fragments.malfunctions.ServerStatusViewModel
-import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions
+import com.mvdasker.geeks_pro_mvd.utils.ext.Extensions.updateLocale
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -36,7 +38,7 @@ class MainActivity : AppCompatActivity() {
     @Suppress("DEPRECATION")
     @SuppressLint("ObsoleteSdkInt")
     override fun onCreate(savedInstanceState: Bundle?) {
-        Extensions.loadLocale(this)
+        Log.d("MainActivity", "onCreate called")
         super.onCreate(savedInstanceState)
         window?.setFlags(
             WindowManager.LayoutParams.FLAG_SECURE,
@@ -117,6 +119,14 @@ class MainActivity : AppCompatActivity() {
         return ZoomHelper.getInstance().dispatchTouchEvent(ev!!, this) || super.dispatchTouchEvent(
             ev
         )
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        val savedLanguage =
+            LanguagePreference.getInstance(newBase).getLanguage ?: "ru"
+        Log.d("MainActivity", "Applying locale: $savedLanguage")
+        val contextWithLocale = newBase.updateLocale(savedLanguage)
+        super.attachBaseContext(contextWithLocale)
     }
 
     private fun updateIcon() {

@@ -1,5 +1,6 @@
 package com.mvdasker.geeks_pro_mvd.di
 
+import android.util.Log
 import com.mvdasker.geeks_pro_mvd.common.LanguagePreference
 import com.mvdasker.geeks_pro_mvd.common.UserProvider
 import okhttp3.Interceptor
@@ -13,11 +14,11 @@ class LanguageInterceptor @Inject constructor(
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
-
         val languageCode = languagePreference.getLanguage ?: "ru"
+        Log.d("LanguageInterceptor", "Using language: $languageCode")
 
         val newRequest = originalRequest.newBuilder()
-            .addHeader("Authorization", userProvider.accessToken )
+            .addHeader("Authorization", userProvider.accessToken)
             .addHeader("Accept-Language", languageCode)
             .build()
 

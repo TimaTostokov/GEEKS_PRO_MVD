@@ -1,6 +1,7 @@
 package com.mvdasker.geeks_pro_mvd.common
 
 import android.content.Context
+import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -15,6 +16,7 @@ class UserProvider @Inject constructor(
 
     fun saveAccess(accessToken: String) {
         prefs.edit().putString(ACCESS_TOKEN_KEY, "JWT $accessToken").apply()
+        Log.d("UserProvider", "Access token: $accessToken")
     }
 
     fun saveUserName(name: String) {
@@ -31,6 +33,11 @@ class UserProvider @Inject constructor(
 
     fun getUserPhoto(): String {
         return prefs.getString(USER_PHOTO_KEY, "-3").orEmpty()
+    }
+
+    fun clearAccessToken() {
+        prefs.edit().remove(ACCESS_TOKEN_KEY).apply()
+        Log.d("UserProvider", "Access token cleared")
     }
 
     companion object {

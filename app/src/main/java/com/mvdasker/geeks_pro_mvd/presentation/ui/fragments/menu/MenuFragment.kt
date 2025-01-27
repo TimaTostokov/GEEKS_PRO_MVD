@@ -29,7 +29,6 @@ import com.mvdasker.geeks_pro_mvd.utils.ext.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.util.Locale
 
 @AndroidEntryPoint
 class MenuFragment : Fragment(R.layout.fragment_menu) {
@@ -112,11 +111,11 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
         }
 
         kgBtn.setOnClickListener {
-            updateLocale("ky")
+            onChangeLanguage("ky")
         }
 
         ruBtn.setOnClickListener {
-            updateLocale("ru")
+            onChangeLanguage("ru")
         }
 
         aboutUsButton.setOnClickListener {
@@ -138,6 +137,12 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
         hideRecyclerViewActions.forEach { (button, action) ->
             button.setOnClickListener { action() }
         }
+    }
+
+    private fun onChangeLanguage(languageCode: String) {
+        Log.d("MenuFragment", "Changing language to: $languageCode")
+        viewModel.saveSelectedLanguage(languageCode)
+        requireActivity().recreate()
     }
 
     private fun updateSpinnerIcon(isRotated: Boolean) {
@@ -174,9 +179,6 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
     private fun loadSavedLanguage() {
         val savedLanguage = viewModel.getSavedLanguage()
         updateButtonState(savedLanguage)
-        if (resources.configuration.locales[0].language != savedLanguage) {
-            updateLocale(savedLanguage)
-        }
     }
 
     private fun updateButtonState(languageCode: String) {
@@ -196,20 +198,6 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
                 if (isSelected) R.color.white else R.color.dark_blue
             )
         )
-    }
-
-    private fun updateLocale(languageCode: String) {
-        val locale = Locale(languageCode.lowercase(Locale.ROOT))
-
-        val config = resources.configuration.apply {
-            setLocale(locale)
-        }
-
-        val intent = requireActivity().intent
-        requireActivity().apply {
-            viewModel.saveSelectedLanguage(languageCode)
-            recreate()
-        }
     }
 
 }
