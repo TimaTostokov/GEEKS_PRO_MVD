@@ -1,7 +1,19 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.BilimAskerKR" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+<resources>
+
+    <style name="Base.Theme.BilimAskerKR" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/dark_blue</item>
+        <item name="colorPrimaryDark">#FDFDFD</item>
+        <item name="colorAccent">@color/gray</item>
+        <item name="android:navigationBarColor">@color/dark_blue</item>
+        <item name="android:windowBackground">@color/white</item>
     </style>
+
+    <style name="Theme.BilimAskerKR" parent="Base.Theme.BilimAskerKR">
+        <item name="colorPrimary">@color/dark_blue</item>
+        <item name="colorPrimaryDark">#FDFDFD</item>
+        <item name="colorAccent">@color/gray</item>
+        <item name="android:navigationBarColor">@color/dark_blue</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
 </resources>
