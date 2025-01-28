@@ -1,6 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.jetbrains.kotlin.android)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hiltCompiler)
+    alias(libs.plugins.navsafeargs)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -24,18 +28,68 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            isShrinkResources = false
+        }
+        debug {
+            isMinifyEnabled = false
+            isShrinkResources = false
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "1.8"
+    }
+    buildFeatures {
+        viewBinding = true
     }
 }
 
 dependencies {
+
+    ksp(libs.hilt.android.compiler)
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.navigation)
+
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
+    implementation(libs.core)
+    implementation(libs.conscrypt.android)
+    implementation(libs.bottomsheets)
+
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.navigation.fragment.ktx)
+
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.recyclerview)
+
+    implementation(libs.okHttpClient)
+    implementation(libs.logging.interceptor)
+
+    implementation(libs.circleimageview)
+
+    implementation(libs.advrecyclerview)
+
+    implementation(libs.glide)
+
+    implementation(libs.androidx.viewpager2)
+
+    implementation(libs.dotsindicator)
+
+    implementation(libs.androidyoutubeplayer.core)
+
+    implementation(libs.zoomage)
+    implementation(libs.github.zoomhelper)
+
+    implementation(libs.androidx.paging.common.ktx)
+    implementation(libs.androidx.paging.runtime.ktx)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
