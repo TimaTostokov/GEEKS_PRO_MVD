@@ -1,0 +1,135 @@
+package com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.documents.charter
+
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
+import android.os.Bundle
+import android.util.Log
+import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.geeksstudio_krmvd.bilimaskerkr.R
+import com.geeksstudio_krmvd.bilimaskerkr.common.Messages
+import com.geeksstudio_krmvd.bilimaskerkr.common.UiState
+import com.geeksstudio_krmvd.bilimaskerkr.databinding.FragmentChartersBinding
+import com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.documents.charter.adapter.CharterAdapter
+import com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.notifications.NotificationsFragment.Companion.NOTIF_ID
+import com.geeksstudio_krmvd.bilimaskerkr.utils.ext.Extensions
+import com.geeksstudio_krmvd.bilimaskerkr.utils.ext.Extensions.gone
+import com.geeksstudio_krmvd.bilimaskerkr.utils.ext.Extensions.noInternetSnackbar
+import com.geeksstudio_krmvd.bilimaskerkr.utils.ext.Extensions.observeData
+import com.geeksstudio_krmvd.bilimaskerkr.utils.ext.Extensions.visible
+import com.geeksstudio_krmvd.bilimaskerkr.utils.ext.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
+class ChartersFragment : Fragment(R.layout.fragment_charters) {
+
+    private val binding by viewBinding(FragmentChartersBinding::bind)
+
+    private val viewModel by viewModels<ChartersViewModel>()
+
+    private val adapter by lazy { CharterAdapter(requireContext()) }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        permission()
+        setupRecyclerView()
+        setupClickListeners()
+        observeViewModel()
+        snackBar()
+    }
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (isGranted) {
+            Extensions.showToast(requireContext(), getString(R.string.permission_true))
+        } else {
+            Extensions.showToast(requireContext(), getString(R.string.permission_false))
+        }
+    }
+
+    private fun permission() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q &&
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        }
+    }
+
+    private fun setupRecyclerView() {
+        binding.fcListCharters.layoutManager = LinearLayoutManager(requireContext())
+        binding.fcListCharters.adapter = adapter
+    }
+
+    private fun setupClickListeners() {
+        binding.fcBackBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
+
+    private fun observeViewModel() {
+        observeData(viewModel.charters) { uiState ->
+            when (uiState) {
+                is UiState.Loading -> binding.fchartProgressBar.visible()
+                is UiState.Success -> {
+                    adapter.addCharters(uiState.data)
+                    binding.fchartProgressBar.gone()
+                    val notifId = arguments?.getInt(NOTIF_ID) ?: 0
+                    if (notifId > 0) {
+                        arguments?.remove(NOTIF_ID)
+                        scrollToItemWithId(binding.fcListCharters, adapter, notifId)
+                    }
+                }
+
+                is UiState.Error -> binding.fchartProgressBar.gone()
+            }
+        }
+    }
+
+    private fun scrollToItemWithId(
+        recyclerView: RecyclerView,
+        adapter: CharterAdapter,
+        itemId: Int,
+    ) {
+        val position = adapter.getPositionForId(itemId)
+        if (position != -1) {
+            recyclerView.smoothScrollToPosition(position + 3)
+            recyclerView.postDelayed({
+                val viewHolder = recyclerView.findViewHolderForAdapterPosition(position)
+                if (viewHolder is CharterAdapter.CharterViewHolder) {
+                    viewHolder.highlightItemCharter()
+                }
+            }, 300)
+        } else {
+            Log.e("Scroll", "Элемент с ID $itemId не найден.")
+        }
+    }
+
+    private fun snackBar() {
+        observeData(viewModel.messageFlow) { messages ->
+            when (messages) {
+                is Messages.NetworkIsDisconnected -> {
+                    binding.fchartProgressBar.visible()
+                    noInternetSnackbar()
+                }
+
+                else -> {
+                    Extensions.showToast(requireContext(), "Network is disconnected")
+                }
+            }
+            viewModel.clearMessage()
+        }
+    }
+
+}

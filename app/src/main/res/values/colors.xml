@@ -1,5 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#FF3B30</color>
+    <color name="yellow">#FF9500</color>
+    <color name="green">#34C759</color>
+    <color name="white_blue">#51A0D5</color>
+    <color name="dark_blue">#003669</color>
+    <color name="search_color">#03A9F4</color>
+    <color name="gray">#a4a4a4</color>
+    <color name="brown">#535353</color>
+    <color name="statusBarC">#FFFFFF</color>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="rippleColor">#03FF72</color>
+    <color name="cardview_shadow">#003669</color>
+    <color name="grey_background">#FAF4FAFA</color>
+    <color name="light_gray">#F5F5F5</color>
+    <color name="orange">#FF9500</color>
+    <color name="color_date_notif">#414141</color>
+    <color name="design_default_color_error">#FF0E00</color>
+    <color name="dark_brown">#414141</color>
+    <color name="background_item">#E3E3E3</color>
+
 </resources>

@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashFragment">
+
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.splash.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash">
+
+        <action
+            android:id="@+id/action_splashFragment_to_authorizationFragment"
+            app:destination="@id/authorizationFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/authorizationFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.auth.AuthorizationFragment"
+        android:label="fragment_authorization"
+        tools:layout="@layout/fragment_authorization">
+
+        <action
+            android:id="@+id/action_authorizationFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/authorizationFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.home.HomeFragment"
+        android:label="@string/news_home"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_homeFragment_to_newsFragment"
+            app:destination="@id/newsFragment" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.home.news.NewsFragment"
+        android:label="fragment_news"
+        tools:layout="@layout/fragment_news">
+
+        <action
+            android:id="@+id/action_newsFragment_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
+
+        <argument
+            android:name="id"
+            app:argType="integer" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/libraryFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.library.LibraryFragment"
+        android:label="@string/library"
+        tools:layout="@layout/fragment_library">
+
+        <action
+            android:id="@+id/action_libraryFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+
+        <action
+            android:id="@+id/action_libraryFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+
+        <action
+            android:id="@+id/action_libraryFragment_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
+
+        <argument
+            android:name="notif_id"
+            app:argType="integer" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/documentsFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.documents.DocumentsFragment"
+        android:label="@string/Documents"
+        tools:layout="@layout/fragment_documents">
+
+        <action
+            android:id="@+id/action_documentsFragment_to_lawFragment"
+            app:destination="@id/lawFragment" />
+
+        <action
+            android:id="@+id/action_documentsFragment_to_chartersFragment"
+            app:destination="@id/chartersFragment" />
+
+        <action
+            android:id="@+id/action_documentsFragment_to_constitutionFragment"
+            app:destination="@id/constitutionFragment" />
+
+        <action
+            android:id="@+id/action_documentsFragment_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/lawFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.documents.law.LawFragment"
+        android:label="fragment_law"
+        tools:layout="@layout/fragment_law">
+
+        <action
+            android:id="@+id/action_lawFragment_to_detailLawsFragment"
+            app:destination="@id/detailLawsFragment" />
+
+        <action
+            android:id="@+id/action_lawFragment_to_searchLawsFragment"
+            app:destination="@id/searchLawsFragment" />
+
+        <argument
+            android:name="notif_id"
+            app:argType="integer" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/chartersFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.documents.charter.ChartersFragment"
+        android:label="fragment_charters"
+        tools:layout="@layout/fragment_charters">
+
+        <argument
+            android:name="notif_id"
+            app:argType="integer" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/constitutionFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.documents.constitution.ConstitutionFragment"
+        android:label="fragment_constitution"
+        tools:layout="@layout/fragment_constitution">
+
+        <action
+            android:id="@+id/action_constitutionFragment_to_constitutionsSearchFragment"
+            app:destination="@id/constitutionsSearchFragment" />
+
+        <action
+            android:id="@+id/action_constitutionFragment_to_constitutionsDetailFragment"
+            app:destination="@id/constitutionsDetailFragment" />
+
+        <argument
+            android:name="notif_id"
+            app:argType="integer" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.menu.MenuFragment"
+        android:label="@string/menu"
+        tools:layout="@layout/fragment_menu">
+
+        <action
+            android:id="@+id/action_menuFragment_to_controlKRFragment"
+            app:destination="@id/controlKRFragment" />
+
+        <action
+            android:id="@+id/action_menuFragment_to_controlITMIAKRFragment"
+            app:destination="@id/controlITMIAKRFragment" />
+
+        <action
+            android:id="@+id/action_menuFragment_to_controlMIAKRFragment"
+            app:destination="@id/controlMIAKRFragment" />
+
+        <action
+            android:id="@+id/action_menuFragment_to_webViewFragment"
+            app:destination="@id/webViewFragment" />
+
+        <action
+            android:id="@+id/action_menuFragment_to_historyOfKyrgyzstanFragment"
+            app:destination="@id/historyOfKyrgyzstanFragment" />
+
+        <action
+            android:id="@+id/action_menuFragment_to_historyMVDKRFragment"
+            app:destination="@id/historyMVDKRFragment" />
+
+        <action
+            android:id="@+id/action_menuFragment_to_historyVVMVDKRFragment"
+            app:destination="@id/historyVVMVDKRFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/webViewFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.menu.webview.WebViewFragment"
+        android:label="fragment_web_view"
+        tools:layout="@layout/fragment_web_view">
+
+        <argument
+            android:name="url"
+            app:argType="string" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/controlMIAKRFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.menu.control.mvd.ControlMIAKRFragment"
+        android:label="fragment_control_m_i_a_k_r"
+        tools:layout="@layout/fragment_control_m_i_a_k_r">
+
+        <action
+            android:id="@+id/action_controlMIAKRFragment_to_searchControlFragment"
+            app:destination="@id/searchControlFragment" />
+
+        <action
+            android:id="@+id/action_controlMIAKRFragment_to_searchControlFragment2"
+            app:destination="@id/searchControlFragment" />
+
+        <argument
+            android:name="notif_id"
+            app:argType="integer" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.library.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search">
+
+        <action
+            android:id="@+id/action_searchFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.library.detail.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail">
+
+        <argument
+            android:name="id"
+            app:argType="integer" />
+
+        <action
+            android:id="@+id/action_detailFragment_to_notificationsFragment"
+            app:destination="@id/notificationsFragment" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.notifications.NotificationsFragment"
+        android:label="fragment_notifications"
+        tools:layout="@layout/fragment_notifications">
+
+        <action
+            android:id="@+id/action_notificationsFragment_to_statutesFragment"
+            app:destination="@id/chartersFragment" />
+
+        <action
+            android:id="@+id/action_notificationsFragment_to_lawFragment"
+            app:destination="@id/lawFragment" />
+
+        <action
+            android:id="@+id/action_notificationsFragment_to_libraryFragment"
+            app:destination="@id/libraryFragment" />
+        <action
+            android:id="@+id/action_notificationsFragment_to_controlKRFragment"
+            app:destination="@id/controlKRFragment" />
+
+        <action
+            android:id="@+id/action_notificationsFragment_to_controlITMIAKRFragment"
+            app:destination="@id/controlITMIAKRFragment" />
+
+        <action
+            android:id="@+id/action_notificationsFragment_to_controlMIAKRFragment"
+            app:destination="@id/controlMIAKRFragment" />
+
+        <action
+            android:id="@+id/action_notificationsFragment_to_constitutionFragment"
+            app:destination="@id/constitutionFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/controlKRFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.menu.control.kg.ControlKRFragment"
+        android:label="fragment_control_k_r"
+        tools:layout="@layout/fragment_control_k_r">
+
+        <argument
+            android:name="notif_id"
+            app:argType="integer" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/controlITMIAKRFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.menu.control.vv.ControlITMIAKRFragment"
+        android:label="fragment_control_i_t_m_i_a_k_r"
+        tools:layout="@layout/fragment_control_i_t_m_i_a_k_r">
+
+        <action
+            android:id="@+id/action_controlITMIAKRFragment_to_searchControlVVFragment"
+            app:destination="@id/searchControlVVFragment" />
+
+        <argument
+            android:name="notif_id"
+            app:argType="integer" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchControlFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.menu.control.mvd.search_mvd.SearchControlFragment"
+        android:label="fragment_search_control"
+        tools:layout="@layout/fragment_search_control" />
+
+    <fragment
+        android:id="@+id/searchControlVVFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.menu.control.vv.search_vv.SearchControlVVFragment"
+        android:label="fragment_search_control_v_v"
+        tools:layout="@layout/fragment_search_control_v_v" />
+
+    <fragment
+        android:id="@+id/malfunctionsFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.malfunctions.MalfunctionsFragment"
+        android:label="fragment_malfunctions"
+        tools:layout="@layout/fragment_malfunctions" />
+
+    <fragment
+        android:id="@+id/historyMVDKRFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.menu.history.HistoryMVDKRFragment"
+        android:label="fragment_history_m_v_d_k_r"
+        tools:layout="@layout/fragment_history_m_v_d_k_r" />
+
+    <fragment
+        android:id="@+id/historyOfKyrgyzstanFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.menu.history.HistoryOfKyrgyzstanFragment"
+        android:label="fragment_history_of_kyrgyzstan"
+        tools:layout="@layout/fragment_history_of_kyrgyzstan" />
+
+    <fragment
+        android:id="@+id/historyVVMVDKRFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.menu.history.HistoryVVMVDKRFragment"
+        android:label="fragment_history_v_v_m_v_d_k_r"
+        tools:layout="@layout/fragment_history_v_v_m_v_d_k_r" />
+
+    <fragment
+        android:id="@+id/detailLawsFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.documents.law.detail.DetailLawsFragment"
+        android:label="fragment_detail_laws"
+        tools:layout="@layout/fragment_detail_laws">
+
+        <argument
+            android:name="id"
+            app:argType="integer" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchLawsFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.documents.law.search.SearchLawsFragment"
+        android:label="fragment_search_laws"
+        tools:layout="@layout/fragment_search_laws">
+
+        <action
+            android:id="@+id/action_searchLawsFragment_to_detailLawsFragment"
+            app:destination="@id/detailLawsFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/constitutionsDetailFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.documents.constitution.detail.ConstitutionsDetailFragment"
+        android:label="fragment_constitutions_detail"
+        tools:layout="@layout/fragment_constitutions_detail">
+
+        <argument
+            android:name="id"
+            app:argType="integer" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/constitutionsSearchFragment"
+        android:name="com.geeksstudio_krmvd.bilimaskerkr.presentation.fragments.documents.constitution.search.ConstitutionsSearchFragment"
+        android:label="fragment_constitutions_search"
+        tools:layout="@layout/fragment_constitutions_search">
+
+        <action
+            android:id="@+id/action_constitutionsSearchFragment_to_constitutionsDetailFragment"
+            app:destination="@id/constitutionsDetailFragment" />
+
+    </fragment>
+
+</navigation>

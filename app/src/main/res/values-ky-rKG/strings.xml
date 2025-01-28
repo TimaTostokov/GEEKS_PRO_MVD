@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BilimAskerKR</string>
+    <string name="ok">OK</string>
+    <string name="Documents">Документтер</string>
+    <string name="news_home">Жаңылыктар</string>
+    <string name="library">Китепкана</string>
+    <string name="menu">Меню</string>
+    <string name="authorization">Кирүү</string>
+    <string name="notice">Логин же сырсөзүңүздү унутуп калсаңыз, жетекчиңизге кайрылыңыз.</string>
+    <string name="Login">Логин</string>
+    <string name="Password">Сырсөз</string>
+    <string name="login_error">Туура эмес логин</string>
+    <string name="password_error">Туура эмес сырсөз</string>
+    <string name="successful_authentication">Ийгиликтүү аутентификация!</string>
+    <string name="cross">Болтуруу</string>
+    <string name="statutes">Регламент</string>
+    <string name="goInto">Кируу</string>
+    <string name="documents_laws">Мыйзамдар</string>
+    <string name="constitution">Конституция</string>
+    <string name="kyrgyz">Кыргызча</string>
+    <string name="russian">Русский</string>
+    <string name="ru">RU</string>
+    <string name="kg">KG</string>
+    <string name="trafficRules">ПДД</string>
+    <string name="controlITMIAKR">КР ИИМ ИА жетекчилиги</string>
+    <string name="controlMIAKR">КР ИИМ жетекчилиги</string>
+    <string name="controlKR">КР жетекчилиги</string>
+    <string name="aboutUs">Биз жөнүндө</string>
+    <string name="dictionary">Кыргызча-орусча сөздүк</string>
+    <string name="maps">Карта</string>
+    <string name="historyKyrgyzstan">Кыргызстандын тарыхы</string>
+    <string name="history_mvd_kr">КР ИИМ тарыхы</string>
+    <string name="historyVV_MVD_KR">КР ИИМ ИА тарыхы</string>
+    <string name="no_data">Дайындар жок</string>
+    <string name="goread">Кененирээк…</string>
+    <string name="made_by_geeks_pro">Made by Geeks Pro</string>
+    <string name="fastnews">Акыркы жаңылыктар</string>
+    <string name="find">Табу</string>
+    <string name="section">Бөлүм</string>
+    <string name="chapter">Бөлүм</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="_12">натыйжалары табылган</string>
+    <string name="fragment_notification_title">Эскертмелер</string>
+    <string name="laws">Мыйзам</string>
+    <string name="n_n_n">Улантуу үчүн тилиңизди \n тандаңыз. Аны төмөндө өзгөртө \n аласыз.</string>
+    <string name="n_n">Улантуу үчүн тилиңизди тандаңыз, аны кийинчерээк өзгөртсөңүз болот.</string>
+    <string name="konspekt">Конспект</string>
+    <string name="tech_error">Техникалык көйгөйлөр</string>
+    <string name="retryagain">Кайра аракет кылуу</string>
+    <string name="update">Жаңыртуу</string>
+    <string name="tech_text">Ыңгайсыздык үчүн кечиресиз, биздин колдонмодо техникалык көйгөйлөр бар. Биз көйгөйдү чечүү үчүн иштеп жатабыз. - Сураныч, колдонмону жаңыртып көрүңүз. Түшүнгөнүңүз үчүн рахмат!”</string>
+    <string name="no_internet_text">Тармак жеткиликсиз. Wi-Fi күйгүзүлгөнүн же мобилдик дайындар активдүү экенин текшериңиз.</string>
+    <string name="server_error">Сервер катасы. Сураныч, кийинчерээк кайра аракет кылыңыз.</string>
+    <string name="server_ok">Сервер жакшы иштеп жатат</string>
+    <string name="permission_false">Уруксат четке кагылды</string>
+    <string name="permission_true">Уруксат берилди</string>
+    <string name="no_internet_message">Подключение жок, сураныч интернетти уланыз.</string>
+    <string name="checking_server">Серверди текшерүү…</string>
+    <string name="text_constitution">Бөлүм</string>
+    <string name="element_not_found">Элемент табылган жок</string>
+    <string name="_1_5">1/5</string>
+
+    <string-array name="months">
+        <item>Январь</item>
+        <item>Февраль</item>
+        <item>Март</item>
+        <item>Апрель</item>
+        <item>Май</item>
+        <item>Июнь</item>
+        <item>Июль</item>
+        <item>Август</item>
+        <item>Сентябрь</item>
+        <item>Октябрь</item>
+        <item>Ноябрь</item>
+        <item>Декабрь</item>
+    </string-array>
+
+</resources>
