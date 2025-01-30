@@ -72,7 +72,7 @@ class SearchControlVVFragment : Fragment(R.layout.fragment_search_control_v_v) {
                 adapterVV.submitList(controls)
                 Log.e("control", "$controls")
                 controlVVList = controls ?: emptyList()
-                updateItemCount()
+                controls?.let { updateItemCount(it.size) }
             }
         }
     }
@@ -106,12 +106,11 @@ class SearchControlVVFragment : Fragment(R.layout.fragment_search_control_v_v) {
             ) == true
         }
         adapterVV.submitList(filteredList)
-        updateItemCount()
+        updateItemCount(filteredList.size)
     }
 
-    private fun updateItemCount() {
-        val num = adapterVV.itemCount
-        val spannableString = SpannableString(num.toString())
+    private fun updateItemCount(count: Int) {
+        val spannableString = SpannableString(count.toString())
         val color = ContextCompat.getColor(binding.root.context, R.color.search_color)
         spannableString.setSpan(
             ForegroundColorSpan(color),

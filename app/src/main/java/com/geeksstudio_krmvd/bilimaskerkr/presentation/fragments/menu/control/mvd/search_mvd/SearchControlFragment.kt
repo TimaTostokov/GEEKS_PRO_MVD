@@ -78,9 +78,9 @@ class SearchControlFragment : Fragment(R.layout.fragment_search_control) {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.management.collect { controls ->
                 adapter.submitList(controls)
-                controlList = controls
+                controlList = controls ?: emptyList()
                 Log.e("control", "$controls")
-                updateItemCount()
+                controls?.let { updateItemCount(it.size) }
             }
         }
     }
@@ -108,12 +108,11 @@ class SearchControlFragment : Fragment(R.layout.fragment_search_control) {
             ) == true
         }
         adapter.submitList(filteredList)
-        updateItemCount()
+        updateItemCount(filteredList.size)
     }
 
-    private fun updateItemCount() {
-        val num = adapter.itemCount
-        val spannableString = SpannableString(num.toString())
+    private fun updateItemCount(count: Int) {
+        val spannableString = SpannableString(count.toString())
         val color = ContextCompat.getColor(binding.root.context, R.color.search_color)
         spannableString.setSpan(
             ForegroundColorSpan(color),

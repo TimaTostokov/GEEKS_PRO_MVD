@@ -18,7 +18,7 @@ class ControlMIAKRViewModel @Inject constructor(private val repository: Manageme
     ViewModel() {
 
     private val _managementState = MutableStateFlow<List<Governance>?>(null)
-    val management: Flow<List<Governance>> = _managementState.filterNotNull()
+    val management: Flow<List<Governance>?> = _managementState.filterNotNull()
 
     private val _messageFlow = MutableStateFlow<Messages?>(null)
     val messageFlow: Flow<Messages> = _messageFlow.filterNotNull()
