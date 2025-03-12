@@ -27,8 +27,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ServerStatusViewModel @Inject constructor(
-    application: Application,
-    private val savedStateHandle: SavedStateHandle,
+    application: Application
 ) : AndroidViewModel(application) {
 
     private val connectivityManager =
@@ -37,29 +36,20 @@ class ServerStatusViewModel @Inject constructor(
     private val _isConnected = MutableStateFlow(false)
     val isConnected: StateFlow<Boolean> = _isConnected
 
-    private val _serverStatus = MutableStateFlow(
-        savedStateHandle.get<String>("serverStatus")?.let { statusString ->
-            when (statusString) {
-                "AVAILABLE" -> ServerStatus.AVAILABLE
-                "UNAVAILABLE" -> ServerStatus.UNAVAILABLE
-                "NO_INTERNET" -> ServerStatus.NO_INTERNET
-                else -> ServerStatus.AVAILABLE
-            }
-        } ?: ServerStatus.AVAILABLE
-    )
-    val serverStatus: MutableStateFlow<ServerStatus> = _serverStatus
+    private val _serverStatus = MutableStateFlow(ServerStatus.AVAILABLE)
+    val serverStatus: StateFlow<ServerStatus> = _serverStatus
 
-    private var serverStatusCheckJob: Job? = null
-    private val checkIntervalMillis = 3000L
-    private var connectTimeoutMillis = 3000
-    private var isCheckingEnabled = true
-
-    var wasServerUnavailable: Boolean = savedStateHandle["wasServerUnavailable"] ?: false
+    var wasServerUnavailable: Boolean = false
         private set
 
+    private var serverStatusCheckJob: Job? = null
+    private val checkIntervalMillis = 2000L
+    private var connectTimeoutMillis = 2000
+    private var isCheckingEnabled = true
+
     init {
-        startCheckingServerStatus()
         registerNetworkCallback()
+        startCheckingServerStatus()
     }
 
     private fun registerNetworkCallback() {
@@ -70,8 +60,13 @@ class ServerStatusViewModel @Inject constructor(
         connectivityManager.registerNetworkCallback(
             request,
             object : ConnectivityManager.NetworkCallback() {
-                override fun onAvailable(network: Network) = updateNetworkStatus(true)
-                override fun onLost(network: Network) = updateNetworkStatus(false)
+                override fun onAvailable(network: Network) {
+                    updateNetworkStatus(true)
+                }
+
+                override fun onLost(network: Network) {
+                    updateNetworkStatus(false)
+                }
             })
 
         val activeNetwork = connectivityManager.activeNetwork
@@ -86,7 +81,6 @@ class ServerStatusViewModel @Inject constructor(
     }
 
     fun startCheckingServerStatus() {
-        if (_serverStatus.value == ServerStatus.AVAILABLE) return
         stopCheckingServerStatus()
 
         serverStatusCheckJob = viewModelScope.launch {
@@ -104,6 +98,11 @@ class ServerStatusViewModel @Inject constructor(
     }
 
     private suspend fun checkServerStatus(): ServerStatus {
+        if (!_isConnected.value) {
+            wasServerUnavailable = true
+            return ServerStatus.NO_INTERNET
+        }
+
         return withContext(Dispatchers.IO) {
             try {
                 val url = URL(BASE_URL)
@@ -134,8 +133,7 @@ class ServerStatusViewModel @Inject constructor(
     }
 
     override fun onCleared() {
-        savedStateHandle["serverStatus"] = _serverStatus.value.name
-        savedStateHandle["wasServerUnavailable"] = wasServerUnavailable
+        stopCheckingServerStatus()
         super.onCleared()
     }
 
